@@ -50,8 +50,8 @@ Tokens live in `src/app/globals.css` (`@theme`). Use tokens, never raw hex in co
 | Token | Hex | Use |
 |---|---|---|
 | crimson | `#AE0E31` | primary brand surface, primary buttons, hero blocks |
-| crimson-deep | `#7A0A23` | hover/pressed, gradient end |
-| oxblood | `#2A0A12` | "red mixed with black" premium gradient end, footer |
+| crimson-deep | `#7A0A23` | hover/pressed |
+| oxblood | `#2A0A12` | "red mixed with black": footer, deep surfaces |
 | signal | `#E30D3B` | accents only: step numbers, live dot, big numerals (4.16:1 on blush-50 — never small text) |
 | blush | `#FFC6D3` | "East" in wordmark, text/accents on crimson |
 | blush-50 | `#F8ECF0` | page background |
@@ -63,8 +63,9 @@ Tokens live in `src/app/globals.css` (`@theme`). Use tokens, never raw hex in co
 
 - Typeface: **Figtree** (the PDFs' font) via `next/font/google`, weights 400–900.
   Headlines 800–900 with tight tracking; body 400/500.
-- The client wants red to feel **premium**: crimson → oxblood gradients, a subtle gloss,
-  never flat pinkish red. Red must stand out — not a white app with red buttons.
+- **No gradients of any kind** (user rule): flat brand colours only, no gloss. Red feels
+  premium through large solid crimson/oxblood blocks, spacing and heavy type, never pinkish
+  red. Red must stand out — not a white app with red buttons.
 - Accessibility floor: WCAG AA contrast, visible focus, 44px touch targets, reduced motion,
   works at 375px.
 

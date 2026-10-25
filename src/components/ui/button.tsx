@@ -9,8 +9,7 @@ export const buttonStyles = cva(
   {
     variants: {
       variant: {
-        primary:
-          'bg-premium text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25),0_6px_16px_-6px_rgb(122_10_35/0.6)] hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.3),0_10px_22px_-8px_rgb(122_10_35/0.75)]',
+        primary: 'bg-crimson text-white hover:bg-crimson-deep',
         secondary: 'bg-blush-200 text-crimson-deep hover:bg-blush',
         outline: 'border-2 border-crimson bg-transparent text-crimson hover:bg-blush-200',
         ghost: 'text-ink hover:bg-blush-200',

@@ -3,7 +3,7 @@ import { site } from '@/lib/site'
 /** Phase 0 holding page. Replaced by the real home page in Phase 2. */
 export default function Home() {
   return (
-    <main className="flex flex-1 items-center justify-center bg-premium px-4 py-24 text-white">
+    <main className="flex flex-1 items-center justify-center bg-crimson px-4 py-24 text-white">
       <div className="max-w-xl text-center">
         <p className="text-sm font-semibold tracking-wide uppercase">
           Ship<span className="text-blush">East</span> Shop &amp; Send

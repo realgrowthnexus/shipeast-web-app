@@ -64,7 +64,7 @@ export function ProofPair({
       </figure>
 
       <figure className={cn('flex flex-col gap-2', tilt && 'mt-6 rotate-2 sm:mt-10 sm:rotate-3')}>
-        <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-premium shadow-lift">
+        <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-crimson shadow-lift">
           {door.photo ? (
             <Image
               src={door.photo}

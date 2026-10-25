@@ -35,10 +35,5 @@ export function EmptyState({
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return (
-    <div
-      aria-hidden
-      className={cn('animate-pulse rounded-md bg-gradient-to-r from-blush-200 to-line', className)}
-    />
-  )
+  return <div aria-hidden className={cn('animate-pulse rounded-md bg-blush-200', className)} />
 }
