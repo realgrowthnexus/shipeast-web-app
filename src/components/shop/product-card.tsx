@@ -56,7 +56,7 @@ export function BasketCard({
   separateCents: number
 }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg bg-premium text-white shadow-lift">
+    <article className="group relative flex flex-col overflow-hidden rounded-lg bg-crimson text-white shadow-lift">
       <div className="flex flex-1 flex-col gap-2 p-5">
         <p className="text-sm text-blush">{itemCount} items in one basket</p>
         <h3 className="text-xl leading-tight font-extrabold">
@@ -101,7 +101,7 @@ export function CategoryTile({
       href={href}
       className="group flex items-center gap-4 rounded-lg border border-line bg-blush-100 p-4 transition-[box-shadow,border-color] hover:border-blush hover:shadow-card"
     >
-      <span className="grid size-14 shrink-0 place-items-center rounded-md bg-premium text-white [&_svg]:size-7">
+      <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
         {icon}
       </span>
       <span className="flex flex-col">

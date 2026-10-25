@@ -75,7 +75,7 @@ export function ProofPair({
         <div
           className={cn(
             'relative aspect-[3/4] overflow-hidden rounded-md shadow-lift',
-            onDark ? 'border border-white/15 bg-oxblood' : 'bg-premium',
+            onDark ? 'border border-white/15 bg-oxblood' : 'bg-crimson',
           )}
         >
           {door.photo ? (

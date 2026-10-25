@@ -25,7 +25,7 @@ export default async function ContactPage() {
           {wa && (
             <a
               href={`https://wa.me/${wa}`}
-              className="flex items-center gap-4 rounded-lg bg-premium p-5 text-white shadow-lift"
+              className="flex items-center gap-4 rounded-lg bg-crimson p-5 text-white shadow-lift"
             >
               <MessageCircle className="size-8 shrink-0 text-blush" aria-hidden />
               <span>

@@ -42,7 +42,7 @@ export function SiteHeader({ basketCount = 0 }: { basketCount?: number }) {
         </Link>
         <Link
           href="/basket"
-          className="relative flex min-h-11 items-center gap-2 rounded-md bg-premium px-3.5 font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]"
+          className="relative flex min-h-11 items-center gap-2 rounded-md bg-crimson px-3.5 font-semibold text-white"
         >
           <ShoppingBasket className="size-5" aria-hidden />
           <span className="hidden sm:inline">Basket</span>
