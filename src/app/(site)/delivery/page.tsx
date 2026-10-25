@@ -34,7 +34,7 @@ export default async function DeliveryPage() {
       <Container className="py-12 sm:py-16">
         {active.length === 0 ? (
           <Alert tone="warn" title="We are not taking deliveries right now">
-            Check back soon, or WhatsApp us to ask when your area opens.
+            Check back soon, or message us to ask when your area opens.
           </Alert>
         ) : (
           <>
