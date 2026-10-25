@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+/*
+ * ShipEast Shop & Send design tokens.
+ * Colours are sampled from the client's Shop & Send proposal, scope and quote PDFs.
+ * Use the Tailwind utilities these generate (bg-crimson, text-ink, border-line…),
+ * never raw hex values in components.
+ */
+@theme {
+  --color-crimson: #ae0e31;
+  --color-crimson-deep: #7a0a23;
+  --color-oxblood: #2a0a12;
+  --color-signal: #e30d3b;
+  --color-blush: #ffc6d3;
+  --color-blush-50: #f8ecf0;
+  --color-blush-100: #fff6f8;
+  --color-blush-200: #ffe8ee;
+  --color-line: #f1d9e0;
+  --color-ink: #2b2326;
+  --color-ink-muted: #6b5c63;
+  --color-ink-subtle: #94878d; /* decorative only — 2.99:1, never for text */
+
+  /* Status colours (lifecycle pills). Text colours pass 4.5:1 on their tint. */
+  --color-ok: #16794a;
+  --color-ok-tint: #e3f4ea;
+  --color-info: #1d5fa8;
+  --color-info-tint: #e4eefa;
+  --color-warn: #8a5300;
+  --color-warn-tint: #fdf0d8;
+  --color-danger: #b42318;
+  --color-danger-tint: #fde8e6;
+
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  --shadow-card: 0 1px 2px rgb(43 35 38 / 0.04), 0 8px 24px -12px rgb(122 10 35 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
+
+  /* Premium red: crimson into oxblood with a soft gloss highlight on top. */
+  --gradient-crimson: linear-gradient(135deg, #b8113a 0%, #ae0e31 38%, #7a0a23 78%, #2a0a12 100%);
+  --gradient-gloss: radial-gradient(
+    120% 80% at 15% 0%,
+    rgb(255 255 255 / 0.22) 0%,
+    rgb(255 255 255 / 0) 55%
+  );
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-blush-50);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01';
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-signal);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-blush);
+    color: var(--color-oxblood);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility bg-premium {
+  background-image: var(--gradient-gloss), var(--gradient-crimson);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
