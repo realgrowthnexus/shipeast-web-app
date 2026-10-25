@@ -55,8 +55,8 @@ export const metadata: Metadata = {
 
 const swatches = [
   ['crimson', '#AE0E31', 'bg-crimson', 'Primary surfaces and buttons'],
-  ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover, gradient middle'],
-  ['oxblood', '#2A0A12', 'bg-oxblood', 'Gradient end, footer'],
+  ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover and pressed'],
+  ['oxblood', '#2A0A12', 'bg-oxblood', 'Footer and deep surfaces'],
   ['signal', '#E30D3B', 'bg-signal', 'Accents only, never small text'],
   ['blush', '#FFC6D3', 'bg-blush', 'Text and accents on crimson'],
   ['blush-50', '#F8ECF0', 'bg-blush-50', 'Page background'],
@@ -178,8 +178,8 @@ export default function StyleguidePage() {
               </div>
             ))}
           </div>
-          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-premium text-lg font-bold text-white">
-            Premium gradient with gloss
+          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-crimson text-lg font-bold text-white">
+            Solid crimson surface
           </div>
         </Section>
 
@@ -221,7 +221,7 @@ export default function StyleguidePage() {
             <Button size="md">Medium</Button>
             <Button size="lg">Large</Button>
           </div>
-          <div className="mt-4 flex flex-wrap gap-3 rounded-lg bg-premium p-5">
+          <div className="mt-4 flex flex-wrap gap-3 rounded-lg bg-crimson p-5">
             <Button variant="onDark">On crimson</Button>
           </div>
         </Section>

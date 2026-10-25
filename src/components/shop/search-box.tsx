@@ -32,7 +32,7 @@ export function SearchBox({
       />
       <button
         type="submit"
-        className="absolute top-1.5 right-1.5 bottom-1.5 rounded-sm bg-premium px-4 font-semibold text-white"
+        className="absolute top-1.5 right-1.5 bottom-1.5 rounded-sm bg-crimson px-4 font-semibold text-white"
       >
         Search
       </button>

@@ -60,7 +60,7 @@ export default async function HowItWorksPage() {
           <ol className="mt-8 flex flex-col gap-6">
             {TRACKER_STAGES.map((stage, i) => (
               <li key={stage.key} className="flex gap-4">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-premium font-bold text-white">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-crimson font-bold text-white">
                   {i + 1}
                 </span>
                 <div>

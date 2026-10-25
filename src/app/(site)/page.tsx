@@ -72,7 +72,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero: the promise, and the proof of it */}
-      <section className="overflow-hidden bg-premium text-white">
+      <section className="overflow-hidden bg-crimson text-white">
         <Container className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-24">
           <div>
             <h1 className="text-5xl leading-[0.95] font-black tracking-tight text-balance sm:text-6xl lg:text-7xl">
@@ -289,7 +289,7 @@ export default async function HomePage() {
       </section>
 
       {/* Closing call to action */}
-      <section className="bg-premium text-white">
+      <section className="bg-crimson text-white">
         <Container className="flex flex-col items-start gap-6 py-14 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-4">
             <DoorOpen className="mt-1 size-9 shrink-0 text-blush" strokeWidth={1.5} aria-hidden />

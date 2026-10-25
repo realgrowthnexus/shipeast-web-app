@@ -15,7 +15,7 @@ export function PageIntro({
 }) {
   const dark = tone === 'crimson'
   return (
-    <div className={cn(dark ? 'bg-premium text-white' : 'border-b border-line')}>
+    <div className={cn(dark ? 'bg-crimson text-white' : 'border-b border-line')}>
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-end">
         <div className="max-w-2xl">
           <h1

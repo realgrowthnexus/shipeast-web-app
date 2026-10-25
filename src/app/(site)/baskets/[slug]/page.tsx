@@ -83,7 +83,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
           </section>
         </div>
 
-        <aside className="flex flex-col gap-5 self-start rounded-lg bg-premium p-6 text-white shadow-lift lg:sticky lg:top-24">
+        <aside className="flex flex-col gap-5 self-start rounded-lg bg-crimson p-6 text-white shadow-lift lg:sticky lg:top-24">
           <Price
             cents={basket.priceCents}
             jmdPerUsd={settings.jmdPerUsd}

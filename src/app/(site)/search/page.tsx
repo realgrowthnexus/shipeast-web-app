@@ -60,7 +60,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                   key={hit.basket.id}
                   className="flex flex-wrap items-center gap-4 p-3 sm:flex-nowrap"
                 >
-                  <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center rounded-md bg-premium text-xs font-bold text-white">
+                  <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center rounded-md bg-crimson text-xs font-bold text-white">
                     Basket
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col">

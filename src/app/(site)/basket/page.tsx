@@ -191,7 +191,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
           className="w-20 shrink-0 self-start sm:w-24"
         />
       ) : (
-        <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center self-start rounded-md bg-premium text-xs font-bold text-white sm:w-24">
+        <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center self-start rounded-md bg-crimson text-xs font-bold text-white sm:w-24">
           Basket
         </div>
       )}
