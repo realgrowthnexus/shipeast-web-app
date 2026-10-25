@@ -1,5 +1,7 @@
-import { Menu, ShoppingBasket, User } from 'lucide-react'
+import { Menu, User } from 'lucide-react'
 import Link from 'next/link'
+import { Suspense } from 'react'
+import { BasketLink, BasketLinkFallback } from './basket-link'
 import { Wordmark } from './wordmark'
 
 const nav = [
@@ -10,7 +12,7 @@ const nav = [
   { href: '/track', label: 'Track an order' },
 ]
 
-export function SiteHeader({ basketCount = 0 }: { basketCount?: number }) {
+export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-blush-50/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 px-4 sm:h-18">
@@ -40,17 +42,9 @@ export function SiteHeader({ basketCount = 0 }: { basketCount?: number }) {
           <User className="size-5" aria-hidden />
           <span className="sr-only">Your account</span>
         </Link>
-        <Link
-          href="/basket"
-          className="relative flex min-h-11 items-center gap-2 rounded-md bg-premium px-3.5 font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]"
-        >
-          <ShoppingBasket className="size-5" aria-hidden />
-          <span className="hidden sm:inline">Basket</span>
-          <span className="grid min-w-6 place-items-center rounded-full bg-white px-1.5 text-xs font-bold text-crimson-deep tabular-nums">
-            {basketCount}
-          </span>
-          <span className="sr-only">{basketCount === 1 ? 'item' : 'items'}</span>
-        </Link>
+        <Suspense fallback={<BasketLinkFallback />}>
+          <BasketLink />
+        </Suspense>
 
         {/* Phone menu: <details> works before JavaScript loads. */}
         <details className="group relative lg:hidden">
