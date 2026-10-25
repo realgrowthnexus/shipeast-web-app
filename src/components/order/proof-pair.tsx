@@ -12,6 +12,7 @@ export function ProofPair({
   receipt,
   door,
   tilt = false,
+  onDark = false,
   className,
 }: {
   receipt: {
@@ -24,8 +25,15 @@ export function ProofPair({
   door: { recipient: string; place: string; at?: string; photo?: string | null }
   /** Fanned-out look for marketing pages; flat for tracking and order detail. */
   tilt?: boolean
+  /** Sitting on a crimson section: lighter captions and an oxblood door card. */
+  onDark?: boolean
   className?: string
 }) {
+  const caption = cn(
+    'flex items-center gap-1.5 text-xs font-medium sm:text-sm',
+    onDark ? 'text-white/85' : 'text-ink-muted',
+  )
+  const captionIcon = cn('size-4', onDark ? 'text-blush' : 'text-crimson')
   return (
     <div className={cn('grid grid-cols-2 items-start gap-3 sm:gap-5', className)}>
       <figure className={cn('flex flex-col gap-2', tilt && '-rotate-2 sm:-rotate-3')}>
@@ -57,14 +65,19 @@ export function ProofPair({
             </p>
           </div>
         )}
-        <figcaption className="flex items-center gap-1.5 text-xs font-medium text-ink-muted sm:text-sm">
-          <Camera className="size-4 text-crimson" aria-hidden />
+        <figcaption className={caption}>
+          <Camera className={captionIcon} aria-hidden />
           Receipt{receipt.at ? `, ${formatTime(receipt.at)}` : ''}
         </figcaption>
       </figure>
 
       <figure className={cn('flex flex-col gap-2', tilt && 'mt-6 rotate-2 sm:mt-10 sm:rotate-3')}>
-        <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-premium shadow-lift">
+        <div
+          className={cn(
+            'relative aspect-[3/4] overflow-hidden rounded-md shadow-lift',
+            onDark ? 'border border-white/15 bg-oxblood' : 'bg-premium',
+          )}
+        >
           {door.photo ? (
             <Image
               src={door.photo}
@@ -88,8 +101,8 @@ export function ProofPair({
             </div>
           )}
         </div>
-        <figcaption className="flex items-center gap-1.5 text-xs font-medium text-ink-muted sm:text-sm">
-          <Camera className="size-4 text-crimson" aria-hidden />
+        <figcaption className={caption}>
+          <Camera className={captionIcon} aria-hidden />
           At the door{door.at ? `, ${formatTime(door.at)}` : ''}
         </figcaption>
       </figure>
