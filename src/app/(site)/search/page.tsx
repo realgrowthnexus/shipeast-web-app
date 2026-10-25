@@ -77,7 +77,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                     href={`/baskets/${hit.basket.slug}`}
                     variant="secondary"
                     size="sm"
-                    className="min-h-10"
+                    className="min-h-11"
                   >
                     View
                   </ButtonLink>

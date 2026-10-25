@@ -38,7 +38,7 @@ export function AddToBasket({
           size="sm"
           variant={added ? 'secondary' : 'primary'}
           loading={pending}
-          className="min-h-10"
+          className="min-h-11"
         >
           {!pending && (added ? <Check aria-hidden /> : <Plus aria-hidden />)}
           {added ? 'Added' : 'Add'}

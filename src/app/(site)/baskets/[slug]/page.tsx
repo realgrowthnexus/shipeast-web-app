@@ -11,10 +11,11 @@ import { ButtonLink } from '@/components/ui/button'
 import { Price } from '@/components/ui/price'
 import { getBasket } from '@/lib/data/catalogue'
 import { getBaskets, getSettings } from '@/lib/data/site'
+import { atLeastOne } from '@/lib/static-params'
 import { formatUsd } from '@/lib/format'
 
 export async function generateStaticParams() {
-  return (await getBaskets()).map(({ basket }) => ({ slug: basket.slug }))
+  return atLeastOne('slug', (await getBaskets()).map(({ basket }) => basket.slug))
 }
 
 export async function generateMetadata({

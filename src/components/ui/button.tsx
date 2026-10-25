@@ -14,10 +14,10 @@ export const buttonStyles = cva(
         outline: 'border-2 border-crimson bg-transparent text-crimson hover:bg-blush-200',
         ghost: 'text-ink hover:bg-blush-200',
         onDark: 'bg-white text-crimson-deep hover:bg-blush-100',
-        destructive: 'bg-danger text-white hover:bg-[#93190f]',
+        destructive: 'bg-danger text-white hover:bg-danger-deep',
       },
       size: {
-        sm: 'min-h-9 px-3.5 text-sm',
+        sm: 'min-h-11 px-4 text-sm',
         md: 'min-h-11 px-5 text-base',
         lg: 'min-h-13 px-7 text-lg',
       },

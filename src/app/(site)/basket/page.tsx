@@ -1,6 +1,7 @@
 import { Minus, Plus, ShoppingBasket, Tag, Trash2, X } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { connection } from 'next/server'
 import { Suspense } from 'react'
 import { ProductImage } from '@/components/shop/product-image'
 import { Container, PageIntro } from '@/components/site/page-intro'
@@ -43,6 +44,8 @@ export default function BasketPage() {
 }
 
 async function BasketView() {
+  // Pricing and delivery days read the clock, so this part always renders per request.
+  await connection()
   const [state, catalogue, settings] = await Promise.all([
     readBasket(),
     getCatalogue(),
@@ -259,7 +262,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
             {hidden}
             <button
               type="submit"
-              className="flex min-h-10 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-ink-muted hover:bg-blush-200 hover:text-danger"
+              className="flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-ink-muted hover:bg-blush-200 hover:text-danger"
             >
               <Trash2 className="size-4" aria-hidden />
               Remove<span className="sr-only"> {line.name}</span>

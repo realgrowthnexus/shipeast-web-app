@@ -1,19 +1,15 @@
 import 'server-only'
-import { cacheLife, cacheTag } from 'next/cache'
 import type { Catalogue } from '@/lib/basket/pricing'
-import * as demo from '@/lib/demo'
 import type { Basket, Category, Product } from '@/lib/types'
 import { getBaskets, getZones, type BasketSummary } from './site'
+import { loadCatalogue, loadPromos } from './source'
 
 /** Shop reads. Hidden products never leave this module except for basket pricing. */
 
 const listed = (p: Product) => p.status !== 'hidden'
 
 export async function getProducts(): Promise<Product[]> {
-  'use cache'
-  cacheTag('catalogue')
-  cacheLife('hours')
-  return demo.products.filter(listed)
+  return (await loadCatalogue()).products.filter(listed)
 }
 
 export async function getProduct(slug: string): Promise<Product | null> {
@@ -21,10 +17,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 }
 
 export async function getCategory(slug: string): Promise<Category | null> {
-  'use cache'
-  cacheTag('catalogue')
-  cacheLife('hours')
-  return demo.categories.find((c) => c.slug === slug) ?? null
+  return (await loadCatalogue()).categories.find((c) => c.slug === slug) ?? null
 }
 
 export async function getBasket(slug: string): Promise<
@@ -45,15 +38,12 @@ export async function getBasket(slug: string): Promise<
 
 /** Everything the basket needs to price itself, including hidden items already in a basket. */
 export async function getCatalogue(): Promise<Catalogue> {
-  'use cache'
-  cacheTag('catalogue', 'zones', 'promos')
-  cacheLife('minutes')
-  return {
-    products: demo.products,
-    baskets: demo.baskets,
-    zones: await getZones(),
-    promos: demo.promos,
-  }
+  const [{ products, baskets }, zones, promos] = await Promise.all([
+    loadCatalogue(),
+    getZones(),
+    loadPromos(),
+  ])
+  return { products, baskets, zones, promos }
 }
 
 export type SearchHit =
@@ -64,7 +54,11 @@ export type SearchHit =
 export async function searchCatalogue(query: string): Promise<SearchHit[]> {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean).slice(0, 8)
   if (!words.length) return []
-  const [products, baskets] = await Promise.all([getProducts(), getBaskets()])
+  const [products, baskets, { categories }] = await Promise.all([
+    getProducts(),
+    getBaskets(),
+    loadCatalogue(),
+  ])
   const matches = (text: string) => words.every((w) => text.toLowerCase().includes(w))
 
   const basketHits: SearchHit[] = baskets
@@ -73,7 +67,7 @@ export async function searchCatalogue(query: string): Promise<SearchHit[]> {
   const productHits: SearchHit[] = products
     .map((product) => ({
       product,
-      category: demo.categories.find((c) => c.id === product.categoryId),
+      category: categories.find((c) => c.id === product.categoryId),
     }))
     .filter(({ product, category }) =>
       matches(`${product.name} ${product.size} ${product.description} ${category?.name ?? ''}`),

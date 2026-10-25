@@ -9,6 +9,8 @@ export type SubstitutionRule = 'allow_similar' | 'ask_first' | 'leave_out'
 
 export type PaymentMethod = 'paypal' | 'card' | 'bank_transfer'
 
+export type ItemOutcome = 'pending' | 'found' | 'substituted' | 'missing'
+
 export type DeliverySpeed = 'same_day' | 'next_day' | 'scheduled'
 
 /** Internal order status. See the lifecycle table in docs/PLAN.md. */
@@ -96,6 +98,8 @@ export interface SiteSettings {
   phone: string
   email: string
   bankTransferHoursToPay: number
+  /** Empty until ShipEast confirms the account; bank transfer stays hidden until then. */
+  bankTransfer: BankTransferDetails
   features: {
     monthly_orders: boolean
     auto_offers: boolean
@@ -115,4 +119,14 @@ export interface PromoCode {
   startsAt: string | null
   endsAt: string | null
   active: boolean
+}
+
+export interface BankTransferDetails {
+  bankName: string
+  accountName: string
+  accountNumber: string
+  branch: string
+  accountType: string
+  currency: string
+  notes: string
 }
