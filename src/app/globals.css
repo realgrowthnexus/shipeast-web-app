@@ -40,14 +40,6 @@
   --shadow-card: 0 1px 2px rgb(43 35 38 / 0.04), 0 8px 24px -12px rgb(122 10 35 / 0.18);
   --shadow-lift: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
 
-  /* Premium red: crimson into oxblood with a soft gloss highlight on top. */
-  --gradient-crimson: linear-gradient(135deg, #b8113a 0%, #ae0e31 38%, #7a0a23 78%, #2a0a12 100%);
-  --gradient-gloss: radial-gradient(
-    120% 80% at 15% 0%,
-    rgb(255 255 255 / 0.22) 0%,
-    rgb(255 255 255 / 0) 55%
-  );
-
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -87,10 +79,13 @@
   }
 }
 
-@utility bg-premium {
-  background-image: var(--gradient-gloss), var(--gradient-crimson);
-}
-
 @utility text-balance {
   text-wrap: balance;
+}
+
+/* Torn-paper bottom edge for the receipt in the proof pair. */
+@utility receipt-edge {
+  --tooth: 10px;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% /
+    var(--tooth) 100%;
 }
