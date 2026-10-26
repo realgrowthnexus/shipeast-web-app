@@ -14,6 +14,34 @@
   --color-signal: #e30d3b; /* numerals, live dot, focus ring. Never text under 24px. */
   --color-blush: #ffc6d3;
 
+  /*
+   * Brand shades. The named brand colours above are the anchors (blush = 200, signal = 500,
+   * crimson = 600, crimson-deep = 700, oxblood = 900); the steps between are for hovers,
+   * tints and dark panels. See docs/TOKENS.md for which shade goes where.
+   */
+  --color-crimson-50: #fff5f7;
+  --color-crimson-100: #ffe8ee;
+  --color-crimson-200: #ffc6d3;
+  --color-crimson-300: #f994ab;
+  --color-crimson-400: #ee5679;
+  --color-crimson-500: #e30d3b;
+  --color-crimson-600: #ae0e31;
+  --color-crimson-700: #7a0a23;
+  --color-crimson-800: #520819;
+  --color-crimson-900: #2a0a12;
+  --color-crimson-950: #1a050b;
+
+  /* Warm neutrals, from the page background down to the heading ink. */
+  --color-neutral-0: #fff8fa;
+  --color-neutral-50: #f8ecf0;
+  --color-neutral-100: #f1d9e0;
+  --color-neutral-200: #e2c9d1;
+  --color-neutral-300: #c3babd;
+  --color-neutral-400: #9c7f89;
+  --color-neutral-500: #6b5c63;
+  --color-neutral-700: #4a3f43;
+  --color-neutral-900: #2b2326;
+
   /* Surfaces and lines */
   --color-canvas: #f8ecf0; /* page background */
   --color-surface: #fff8fa; /* cards, inputs, panels (the PDF card fill) */
@@ -83,10 +111,26 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
 
-  /* Cards are flat with a 1px line. Only floating layers get a shadow. */
-  --shadow-float: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
+  --radius-2xl: 1.5rem; /* photo frames in hero and feature sections only */
 
+  /*
+   * Elevation. Cards rest flat with a 1px line; they lift on hover. Only floating layers
+   * (menus, dialogs, the cookie banner, hero proof photos) rest on a shadow.
+   */
+  --shadow-lift: 0 1px 2px rgb(43 35 38 / 0.05), 0 12px 28px -14px rgb(122 10 35 / 0.28);
+  --shadow-float: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
+  --shadow-overlay: 0 4px 8px rgb(43 35 38 / 0.08), 0 32px 64px -24px rgb(42 10 18 / 0.45);
+
+  /* Motion. JS animations use the same values from src/lib/motion.ts. */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+
+  /* Page widths. */
+  --container-page: 72rem; /* max-w-page: the normal page column */
+  --container-wide: 80rem; /* max-w-wide: full-bleed bands, hero and footer */
 }
 
 @layer base {
@@ -164,4 +208,67 @@
   --tooth: 10px;
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% /
     var(--tooth) 100%;
+}
+
+/*
+ * Hover lift for cards that are links: rises 2px and gains the lift shadow. Pair it with
+ * `group` and `group-hover:scale-[1.04]` on a photo inside for the zoom.
+ */
+@utility hover-lift {
+  transition:
+    transform var(--duration-base) var(--ease-out-soft),
+    box-shadow var(--duration-base) var(--ease-out-soft),
+    border-color var(--duration-base) var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Loading placeholder: a flat tint that breathes. No shimmer gradient. */
+@utility skeleton {
+  background: var(--color-surface-tint);
+  border-radius: var(--radius-md);
+  animation: skeleton-pulse 1.4s var(--ease-in-out-soft) infinite;
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Endless sideways scroll for the trust ticker. Content must be duplicated once. */
+@utility animate-marquee {
+  animation: marquee 40s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+ * Page-load entrance for content above the fold (hero titles, intros). CSS, not JS, so it runs
+ * before hydration and never holds back the largest paint. Stagger with `[animation-delay:…]`.
+ */
+@utility animate-rise {
+  animation: rise var(--duration-slow) var(--ease-out-soft) both;
+  animation-duration: 700ms;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }

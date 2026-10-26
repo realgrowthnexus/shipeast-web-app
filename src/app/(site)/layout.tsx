@@ -1,3 +1,4 @@
+import { MotionProvider } from '@/components/motion/motion-provider'
 import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
 import { SiteFooter } from '@/components/site/site-footer'
@@ -31,13 +32,15 @@ export default async function SiteLayout({ children }: LayoutProps<'/'>) {
       >
         Skip to content
       </a>
-      {isDemoMode() && <DemoBanner />}
-      <SiteHeader />
-      <main id="main" className="flex-1">
-        {children}
-      </main>
-      <SiteFooter whatsapp={settings.whatsapp} />
-      <CookieBanner />
+      <MotionProvider>
+        {isDemoMode() && <DemoBanner />}
+        <SiteHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteFooter whatsapp={settings.whatsapp} />
+        <CookieBanner />
+      </MotionProvider>
     </>
   )
 }

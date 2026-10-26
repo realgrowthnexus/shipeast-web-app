@@ -40,8 +40,8 @@ const columns = [
 export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string }) {
   const waDigits = whatsapp?.replace(/\D/g, '')
   return (
-    <footer className="bg-oxblood text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)]">
+    <footer className="bg-oxblood text-white print:hidden">
+      <div className="mx-auto grid max-w-wide gap-10 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
           <Wordmark onDark />
           <p className="max-w-xs text-on-oxblood-muted">
@@ -77,7 +77,7 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
         ))}
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 gutter py-6 text-small text-on-oxblood-muted sm:flex-row sm:justify-between">
+        <div className="mx-auto flex max-w-wide flex-col gap-1 gutter py-6 text-small text-on-oxblood-muted sm:flex-row sm:justify-between">
           <p>
             {site.company}
             {trn && <>, TRN {trn}</>}

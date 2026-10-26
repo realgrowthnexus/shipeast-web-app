@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { MotionProvider } from '@/components/motion/motion-provider'
 import { CategoryIcon } from '@/components/site/category-icon'
 import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
@@ -9,7 +10,7 @@ import { getCategories, getSettings } from '@/lib/data/site'
 export default async function NotFound() {
   const [categories, settings] = await Promise.all([getCategories(), getSettings()])
   return (
-    <>
+    <MotionProvider>
       <SiteHeader />
       <main
         id="main"
@@ -42,6 +43,6 @@ export default async function NotFound() {
         </ButtonLink>
       </main>
       <SiteFooter whatsapp={settings.whatsapp} />
-    </>
+    </MotionProvider>
   )
 }

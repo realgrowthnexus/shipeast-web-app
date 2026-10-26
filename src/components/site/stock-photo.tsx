@@ -21,12 +21,15 @@ export function StockPhoto({
   sizes,
   className,
   preload = false,
+  zoom = false,
 }: {
   name: StockPhotoKey
   sizes: string
   className?: string
   /** Only for the one photo at the top of the home page. */
   preload?: boolean
+  /** Zoom in slightly when a parent with `group` is hovered (cards that are links). */
+  zoom?: boolean
 }) {
   const p = stockPhotos[name]
   return (
@@ -38,7 +41,11 @@ export function StockPhoto({
         fill
         sizes={sizes}
         preload={preload}
-        className="object-cover"
+        className={cn(
+          'object-cover',
+          zoom &&
+            'transition-transform duration-700 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none',
+        )}
         style={p.position ? { objectPosition: p.position } : undefined}
       />
     </div>

@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 }
 
 export default function PhotoCreditsPage() {
-  const photos = Object.values(stockPhotos)
+  // The same photo can be registered under two names; credit it once.
+  const photos = [...new Map(Object.values(stockPhotos).map((p) => [p.unsplashId, p])).values()]
   return (
     <>
       <PageIntro eyebrow="Policies" title="Photo credits">
