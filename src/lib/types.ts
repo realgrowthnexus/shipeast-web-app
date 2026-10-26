@@ -104,3 +104,15 @@ export interface SiteSettings {
     advanced_reports: boolean
   }
 }
+
+export interface PromoCode {
+  code: string
+  description: string
+  /** Exactly one of `percentOff` and `amountOffCents` is set. */
+  percentOff: number | null
+  amountOffCents: number | null
+  minOrderCents: number
+  startsAt: string | null
+  endsAt: string | null
+  active: boolean
+}

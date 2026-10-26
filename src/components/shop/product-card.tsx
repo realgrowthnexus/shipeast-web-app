@@ -17,7 +17,7 @@ export function ProductCard({
 }) {
   const outOfStock = product.status === 'out_of_stock'
   return (
-    <article className="group relative flex flex-col gap-3 rounded-lg border border-line bg-blush-100 p-3 transition-shadow hover:shadow-card">
+    <article className="group relative flex w-full flex-col gap-3 rounded-lg border border-line bg-blush-100 p-3 transition-shadow hover:shadow-card">
       <div className="relative">
         <ProductImage
           src={product.imagePath}

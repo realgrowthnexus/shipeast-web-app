@@ -149,7 +149,7 @@ export default function StyleguidePage() {
   return (
     <>
       <DemoBanner />
-      <SiteHeader basketCount={3} />
+      <SiteHeader />
       <main className="mx-auto w-full max-w-6xl px-4 pb-24">
         <header className="py-12">
           <h1 className="text-4xl font-black tracking-tight text-balance text-ink sm:text-5xl">
