@@ -15,12 +15,13 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
 - 12px corners (`rounded-lg`), cropped to 4:3 for steps and occasions, 16:9 for places and basket
   headers, 4:5 for the tall people shot in "Why ShipEast".
 - Only pages that sell or explain get photos. Basket, checkout, payment, tracking, product pages,
-  search, FAQ, legal, accounts, the driver app and admin stay photo-free so nothing slows them
+  search, legal, accounts, the driver app and admin stay photo-free so nothing slows them
   down or distracts from the task.
 
 ## How it works
 
-- `src/lib/stock-photos.ts` is the only list of photos. Each entry has the Unsplash id, the
+- Photos live in `src/lib/photos/`, one file per group of pages (`core`, `home`, `shop`, `guide`,
+  `company`), and `src/lib/stock-photos.ts` merges them into the one list pages use. Each entry has the Unsplash id, the
   image URL, size, alt text, photographer and where it is used. The credits page at
   `/photo-credits` is built from it, so a photo cannot be on the site without a credit.
 - `<StockPhoto name="…" sizes="…" className="aspect-4/3" />` draws one. Unsplash's CDN does the
