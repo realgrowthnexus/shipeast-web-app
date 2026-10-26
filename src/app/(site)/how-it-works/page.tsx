@@ -30,14 +30,14 @@ export default async function HowItWorksPage() {
 
   return (
     <>
-      <PageIntro title="How it works" tone="crimson">
+      <PageIntro eyebrow="Four steps" title="How it works" tone="crimson">
         One order, from a laptop in Brooklyn to a door in Morant Bay. Nothing is shipped: you pay
         online and we buy everything in Jamaica.
       </PageIntro>
 
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1.2fr_1fr] lg:py-20">
+      <Container className="grid gap-12 section lg:grid-cols-[1.2fr_1fr]">
         <section aria-labelledby="stages-h">
-          <h2 id="stages-h" className="text-3xl font-extrabold tracking-tight text-ink">
+          <h2 id="stages-h" className="text-h2 text-ink">
             The seven steps you can follow
           </h2>
           <p className="mt-2 text-ink-muted">
@@ -50,8 +50,8 @@ export default async function HowItWorksPage() {
                   {i + 1}
                 </span>
                 <div>
-                  <h3 className="text-lg font-bold text-ink">{stage.label}</h3>
-                  <p className="text-ink-muted">{stageText[stage.key]}</p>
+                  <h3 className="text-h3 text-ink">{stage.label}</h3>
+                  <p className="text-ink-body">{stageText[stage.key]}</p>
                 </div>
               </li>
             ))}
@@ -59,7 +59,7 @@ export default async function HowItWorksPage() {
         </section>
 
         <aside className="flex flex-col gap-8 lg:pt-16">
-          <div className="rounded-lg bg-blush-200 p-6 sm:p-8">
+          <div className="rounded-lg bg-surface-tint p-card-lg">
             <ProofPair
               tilt
               receipt={{
@@ -79,16 +79,16 @@ export default async function HowItWorksPage() {
               }}
             />
           </div>
-          <p className="text-ink-muted">
+          <p className="text-ink-body">
             Every order ends with these two photos: the receipt from the store, and the order at the
             door.
           </p>
         </aside>
       </Container>
 
-      <section aria-labelledby="subs-h" className="border-t border-line py-16 sm:py-20">
+      <section aria-labelledby="subs-h" className="border-t border-line section">
         <Container>
-          <h2 id="subs-h" className="text-3xl font-extrabold tracking-tight text-ink">
+          <h2 id="subs-h" className="text-h2 text-ink">
             If something is out of stock
           </h2>
           <p className="mt-2 max-w-2xl text-ink-muted">
@@ -97,8 +97,8 @@ export default async function HowItWorksPage() {
           </p>
           <ul className="mt-8 grid gap-4 md:grid-cols-3">
             {SUBSTITUTION_RULES.map((r) => (
-              <li key={r.title} className="rounded-lg border border-line bg-blush-100 p-6">
-                <h3 className="text-lg font-bold text-ink">{r.title}</h3>
+              <li key={r.title} className="rounded-lg border border-line bg-surface p-card">
+                <h3 className="text-h3 text-ink">{r.title}</h3>
                 <p className="mt-1 text-ink-muted">{r.body}</p>
               </li>
             ))}
@@ -106,10 +106,10 @@ export default async function HowItWorksPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="family-h" className="border-t border-line py-16 sm:py-20">
+      <section aria-labelledby="family-h" className="border-t border-line section">
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <h2 id="family-h" className="text-3xl font-extrabold tracking-tight text-ink">
+            <h2 id="family-h" className="text-h2 text-ink">
               What your family receives
             </h2>
             <p className="mt-3 text-ink-muted">
@@ -128,7 +128,7 @@ export default async function HowItWorksPage() {
             ].map((sms) => (
               <p
                 key={sms}
-                className="flex max-w-sm gap-3 rounded-lg rounded-bl-none border border-line bg-white p-4 text-ink shadow-card"
+                className="flex max-w-sm gap-3 rounded-lg rounded-bl-none border border-line bg-surface p-4 text-ink"
               >
                 <MessageSquareText className="mt-0.5 size-5 shrink-0 text-crimson" aria-hidden />
                 {sms}

@@ -27,7 +27,7 @@ export default async function SiteLayout({ children }: LayoutProps<'/'>) {
       />
       <a
         href="#main"
-        className="sr-only z-50 rounded-md bg-white px-4 py-3 font-semibold text-crimson focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        className="sr-only z-50 rounded-md bg-surface px-4 py-3 font-semibold text-crimson focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
         Skip to content
       </a>

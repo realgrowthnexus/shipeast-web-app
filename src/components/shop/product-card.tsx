@@ -17,7 +17,7 @@ export function ProductCard({
 }) {
   const outOfStock = product.status === 'out_of_stock'
   return (
-    <article className="group relative flex w-full flex-col gap-3 rounded-lg border border-line bg-blush-100 p-3 transition-shadow hover:shadow-card">
+    <article className="group relative flex w-full flex-col gap-3 rounded-lg border border-line bg-surface p-3 transition-colors hover:border-blush">
       <div className="relative">
         <ProductImage
           src={product.imagePath}
@@ -33,7 +33,7 @@ export function ProductCard({
             {product.name}
           </Link>
         </h3>
-        <p className="text-sm text-ink-muted">{product.size}</p>
+        <p className="text-small text-ink-muted">{product.size}</p>
       </div>
       <div className="flex flex-wrap items-end justify-between gap-2 px-1 pb-1">
         <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} />
@@ -56,25 +56,25 @@ export function BasketCard({
   separateCents: number
 }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-lg bg-crimson text-white shadow-lift">
-      <div className="flex flex-1 flex-col gap-2 p-5">
-        <p className="text-sm text-blush">{itemCount} items in one basket</p>
-        <h3 className="text-xl leading-tight font-extrabold">
+    <article className="group relative flex flex-col overflow-hidden rounded-xl bg-crimson text-white">
+      <div className="flex flex-1 flex-col gap-2 p-card">
+        <p className="text-small text-blush">{itemCount} items in one basket</p>
+        <h3 className="text-h3">
           <Link href={`/baskets/${basket.slug}`} className="after:absolute after:inset-0">
             {basket.name}
           </Link>
         </h3>
-        <p className="text-white/80">{basket.description}</p>
+        <p className="text-on-crimson-muted">{basket.description}</p>
       </div>
       <div className="flex items-end justify-between gap-3 bg-oxblood/40 px-5 py-4">
         <Price
           cents={basket.priceCents}
           jmdPerUsd={jmdPerUsd}
           was={separateCents}
-          className="[&_*]:text-white [&_s]:text-white/60 [&>span:last-child]:text-blush"
+          className="[&_*]:text-white [&_s]:text-on-crimson-muted [&>span:last-child]:text-blush"
         />
         {separateCents > basket.priceCents && (
-          <span className="rounded-full bg-white px-2.5 py-1 text-xs font-bold text-crimson-deep">
+          <span className="rounded-full bg-surface px-2.5 py-1 text-xs font-bold text-crimson-deep">
             Save {Math.round(((separateCents - basket.priceCents) / separateCents) * 100)}%
           </span>
         )}
@@ -99,14 +99,14 @@ export function CategoryTile({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-lg border border-line bg-blush-100 p-4 transition-[box-shadow,border-color] hover:border-blush hover:shadow-card"
+      className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-blush"
     >
       <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
         {icon}
       </span>
       <span className="flex flex-col">
         <span className="font-bold text-ink">{name}</span>
-        <span className="text-sm text-ink-muted">{description}</span>
+        <span className="text-small text-ink-muted">{description}</span>
         <span className="mt-1 text-xs font-semibold text-crimson">{count} items</span>
       </span>
     </Link>

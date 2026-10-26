@@ -24,22 +24,22 @@ export function Price({
       <span className="flex items-baseline gap-2">
         <span
           className={cn(
-            'font-extrabold tracking-tight text-ink tabular-nums',
-            size === 'sm' && 'text-base',
-            size === 'md' && 'text-lg',
-            size === 'lg' && 'text-3xl',
+            'font-extrabold text-ink tabular-nums',
+            size === 'sm' && 'text-body',
+            size === 'md' && 'text-lead',
+            size === 'lg' && 'text-h2',
           )}
         >
           {formatUsd(cents)}
         </span>
         {was !== undefined && was > cents && (
-          <s className="text-sm text-ink-muted tabular-nums">
+          <s className="text-small text-ink-muted tabular-nums">
             <span className="sr-only">was </span>
             {formatUsd(was)}
           </s>
         )}
       </span>
-      <span className={cn('text-ink-muted tabular-nums', size === 'lg' ? 'text-base' : 'text-xs')}>
+      <span className={cn('text-ink-muted tabular-nums', size === 'lg' ? 'text-body' : 'text-xs')}>
         about {formatJmd(usdCentsToJmd(cents, jmdPerUsd))}
       </span>
     </span>

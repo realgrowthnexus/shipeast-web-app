@@ -15,7 +15,10 @@ import { atLeastOne } from '@/lib/static-params'
 import { formatUsd } from '@/lib/format'
 
 export async function generateStaticParams() {
-  return atLeastOne('slug', (await getBaskets()).map(({ basket }) => basket.slug))
+  return atLeastOne(
+    'slug',
+    (await getBaskets()).map(({ basket }) => basket.slug),
+  )
 }
 
 export async function generateMetadata({
@@ -39,23 +42,21 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
   const saving = separateCents - basket.priceCents
 
   return (
-    <Container className="flex flex-col gap-8 py-8 sm:py-12">
+    <Container className="flex flex-col gap-8 section-sm">
       <Breadcrumb items={[{ href: '/baskets', label: 'Baskets' }, { label: basket.name }]} />
 
       <div className="grid gap-8 lg:grid-cols-[1fr_24rem] lg:gap-12">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-3">
-            <h1 className="text-3xl font-black tracking-tight text-balance text-ink sm:text-4xl">
-              {basket.name}
-            </h1>
-            <p className="text-lg text-ink-muted">{basket.description}</p>
+            <h1 className="text-h1 text-balance text-ink">{basket.name}</h1>
+            <p className="text-lead text-ink-body">{basket.description}</p>
           </div>
 
           <section aria-labelledby="inside">
-            <h2 id="inside" className="mb-3 text-lg font-bold text-ink">
+            <h2 id="inside" className="mb-3 text-h3 text-ink">
               What’s inside ({itemCount} items)
             </h2>
-            <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-blush-100">
+            <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
               {contents.map(({ product, quantity }) => (
                 <li key={product.id} className="flex items-center gap-4 p-3">
                   <ProductImage
@@ -72,7 +73,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
                     >
                       {product.name}
                     </Link>
-                    <span className="text-sm text-ink-muted">{product.size}</span>
+                    <span className="text-small text-ink-muted">{product.size}</span>
                   </div>
                   {product.status !== 'visible' && <Badge tone="warn">Out of stock</Badge>}
                   <span className="font-bold whitespace-nowrap text-ink tabular-nums">
@@ -84,22 +85,22 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
           </section>
         </div>
 
-        <aside className="flex flex-col gap-5 self-start rounded-lg bg-crimson p-6 text-white shadow-lift lg:sticky lg:top-24">
+        <aside className="flex flex-col gap-5 self-start rounded-xl bg-crimson p-card text-white lg:sticky lg:top-24">
           <Price
             cents={basket.priceCents}
             jmdPerUsd={settings.jmdPerUsd}
             was={separateCents}
             size="lg"
-            className="[&_*]:text-white [&_s]:text-white/60 [&>span:last-child]:text-blush"
+            className="[&_*]:text-white [&_s]:text-on-crimson-muted [&>span:last-child]:text-blush"
           />
           {saving > 0 && (
-            <p className="text-sm text-blush">
+            <p className="text-small text-blush">
               You save {formatUsd(saving)} compared with buying the items one by one.
             </p>
           )}
 
           {missing.length ? (
-            <div className="rounded-md bg-white p-4 text-sm text-ink">
+            <div className="rounded-md bg-surface p-4 text-small text-ink">
               <p className="font-semibold">Not available right now</p>
               <p className="mt-1">
                 {missing.map((m) => m.product.name).join(', ')}{' '}
@@ -111,17 +112,17 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
               </ButtonLink>
             </div>
           ) : (
-            <div className="rounded-md bg-white p-4 text-ink">
+            <div className="rounded-md bg-surface p-4 text-ink">
               <AddToBasket kind="basket" id={basket.id} name={basket.name} variant="full" />
             </div>
           )}
 
-          <p className="flex gap-3 text-sm text-white/85">
+          <p className="flex gap-3 text-small text-on-crimson-muted">
             <Gift className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
             Add a gift message at checkout and we’ll print it and hand it over with the basket.
           </p>
           {settings.features.monthly_orders && (
-            <p className="flex gap-3 text-sm text-white/85">
+            <p className="flex gap-3 text-small text-on-crimson-muted">
               <CalendarSync className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
               <span>
                 Want this every month?{' '}

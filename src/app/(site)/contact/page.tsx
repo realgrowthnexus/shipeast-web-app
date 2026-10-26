@@ -16,27 +16,27 @@ export default async function ContactPage() {
 
   return (
     <>
-      <PageIntro title="Contact us">
+      <PageIntro eyebrow="Help" title="Contact us">
         Questions about an order, delivery to your area or paying?{' '}
         {wa ? 'WhatsApp is quickest.' : 'Send us a message and we’ll reply by email.'}
       </PageIntro>
-      <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[1fr_1.6fr]">
+      <Container className="grid gap-12 section-sm lg:grid-cols-[1fr_1.6fr]">
         <aside className="flex flex-col gap-4">
           {wa && (
             <a
               href={`https://wa.me/${wa}`}
-              className="flex items-center gap-4 rounded-lg bg-crimson p-5 text-white shadow-lift"
+              className="flex items-center gap-4 rounded-xl bg-crimson p-card text-white"
             >
               <MessageCircle className="size-8 shrink-0 text-blush" aria-hidden />
               <span>
-                <span className="block text-lg font-bold">WhatsApp us</span>
-                <span className="text-white/80">{settings.whatsapp}</span>
+                <span className="block text-h3">WhatsApp us</span>
+                <span className="text-on-crimson-muted">{settings.whatsapp}</span>
               </span>
             </a>
           )}
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-4 rounded-lg border border-line bg-blush-100 p-5 hover:border-blush"
+            className="flex items-center gap-4 rounded-lg border border-line bg-surface p-card hover:border-blush"
           >
             <Mail className="size-7 shrink-0 text-crimson" aria-hidden />
             <span>
@@ -51,7 +51,7 @@ export default async function ContactPage() {
           </p>
         </aside>
         <section aria-labelledby="form-h">
-          <h2 id="form-h" className="mb-6 text-2xl font-extrabold tracking-tight text-ink">
+          <h2 id="form-h" className="mb-6 text-h2 text-ink">
             Send us a message
           </h2>
           <ContactForm />

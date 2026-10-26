@@ -10,16 +10,16 @@ export const buttonStyles = cva(
     variants: {
       variant: {
         primary: 'bg-crimson text-white hover:bg-crimson-deep',
-        secondary: 'bg-blush-200 text-crimson-deep hover:bg-blush',
-        outline: 'border-2 border-crimson bg-transparent text-crimson hover:bg-blush-200',
-        ghost: 'text-ink hover:bg-blush-200',
-        onDark: 'bg-white text-crimson-deep hover:bg-blush-100',
+        secondary: 'bg-surface-tint text-crimson-deep hover:bg-blush',
+        outline: 'border-[1.5px] border-crimson bg-transparent text-crimson hover:bg-surface-tint',
+        ghost: 'text-ink hover:bg-surface-tint',
+        onDark: 'bg-white text-crimson-deep hover:bg-surface',
         destructive: 'bg-danger text-white hover:bg-danger-deep',
       },
       size: {
-        sm: 'min-h-11 px-4 text-sm',
-        md: 'min-h-11 px-5 text-base',
-        lg: 'min-h-13 px-7 text-lg',
+        sm: 'min-h-11 px-4 text-small',
+        md: 'min-h-11 px-5 text-body',
+        lg: 'min-h-13 px-7 text-lead',
       },
       block: { true: 'w-full' },
     },

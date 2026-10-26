@@ -17,12 +17,12 @@ export function Pagination({
   return (
     <nav aria-label="Pages" className="flex items-center justify-center gap-1">
       {page > 1 ? (
-        <Link href={href(page - 1)} className={cn(item, 'text-crimson hover:bg-blush-200')}>
+        <Link href={href(page - 1)} className={cn(item, 'text-crimson hover:bg-surface-tint')}>
           <ChevronLeft className="size-5" aria-hidden />
           <span className="sr-only">Previous page</span>
         </Link>
       ) : (
-        <span className={cn(item, 'text-ink-muted/40')} aria-hidden>
+        <span className={cn(item, 'text-ink-disabled')} aria-hidden>
           <ChevronLeft className="size-5" />
         </span>
       )}
@@ -31,18 +31,21 @@ export function Pagination({
           key={n}
           href={href(n)}
           aria-current={n === page ? 'page' : undefined}
-          className={cn(item, n === page ? 'bg-crimson text-white' : 'text-ink hover:bg-blush-200')}
+          className={cn(
+            item,
+            n === page ? 'bg-crimson text-white' : 'text-ink hover:bg-surface-tint',
+          )}
         >
           {n}
         </Link>
       ))}
       {page < pages ? (
-        <Link href={href(page + 1)} className={cn(item, 'text-crimson hover:bg-blush-200')}>
+        <Link href={href(page + 1)} className={cn(item, 'text-crimson hover:bg-surface-tint')}>
           <ChevronRight className="size-5" aria-hidden />
           <span className="sr-only">Next page</span>
         </Link>
       ) : (
-        <span className={cn(item, 'text-ink-muted/40')} aria-hidden>
+        <span className={cn(item, 'text-ink-disabled')} aria-hidden>
           <ChevronRight className="size-5" />
         </span>
       )}

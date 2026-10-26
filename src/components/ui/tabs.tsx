@@ -55,7 +55,7 @@ export function Tabs({
               <span
                 className={cn(
                   'rounded-full px-2 py-0.5 text-xs tabular-nums',
-                  i === active ? 'bg-crimson text-white' : 'bg-blush-200 text-ink',
+                  i === active ? 'bg-crimson text-white' : 'bg-surface-tint text-ink',
                 )}
               >
                 {t.count}

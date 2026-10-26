@@ -25,14 +25,14 @@ export default async function ShopPage() {
 
   return (
     <>
-      <PageIntro title="Shop" aside={<SearchBox className="lg:w-96" />}>
+      <PageIntro eyebrow="The shop" title="Shop" aside={<SearchBox className="lg:w-96" />}>
         Prices are in US dollars with the Jamaican dollar amount alongside. We buy everything fresh
         on the day we deliver.
       </PageIntro>
 
-      <Container className="flex flex-col gap-14 py-12">
+      <Container className="flex flex-col gap-14 section-sm">
         <section aria-labelledby="categories">
-          <h2 id="categories" className="mb-5 text-2xl font-extrabold text-ink">
+          <h2 id="categories" className="mb-5 text-h2 text-ink">
             Shop by category
           </h2>
           {categories.length ? (
@@ -50,14 +50,14 @@ export default async function ShopPage() {
               ))}
             </ul>
           ) : (
-            <p className="text-ink-muted">The shop is being stocked. Check back soon.</p>
+            <p className="text-ink-body">The shop is being stocked. Check back soon.</p>
           )}
         </section>
 
         {baskets.length > 0 && (
           <section aria-labelledby="baskets">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-2">
-              <h2 id="baskets" className="text-2xl font-extrabold text-ink">
+              <h2 id="baskets" className="text-h2 text-ink">
                 Ready-made baskets
               </h2>
               <Link
@@ -84,7 +84,7 @@ export default async function ShopPage() {
 
         {popular.length > 0 && (
           <section aria-labelledby="popular">
-            <h2 id="popular" className="mb-5 text-2xl font-extrabold text-ink">
+            <h2 id="popular" className="mb-5 text-h2 text-ink">
               Everyday essentials
             </h2>
             <ProductGrid products={popular} jmdPerUsd={settings.jmdPerUsd} />

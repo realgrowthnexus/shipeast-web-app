@@ -29,14 +29,14 @@ export function OrderSummary({
     <section
       aria-labelledby="order-summary"
       className={cn(
-        'flex flex-col gap-4 rounded-lg border border-line bg-blush-100 p-5',
+        'flex flex-col gap-4 rounded-lg border border-line bg-surface p-card-lg',
         className,
       )}
     >
-      <h2 id="order-summary" className="text-lg font-extrabold text-ink">
+      <h2 id="order-summary" className="text-h3 text-ink">
         Order summary
       </h2>
-      <ul className="flex flex-col gap-2 text-sm text-ink">
+      <ul className="flex flex-col gap-2 text-small text-ink">
         {lines.map((l) => (
           <li key={l.key} className={row}>
             <span>
@@ -62,10 +62,10 @@ export function OrderSummary({
           <dd className="tabular-nums">{formatUsd(deliveryCents)}</dd>
         </div>
         <div className={cn(row, 'items-baseline border-t border-line pt-3')}>
-          <dt className="text-lg font-bold">Total</dt>
+          <dt className="text-h3">Total</dt>
           <dd className="text-right leading-tight">
-            <span className="block text-2xl font-black tabular-nums">{formatUsd(totalCents)}</span>
-            <span className="block text-sm text-ink-muted tabular-nums">
+            <span className="block text-h2 tabular-nums">{formatUsd(totalCents)}</span>
+            <span className="block text-small text-ink-muted tabular-nums">
               about {formatJmd(usdCentsToJmd(totalCents, jmdPerUsd))}
             </span>
           </dd>

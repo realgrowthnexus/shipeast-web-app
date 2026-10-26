@@ -12,12 +12,10 @@ export const metadata: Metadata = {
 export default async function MaintenancePage() {
   const { whatsapp, email } = await getSettings()
   return (
-    <Container className="flex flex-col items-start gap-4 py-24 sm:py-32">
+    <Container className="flex flex-col items-start gap-4 section-lg">
       <Wrench className="size-12 text-crimson" strokeWidth={1.5} aria-hidden />
-      <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-        We’ll be back soon
-      </h1>
-      <p className="max-w-xl text-lg text-ink-muted">
+      <h1 className="text-h1 text-ink">We’ll be back soon</h1>
+      <p className="max-w-xl text-lead text-ink-body">
         We’re making a few changes to the site. Orders already placed are still being shopped and
         delivered as normal. For anything urgent,{' '}
         {whatsapp ? `WhatsApp us on ${whatsapp}.` : `email ${email}.`}

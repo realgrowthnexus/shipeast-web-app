@@ -28,7 +28,9 @@ export function ProductImage({
 }) {
   const Icon = (categoryId && icons[categoryId]) || ShoppingBasket
   return (
-    <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-blush-200', className)}>
+    <div
+      className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-surface-tint', className)}
+    >
       {src ? (
         <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
       ) : (

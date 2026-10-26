@@ -12,7 +12,7 @@ export function Wordmark({ onDark = false, className }: { onDark?: boolean; clas
       <span
         className={cn(
           'mt-0.5 text-[11px] font-semibold',
-          onDark ? 'text-white/70' : 'text-ink-muted',
+          onDark ? 'text-on-crimson-muted' : 'text-ink-muted',
         )}
       >
         Shop &amp; Send

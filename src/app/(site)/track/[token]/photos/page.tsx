@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function PhotosPage({ params }: PageProps<'/track/[token]/photos'>) {
   return (
-    <Container className="py-10 sm:py-14">
+    <Container className="section-sm">
       <Suspense fallback={<Skeleton className="h-[40rem]" />}>
         <Photos params={params} />
       </Suspense>
@@ -45,9 +45,7 @@ async function Photos({ params }: { params: PageProps<'/track/[token]/photos'>['
       >
         <ArrowLeft className="size-4" aria-hidden /> Back to order {order.orderNo}
       </Link>
-      <h1 className="text-3xl font-black tracking-tight text-ink sm:text-4xl">
-        Receipt and door photos
-      </h1>
+      <h1 className="text-h1 text-ink">Receipt and door photos</h1>
       <div className="grid gap-8 md:grid-cols-2">
         {shots.map(({ key, title, photo }) => (
           <figure key={key} className="flex flex-col gap-3">
@@ -55,7 +53,7 @@ async function Photos({ params }: { params: PageProps<'/track/[token]/photos'>['
               // eslint-disable-next-line @next/next/no-img-element
               <img src={photo.url} alt={title} className="w-full rounded-lg border border-line" />
             ) : (
-              <div className="grid aspect-[3/4] place-items-center rounded-lg border-2 border-dashed border-line p-6 text-center text-ink-muted">
+              <div className="grid aspect-[3/4] place-items-center rounded-lg border-2 border-dashed border-line p-card text-center text-ink-muted">
                 Not taken yet.
               </div>
             )}
@@ -63,7 +61,7 @@ async function Photos({ params }: { params: PageProps<'/track/[token]/photos'>['
               <span className="font-semibold text-ink">
                 {title}
                 {photo && (
-                  <span className="block text-sm font-normal text-ink-muted">
+                  <span className="block text-small font-normal text-ink-muted">
                     {formatDateTime(photo.at)}
                   </span>
                 )}
@@ -72,7 +70,7 @@ async function Photos({ params }: { params: PageProps<'/track/[token]/photos'>['
                 <a
                   href={photo.url}
                   download
-                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-crimson hover:bg-blush-200"
+                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-crimson hover:bg-surface-tint"
                 >
                   <Download className="size-4" aria-hidden /> Download
                 </a>

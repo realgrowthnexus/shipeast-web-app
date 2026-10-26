@@ -16,7 +16,10 @@ import { site } from '@/lib/site'
 import { atLeastOne } from '@/lib/static-params'
 
 export async function generateStaticParams() {
-  return atLeastOne('slug', (await getProducts()).map((p) => p.slug))
+  return atLeastOne(
+    'slug',
+    (await getProducts()).map((p) => p.slug),
+  )
 }
 
 export async function generateMetadata({
@@ -73,7 +76,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <Container className="flex flex-col gap-8 py-8 sm:py-12">
+      <Container className="flex flex-col gap-8 section-sm">
         <Breadcrumb
           items={[
             { href: '/shop', label: 'Shop' },
@@ -96,10 +99,8 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
 
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl font-black tracking-tight text-balance text-ink sm:text-4xl">
-                {product.name}
-              </h1>
-              <p className="text-lg text-ink-muted">{product.size}</p>
+              <h1 className="text-h1 text-balance text-ink">{product.name}</h1>
+              <p className="text-lead text-ink-body">{product.size}</p>
             </div>
 
             <Price cents={product.priceCents} jmdPerUsd={settings.jmdPerUsd} size="lg" />
@@ -109,7 +110,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
             ) : (
               <div className="flex flex-col gap-3 rounded-md bg-warn-tint p-4 text-ink">
                 <p className="font-semibold">Out of stock right now</p>
-                <p className="text-sm">
+                <p className="text-small">
                   We restock often. In the meantime, have a look at similar items.
                 </p>
                 {category && (
@@ -127,7 +128,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
 
             <p className="text-ink">{product.description}</p>
 
-            <ul className="flex flex-col gap-3 border-t border-line pt-6 text-sm text-ink">
+            <ul className="flex flex-col gap-3 border-t border-line pt-6 text-small text-ink">
               <li className="flex gap-3">
                 <Clock className="mt-0.5 size-5 shrink-0 text-crimson" aria-hidden />
                 {zones.length
@@ -149,7 +150,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
 
         {related.length > 0 && (
           <section aria-labelledby="related" className="mt-6 border-t border-line pt-10">
-            <h2 id="related" className="mb-5 text-2xl font-extrabold text-ink">
+            <h2 id="related" className="mb-5 text-h2 text-ink">
               Also in {category?.name ?? 'the shop'}
             </h2>
             <ProductGrid products={related} jmdPerUsd={settings.jmdPerUsd} />

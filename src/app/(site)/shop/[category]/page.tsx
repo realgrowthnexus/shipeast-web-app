@@ -21,7 +21,10 @@ import {
 import { atLeastOne } from '@/lib/static-params'
 
 export async function generateStaticParams() {
-  return atLeastOne('category', (await getCategories()).map((c) => c.slug))
+  return atLeastOne(
+    'category',
+    (await getCategories()).map((c) => c.slug),
+  )
 }
 
 export async function generateMetadata({
@@ -45,13 +48,13 @@ export default async function CategoryPage({
 
   return (
     <>
-      <PageIntro title={category.name}>
+      <PageIntro eyebrow="Shop" title={category.name}>
         <div className="-mt-4 mb-3">
           <Breadcrumb items={[{ href: '/shop', label: 'Shop' }, { label: category.name }]} />
         </div>
         {category.description}
       </PageIntro>
-      <Container className="py-10">
+      <Container className="section-sm">
         <Suspense fallback={<ResultsSkeleton />}>
           <Results categoryId={category.id} slug={category.slug} searchParams={searchParams} />
         </Suspense>
@@ -79,9 +82,9 @@ async function Results({
     <div className="flex flex-col gap-6">
       <form
         method="get"
-        className="flex flex-wrap items-end gap-3 rounded-lg border border-line bg-blush-100 p-3"
+        className="flex flex-wrap items-end gap-3 rounded-lg border border-line bg-surface p-3"
       >
-        <label className="flex min-w-40 flex-1 flex-col gap-1 text-sm font-semibold text-ink sm:flex-none">
+        <label className="flex min-w-40 flex-1 flex-col gap-1 text-small font-semibold text-ink sm:flex-none">
           Sort by
           <Select name="sort" defaultValue={query.sort}>
             {Object.entries(SORTS).map(([value, label]) => (
@@ -91,7 +94,7 @@ async function Results({
             ))}
           </Select>
         </label>
-        <label className="flex min-w-40 flex-1 flex-col gap-1 text-sm font-semibold text-ink sm:flex-none">
+        <label className="flex min-w-40 flex-1 flex-col gap-1 text-small font-semibold text-ink sm:flex-none">
           Price
           <Select name="price" defaultValue={query.price}>
             {Object.entries(PRICE_BANDS).map(([value, label]) => (
@@ -114,13 +117,13 @@ async function Results({
         <Button type="submit" variant="secondary">
           Apply
         </Button>
-        <p className="ml-auto self-center text-sm text-ink-muted" aria-live="polite">
+        <p className="ml-auto self-center text-small text-ink-muted" aria-live="polite">
           {result.total} {result.total === 1 ? 'item' : 'items'}
         </p>
       </form>
 
       {allOut && (
-        <p className="rounded-md bg-warn-tint p-4 text-sm text-ink">
+        <p className="rounded-md bg-warn-tint p-4 text-small text-ink">
           Everything here is out of stock right now. We restock often, so check back soon.
         </p>
       )}

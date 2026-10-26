@@ -28,7 +28,7 @@ const REASONS: Record<string, string> = {
 
 export default function PaymentFailedPage(props: PageProps<'/order/[orderRef]/payment-failed'>) {
   return (
-    <Container className="max-w-2xl py-10 sm:py-14">
+    <Container className="max-w-2xl section-sm">
       <Suspense fallback={<Skeleton className="h-96" />}>
         <Failed {...props} />
       </Suspense>
@@ -55,15 +55,13 @@ async function Failed({ params, searchParams }: PageProps<'/order/[orderRef]/pay
       <span className="grid size-14 place-items-center rounded-full bg-danger-tint text-danger">
         <CircleAlert className="size-7" aria-hidden />
       </span>
-      <h1 className="text-4xl font-black tracking-tight text-balance text-ink">
-        Your payment didn’t go through
-      </h1>
-      <p className="text-lg text-ink">
+      <h1 className="text-h1 text-balance text-ink">Your payment didn’t go through</h1>
+      <p className="text-lead text-ink">
         {reason ?? 'The payment wasn’t completed.'} Nothing was charged. Order{' '}
         <strong>{order.orderNo}</strong> is saved, so you can try again without filling anything in.
       </p>
 
-      <div className="flex flex-col gap-3 rounded-lg border border-line bg-blush-100 p-5">
+      <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-card">
         <ButtonLink href={payPath(order)} size="lg" block>
           Try again, {formatUsd(order.totalCents)}
         </ButtonLink>
@@ -76,7 +74,7 @@ async function Failed({ params, searchParams }: PageProps<'/order/[orderRef]/pay
                 type="submit"
                 name="method"
                 value={m}
-                className="min-h-12 rounded-md border-2 border-crimson font-semibold text-crimson hover:bg-blush-200"
+                className="min-h-12 rounded-md border-[1.5px] border-crimson font-semibold text-crimson hover:bg-surface-tint"
               >
                 {label[m]} instead
               </button>
@@ -84,7 +82,7 @@ async function Failed({ params, searchParams }: PageProps<'/order/[orderRef]/pay
           </form>
         )}
       </div>
-      <p className="text-sm text-ink-muted">
+      <p className="text-small text-ink-muted">
         Still stuck?{' '}
         <Link href="/contact" className="font-semibold text-crimson underline underline-offset-2">
           Message us

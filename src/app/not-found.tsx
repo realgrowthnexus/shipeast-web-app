@@ -13,13 +13,11 @@ export default async function NotFound() {
       <SiteHeader />
       <main
         id="main"
-        className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-start gap-5 px-4 py-20 sm:py-28"
+        className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-start gap-5 gutter section-lg"
       >
         <SearchX className="size-12 text-crimson" strokeWidth={1.5} aria-hidden />
-        <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-          We can’t find that page
-        </h1>
-        <p className="max-w-xl text-lg text-ink-muted">
+        <h1 className="text-h1 text-ink">We can’t find that page</h1>
+        <p className="max-w-xl text-lead text-ink-body">
           The link may be old, or the item may no longer be sold. Try one of these instead.
         </p>
         <ul className="flex flex-wrap gap-2">
@@ -27,7 +25,7 @@ export default async function NotFound() {
             <li key={c.id}>
               <Link
                 href={`/shop/${c.slug}`}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-line bg-blush-100 px-4 font-semibold text-ink hover:border-blush [&_svg]:size-5 [&_svg]:text-crimson"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-line bg-surface px-4 font-semibold text-ink hover:border-blush [&_svg]:size-5 [&_svg]:text-crimson"
               >
                 <CategoryIcon slug={c.slug} />
                 {c.name}

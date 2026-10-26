@@ -44,10 +44,10 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
   return (
     <section
       aria-labelledby={`step-${n}`}
-      className="flex flex-col gap-5 rounded-lg border border-line bg-blush-100 p-5 sm:p-6"
+      className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-card-lg"
     >
-      <h2 id={`step-${n}`} className="flex items-center gap-3 text-xl font-extrabold text-ink">
-        <span className="grid size-8 place-items-center rounded-full bg-crimson text-base text-white">
+      <h2 id={`step-${n}`} className="flex items-center gap-3 text-h3 text-ink">
+        <span className="grid size-8 place-items-center rounded-full bg-crimson text-body text-white">
           {n}
         </span>
         {title}
@@ -137,12 +137,12 @@ export function CheckoutForm({
             />
           </Field>
           <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-semibold text-ink">Parish</span>
-            <p className="flex min-h-12 items-center justify-between gap-3 rounded-md border-2 border-line bg-blush-50 px-4 text-ink">
+            <span className="text-small font-semibold text-ink">Parish</span>
+            <p className="flex min-h-12 items-center justify-between gap-3 rounded-md border-2 border-line bg-canvas px-4 text-ink">
               {parish}
               <Link
                 href="/basket"
-                className="text-sm font-semibold text-crimson underline-offset-2 hover:underline"
+                className="text-small font-semibold text-crimson underline-offset-2 hover:underline"
               >
                 Change
               </Link>
@@ -308,7 +308,7 @@ export function CheckoutForm({
             }
           />
           {errors.terms && (
-            <p id="terms-error" className="text-sm font-medium text-danger">
+            <p id="terms-error" className="text-small font-medium text-danger">
               {errors.terms}
             </p>
           )}
@@ -316,7 +316,7 @@ export function CheckoutForm({
         <Button type="submit" size="lg" block loading={pending} disabled={!paymentMethods.length}>
           Place order, {totalLabel}
         </Button>
-        <p className="text-center text-sm text-ink-muted">
+        <p className="text-center text-small text-ink-muted">
           You pay on the next page. We start shopping once payment is confirmed.
         </p>
       </Step>

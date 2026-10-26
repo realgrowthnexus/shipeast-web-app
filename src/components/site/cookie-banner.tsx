@@ -30,9 +30,9 @@ export function CookieBanner() {
     <div
       role="region"
       aria-label="Cookie choice"
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-lg border border-line bg-blush-100 p-4 shadow-lift sm:flex sm:items-center sm:gap-4"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-lg border border-line bg-surface p-4 shadow-float sm:flex sm:items-center sm:gap-4"
     >
-      <p className="text-sm text-ink">
+      <p className="text-small text-ink">
         We use essential cookies to keep your basket and sign-in working. With your OK we also count
         visits to improve the site.{' '}
         <Link href="/legal/cookies" className="font-semibold text-crimson underline">

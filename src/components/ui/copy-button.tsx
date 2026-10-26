@@ -18,7 +18,7 @@ export function CopyButton({ value, label }: { value: string; label: string }) {
           // Clipboard blocked: the value is still on screen to copy by hand.
         }
       }}
-      className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-sm font-semibold text-crimson hover:bg-blush-200"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-small font-semibold text-crimson hover:bg-surface-tint"
     >
       {copied ? <Check className="size-4" aria-hidden /> : <Copy className="size-4" aria-hidden />}
       <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>

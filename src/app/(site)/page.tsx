@@ -73,12 +73,10 @@ export default async function HomePage() {
     <>
       {/* Hero: the promise, and the proof of it */}
       <section className="overflow-hidden bg-crimson text-white">
-        <Container className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:py-24">
+        <Container className="grid items-center gap-12 section-lg lg:grid-cols-[1.1fr_1fr]">
           <div>
-            <h1 className="text-5xl leading-[0.95] font-black tracking-tight text-balance sm:text-6xl lg:text-7xl">
-              Send groceries, not money
-            </h1>
-            <p className="mt-6 max-w-xl text-lg text-white/85 sm:text-xl">
+            <h1 className="text-display text-balance">Send groceries, not money</h1>
+            <p className="mt-6 max-w-xl text-lead text-on-crimson-muted">
               Fill a basket online. We buy it in Jamaica and deliver to your family’s door the same
               day, with a photo of the receipt and a photo at the door.
             </p>
@@ -95,7 +93,7 @@ export default async function HomePage() {
                 How it works
               </ButtonLink>
             </div>
-            <p className="mt-8 flex items-center gap-2 text-white/85">
+            <p className="mt-8 flex items-center gap-2 text-on-crimson-muted">
               <MapPin className="size-5 text-blush" aria-hidden />
               Delivering to {parishes} today
             </p>
@@ -126,12 +124,15 @@ export default async function HomePage() {
       </section>
 
       {/* How it works: a real sequence, so the steps are numbered */}
-      <section aria-labelledby="how-h" className="py-16 sm:py-20">
+      <section aria-labelledby="how-h" className="section">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 id="how-h" className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-              How it works
-            </h2>
+            <div>
+              <p className="mb-3 eyebrow text-crimson">Four steps</p>
+              <h2 id="how-h" className="text-h2 text-ink">
+                How it works
+              </h2>
+            </div>
             <Link href="/how-it-works" className="font-semibold text-crimson hover:underline">
               The full journey of an order
             </Link>
@@ -139,11 +140,11 @@ export default async function HomePage() {
           <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
               <li key={step.title} className="flex flex-col gap-3">
-                <span className="text-5xl font-black text-signal tabular-nums" aria-hidden>
+                <span className="text-numeral text-signal tabular-nums" aria-hidden>
                   {i + 1}
                 </span>
-                <h3 className="text-xl font-bold text-ink">{step.title}</h3>
-                <p className="text-ink-muted">{step.body}</p>
+                <h3 className="text-h3 text-ink">{step.title}</h3>
+                <p className="text-ink-body">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -151,11 +152,14 @@ export default async function HomePage() {
       </section>
 
       {/* Shop by category */}
-      <section aria-labelledby="cat-h" className="border-t border-line py-16 sm:py-20">
+      <section aria-labelledby="cat-h" className="border-t border-line section">
         <Container>
-          <h2 id="cat-h" className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-            What we can buy for them
-          </h2>
+          <div>
+            <p className="mb-3 eyebrow text-crimson">The shop</p>
+            <h2 id="cat-h" className="text-h2 text-ink">
+              What we can buy for them
+            </h2>
+          </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {categories.map((c) => (
               <CategoryTile
@@ -172,16 +176,16 @@ export default async function HomePage() {
       </section>
 
       {/* Ready-made baskets */}
-      <section aria-labelledby="bsk-h" className="bg-blush-200/60 py-16 sm:py-20">
+      <section aria-labelledby="bsk-h" className="bg-surface-tint/60 section">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2
-                id="bsk-h"
-                className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl"
-              >
-                Ready-made baskets
-              </h2>
+              <div>
+                <p className="mb-3 eyebrow text-crimson">Save on bundles</p>
+                <h2 id="bsk-h" className="text-h2 text-ink">
+                  Ready-made baskets
+                </h2>
+              </div>
               <p className="mt-2 max-w-xl text-ink-muted">
                 Packed for the usual needs, for less than buying each item on its own.
               </p>
@@ -205,14 +209,14 @@ export default async function HomePage() {
       </section>
 
       {/* Why ShipEast */}
-      <section aria-labelledby="why-h" className="py-16 sm:py-20">
+      <section aria-labelledby="why-h" className="section">
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <h2
-            id="why-h"
-            className="text-3xl font-extrabold tracking-tight text-balance text-ink sm:text-4xl"
-          >
-            You see what was bought, and that it arrived
-          </h2>
+          <div>
+            <p className="mb-3 eyebrow text-crimson">Why ShipEast</p>
+            <h2 id="why-h" className="text-h2 text-balance text-ink">
+              You see what was bought, and that it arrived
+            </h2>
+          </div>
           <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
             {reasons.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-4">
@@ -228,12 +232,15 @@ export default async function HomePage() {
       </section>
 
       {/* Coverage */}
-      <section aria-labelledby="zone-h" className="border-t border-line py-16 sm:py-20">
+      <section aria-labelledby="zone-h" className="border-t border-line section">
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
           <div>
-            <h2 id="zone-h" className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-              Where we deliver
-            </h2>
+            <div>
+              <p className="mb-3 eyebrow text-crimson">Coverage</p>
+              <h2 id="zone-h" className="text-h2 text-ink">
+                Where we deliver
+              </h2>
+            </div>
             <p className="mt-3 text-ink-muted">More parishes are coming as we add drivers.</p>
             <Link
               href="/delivery"
@@ -244,18 +251,18 @@ export default async function HomePage() {
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {zones.map((z) => (
-              <li key={z.id} className="rounded-lg border border-line bg-blush-100 p-5">
-                <p className="flex items-center gap-2 text-xl font-bold text-ink">
+              <li key={z.id} className="rounded-lg border border-line bg-surface p-card">
+                <p className="flex items-center gap-2 text-h3 text-ink">
                   <MapPin className="size-5 text-crimson" aria-hidden />
                   {z.parish}
                 </p>
-                <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                <dl className="mt-3 grid grid-cols-2 gap-2 text-small">
                   <div>
                     <dt className="text-ink-muted">Delivery fee</dt>
                     <dd className="font-semibold text-ink">{formatUsd(z.feeCents)}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-muted">Same day if paid by</dt>
+                    <dt className="text-ink-muted">Same-day cut-off</dt>
                     <dd className="flex items-center gap-1 font-semibold text-ink">
                       <Clock3 className="size-4 text-crimson" aria-hidden />
                       {formatClockTime(z.cutoffTime)}
@@ -269,12 +276,15 @@ export default async function HomePage() {
       </section>
 
       {/* Questions */}
-      <section aria-labelledby="faq-h" className="border-t border-line py-16 sm:py-20">
+      <section aria-labelledby="faq-h" className="border-t border-line section">
         <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
           <div>
-            <h2 id="faq-h" className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-              Questions people ask
-            </h2>
+            <div>
+              <p className="mb-3 eyebrow text-crimson">Good to know</p>
+              <h2 id="faq-h" className="text-h2 text-ink">
+                Questions people ask
+              </h2>
+            </div>
             <Link
               href="/faq"
               className="mt-4 inline-block font-semibold text-crimson hover:underline"
@@ -290,10 +300,10 @@ export default async function HomePage() {
 
       {/* Closing call to action */}
       <section className="bg-crimson text-white">
-        <Container className="flex flex-col items-start gap-6 py-14 sm:flex-row sm:items-center sm:justify-between">
+        <Container className="flex flex-col items-start gap-6 section-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-4">
             <DoorOpen className="mt-1 size-9 shrink-0 text-blush" strokeWidth={1.5} aria-hidden />
-            <p className="max-w-xl text-2xl font-extrabold tracking-tight sm:text-3xl">
+            <p className="max-w-xl text-h2">
               Order before {formatClockTime(zones[0]?.cutoffTime ?? '13:00')} and it’s at their door
               today.
             </p>

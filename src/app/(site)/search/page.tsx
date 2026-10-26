@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function SearchPage({ searchParams }: PageProps<'/search'>) {
   return (
-    <Container className="flex flex-col gap-8 py-10 sm:py-14">
-      <h1 className="text-4xl font-black tracking-tight text-ink">Search the shop</h1>
+    <Container className="flex flex-col gap-8 section-sm">
+      <h1 className="text-h1 text-ink">Search the shop</h1>
       <Suspense fallback={<SearchSkeleton />}>
         <Results searchParams={searchParams} />
       </Suspense>
@@ -41,7 +41,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
       <SearchBox defaultValue={q} autoFocus={!q} className="max-w-2xl" />
 
       {!q ? (
-        <p className="text-ink-muted">
+        <p className="text-ink-body">
           Search by name, like “rice”, “diapers” or “pain relief”, or{' '}
           <Link href="/shop" className="font-semibold text-crimson underline underline-offset-2">
             browse the shop
@@ -50,10 +50,10 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
         </p>
       ) : hits.length ? (
         <section aria-labelledby="results" className="flex flex-col gap-4">
-          <h2 id="results" className="text-lg font-bold text-ink" aria-live="polite">
+          <h2 id="results" className="text-h3 text-ink" aria-live="polite">
             {hits.length} {hits.length === 1 ? 'result' : 'results'} for “{q}”
           </h2>
-          <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-blush-100">
+          <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
             {hits.map((hit) =>
               hit.kind === 'basket' ? (
                 <li
@@ -70,7 +70,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                     >
                       <Highlight text={hit.basket.name} query={q} />
                     </Link>
-                    <span className="text-sm text-ink-muted">Ready-made basket</span>
+                    <span className="text-small text-ink-muted">Ready-made basket</span>
                   </div>
                   <Price cents={hit.basket.priceCents} jmdPerUsd={settings.jmdPerUsd} size="sm" />
                   <ButtonLink
@@ -101,7 +101,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                     >
                       <Highlight text={hit.product.name} query={q} />
                     </Link>
-                    <span className="text-sm text-ink-muted">
+                    <span className="text-small text-ink-muted">
                       {hit.product.size}
                       {hit.category && ` · ${hit.category.name}`}
                     </span>
@@ -116,7 +116,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
               ),
             )}
           </ul>
-          <p className="text-sm text-ink-muted">
+          <p className="text-small text-ink-muted">
             Not what you need?{' '}
             <Link
               href={requests ? '/request' : '/contact'}

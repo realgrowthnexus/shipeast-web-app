@@ -17,11 +17,11 @@ export default async function BasketsPage() {
 
   return (
     <>
-      <PageIntro title="Ready-made baskets" tone="crimson">
+      <PageIntro eyebrow="Shop" title="Ready-made baskets" tone="crimson">
         Put together by our team so you can send a full basket in one tap. Each one costs less than
         buying the items separately.
       </PageIntro>
-      <Container className="py-12">
+      <Container className="section-sm">
         {baskets.length ? (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {baskets.map(({ basket, itemCount, separateCents }) => (

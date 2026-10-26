@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageIntro title="About ShipEast" tone="crimson">
+      <PageIntro eyebrow="Who we are" title="About ShipEast" tone="crimson">
         A courier and errand service from St. Thomas, now shopping for the families of Jamaicans
         living abroad.
       </PageIntro>
 
-      <Container className="grid gap-12 py-16 lg:grid-cols-[1.4fr_1fr] lg:py-20">
-        <div className="flex max-w-prose flex-col gap-5 text-lg text-ink">
-          <h2 className="text-3xl font-extrabold tracking-tight">Errands are what we do</h2>
+      <Container className="grid gap-12 section lg:grid-cols-[1.4fr_1fr]">
+        <div className="flex max-w-prose flex-col gap-5 text-lead text-ink">
+          <h2 className="text-h2">Errands are what we do</h2>
           <p>
             ShipEast started as a courier and bearer service in St. Thomas: picking things up,
             dropping them off, and running errands for people who can’t be there themselves.
@@ -35,19 +35,19 @@ export default function AboutPage() {
           {/* PLACEHOLDER: replace with ShipEast's own story and team once Derion supplies it. */}
         </div>
 
-        <aside className="flex h-fit flex-col gap-4 rounded-lg border border-line bg-blush-100 p-6">
-          <h2 className="text-xl font-bold text-ink">Company details</h2>
+        <aside className="flex h-fit flex-col gap-4 rounded-lg border border-line bg-surface p-card">
+          <h2 className="text-h3 text-ink">Company details</h2>
           <dl className="flex flex-col gap-3">
             <div>
-              <dt className="text-sm text-ink-muted">Registered name</dt>
+              <dt className="text-small text-ink-muted">Registered name</dt>
               <dd className="font-semibold text-ink">{site.company}</dd>
             </div>
             <div>
-              <dt className="text-sm text-ink-muted">Based in</dt>
+              <dt className="text-small text-ink-muted">Based in</dt>
               <dd className="font-semibold text-ink">St. Thomas, Jamaica</dd>
             </div>
             <div>
-              <dt className="text-sm text-ink-muted">Email</dt>
+              <dt className="text-small text-ink-muted">Email</dt>
               <dd>
                 <a
                   href={`mailto:${site.email}`}

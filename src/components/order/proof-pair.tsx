@@ -30,15 +30,15 @@ export function ProofPair({
   className?: string
 }) {
   const caption = cn(
-    'flex items-center gap-1.5 text-xs font-medium sm:text-sm',
-    onDark ? 'text-white/85' : 'text-ink-muted',
+    'flex items-center gap-1.5 text-xs font-medium sm:text-small',
+    onDark ? 'text-on-crimson-muted' : 'text-ink-muted',
   )
   const captionIcon = cn('size-4', onDark ? 'text-blush' : 'text-crimson')
   return (
     <div className={cn('grid grid-cols-2 items-start gap-3 sm:gap-5', className)}>
       <figure className={cn('flex flex-col gap-2', tilt && '-rotate-2 sm:-rotate-3')}>
         {receipt.photo ? (
-          <div className="relative aspect-[3/4] overflow-hidden rounded-md shadow-lift">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-md shadow-float">
             <Image
               src={receipt.photo}
               alt={`Receipt from ${receipt.store}`}
@@ -48,7 +48,7 @@ export function ProofPair({
             />
           </div>
         ) : (
-          <div className="bg-white px-3 pt-4 pb-6 text-[11px] leading-relaxed text-ink shadow-lift receipt-edge sm:px-4 sm:text-xs">
+          <div className="bg-surface px-3 pt-4 pb-6 text-[11px] leading-relaxed text-ink shadow-float receipt-edge sm:px-4 sm:text-xs">
             <p className="text-center font-bold tracking-wide">{receipt.store}</p>
             <p className="mb-2 text-center text-ink-muted">Kingston, Jamaica</p>
             <ul className="border-y border-dashed border-ink/25 py-2">
@@ -74,7 +74,7 @@ export function ProofPair({
       <figure className={cn('flex flex-col gap-2', tilt && 'mt-6 rotate-2 sm:mt-10 sm:rotate-3')}>
         <div
           className={cn(
-            'relative aspect-[3/4] overflow-hidden rounded-md shadow-lift',
+            'relative aspect-[3/4] overflow-hidden rounded-md shadow-float',
             onDark ? 'border border-white/15 bg-oxblood' : 'bg-crimson',
           )}
         >
@@ -94,9 +94,9 @@ export function ProofPair({
                 aria-hidden
               />
               <div>
-                <p className="text-xs text-blush sm:text-sm">Delivered to</p>
-                <p className="text-sm leading-tight font-bold sm:text-base">{door.recipient}</p>
-                <p className="text-xs text-white/75 sm:text-sm">{door.place}</p>
+                <p className="text-xs text-blush sm:text-small">Delivered to</p>
+                <p className="text-small leading-tight font-bold sm:text-body">{door.recipient}</p>
+                <p className="text-xs text-on-crimson-muted sm:text-small">{door.place}</p>
               </div>
             </div>
           )}
