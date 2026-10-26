@@ -32,6 +32,7 @@ const columns = [
       { href: '/legal/substitutions', label: 'Substitutions' },
       { href: '/legal/delivery', label: 'Delivery policy' },
       { href: '/legal/cookies', label: 'Cookies' },
+      { href: '/photo-credits', label: 'Photo credits' },
     ],
   },
 ]

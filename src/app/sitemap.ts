@@ -11,6 +11,7 @@ const pages = [
   '/how-it-works',
   '/delivery',
   '/about',
+  '/photo-credits',
   '/faq',
   '/contact',
   '/monthly',

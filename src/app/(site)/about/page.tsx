@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { site } from '@/lib/site'
 
@@ -35,33 +36,40 @@ export default function AboutPage() {
           {/* PLACEHOLDER: replace with ShipEast's own story and team once Derion supplies it. */}
         </div>
 
-        <aside className="flex h-fit flex-col gap-4 rounded-lg border border-line bg-surface p-card">
-          <h2 className="text-h3 text-ink">Company details</h2>
-          <dl className="flex flex-col gap-3">
-            <div>
-              <dt className="text-small text-ink-muted">Registered name</dt>
-              <dd className="font-semibold text-ink">{site.company}</dd>
-            </div>
-            <div>
-              <dt className="text-small text-ink-muted">Based in</dt>
-              <dd className="font-semibold text-ink">St. Thomas, Jamaica</dd>
-            </div>
-            <div>
-              <dt className="text-small text-ink-muted">Email</dt>
-              <dd>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="font-semibold text-crimson hover:underline"
-                >
-                  {site.email}
-                </a>
-              </dd>
-            </div>
-          </dl>
-          <ButtonLink href="/contact" variant="secondary">
-            Contact us
-          </ButtonLink>
-        </aside>
+        <div className="flex flex-col gap-6">
+          <StockPhoto
+            name="kingstonStreet"
+            sizes="(min-width: 1024px) 440px, 100vw"
+            className="aspect-4/3"
+          />
+          <aside className="flex h-fit flex-col gap-4 rounded-lg border border-line bg-surface p-card">
+            <h2 className="text-h3 text-ink">Company details</h2>
+            <dl className="flex flex-col gap-3">
+              <div>
+                <dt className="text-small text-ink-muted">Registered name</dt>
+                <dd className="font-semibold text-ink">{site.company}</dd>
+              </div>
+              <div>
+                <dt className="text-small text-ink-muted">Based in</dt>
+                <dd className="font-semibold text-ink">St. Thomas, Jamaica</dd>
+              </div>
+              <div>
+                <dt className="text-small text-ink-muted">Email</dt>
+                <dd>
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="font-semibold text-crimson hover:underline"
+                  >
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            <ButtonLink href="/contact" variant="secondary">
+              Contact us
+            </ButtonLink>
+          </aside>
+        </div>
       </Container>
     </>
   )

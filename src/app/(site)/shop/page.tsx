@@ -7,6 +7,7 @@ import { CategoryIcon } from '@/components/site/category-icon'
 import { Container, PageIntro } from '@/components/site/page-intro'
 import { getProducts } from '@/lib/data/catalogue'
 import { getBaskets, getCategories, getSettings } from '@/lib/data/site'
+import { categoryPhotos } from '@/lib/stock-photos'
 
 export const metadata: Metadata = {
   title: 'Shop',
@@ -45,6 +46,7 @@ export default async function ShopPage() {
                     description={c.description}
                     count={c.count}
                     icon={<CategoryIcon slug={c.slug} />}
+                    photo={categoryPhotos[c.slug]}
                   />
                 </li>
               ))}

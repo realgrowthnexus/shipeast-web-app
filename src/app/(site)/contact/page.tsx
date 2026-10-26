@@ -1,6 +1,7 @@
 import { Clock3, Mail, MessageCircle } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { getSettings } from '@/lib/data/site'
 import { site } from '@/lib/site'
 import { ContactForm } from './contact-form'
@@ -22,6 +23,11 @@ export default async function ContactPage() {
       </PageIntro>
       <Container className="grid gap-12 section-sm lg:grid-cols-[1fr_1.6fr]">
         <aside className="flex flex-col gap-4">
+          <StockPhoto
+            name="contactPhone"
+            sizes="(min-width: 1024px) 400px, 100vw"
+            className="aspect-video"
+          />
           {wa && (
             <a
               href={`https://wa.me/${wa}`}

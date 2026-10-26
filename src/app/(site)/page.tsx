@@ -12,26 +12,32 @@ import { ProofPair } from '@/components/order/proof-pair'
 import { BasketCard, CategoryTile } from '@/components/shop/product-card'
 import { CategoryIcon } from '@/components/site/category-icon'
 import { Container } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { Accordion } from '@/components/ui/accordion'
 import { ButtonLink } from '@/components/ui/button'
 import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
 import { formatClockTime, formatUsd } from '@/lib/format'
+import { categoryPhotos, type StockPhotoKey } from '@/lib/stock-photos'
 
-const steps = [
+const steps: { title: string; body: string; photo: StockPhotoKey }[] = [
   {
     title: 'Fill a basket',
+    photo: 'stepOrder',
     body: 'Pick groceries, household, pharmacy and baby items, or a ready-made basket. Prices are in US dollars.',
   },
   {
     title: 'Tell us who it’s for',
+    photo: 'stepFamily',
     body: 'Add your family member’s address, phone and a nearby landmark, and choose what we do if something is out of stock.',
   },
   {
     title: 'We shop in Jamaica',
+    photo: 'stepShop',
     body: 'Our driver buys everything at the store and sends you a photo of the receipt.',
   },
   {
     title: 'Delivered to the door',
+    photo: 'stepDoor',
     body: 'Your family gets a text when we’re on the way. You get a photo at the door when it’s handed over.',
   },
 ]
@@ -98,27 +104,36 @@ export default async function HomePage() {
               Delivering to {parishes} today
             </p>
           </div>
-          <div className="mx-auto w-full max-w-md px-2 lg:max-w-none">
-            <ProofPair
-              tilt
-              onDark
-              receipt={{
-                store: 'PRICESMART',
-                lines: [
-                  { name: 'Long Grain Rice', cents: 1450 },
-                  { name: 'Cooking Oil', cents: 1325 },
-                  { name: 'Corned Beef x2', cents: 950 },
-                  { name: 'Evaporated Milk', cents: 1590 },
-                ],
-                totalCents: 5315,
-                at: '2026-10-25T15:40:00Z',
-              }}
-              door={{
-                recipient: 'Marcia Campbell',
-                place: 'Morant Bay, St. Thomas',
-                at: '2026-10-25T17:05:00Z',
-              }}
+          {/* The photo says what we send; the proof cards overlap it to say how you know */}
+          <div className="mx-auto w-full max-w-md lg:max-w-none">
+            <StockPhoto
+              name="heroGroceries"
+              preload
+              sizes="(min-width: 1024px) 520px, (min-width: 448px) 448px, 100vw"
+              className="aspect-4/3 rounded-xl"
             />
+            <div className="relative -mt-20 px-4 sm:-mt-28 sm:px-8">
+              <ProofPair
+                tilt
+                onDark
+                receipt={{
+                  store: 'PRICESMART',
+                  lines: [
+                    { name: 'Long Grain Rice', cents: 1450 },
+                    { name: 'Cooking Oil', cents: 1325 },
+                    { name: 'Corned Beef x2', cents: 950 },
+                    { name: 'Evaporated Milk', cents: 1590 },
+                  ],
+                  totalCents: 5315,
+                  at: '2026-10-25T15:40:00Z',
+                }}
+                door={{
+                  recipient: 'Marcia Campbell',
+                  place: 'Morant Bay, St. Thomas',
+                  at: '2026-10-25T17:05:00Z',
+                }}
+              />
+            </div>
           </div>
         </Container>
       </section>
@@ -140,6 +155,11 @@ export default async function HomePage() {
           <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
               <li key={step.title} className="flex flex-col gap-3">
+                <StockPhoto
+                  name={step.photo}
+                  sizes="(min-width: 1024px) 254px, (min-width: 640px) 50vw, 100vw"
+                  className="mb-2 aspect-video sm:aspect-4/3"
+                />
                 <span className="text-numeral text-signal tabular-nums" aria-hidden>
                   {i + 1}
                 </span>
@@ -169,6 +189,7 @@ export default async function HomePage() {
                 description={c.description}
                 count={c.count}
                 icon={<CategoryIcon slug={c.slug} />}
+                photo={categoryPhotos[c.slug]}
               />
             ))}
           </div>
@@ -216,6 +237,11 @@ export default async function HomePage() {
             <h2 id="why-h" className="text-h2 text-balance text-ink">
               You see what was bought, and that it arrived
             </h2>
+            <StockPhoto
+              name="whyFamily"
+              sizes="(min-width: 1024px) 420px, 100vw"
+              className="mt-8 aspect-4/3 lg:aspect-4/5"
+            />
           </div>
           <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
             {reasons.map(({ icon: Icon, title, body }) => (
@@ -248,6 +274,11 @@ export default async function HomePage() {
             >
               Delivery areas and fees
             </Link>
+            <StockPhoto
+              name="kingston"
+              sizes="(min-width: 1024px) 420px, 100vw"
+              className="mt-8 aspect-video"
+            />
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {zones.map((z) => (
