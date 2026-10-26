@@ -10,7 +10,7 @@
   /* Brand (from the client PDFs). Flat colours only: never a gradient. */
   --color-crimson: #ae0e31;
   --color-crimson-deep: #7a0a23;
-  --color-oxblood: #2a0a12;
+  --color-oxblood: #4a0b1c;
   --color-signal: #e30d3b; /* numerals, live dot, focus ring. Never text under 24px. */
   --color-blush: #ffc6d3;
 
@@ -27,8 +27,8 @@
   --color-crimson-500: #e30d3b;
   --color-crimson-600: #ae0e31;
   --color-crimson-700: #7a0a23;
-  --color-crimson-800: #520819;
-  --color-crimson-900: #2a0a12;
+  --color-crimson-800: #62091f;
+  --color-crimson-900: #4a0b1c;
   --color-crimson-950: #1a050b;
 
   /* Warm neutrals, from the page background down to the heading ink. */
@@ -67,6 +67,15 @@
   --color-danger: #b42318;
   --color-danger-tint: #fde8e6;
   --color-danger-deep: #93190f;
+
+  /*
+   * Jamaican flag colours, at the user's request, so visitors see at a glance that this is a
+   * Jamaican service. Decorative only: the flag mark, flag stripes and small accents. Never body
+   * text, never a large surface, never mixed into a gradient. Ink text may sit on gold.
+   */
+  --color-jm-green: #009b3a;
+  --color-jm-gold: #fed100;
+  --color-jm-black: #000000;
 
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 

@@ -90,7 +90,7 @@ change is written to `order_events` (audit trail).
 From the client PDFs (see `CLAUDE.md` for the token table): crimson `#AE0E31`, signal
 `#E30D3B`, blush `#FFC6D3`, blush page `#F8ECF0`, ink `#2B2326`, typeface **Figtree**.
 No gradients anywhere (user rule): flat brand colours only. Red blocks are solid crimson or
-oxblood (`#2A0A12`), confident and large, not thin accents.
+oxblood (`#4A0B1C`), confident and large, not thin accents.
 
 **Signature element:** the *proof pair* — a receipt card and a door-photo card shown side by
 side. It is the product's promise, so it appears on the home hero, how-it-works, tracking

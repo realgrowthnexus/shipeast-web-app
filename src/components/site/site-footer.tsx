@@ -1,6 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { site } from '@/lib/site'
+import { FlagStripe, JamaicaFlag } from './jamaica'
 import { Wordmark } from './wordmark'
 
 const columns = [
@@ -41,12 +42,17 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
   const waDigits = whatsapp?.replace(/\D/g, '')
   return (
     <footer className="bg-oxblood text-white print:hidden">
+      <FlagStripe className="h-1.5" />
       <div className="mx-auto grid max-w-wide gap-10 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
           <Wordmark onDark />
           <p className="max-w-xs text-on-oxblood-muted">
             We shop in Jamaica for your family and deliver the same day, with a photo of the receipt
             and a photo at the door.
+          </p>
+          <p className="flex items-center gap-3 font-semibold">
+            <JamaicaFlag className="w-8" />
+            Based in St. Thomas, Jamaica
           </p>
           {waDigits && (
             <a

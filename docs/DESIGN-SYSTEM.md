@@ -14,7 +14,7 @@ crimson and oxblood blocks, generous spacing and heavy type.
 | --------------------------------------------- | --------- | ---------------------------------------------------------------------- |
 | `crimson`                                     | `#AE0E31` | Buttons, hero and callout blocks, links, eyebrow labels                |
 | `crimson-deep`                                | `#7A0A23` | Hover and pressed                                                      |
-| `oxblood`                                     | `#2A0A12` | Footer, dark panels                                                    |
+| `oxblood`                                     | `#4A0B1C` | Footer, dark panels                                                    |
 | `signal`                                      | `#E30D3B` | Big numerals, live dot, active step, focus ring. Never text under 24px |
 | `blush`                                       | `#FFC6D3` | "East" in the wordmark, accent text on crimson                         |
 | `canvas`                                      | `#F8ECF0` | Page background                                                        |

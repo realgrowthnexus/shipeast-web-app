@@ -12,6 +12,7 @@ import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { getBaskets, getSettings } from '@/lib/data/site'
 import type { StockPhotoKey } from '@/lib/stock-photos'
+import { JamaicaFlag } from '@/components/site/jamaica'
 
 export const metadata: Metadata = {
   title: 'Gifts and occasions',
@@ -152,6 +153,29 @@ export default async function GiftsPage() {
             Any order can carry a gift message, not only baskets.
           </p>
           <Steps steps={messageSteps} compact />
+        </PhotoFeature>
+      </Section>
+
+      <Section tone="tint" wide aria-labelledby="taste-h">
+        <PhotoFeature photo="jmEasterBun">
+          <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
+            <JamaicaFlag className="w-7" />A taste of home
+          </p>
+          <h2 id="taste-h" className="text-h2 text-balance text-ink">
+            Bun and cheese at Easter. Their favourites all year.
+          </h2>
+          <p className="mt-3 text-lead text-ink-body">
+            Holidays at home have their own tastes. If what they love isn’t in the shop yet, ask us
+            and we’ll look for it at the store.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <ButtonLink href={settings.features.item_requests ? '/request' : '/contact'}>
+              Ask us to find an item
+            </ButtonLink>
+            <ButtonLink href="/shop" variant="outline">
+              Browse the shop
+            </ButtonLink>
+          </div>
         </PhotoFeature>
       </Section>
 

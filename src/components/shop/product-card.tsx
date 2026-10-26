@@ -25,6 +25,7 @@ export function ProductCard({
           src={product.imagePath}
           alt={product.name}
           categoryId={product.categoryId}
+          slug={product.slug}
           className={outOfStock ? 'opacity-60 grayscale-[40%]' : undefined}
         />
         {outOfStock && <Badge className="absolute top-2 left-2">Out of stock</Badge>}
@@ -37,9 +38,9 @@ export function ProductCard({
         </h3>
         <p className="text-small text-ink-muted">{product.size}</p>
       </div>
-      <div className="flex flex-wrap items-end justify-between gap-2 px-1 pb-1">
+      <div className="flex flex-col gap-3 px-1 pb-1">
         <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} />
-        {action && !outOfStock && <div className="relative z-10">{action}</div>}
+        {action && !outOfStock && <div className="relative z-10 [&_button]:w-full">{action}</div>}
       </div>
     </article>
   )

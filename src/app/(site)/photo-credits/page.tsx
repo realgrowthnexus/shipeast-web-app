@@ -1,6 +1,7 @@
 import { ExternalLink } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { productPhotos } from '@/lib/photos/products'
 import { photoPageUrl, photographerUrl, stockPhotos, unsplashUrl } from '@/lib/stock-photos'
 
 export const metadata: Metadata = {
@@ -11,7 +12,12 @@ export const metadata: Metadata = {
 export default function PhotoCreditsPage() {
   // The same photo can be registered under two names; credit it once.
   const photos = [
-    ...new Map(Object.values(stockPhotos).map((p) => [p.unsplashId, p])).values(),
+    ...new Map(
+      [...Object.values(stockPhotos), ...Object.values(productPhotos)].map((p) => [
+        p.unsplashId,
+        p,
+      ]),
+    ).values(),
   ].sort((a, b) => a.photographer.localeCompare(b.photographer))
   return (
     <>

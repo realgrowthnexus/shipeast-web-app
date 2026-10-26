@@ -52,7 +52,7 @@ and live at `/styleguide`. Use tokens, never raw hex in components.
 | -------------------------- | --------------------------------- | --------------------------------------------------------------------- |
 | crimson                    | `#AE0E31`                         | primary brand surface, primary buttons, hero blocks                   |
 | crimson-deep               | `#7A0A23`                         | hover/pressed                                                         |
-| oxblood                    | `#2A0A12`                         | "red mixed with black": footer, deep surfaces                         |
+| oxblood                    | `#4A0B1C`                         | "red mixed with black": footer, deep surfaces                         |
 | signal                     | `#E30D3B`                         | accents only: step numbers, live dot, big numerals (never small text) |
 | blush                      | `#FFC6D3`                         | "East" in wordmark, text/accents on crimson                           |
 | canvas                     | `#F8ECF0`                         | page background                                                       |

@@ -1,6 +1,8 @@
 import { Baby, Pill, ShoppingBasket, SprayCan, Wheat, type LucideIcon } from 'lucide-react'
 import Image from 'next/image'
+import { StockImage } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
+import { productPhotos } from '@/lib/photos/products'
 
 const icons: Record<string, LucideIcon> = {
   'cat-groceries': Wheat,
@@ -10,23 +12,37 @@ const icons: Record<string, LucideIcon> = {
 }
 
 /**
- * Product photo, or a branded placeholder until ShipEast supplies real photos. We never use
- * PriceSmart's own images.
+ * Product photo. An uploaded photo wins; otherwise a stock photo of that exact item (by slug);
+ * otherwise a branded placeholder. We never use PriceSmart's own images.
  */
 export function ProductImage({
   src,
   alt,
   categoryId,
+  slug,
   className,
   sizes = '(min-width: 1024px) 25vw, 50vw',
 }: {
   src: string | null
   alt: string
   categoryId?: string
+  /** The product's slug, to find its stock photo when nothing was uploaded. */
+  slug?: string
   className?: string
   sizes?: string
 }) {
   const Icon = (categoryId && icons[categoryId]) || ShoppingBasket
+  const stock = !src && slug ? productPhotos[slug] : undefined
+  if (stock)
+    return (
+      <StockImage
+        photo={stock}
+        alt={alt}
+        sizes={sizes}
+        zoom
+        className={cn('aspect-[4/3] rounded-md', className)}
+      />
+    )
   return (
     <div
       className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-surface-tint', className)}

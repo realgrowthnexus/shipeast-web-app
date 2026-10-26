@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { CategoryChips, CategoryPhotoCard } from '@/components/pages/shop/category-card'
 import { CantFindBanner, HowWeShop } from '@/components/pages/shop/shop-promises'
-import { StaggerProductGrid } from '@/components/pages/shop/stagger-product-grid'
 import { BasketCard } from '@/components/shop/product-card'
+import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { SearchBox } from '@/components/shop/search-box'
 import { deliveryPromise } from '@/components/shop/breadcrumb'
 import { CtaBand } from '@/components/site/cta-band'
+import { FlagBadge, FlagStripe } from '@/components/site/jamaica'
 import { Section, SectionHeader } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { getProducts } from '@/lib/data/catalogue'
@@ -28,7 +29,6 @@ export default async function ShopPage() {
     getProducts(),
     getActiveZones(),
   ])
-  const popular = products.filter((p) => p.featured && p.status === 'visible')
   const sameDay = zones.length
     ? deliveryPromise(zones, formatClockTime(zones[0]?.cutoffTime ?? '13:00'))
     : 'Delivery is paused for now. Check back soon.'
@@ -39,7 +39,9 @@ export default async function ShopPage() {
         <div className="mx-auto grid w-full max-w-page items-center gap-10 gutter section lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-6 lg:col-span-7">
             <div className="animate-rise">
-              <p className="mb-3 eyebrow text-blush">The shop</p>
+              <FlagBadge onDark className="mb-4">
+                Bought in Jamaica, priced in US dollars
+              </FlagBadge>
               <h1 className="text-h1 text-balance">Fill their basket from wherever you are</h1>
               <p className="mt-4 max-w-2xl text-lead text-on-crimson-muted">
                 Prices are in US dollars with the Jamaican dollar amount alongside. We buy
@@ -47,7 +49,7 @@ export default async function ShopPage() {
               </p>
             </div>
             <div className="flex animate-rise flex-col gap-4 [animation-delay:120ms]">
-              <SearchBox className="max-w-xl" />
+              <SearchBox id="shop-q" className="max-w-xl md:hidden" />
               <CategoryChips categories={categories} onDark />
             </div>
           </div>
@@ -57,6 +59,7 @@ export default async function ShopPage() {
             className="hidden aspect-4/3 animate-rise rounded-2xl [animation-delay:200ms] lg:col-span-5 lg:block"
           />
         </div>
+        <FlagStripe className="h-1.5" />
       </section>
 
       <Section aria-labelledby="categories" size="sm">
@@ -111,17 +114,19 @@ export default async function ShopPage() {
         </Section>
       )}
 
-      {popular.length > 0 && (
-        <Section aria-labelledby="popular" size="sm">
-          <SectionHeader
-            id="popular"
-            eyebrow="Popular items"
-            title="Everyday essentials"
-            className="mb-8"
-          />
-          <StaggerProductGrid products={popular} jmdPerUsd={settings.jmdPerUsd} />
-        </Section>
-      )}
+      {/* One shelf per department, like the aisles of a store */}
+      {categories.map((c, i) => (
+        <ProductShelf
+          key={c.id}
+          id={`aisle-${c.slug}`}
+          title={c.name}
+          lead={shelfLeads[c.slug] ?? c.description}
+          href={`/shop/${c.slug}`}
+          products={shelfProducts(products, c.id)}
+          jmdPerUsd={settings.jmdPerUsd}
+          tone={i % 2 ? 'surface' : 'canvas'}
+        />
+      ))}
 
       <HowWeShop sameDay={sameDay} />
 

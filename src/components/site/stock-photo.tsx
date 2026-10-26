@@ -2,7 +2,7 @@
 
 import Image, { type ImageLoader } from 'next/image'
 import { cn } from '@/lib/cn'
-import { type StockPhotoKey, stockPhotos } from '@/lib/stock-photos'
+import { type StockPhoto as Photo, type StockPhotoKey, stockPhotos } from '@/lib/stock-photos'
 
 /**
  * Unsplash resizes and converts on its own CDN, so we ask it for the exact width instead of
@@ -31,13 +31,40 @@ export function StockPhoto({
   /** Zoom in slightly when a parent with `group` is hovered (cards that are links). */
   zoom?: boolean
 }) {
-  const p = stockPhotos[name]
+  return (
+    <StockImage
+      photo={stockPhotos[name]}
+      sizes={sizes}
+      className={className}
+      preload={preload}
+      zoom={zoom}
+    />
+  )
+}
+
+/** The same frame for a photo that is not in the page registry, such as a product photo. */
+export function StockImage({
+  photo: p,
+  sizes,
+  className,
+  preload = false,
+  zoom = false,
+  alt,
+}: {
+  photo: Photo
+  sizes: string
+  className?: string
+  preload?: boolean
+  zoom?: boolean
+  /** Overrides the photo's own alt text, e.g. with the product name. */
+  alt?: string
+}) {
   return (
     <div className={cn('relative overflow-hidden rounded-lg bg-surface-tint', className)}>
       <Image
         loader={unsplashLoader}
         src={p.src}
-        alt={p.alt}
+        alt={alt ?? p.alt}
         fill
         sizes={sizes}
         preload={preload}

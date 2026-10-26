@@ -114,6 +114,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
                       src={product.imagePath}
                       alt=""
                       categoryId={product.categoryId}
+                      slug={product.slug}
                       sizes="64px"
                       className="w-16 shrink-0"
                     />

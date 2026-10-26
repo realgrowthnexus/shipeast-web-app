@@ -97,6 +97,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
               src={product.imagePath}
               alt={product.name}
               categoryId={product.categoryId}
+              slug={product.slug}
               sizes="(min-width: 1024px) 50vw, 100vw"
               className={inStock ? 'rounded-xl' : 'rounded-xl opacity-60 grayscale-[40%]'}
             />

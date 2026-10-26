@@ -9,6 +9,7 @@ import { Section, SectionHeader } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { site } from '@/lib/site'
+import { JamaicaFlag } from '@/components/site/jamaica'
 
 export const metadata: Metadata = {
   title: 'About ShipEast',
@@ -108,8 +109,11 @@ export default function AboutPage() {
       </Section>
 
       <Section wide aria-labelledby="roots-h">
-        <PhotoFeature photo="companyCountryRoad" parallax>
-          <p className="mb-3 eyebrow text-crimson">Our roots</p>
+        <PhotoFeature photo="jmFlag" parallax>
+          <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
+            <JamaicaFlag className="w-7" />
+            Our roots
+          </p>
           <h2 id="roots-h" className="text-h2 text-balance text-ink">
             Rooted in St. Thomas
           </h2>
@@ -118,6 +122,7 @@ export default function AboutPage() {
               ShipEast is a St. Thomas business, and our team runs errands on these roads. For now
               we deliver to St. Thomas and Kingston only, the parishes we already know well.
             </p>
+            <p>Out of many, one people. We shop for your family the way we shop for our own.</p>
             <p>
               Your family installs nothing. They get a text message when the order is on its way,
               and our driver hands it over at the door.
@@ -191,7 +196,7 @@ export default function AboutPage() {
 
       <CtaBand
         title="Look after them from wherever you are"
-        photo="stepDoor"
+        photo="companyCountryRoad"
         secondary={{ href: '/how-it-works', label: 'How it works' }}
       >
         Fill a basket in US dollars. We shop in Jamaica and send you the receipt and the door photo.

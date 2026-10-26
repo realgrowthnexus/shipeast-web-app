@@ -57,6 +57,10 @@ const pairs: [string, string, number][] = [
   ['white', 'crimson-700', 4.5],
   ['blush', 'crimson-800', 4.5],
   ['white', 'oxblood', 4.5],
+  // Flag accents: a label on a gold tag, and gold on the black or oxblood bands.
+  ['ink', 'jm-gold', 4.5],
+  ['jm-gold', 'jm-black', 4.5],
+  ['jm-gold', 'oxblood', 4.5],
   // Non-text: form control borders need 3:1 (WCAG 1.4.11).
   ['line-strong', 'surface', 3],
   ['line-strong', 'canvas', 3],
@@ -102,7 +106,7 @@ describe('components use tokens', () => {
   it.each([
     [
       'gradients',
-      /bg-gradient|linear-gradient|radial-gradient|\b(from|via|to)-(crimson|oxblood|signal|blush|ink)/,
+      /bg-gradient|linear-gradient|radial-gradient|\b(from|via|to)-(crimson|oxblood|signal|blush|ink|jm)/,
     ],
     ['raw hex colours', /\[#[0-9a-f]{3,8}\]/i],
     // Decorative placeholder icons may use a faded crimson; text never fades.
