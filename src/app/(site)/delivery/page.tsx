@@ -2,6 +2,7 @@ import { Check, Clock3, MapPin } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { Alert } from '@/components/ui/alert'
 import { getZones } from '@/lib/data/site'
 import { formatClockTime, formatUsd } from '@/lib/format'
@@ -26,7 +27,17 @@ export default async function DeliveryPage() {
 
   return (
     <>
-      <PageIntro eyebrow="Delivery" title="Delivery areas and fees">
+      <PageIntro
+        eyebrow="Delivery"
+        title="Delivery areas and fees"
+        aside={
+          <StockPhoto
+            name="blueMountains"
+            sizes="(min-width: 1024px) 384px, 100vw"
+            className="aspect-4/3 w-full lg:w-96"
+          />
+        }
+      >
         We deliver in {active.map((z) => z.parish).join(' and ')} today. Fees are per order, not per
         item.
       </PageIntro>

@@ -2,6 +2,7 @@ import { MessageSquareText } from 'lucide-react'
 import type { Metadata } from 'next'
 import { ProofPair } from '@/components/order/proof-pair'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { getActiveZones } from '@/lib/data/site'
 import { formatClockTime } from '@/lib/format'
@@ -120,6 +121,11 @@ export default async function HowItWorksPage() {
               Orders paid before <strong>{cutoff}</strong> are delivered the same day. Later orders
               arrive the next day.
             </p>
+            <StockPhoto
+              name="familyPhone"
+              sizes="(min-width: 1024px) 540px, 100vw"
+              className="mt-8 aspect-video"
+            />
           </div>
           <div className="flex flex-col gap-3" aria-label="Example text messages">
             {[

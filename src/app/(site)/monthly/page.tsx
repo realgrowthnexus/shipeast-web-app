@@ -1,6 +1,7 @@
 import { CalendarClock, PauseCircle, Pencil, Repeat2 } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { getSettings } from '@/lib/data/site'
 
@@ -56,6 +57,13 @@ export default async function MonthlyPage() {
         eyebrow="Monthly orders"
         title={monthly ? 'Set up their basket once' : 'Sending every month?'}
         tone="crimson"
+        aside={
+          <StockPhoto
+            name="pantry"
+            sizes="(min-width: 1024px) 384px, 100vw"
+            className="aspect-4/3 w-full lg:w-96"
+          />
+        }
       >
         {monthly
           ? 'Choose the items once, pick a day, and we shop and deliver every month. Each delivery comes with the receipt photo and the door photo.'

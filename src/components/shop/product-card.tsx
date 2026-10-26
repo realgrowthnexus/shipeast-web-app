@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { Badge } from '@/components/ui/badge'
 import { Price } from '@/components/ui/price'
+import { basketPhotos, type StockPhotoKey } from '@/lib/stock-photos'
 import type { Basket, Product } from '@/lib/types'
 import { ProductImage } from './product-image'
 
@@ -55,8 +57,16 @@ export function BasketCard({
   /** What the items would cost bought one by one. */
   separateCents: number
 }) {
+  const photo = basketPhotos[basket.slug]
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl bg-crimson text-white">
+      {photo && (
+        <StockPhoto
+          name={photo}
+          sizes="(min-width: 1024px) 368px, (min-width: 768px) 50vw, 100vw"
+          className="aspect-video rounded-none"
+        />
+      )}
       <div className="flex flex-1 flex-col gap-2 p-card">
         <p className="text-small text-blush">{itemCount} items in one basket</p>
         <h3 className="text-h3">
@@ -89,21 +99,28 @@ export function CategoryTile({
   description,
   count,
   icon,
+  photo,
 }: {
   href: string
   name: string
   description: string
   count: number
   icon: ReactNode
+  /** Shown in place of the icon when the category has a photo. */
+  photo?: StockPhotoKey
 }) {
   return (
     <Link
       href={href}
       className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-blush"
     >
-      <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
-        {icon}
-      </span>
+      {photo ? (
+        <StockPhoto name={photo} sizes="96px" className="size-20 shrink-0 rounded-md sm:size-24" />
+      ) : (
+        <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
+          {icon}
+        </span>
+      )}
       <span className="flex flex-col">
         <span className="font-bold text-ink">{name}</span>
         <span className="text-small text-ink-muted">{description}</span>

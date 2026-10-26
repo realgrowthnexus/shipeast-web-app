@@ -1,9 +1,11 @@
-import { Baby, Cake, Gift, GraduationCap, TreePine } from 'lucide-react'
+import { Gift } from 'lucide-react'
 import type { Metadata } from 'next'
 import { BasketCard } from '@/components/shop/product-card'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { getBaskets, getSettings } from '@/lib/data/site'
+import type { StockPhotoKey } from '@/lib/stock-photos'
 
 export const metadata: Metadata = {
   title: 'Gifts and occasions',
@@ -11,20 +13,24 @@ export const metadata: Metadata = {
     'Christmas hampers, birthdays, back to school and new baby baskets, delivered with a printed gift message.',
 }
 
-const occasions = [
+const occasions: { photo: StockPhotoKey; title: string; body: string }[] = [
   {
-    icon: TreePine,
+    photo: 'giftChristmas',
     title: 'Christmas',
     body: 'Hampers with festive staples. Order early for the week before Christmas.',
   },
-  { icon: Cake, title: 'Birthdays', body: 'Add their favourites and a gift message for the day.' },
   {
-    icon: GraduationCap,
+    photo: 'giftBirthday',
+    title: 'Birthdays',
+    body: 'Add their favourites and a gift message for the day.',
+  },
+  {
+    photo: 'giftSchool',
     title: 'Back to school',
     body: 'Lunch-box snacks and household basics for the new term.',
   },
   {
-    icon: Baby,
+    photo: 'giftBaby',
     title: 'New baby',
     body: 'Diapers, wipes and formula, so the new parents can rest.',
   },
@@ -43,10 +49,14 @@ export default async function GiftsPage() {
       </PageIntro>
       <Container className="section">
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {occasions.map(({ icon: Icon, title, body }) => (
+          {occasions.map(({ photo, title, body }) => (
             <li key={title}>
-              <Icon className="size-8 text-crimson" aria-hidden />
-              <h2 className="mt-3 text-h3 text-ink">{title}</h2>
+              <StockPhoto
+                name={photo}
+                sizes="(min-width: 1024px) 254px, (min-width: 640px) 50vw, 100vw"
+                className="aspect-4/3"
+              />
+              <h2 className="mt-4 text-h3 text-ink">{title}</h2>
               <p className="mt-1 text-ink-muted">{body}</p>
             </li>
           ))}

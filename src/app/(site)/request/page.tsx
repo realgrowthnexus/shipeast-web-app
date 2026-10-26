@@ -1,6 +1,7 @@
 import { MessageSquareText } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Container, PageIntro } from '@/components/site/page-intro'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { getActiveZones, getSettings } from '@/lib/data/site'
@@ -19,7 +20,17 @@ export default async function RequestPage() {
 
   return (
     <>
-      <PageIntro eyebrow="Shop" title="Can’t find it in the shop?">
+      <PageIntro
+        eyebrow="Shop"
+        title="Can’t find it in the shop?"
+        aside={
+          <StockPhoto
+            name="staples"
+            sizes="(min-width: 1024px) 384px, 100vw"
+            className="aspect-4/3 w-full lg:w-96"
+          />
+        }
+      >
         {on
           ? 'Tell us what you need. We check the stores, send you a price, and you only pay once you accept it.'
           : 'Tell us what you need and we’ll let you know if we can buy it for you.'}

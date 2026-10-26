@@ -1,8 +1,8 @@
-import { SearchX } from 'lucide-react'
 import Link from 'next/link'
 import { CategoryIcon } from '@/components/site/category-icon'
 import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { getCategories, getSettings } from '@/lib/data/site'
 
@@ -15,7 +15,11 @@ export default async function NotFound() {
         id="main"
         className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-start gap-5 gutter section-lg"
       >
-        <SearchX className="size-12 text-crimson" strokeWidth={1.5} aria-hidden />
+        <StockPhoto
+          name="emptyCart"
+          sizes="(min-width: 448px) 448px, 100vw"
+          className="aspect-video w-full max-w-md"
+        />
         <h1 className="text-h1 text-ink">We can’t find that page</h1>
         <p className="max-w-xl text-lead text-ink-body">
           The link may be old, or the item may no longer be sold. Try one of these instead.
