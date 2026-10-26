@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<title>Confirm your ShipEast account</title>
+</head>
+<body style="margin:0;padding:0;background-color:#F8ECF0;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">One tap to confirm your email and start sending groceries home.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F8ECF0;">
+<tr><td align="center" style="padding:32px 16px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;">
+
+<tr><td style="background-color:#AE0E31;border-radius:16px 16px 0 0;padding:28px 32px;">
+<p style="margin:0;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:26px;line-height:30px;font-weight:900;letter-spacing:-0.5px;color:#FFFFFF;">Ship<span style="color:#FFC6D3;">East</span></p>
+<p style="margin:6px 0 0;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:12px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#F3DBE0;">Shop &amp; Send</p>
+</td></tr>
+
+<tr><td style="background-color:#FFF8FA;border-left:1px solid #F1D9E0;border-right:1px solid #F1D9E0;padding:36px 32px 12px;">
+<p style="margin:0 0 10px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:12px;line-height:16px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#AE0E31;">Welcome to ShipEast</p>
+<h1 style="margin:0 0 16px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:28px;line-height:34px;font-weight:800;letter-spacing:-0.5px;color:#2B2326;">Confirm your email</h1>
+<p style="margin:0 0 14px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:26px;color:#4A3F43;">Thanks for creating a ShipEast account. Confirm your email and you can save your family's addresses, reorder in a few taps and follow every delivery from your account.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 28px;">
+<tr><td style="background-color:#AE0E31;border-radius:8px;">
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/account" style="display:inline-block;padding:15px 28px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;line-height:20px;font-weight:800;color:#FFFFFF;text-decoration:none;border-radius:8px;">Confirm my email</a>
+</td></tr>
+</table>
+<p style="margin:0 0 6px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;color:#6B5C63;">If the button doesn't work, copy this link into your browser:</p>
+<p style="margin:0 0 24px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;word-break:break-all;"><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/account" style="color:#AE0E31;text-decoration:underline;">{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/account</a></p>
+</td></tr>
+
+<tr><td style="background-color:#FFF8FA;border-left:1px solid #F1D9E0;border-right:1px solid #F1D9E0;padding:0 32px 32px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td style="border-top:1px solid #F1D9E0;padding-top:20px;">
+<p style="margin:0;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:13px;line-height:20px;color:#6B5C63;">Didn't create an account? You can ignore this email and nothing will change.</p>
+</td></tr>
+</table>
+</td></tr>
+
+<tr><td style="background-color:#2A0A12;border-radius:0 0 16px 16px;padding:24px 32px;">
+<p style="margin:0 0 6px;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;font-weight:700;color:#FFFFFF;">Groceries for family in Jamaica, delivered the same day.</p>
+<p style="margin:0;font-family:Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:12px;line-height:18px;color:#F3DBE0;">ShipEast Couriers &amp; Bearer Service Ltd &middot; <a href="{{ .SiteURL }}" style="color:#FFC6D3;text-decoration:none;">shipeastja.com</a> &middot; <a href="mailto:info@shipeastja.com" style="color:#FFC6D3;text-decoration:none;">info@shipeastja.com</a></p>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

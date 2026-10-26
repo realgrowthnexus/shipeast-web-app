@@ -7,6 +7,8 @@ import { Suspense } from 'react'
 import { OrderSummary } from '@/components/order/order-summary'
 import { Container } from '@/components/site/page-intro'
 import { Skeleton } from '@/components/ui/card'
+import { listAddresses } from '@/lib/account/store'
+import { getAccount } from '@/lib/auth/session'
 import { readBasket } from '@/lib/basket/cookie'
 import { priceBasket } from '@/lib/basket/pricing'
 import { getCatalogue } from '@/lib/data/catalogue'
@@ -35,13 +37,16 @@ export default function CheckoutPage() {
 async function CheckoutView() {
   // Pricing and delivery days read the clock, so this part always renders per request.
   await connection()
-  const [basket, catalogue, settings] = await Promise.all([
+  const [basket, catalogue, settings, account] = await Promise.all([
     readBasket(),
     getCatalogue(),
     getSettings(),
+    getAccount(),
   ])
   const priced = priceBasket(basket, catalogue)
   if (!priced.canCheckout || !priced.zone) redirect('/basket')
+  const saved = account ? await listAddresses(account) : []
+  const parish = priced.zone.parish
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_24rem] lg:gap-12">
@@ -50,6 +55,11 @@ async function CheckoutView() {
         deliveryDays={deliveryOptions(priced.zone, new Date())}
         paymentMethods={availablePaymentMethods(settings)}
         totalLabel={formatUsd(priced.totalCents)}
+        sender={
+          account && { fullName: account.fullName, email: account.email, phone: account.phone }
+        }
+        addresses={saved.filter((a) => a.parish === parish)}
+        otherParishAddresses={saved.filter((a) => a.parish !== parish).length}
       />
       <div className="flex flex-col gap-4 self-start lg:sticky lg:top-24">
         <OrderSummary

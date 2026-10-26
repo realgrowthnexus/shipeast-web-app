@@ -10,6 +10,10 @@ import { CHECKOUT_FIELDS, checkoutSchema, type CheckoutField } from '@/lib/order
 import { deliveryOptions } from '@/lib/orders/delivery'
 import { availablePaymentMethods } from '@/lib/orders/payment-methods'
 import { placeOrder } from '@/lib/orders/store'
+import { saveAddress } from '@/lib/account/store'
+import type { Account } from '@/lib/account/types'
+import { getAccount } from '@/lib/auth/session'
+import type { CheckoutData } from '@/lib/orders/checkout-schema'
 import { PLACE_ORDER_ERRORS } from '@/lib/orders/types'
 
 export type CheckoutState =
@@ -44,10 +48,11 @@ export async function placeOrderAction(
       errors[issue.path[0] as CheckoutField] ??= issue.message
   }
 
-  const [basket, catalogue, settings] = await Promise.all([
+  const [basket, catalogue, settings, account] = await Promise.all([
     readBasket(),
     getCatalogue(),
     getSettings(),
+    getAccount(),
   ])
   const priced = priceBasket(basket, catalogue)
   if (!priced.canCheckout || !priced.zone) {
@@ -72,8 +77,13 @@ export async function placeOrderAction(
     basket,
     priced,
     jmdPerUsd: settings.jmdPerUsd,
+    customerId: account && !account.preview ? account.id : null,
   })
   if (!result.ok) return fail({}, PLACE_ORDER_ERRORS[result.error])
+
+  if (account && !form.get('savedAddressId') && form.get('saveAddress') === 'on') {
+    await saveCheckoutAddress(account, parsed.data, priced.zone.parish)
+  }
 
   await writeBasket(emptyBasket)
   const query = `?t=${encodeURIComponent(result.token)}`
@@ -82,4 +92,23 @@ export async function placeOrderAction(
       ? `/checkout/bank-transfer/${result.orderNo}${query}`
       : `/checkout/pay/${result.orderNo}${query}`,
   )
+}
+
+/** "Save this address for next time". The order is already placed, so a failure here is quiet. */
+async function saveCheckoutAddress(account: Account, data: CheckoutData, parish: string) {
+  try {
+    await saveAddress(account, null, {
+      label: '',
+      recipientName: data.recipientName,
+      phone: data.recipientPhone,
+      street: data.street,
+      community: data.community,
+      parish,
+      landmark: data.landmark,
+      notes: data.deliveryNotes ?? '',
+      isDefault: false,
+    })
+  } catch (error) {
+    console.error('Saving the checkout address failed', error)
+  }
 }

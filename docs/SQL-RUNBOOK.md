@@ -28,6 +28,7 @@ for "Success" before moving to the next file.
 | 9   | `supabase/migrations/0009_storage.sql`            | Photo buckets and their access rules                                 |
 | 10  | `supabase/migrations/0010_seed.sql`               | Starting categories, parishes, settings and legal page slots         |
 | 11  | `supabase/migrations/0011_checkout.sql`           | Placing orders, recording payments, tracking-link and order lookup   |
+| 12  | `supabase/migrations/0012_accounts.sql`           | Sender accounts: link guest orders, email changes, address limit     |
 
 ## After running them
 
@@ -63,7 +64,28 @@ Until those keys are set, the site runs in demo mode on placeholder data.
      where key = 'bank_transfer';
      ```
 
-4. **Set `BASKET_SECRET`** in Vercel to any random string of 32 or more characters
+4. **Set up sign-in emails** (Supabase → Authentication).
+   - **URL Configuration:** Site URL `https://shipeastja.com`. Add
+     `https://shipeastja.com/auth/confirm` to Redirect URLs (and your Vercel preview address
+     followed by `/auth/confirm` if you test there).
+   - **Sign In / Providers → Email:** keep **Confirm email** on. Set the minimum password
+     length to 8.
+   - **Email Templates:** use the branded ShipEast emails in `supabase/templates/`. For each
+     one, set the subject, switch the editor to **Source**, delete what's there and paste the
+     whole file. Their links already point at `/auth/confirm` with a token hash, so they work
+     even when someone opens the email on another device.
+
+     | Supabase template    | Subject                           | File                                     |
+     | -------------------- | --------------------------------- | ---------------------------------------- |
+     | Confirm signup       | `Confirm your ShipEast account`   | `supabase/templates/confirm-signup.html` |
+     | Reset password       | `Reset your ShipEast password`    | `supabase/templates/reset-password.html` |
+     | Change email address | `Confirm your new ShipEast email` | `supabase/templates/change-email.html`   |
+
+   - **SMTP:** Supabase's built-in email only sends a few messages an hour. Before launch, add
+     Resend under **Project Settings → Authentication → SMTP** so sign-up emails come from
+     ShipEast and aren't held back.
+
+5. **Set `BASKET_SECRET`** in Vercel to any random string of 32 or more characters
    (for example the output of `openssl rand -base64 32`). It signs the basket cookie.
 
 ## Placeholders to replace later
@@ -86,3 +108,6 @@ Each migration has been run twice in a row on PostgreSQL 16 with Supabase-style 
   unavailable item or a used-up promo code stops the order with a clear message
 - a payment is only marked paid when the amount matches the order total, and a repeated
   PayPal notice is harmless
+- a guest order moves into an account only after that account's email is confirmed
+- a sender can change their name, phone and message choices, but not their role, customer
+  id or email on the profile directly

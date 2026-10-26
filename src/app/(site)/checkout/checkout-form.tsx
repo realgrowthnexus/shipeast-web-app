@@ -2,7 +2,7 @@
 
 import { Building2, CreditCard, Wallet } from 'lucide-react'
 import Link from 'next/link'
-import { useActionState, type ReactNode } from 'react'
+import { useActionState, useState, type ReactNode } from 'react'
 import { Alert } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,8 +12,10 @@ import {
   Field,
   Input,
   PhoneInput,
+  Select,
   Textarea,
 } from '@/components/ui/field'
+import { addressTitle, type SavedAddress } from '@/lib/account/types'
 import type { DeliveryOption } from '@/lib/orders/delivery'
 import { SUBSTITUTION_RULES } from '@/lib/substitution'
 import type { PaymentMethod } from '@/lib/types'
@@ -57,22 +59,54 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
   )
 }
 
+/** The recipient fields a saved address fills in. */
+function fromAddress(a: SavedAddress | undefined): Record<string, string> {
+  if (!a) return {}
+  return {
+    recipientName: a.recipientName,
+    recipientPhone: a.phone,
+    street: a.street,
+    community: a.community,
+    landmark: a.landmark,
+    deliveryNotes: a.notes,
+  }
+}
+
 export function CheckoutForm({
   parish,
   deliveryDays,
   paymentMethods,
   totalLabel,
+  sender,
+  addresses,
+  otherParishAddresses = 0,
 }: {
   parish: string
   deliveryDays: DeliveryOption[]
   paymentMethods: PaymentMethod[]
   totalLabel: string
+  /** The signed-in sender, to fill in step 3. Null for guests. */
+  sender: { fullName: string; email: string; phone: string | null } | null
+  /** Saved family addresses in this parish. */
+  addresses: SavedAddress[]
+  /** Saved addresses that can't be used because they're in another parish. */
+  otherParishAddresses?: number
 }) {
   const [state, action, pending] = useActionState<CheckoutState, FormData>(placeOrderAction, {
     status: 'idle',
   })
   const errors = state.status === 'error' ? state.errors : {}
   const v = state.status === 'error' ? state.values : {}
+
+  // Picking a saved address refills the recipient fields. After a failed submit, the values
+  // the sender typed win until they pick again.
+  const [selected, setSelected] = useState(
+    addresses.find((a) => a.isDefault)?.id ?? addresses[0]?.id ?? '',
+  )
+  const [pickedAt, setPickedAt] = useState<CheckoutState | null>(null)
+  const fresh = pickedAt === state
+  const r =
+    state.status === 'error' && !fresh ? v : fromAddress(addresses.find((a) => a.id === selected))
 
   return (
     <form action={action} noValidate className="flex flex-col gap-6">
@@ -94,13 +128,55 @@ export function CheckoutForm({
       )}
 
       <Step n={1} title="Who is receiving it?">
-        <div className="grid gap-5 sm:grid-cols-2">
+        {addresses.length > 0 && (
+          <Field
+            id="savedAddressId"
+            label="Send to"
+            help="Pick someone you’ve saved, or add someone new."
+          >
+            <Select
+              id="savedAddressId"
+              name="savedAddressId"
+              value={selected}
+              onChange={(e) => {
+                setSelected(e.target.value)
+                setPickedAt(state)
+              }}
+            >
+              {addresses.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {addressTitle(a)}
+                </option>
+              ))}
+              <option value="">Someone new</option>
+            </Select>
+          </Field>
+        )}
+        {!sender && (
+          <p className="text-small text-ink-muted">
+            Sent with us before?{' '}
+            <Link
+              href="/signin?next=%2Fcheckout"
+              className="font-semibold text-crimson underline-offset-2 hover:underline"
+            >
+              Sign in
+            </Link>{' '}
+            to use your saved family addresses.
+          </p>
+        )}
+        {sender && !addresses.length && otherParishAddresses > 0 && (
+          <p className="text-small text-ink-muted">
+            Your saved addresses are in other parishes. To use one, change the parish in your
+            basket.
+          </p>
+        )}
+        <div key={`${selected}-${fresh}`} className="grid gap-5 sm:grid-cols-2">
           <Field id="recipientName" label="Their full name" error={errors.recipientName}>
             <Input
               {...describedBy('recipientName', errors.recipientName)}
               name="recipientName"
               autoComplete="off"
-              defaultValue={v.recipientName}
+              defaultValue={r.recipientName}
               required
             />
           </Field>
@@ -114,7 +190,7 @@ export function CheckoutForm({
               {...describedBy('recipientPhone', errors.recipientPhone)}
               name="recipientPhone"
               autoComplete="off"
-              defaultValue={v.recipientPhone}
+              defaultValue={r.recipientPhone}
               required
             />
           </Field>
@@ -123,7 +199,7 @@ export function CheckoutForm({
               {...describedBy('street', errors.street)}
               name="street"
               autoComplete="off"
-              defaultValue={v.street}
+              defaultValue={r.street}
               required
             />
           </Field>
@@ -132,7 +208,7 @@ export function CheckoutForm({
               {...describedBy('community', errors.community)}
               name="community"
               autoComplete="off"
-              defaultValue={v.community}
+              defaultValue={r.community}
               required
             />
           </Field>
@@ -159,7 +235,7 @@ export function CheckoutForm({
               {...describedBy('landmark', errors.landmark)}
               name="landmark"
               placeholder="Opposite the church, blue gate"
-              defaultValue={v.landmark}
+              defaultValue={r.landmark}
               required
             />
           </Field>
@@ -174,9 +250,17 @@ export function CheckoutForm({
               {...describedBy('deliveryNotes', errors.deliveryNotes)}
               name="deliveryNotes"
               rows={2}
-              defaultValue={v.deliveryNotes}
+              defaultValue={r.deliveryNotes}
             />
           </Field>
+          {sender && !selected && (
+            <Checkbox
+              name="saveAddress"
+              defaultChecked
+              className="sm:col-span-2"
+              label="Save this address to my account for next time"
+            />
+          )}
         </div>
       </Step>
 
@@ -228,7 +312,7 @@ export function CheckoutForm({
               {...describedBy('senderName', errors.senderName)}
               name="senderName"
               autoComplete="name"
-              defaultValue={v.senderName}
+              defaultValue={v.senderName ?? sender?.fullName}
               required
             />
           </Field>
@@ -243,7 +327,7 @@ export function CheckoutForm({
               name="senderEmail"
               type="email"
               autoComplete="email"
-              defaultValue={v.senderEmail}
+              defaultValue={v.senderEmail ?? sender?.email}
               required
             />
           </Field>
@@ -259,7 +343,7 @@ export function CheckoutForm({
               name="senderPhone"
               type="tel"
               autoComplete="tel"
-              defaultValue={v.senderPhone}
+              defaultValue={v.senderPhone ?? sender?.phone ?? undefined}
             />
           </Field>
         </div>

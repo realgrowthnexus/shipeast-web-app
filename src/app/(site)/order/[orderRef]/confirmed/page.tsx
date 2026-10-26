@@ -1,4 +1,4 @@
-import { CircleCheck, Hourglass, Share2 } from 'lucide-react'
+import { CircleCheck, Hourglass, Share2, UserRoundPlus } from 'lucide-react'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
@@ -8,6 +8,7 @@ import { Alert } from '@/components/ui/alert'
 import { ButtonLink } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/card'
 import { CopyButton } from '@/components/ui/copy-button'
+import { getAccount } from '@/lib/auth/session'
 import { formatDate } from '@/lib/format'
 import { orderForPage, trackingPath } from '@/lib/orders/page-order'
 import { bankPath, failedPath } from '@/lib/orders/payments'
@@ -30,7 +31,7 @@ export default function ConfirmedPage(props: PageProps<'/order/[orderRef]/confir
 
 async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/confirmed'>) {
   const [{ orderRef }, { t }] = await Promise.all([params, searchParams])
-  const order = await orderForPage(orderRef, t)
+  const [order, account] = await Promise.all([orderForPage(orderRef, t), getAccount()])
   if (order.status === 'payment_failed') redirect(failedPath(order))
   if (order.status === 'awaiting_payment' && order.paymentMethod === 'bank_transfer') {
     redirect(bankPath(order))
@@ -117,6 +118,36 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
           </ButtonLink>
         </div>
       </section>
+
+      {!account && (
+        <section
+          aria-labelledby="account-offer"
+          className="flex flex-col gap-4 rounded-lg border-2 border-blush bg-surface-tint p-card-lg sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div className="flex gap-3">
+            <UserRoundPlus className="mt-1 size-6 shrink-0 text-crimson" aria-hidden />
+            <div>
+              <h2 id="account-offer" className="text-h3 text-ink">
+                Send again in one tap next time
+              </h2>
+              <p className="mt-1 text-ink-body">
+                Create a free account with {order.senderEmail} and this order moves into it, with
+                its receipt and door photo.
+              </p>
+            </div>
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <ButtonLink
+              href={`/signup?email=${encodeURIComponent(order.senderEmail)}&next=%2Faccount%2Forders`}
+            >
+              Create account
+            </ButtonLink>
+            <ButtonLink href="/signin?next=%2Faccount%2Forders" variant="ghost">
+              Sign in
+            </ButtonLink>
+          </div>
+        </section>
+      )}
 
       <OrderSummary
         lines={order.items.map((i, n) => ({
