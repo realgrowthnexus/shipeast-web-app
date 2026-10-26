@@ -30,10 +30,10 @@ export function DataTable<T>({
     lg: 'hidden lg:table-cell',
   }
   return (
-    <div className="overflow-x-auto rounded-lg border border-line bg-white">
-      <table className="w-full text-left text-sm">
+    <div className="overflow-x-auto rounded-lg border border-line bg-surface">
+      <table className="w-full text-left text-small">
         <caption className="sr-only">{caption}</caption>
-        <thead className="border-b border-line bg-blush-100 text-ink-muted">
+        <thead className="border-b border-line bg-surface text-ink-muted">
           <tr>
             {columns.map((c) => (
               <th
@@ -59,7 +59,7 @@ export function DataTable<T>({
             </tr>
           ) : (
             rows.map((row) => (
-              <tr key={rowKey(row)} className="hover:bg-blush-50">
+              <tr key={rowKey(row)} className="hover:bg-canvas">
                 {columns.map((c) => (
                   <td
                     key={c.key}

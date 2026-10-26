@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 const control =
-  'w-full rounded-md border-2 border-line bg-white px-3.5 text-base text-ink placeholder:text-ink-muted/70 transition-colors hover:border-blush focus:border-crimson focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-danger disabled:bg-blush-100 disabled:text-ink-muted'
+  'w-full rounded-md border-[1.5px] border-line-strong bg-surface px-3.5 text-body text-ink placeholder:text-ink-muted transition-colors hover:border-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-danger disabled:border-line disabled:bg-canvas disabled:text-ink-muted'
 
 /**
  * Label, control, help and error in one block. The label is always visible (never a
@@ -28,18 +28,18 @@ export function Field({
 }) {
   return (
     <div className={cn('flex flex-col gap-1.5', className)}>
-      <label htmlFor={id} className="text-sm font-semibold text-ink">
+      <label htmlFor={id} className="text-small font-semibold text-ink">
         {label}
         {optional && <span className="font-normal text-ink-muted"> (optional)</span>}
       </label>
       {children}
       {help && !error && (
-        <p id={`${id}-help`} className="text-sm text-ink-muted">
+        <p id={`${id}-help`} className="text-small text-ink-muted">
           {help}
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-sm font-medium text-danger">
+        <p id={`${id}-error`} className="text-small font-medium text-danger">
           {error}
         </p>
       )}
@@ -104,7 +104,7 @@ export function Checkbox({
         className="mt-0.5 size-5 shrink-0 cursor-pointer rounded accent-crimson"
         {...props}
       />
-      <span className="text-base text-ink">{label}</span>
+      <span className="text-body text-ink">{label}</span>
     </label>
   )
 }
@@ -119,16 +119,23 @@ export function ChoiceGroup({
   options,
   defaultValue,
   columns = 1,
+  error,
 }: {
   name: string
   legend: string
   options: { value: string; title: string; description?: string; icon?: ReactNode }[]
   defaultValue?: string
   columns?: 1 | 2 | 3
+  error?: string
 }) {
   return (
-    <fieldset>
-      <legend className="mb-2 text-sm font-semibold text-ink">{legend}</legend>
+    <fieldset aria-describedby={error ? `${name}-error` : undefined}>
+      <legend className="mb-2 text-small font-semibold text-ink">{legend}</legend>
+      {error && (
+        <p id={`${name}-error`} className="mb-2 text-small font-medium text-danger">
+          {error}
+        </p>
+      )}
       <div
         className={cn(
           'grid gap-2.5',
@@ -139,7 +146,7 @@ export function ChoiceGroup({
         {options.map((o) => (
           <label
             key={o.value}
-            className="group relative flex cursor-pointer gap-3 rounded-md border-2 border-line bg-white p-4 transition-colors hover:border-blush has-checked:border-crimson has-checked:bg-blush-100 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
+            className="group relative flex cursor-pointer gap-3 rounded-md border-[1.5px] border-line-strong bg-surface p-4 transition-colors hover:border-ink-muted has-checked:border-crimson has-checked:bg-surface-tint has-checked:ring-1 has-checked:ring-crimson has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
           >
             <input
               type="radio"
@@ -153,7 +160,7 @@ export function ChoiceGroup({
                 {o.icon}
                 {o.title}
               </span>
-              {o.description && <span className="text-sm text-ink-muted">{o.description}</span>}
+              {o.description && <span className="text-small text-ink-muted">{o.description}</span>}
             </span>
           </label>
         ))}

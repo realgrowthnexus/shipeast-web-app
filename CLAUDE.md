@@ -45,22 +45,28 @@ The family in Jamaica installs nothing — they get SMS. The sender gets email +
 
 ## Brand & design system (from the client PDFs — do not invent new brand colours)
 
-Tokens live in `src/app/globals.css` (`@theme`). Use tokens, never raw hex in components.
+Tokens live in `src/app/globals.css` (`@theme`); the full system is in `docs/DESIGN-SYSTEM.md`
+and live at `/styleguide`. Use tokens, never raw hex in components.
 
-| Token | Hex | Use |
-|---|---|---|
-| crimson | `#AE0E31` | primary brand surface, primary buttons, hero blocks |
-| crimson-deep | `#7A0A23` | hover/pressed |
-| oxblood | `#2A0A12` | "red mixed with black": footer, deep surfaces |
-| signal | `#E30D3B` | accents only: step numbers, live dot, big numerals (4.16:1 on blush-50 — never small text) |
-| blush | `#FFC6D3` | "East" in wordmark, text/accents on crimson |
-| blush-50 | `#F8ECF0` | page background |
-| blush-100 | `#FFF6F8` | cards on page background |
-| blush-200 | `#FFE8EE` | highlighted card / selected state |
-| line | `#F1D9E0` | borders, dividers |
-| ink | `#2B2326` | body text, headings |
-| ink-muted | `#6B5C63` | secondary text (passes 4.5:1 on blush-50) |
+| Token                      | Hex                               | Use                                                                   |
+| -------------------------- | --------------------------------- | --------------------------------------------------------------------- |
+| crimson                    | `#AE0E31`                         | primary brand surface, primary buttons, hero blocks                   |
+| crimson-deep               | `#7A0A23`                         | hover/pressed                                                         |
+| oxblood                    | `#2A0A12`                         | "red mixed with black": footer, deep surfaces                         |
+| signal                     | `#E30D3B`                         | accents only: step numbers, live dot, big numerals (never small text) |
+| blush                      | `#FFC6D3`                         | "East" in wordmark, text/accents on crimson                           |
+| canvas                     | `#F8ECF0`                         | page background                                                       |
+| surface                    | `#FFF8FA`                         | cards, inputs, panels (never `bg-white`)                              |
+| surface-tint               | `#FFE8EE`                         | highlighted card / selected state                                     |
+| line / line-strong         | `#F1D9E0` / `#9C7F89`             | dividers / form control borders (3:1)                                 |
+| ink / ink-body / ink-muted | `#2B2326` / `#4A3F43` / `#6B5C63` | headings / paragraphs / help text                                     |
+| on-crimson-muted           | `#F3DBE0`                         | secondary text on crimson (no `text-white/70`)                        |
 
+- Type: use the named scale only (`text-display`, `text-h1`, `text-h2`, `text-h3`, `text-lead`,
+  `text-body`, `text-small`, `eyebrow`). Never set `tracking-*` by hand.
+- Spacing: sections use `section-sm` / `section` / `section-lg`, cards `p-card` / `p-card-lg`,
+  page sides `gutter`. Corners: 4 / 8 / 12 / 16px. Cards are flat; only floating layers get
+  `shadow-float`.
 - Typeface: **Figtree** (the PDFs' font) via `next/font/google`, weights 400–900.
   Headlines 800–900 with tight tracking; body 400/500.
 - **No gradients of any kind** (user rule): flat brand colours only, no gloss. Red feels

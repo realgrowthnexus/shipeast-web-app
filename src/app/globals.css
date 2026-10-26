@@ -7,20 +7,29 @@
  * never raw hex values in components.
  */
 @theme {
+  /* Brand (from the client PDFs). Flat colours only: never a gradient. */
   --color-crimson: #ae0e31;
   --color-crimson-deep: #7a0a23;
   --color-oxblood: #2a0a12;
-  --color-signal: #e30d3b;
+  --color-signal: #e30d3b; /* numerals, live dot, focus ring. Never text under 24px. */
   --color-blush: #ffc6d3;
-  --color-blush-50: #f8ecf0;
-  --color-blush-100: #fff6f8;
-  --color-blush-200: #ffe8ee;
-  --color-line: #f1d9e0;
-  --color-ink: #2b2326;
-  --color-ink-muted: #6b5c63;
-  --color-ink-subtle: #94878d; /* decorative only — 2.99:1, never for text */
 
-  /* Status colours (lifecycle pills). Text colours pass 4.5:1 on their tint. */
+  /* Surfaces and lines */
+  --color-canvas: #f8ecf0; /* page background */
+  --color-surface: #fff8fa; /* cards, inputs, panels (the PDF card fill) */
+  --color-surface-tint: #ffe8ee; /* selected, hover, image placeholders */
+  --color-line: #f1d9e0; /* decorative borders and dividers */
+  --color-line-strong: #9c7f89; /* form control borders: 3.5:1 on surface */
+
+  /* Text */
+  --color-ink: #2b2326; /* headings, prices, labels */
+  --color-ink-body: #4a3f43; /* paragraphs (the PDF body colour) */
+  --color-ink-muted: #6b5c63; /* help text, captions, placeholders: 5.5:1 on canvas */
+  --color-ink-disabled: #94878d; /* disabled and decorative only: 3:1, never text */
+  --color-on-crimson-muted: #f3dbe0; /* secondary text on crimson: 5.5:1 */
+  --color-on-oxblood-muted: #c3babd; /* secondary text on oxblood: 9.6:1 */
+
+  /* Status colours. Text colours pass 4.5:1 on their tint. */
   --color-ok: #16794a;
   --color-ok-tint: #e3f4ea;
   --color-info: #1d5fa8;
@@ -29,16 +38,53 @@
   --color-warn-tint: #fdf0d8;
   --color-danger: #b42318;
   --color-danger-tint: #fde8e6;
+  --color-danger-deep: #93190f;
 
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
+  /*
+   * Type scale. Sizes grow smoothly from a 375px phone to a 1024px screen, so one class
+   * covers every width. Letter spacing and weight belong to the style: never set them by hand.
+   */
+  --text-display: clamp(3rem, 2.134rem + 3.698vw, 4.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+  --text-display--font-weight: 900;
+  --text-numeral: clamp(3rem, 2.567rem + 1.849vw, 3.75rem);
+  --text-numeral--line-height: 1;
+  --text-numeral--letter-spacing: -0.02em;
+  --text-numeral--font-weight: 900;
+  --text-h1: clamp(2.25rem, 1.817rem + 1.849vw, 3rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 800;
+  --text-h2: clamp(1.75rem, 1.461rem + 1.233vw, 2.25rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 800;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 800;
+  --text-lead: clamp(1.125rem, 1.053rem + 0.308vw, 1.25rem);
+  --text-lead--line-height: 1.55;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 800;
 
-  --shadow-card: 0 1px 2px rgb(43 35 38 / 0.04), 0 8px 24px -12px rgb(122 10 35 / 0.18);
-  --shadow-lift: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
+  /* Corners: crisp, like the PDFs. */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Cards are flat with a 1px line. Only floating layers get a shadow. */
+  --shadow-float: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -50,7 +96,7 @@
   }
 
   body {
-    background: var(--color-blush-50);
+    background: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: 'ss01';
@@ -77,6 +123,36 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Spacing scale for page rhythm (see docs/DESIGN-SYSTEM.md). */
+@utility section-sm {
+  padding-block: clamp(3rem, 2.423rem + 2.465vw, 4rem);
+}
+@utility section {
+  padding-block: clamp(4rem, 2.844rem + 4.931vw, 6rem);
+}
+@utility section-lg {
+  padding-block: clamp(5rem, 3.267rem + 7.396vw, 8rem);
+}
+@utility p-card {
+  padding: clamp(1.25rem, 1.106rem + 0.616vw, 1.5rem);
+}
+@utility p-card-lg {
+  padding: clamp(1.5rem, 1.211rem + 1.233vw, 2rem);
+}
+@utility gutter {
+  padding-inline: clamp(1rem, 0.422rem + 2.465vw, 2rem);
+}
+
+/* The small uppercase label above a title, as on every page of the client PDFs. Pair it with
+   text-crimson (text-blush on crimson). */
+@utility eyebrow {
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  font-weight: var(--text-eyebrow--font-weight);
+  text-transform: uppercase;
 }
 
 @utility text-balance {

@@ -40,13 +40,13 @@ export function Dialog({
       onClick={(e) => e.target === ref.current && onClose()}
       aria-labelledby="dialog-title"
       className={cn(
-        'm-auto max-h-[90dvh] w-[min(32rem,calc(100%-2rem))] overflow-hidden rounded-lg bg-blush-100 p-0 text-ink shadow-lift backdrop:bg-oxblood/60 backdrop:backdrop-blur-[2px]',
+        'm-auto max-h-[90dvh] w-[min(32rem,calc(100%-2rem))] overflow-hidden rounded-lg bg-surface p-0 text-ink shadow-float backdrop:bg-oxblood/60 backdrop:backdrop-blur-[2px]',
         variant === 'sheet' &&
           'mb-0 w-full max-w-none rounded-b-none sm:mb-auto sm:w-[min(32rem,calc(100%-2rem))] sm:rounded-lg',
       )}
     >
       <div className="flex items-center justify-between gap-4 border-b border-line py-2 pr-2 pl-5">
-        <h2 id="dialog-title" className="text-lg font-bold">
+        <h2 id="dialog-title" className="text-h3">
           {title}
         </h2>
         <IconButton label="Close" onClick={onClose}>
@@ -54,7 +54,7 @@ export function Dialog({
         </IconButton>
       </div>
       <div className="max-h-[60dvh] overflow-y-auto p-5">{children}</div>
-      {footer && <div className="border-t border-line bg-white p-4">{footer}</div>}
+      {footer && <div className="border-t border-line bg-surface p-4">{footer}</div>}
     </dialog>
   )
 }

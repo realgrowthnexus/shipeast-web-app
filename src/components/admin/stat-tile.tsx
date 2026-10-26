@@ -19,11 +19,11 @@ export function StatTile({
   return (
     <div
       className={cn(
-        'flex flex-col gap-1 rounded-lg border bg-white p-4',
-        attention ? 'border-signal/40 bg-blush-100' : 'border-line',
+        'flex flex-col gap-1 rounded-lg border bg-surface p-4',
+        attention ? 'border-signal/40 bg-surface' : 'border-line',
       )}
     >
-      <div className="flex items-center justify-between gap-2 text-sm font-semibold text-ink-muted">
+      <div className="flex items-center justify-between gap-2 text-small font-semibold text-ink-muted">
         {label}
         {icon && (
           <span className={cn('[&_svg]:size-5', attention ? 'text-signal' : 'text-crimson')}>
@@ -31,10 +31,8 @@ export function StatTile({
           </span>
         )}
       </div>
-      <div className="text-xl font-extrabold tracking-tight whitespace-nowrap text-ink tabular-nums sm:text-3xl">
-        {value}
-      </div>
-      {hint && <p className="text-sm text-ink-muted">{hint}</p>}
+      <div className="text-h2 whitespace-nowrap text-ink tabular-nums">{value}</div>
+      {hint && <p className="text-small text-ink-muted">{hint}</p>}
     </div>
   )
 }

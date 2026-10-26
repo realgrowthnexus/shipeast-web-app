@@ -30,7 +30,7 @@ export function DialogDemo() {
           </div>
         }
       >
-        <p className="text-ink-muted">
+        <p className="text-ink-body">
           {open === 'sheet'
             ? 'On phones the basket slides up from the bottom so the shop stays in view.'
             : 'Long Grain Rice will come out of your basket. You can add it again any time.'}

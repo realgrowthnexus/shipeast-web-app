@@ -54,16 +54,41 @@ export const metadata: Metadata = {
 }
 
 const swatches = [
-  ['crimson', '#AE0E31', 'bg-crimson', 'Primary surfaces and buttons'],
+  ['crimson', '#AE0E31', 'bg-crimson', 'Buttons, hero and callout blocks, links'],
   ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover and pressed'],
-  ['oxblood', '#2A0A12', 'bg-oxblood', 'Footer and deep surfaces'],
-  ['signal', '#E30D3B', 'bg-signal', 'Accents only, never small text'],
-  ['blush', '#FFC6D3', 'bg-blush', 'Text and accents on crimson'],
-  ['blush-50', '#F8ECF0', 'bg-blush-50', 'Page background'],
-  ['blush-100', '#FFF6F8', 'bg-blush-100', 'Cards'],
-  ['line', '#F1D9E0', 'bg-line', 'Borders and dividers'],
-  ['ink', '#2B2326', 'bg-ink', 'Text'],
-  ['ink-muted', '#6B5C63', 'bg-ink-muted', 'Secondary text'],
+  ['oxblood', '#2A0A12', 'bg-oxblood', 'Footer and dark panels'],
+  ['signal', '#E30D3B', 'bg-signal', 'Numerals, live dot, focus. Never small text'],
+  ['blush', '#FFC6D3', 'bg-blush', 'Accent text on crimson'],
+  ['canvas', '#F8ECF0', 'bg-canvas', 'Page background'],
+  ['surface', '#FFF8FA', 'bg-surface', 'Cards, inputs, panels'],
+  ['surface-tint', '#FFE8EE', 'bg-surface-tint', 'Selected, hover, placeholders'],
+  ['line', '#F1D9E0', 'bg-line', 'Card borders and dividers'],
+  ['line-strong', '#9C7F89', 'bg-line-strong', 'Form control borders (3:1)'],
+  ['ink', '#2B2326', 'bg-ink', 'Headings, prices, labels'],
+  ['ink-body', '#4A3F43', 'bg-ink-body', 'Paragraphs'],
+  ['ink-muted', '#6B5C63', 'bg-ink-muted', 'Help text and captions'],
+  ['ink-disabled', '#94878D', 'bg-ink-disabled', 'Disabled and decorative only'],
+  ['on-crimson-muted', '#F3DBE0', 'bg-on-crimson-muted', 'Secondary text on crimson'],
+] as const
+
+const typeStyles = [
+  ['text-display', '48 to 72px, 900', 'Send groceries, not money'],
+  ['text-numeral', '48 to 60px, 900', '1 2 3 4'],
+  ['text-h1', '36 to 48px, 800', 'Delivery areas and fees'],
+  ['text-h2', '28 to 36px, 800', 'Ready-made baskets'],
+  ['text-h3', '20px, 800', 'Who is receiving it?'],
+  ['text-lead', '18 to 20px, 400', 'We buy it in Jamaica and deliver the same day.'],
+  ['text-body', '16px, 400', 'Your driver buys everything and photographs the receipt.'],
+  ['text-small', '14px, 500', 'Prices checked October 20, 2026.'],
+  ['eyebrow', '12px, 800, uppercase', 'How it works'],
+] as const
+
+const radii = [
+  ['rounded-sm', '4px'],
+  ['rounded-md', '8px'],
+  ['rounded-lg', '12px'],
+  ['rounded-xl', '16px'],
+  ['rounded-full', 'Pill'],
 ] as const
 
 const categoryIcons: Record<string, ReactNode> = {
@@ -132,7 +157,7 @@ function Section({
       aria-labelledby={`${id}-h`}
       className="scroll-mt-24 border-t border-line py-12"
     >
-      <h2 id={`${id}-h`} className="text-2xl font-extrabold tracking-tight text-ink">
+      <h2 id={`${id}-h`} className="text-h2 text-ink">
         {title}
       </h2>
       {intro && <p className="mt-1 max-w-2xl text-ink-muted">{intro}</p>}
@@ -149,13 +174,11 @@ export default function StyleguidePage() {
   return (
     <>
       <DemoBanner />
-      <SiteHeader basketCount={3} />
-      <main className="mx-auto w-full max-w-6xl px-4 pb-24">
+      <SiteHeader />
+      <main className="mx-auto w-full max-w-6xl gutter pb-24">
         <header className="py-12">
-          <h1 className="text-4xl font-black tracking-tight text-balance text-ink sm:text-5xl">
-            Shop &amp; Send design system
-          </h1>
-          <p className="mt-3 max-w-2xl text-lg text-ink-muted">
+          <h1 className="text-h1 text-balance text-ink">Shop &amp; Send design system</h1>
+          <p className="mt-3 max-w-2xl text-lead text-ink-body">
             Every building block of the site, driver app and admin panel, in the client&apos;s
             colours and the Figtree typeface. Product names and prices are placeholders.
           </p>
@@ -164,13 +187,13 @@ export default function StyleguidePage() {
         <Section
           id="colour"
           title="Colour"
-          intro="Taken from ShipEast's proposal and scope documents. Red is premium: crimson into oxblood with a soft gloss, never flat pink-red."
+          intro="Taken from ShipEast's proposal and scope documents. Flat colours only, never a gradient. Red feels premium through large solid crimson and oxblood blocks."
         >
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
             {swatches.map(([name, hex, cls, use]) => (
-              <div key={name} className="overflow-hidden rounded-md border border-line bg-white">
+              <div key={name} className="overflow-hidden rounded-md border border-line bg-surface">
                 <div className={`h-16 ${cls}`} />
-                <div className="p-2.5 text-sm">
+                <div className="p-2.5 text-small">
                   <p className="font-semibold text-ink">{name}</p>
                   <p className="text-ink-muted tabular-nums">{hex}</p>
                   <p className="mt-1 text-xs text-ink-muted">{use}</p>
@@ -178,7 +201,7 @@ export default function StyleguidePage() {
               </div>
             ))}
           </div>
-          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-crimson text-lg font-bold text-white">
+          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-crimson text-h3 text-white">
             Solid crimson surface
           </div>
         </Section>
@@ -188,18 +211,52 @@ export default function StyleguidePage() {
           title="Type"
           intro="Figtree throughout. Headlines heavy and tight, body regular at 16px or larger."
         >
-          <div className="flex flex-col gap-4">
-            <p className="text-5xl font-black tracking-tight text-ink">Send groceries, not money</p>
-            <p className="text-3xl font-extrabold tracking-tight text-ink">Ready-made baskets</p>
-            <p className="text-xl font-bold text-ink">Who is receiving it?</p>
-            <p className="max-w-prose text-base text-ink">
-              Your driver buys everything at a store in Jamaica, photographs the receipt, and
-              delivers to the door the same day. Your family doesn&apos;t need to install anything.
-            </p>
-            <p className="text-sm text-ink-muted">
-              Prices checked {formatDate('2026-10-20T15:00:00Z')}. Delivery to St. Thomas and
-              Kingston.
-            </p>
+          <dl className="flex flex-col divide-y divide-line">
+            {typeStyles.map(([cls, spec, sample]) => (
+              <div key={cls} className="grid gap-1 py-4 sm:grid-cols-[12rem_1fr] sm:gap-6">
+                <dt className="text-small text-ink-muted">
+                  <code className="font-semibold text-ink">{cls}</code>
+                  <br />
+                  {spec}
+                </dt>
+                <dd
+                  className={
+                    cls === 'eyebrow'
+                      ? 'eyebrow text-crimson'
+                      : `${cls} ${cls === 'text-numeral' ? 'text-signal' : 'text-ink'}`
+                  }
+                >
+                  {sample}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+
+        <Section
+          id="shape"
+          title="Spacing and shape"
+          intro="A 4px grid. Sections use section-sm, section or section-lg; cards use p-card or p-card-lg. Cards are flat with a 1px line; only floating layers get a shadow."
+        >
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+            {radii.map(([cls, size]) => (
+              <div key={cls} className="flex flex-col gap-2">
+                <div className={`h-16 border border-line bg-surface ${cls}`} />
+                <p className="text-small text-ink-muted">
+                  <code className="font-semibold text-ink">{cls}</code> {size}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-lg border border-line bg-surface p-card">
+              <p className="text-h3 text-ink">Card</p>
+              <p className="text-small text-ink-muted">surface, 1px line, rounded-lg, p-card</p>
+            </div>
+            <div className="rounded-xl bg-crimson p-card-lg text-white">
+              <p className="text-h3">Feature panel</p>
+              <p className="text-small text-on-crimson-muted">crimson, rounded-xl, p-card-lg</p>
+            </div>
           </div>
         </Section>
 
@@ -323,7 +380,7 @@ export default function StyleguidePage() {
             <Checkbox label="Save this address for next time" defaultChecked />
             <div className="flex items-center gap-4">
               <QuantityStepper label="Quantity of Long Grain Rice" defaultValue={2} />
-              <span className="text-sm text-ink-muted">Quantity</span>
+              <span className="text-small text-ink-muted">Quantity</span>
             </div>
           </div>
         </Section>
@@ -406,7 +463,7 @@ export default function StyleguidePage() {
           intro="The signature element: the store receipt and the photo at the door. It is the product's promise, so it gets the boldest treatment and everything around it stays quiet."
         >
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="rounded-lg bg-blush-200 p-6 sm:p-10">
+            <div className="rounded-lg bg-surface-tint p-6 sm:p-10">
               <ProofPair
                 tilt
                 receipt={{
@@ -498,7 +555,7 @@ export default function StyleguidePage() {
               Pick from groceries, household, pharmacy and baby items, or choose a ready-made
               basket.
             </EmptyState>
-            <div className="flex flex-col gap-3 rounded-lg border border-line bg-blush-100 p-4">
+            <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4">
               <Skeleton className="aspect-[4/3] w-full" />
               <Skeleton className="h-5 w-2/3" />
               <Skeleton className="h-4 w-1/3" />
@@ -517,14 +574,14 @@ export default function StyleguidePage() {
                     id: 'active',
                     title: 'Active',
                     count: 2,
-                    body: <p className="text-ink-muted">Orders on their way appear here.</p>,
+                    body: <p className="text-ink-body">Orders on their way appear here.</p>,
                   },
                   {
                     id: 'past',
                     title: 'Past',
                     count: 14,
                     body: (
-                      <p className="text-ink-muted">
+                      <p className="text-ink-body">
                         Delivered and closed orders, ready to send again.
                       </p>
                     ),

@@ -27,6 +27,7 @@ for "Success" before moving to the next file.
 | 8   | `supabase/migrations/0008_row_level_security.sql` | Who can read and change what                                         |
 | 9   | `supabase/migrations/0009_storage.sql`            | Photo buckets and their access rules                                 |
 | 10  | `supabase/migrations/0010_seed.sql`               | Starting categories, parishes, settings and legal page slots         |
+| 11  | `supabase/migrations/0011_checkout.sql`           | Placing orders, recording payments, tracking-link and order lookup   |
 
 ## After running them
 
@@ -44,6 +45,27 @@ for "Success" before moving to the next file.
 
 Until those keys are set, the site runs in demo mode on placeholder data.
 
+3. **Switch on payments.** Checkout only offers the methods that are set up.
+   - **PayPal and cards:** in the PayPal developer dashboard, create a REST app and a webhook
+     pointing at `https://shipeastja.com/api/paypal/webhook` with the events
+     `PAYMENT.CAPTURE.COMPLETED`, `PAYMENT.CAPTURE.DENIED`, `PAYMENT.CAPTURE.DECLINED`,
+     `PAYMENT.CAPTURE.REFUNDED` and `PAYMENT.CAPTURE.REVERSED`. Then add to Vercel:
+     `NEXT_PUBLIC_PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` (secret), `PAYPAL_WEBHOOK_ID`, and
+     `PAYPAL_ENV=live` once you leave sandbox testing.
+   - **Bank transfer:** until the admin panel is ready, fill in the account with this query
+     (bank transfer stays hidden while the bank name, account name or number is empty):
+
+     ```sql
+     update public.settings set value = jsonb_build_object(
+       'bank_name', 'Bank name', 'account_name', 'ShipEast Couriers & Bearer Service Ltd',
+       'account_number', '000000000', 'branch', 'Branch', 'account_type', 'Savings',
+       'currency', 'USD', 'notes', '')
+     where key = 'bank_transfer';
+     ```
+
+4. **Set `BASKET_SECRET`** in Vercel to any random string of 32 or more characters
+   (for example the output of `openssl rand -base64 32`). It signs the basket cookie.
+
 ## Placeholders to replace later
 
 The seed file uses placeholder delivery fees (St. Thomas USD$8, Kingston USD$10), a 1:00 PM
@@ -60,3 +82,7 @@ Each migration has been run twice in a row on PostgreSQL 16 with Supabase-style 
 - a driver can't close an order or change prices or totals
 - senders see only their own orders, and guests reach an order only by its tracking link
 - nobody can promote themselves to admin
+- an order is always repriced from the database, so a changed price, a closed parish, an
+  unavailable item or a used-up promo code stops the order with a clear message
+- a payment is only marked paid when the amount matches the order total, and a repeated
+  PayPal notice is harmless

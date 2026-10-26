@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  formatClockTime,
   formatDate,
   formatDateTime,
   formatJamaicanPhone,
@@ -63,5 +64,14 @@ describe('names', () => {
     expect(toTitleCase('chris BROWN')).toBe('Chris Brown')
     expect(toTitleCase("  mary-ann   o'connor ")).toBe("Mary-Ann O'Connor")
     expect(toTitleCase('donovan mcdonald')).toBe('Donovan McDonald')
+  })
+})
+
+describe('clock times', () => {
+  it('formats stored cut-off times', () => {
+    expect(formatClockTime('13:00')).toBe('1:00 PM')
+    expect(formatClockTime('09:30')).toBe('9:30 AM')
+    expect(formatClockTime('00:15')).toBe('12:15 AM')
+    expect(formatClockTime('12:00')).toBe('12:00 PM')
   })
 })

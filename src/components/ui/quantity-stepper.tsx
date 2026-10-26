@@ -29,12 +29,12 @@ export function QuantityStepper({
     onChange?.(clamped)
   }
   const btn =
-    'grid size-11 place-items-center text-crimson transition-colors hover:bg-blush-200 disabled:text-ink-muted/50 disabled:hover:bg-transparent'
+    'grid size-11 place-items-center text-crimson transition-colors hover:bg-surface-tint disabled:text-ink-disabled disabled:hover:bg-transparent'
 
   return (
     <div
       className={cn(
-        'inline-flex items-center overflow-hidden rounded-md border-2 border-line bg-white',
+        'inline-flex items-center overflow-hidden rounded-md border-[1.5px] border-line-strong bg-surface',
         className,
       )}
       role="group"
