@@ -70,14 +70,17 @@ Until those keys are set, the site runs in demo mode on placeholder data.
      followed by `/auth/confirm` if you test there).
    - **Sign In / Providers → Email:** keep **Confirm email** on. Set the minimum password
      length to 8.
-   - **Email Templates:** so the links work even when someone opens the email on another
-     device, change the link in each template to:
-     - Confirm signup:
-       `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/account`
-     - Reset password:
-       `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password`
-     - Change email address:
-       `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email_change&next=/account/profile`
+   - **Email Templates:** use the branded ShipEast emails in `supabase/templates/`. For each
+     one, set the subject, switch the editor to **Source**, delete what's there and paste the
+     whole file. Their links already point at `/auth/confirm` with a token hash, so they work
+     even when someone opens the email on another device.
+
+     | Supabase template    | Subject                           | File                                     |
+     | -------------------- | --------------------------------- | ---------------------------------------- |
+     | Confirm signup       | `Confirm your ShipEast account`   | `supabase/templates/confirm-signup.html` |
+     | Reset password       | `Reset your ShipEast password`    | `supabase/templates/reset-password.html` |
+     | Change email address | `Confirm your new ShipEast email` | `supabase/templates/change-email.html`   |
+
    - **SMTP:** Supabase's built-in email only sends a few messages an hour. Before launch, add
      Resend under **Project Settings → Authentication → SMTP** so sign-up emails come from
      ShipEast and aren't held back.
