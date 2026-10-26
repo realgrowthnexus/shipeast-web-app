@@ -1,6 +1,6 @@
 'use client'
 
-import { useScroll, useTransform } from 'motion/react'
+import { useReducedMotion, useScroll, useTransform } from 'motion/react'
 import * as m from 'motion/react-m'
 import { type ReactNode, useRef } from 'react'
 import { cn } from '@/lib/cn'
@@ -23,9 +23,11 @@ export function Parallax({
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], [`-${strength / 2}%`, `${strength / 2}%`])
+  // Style-driven motion values are not covered by MotionConfig's reducedMotion, so opt out here.
+  const still = useReducedMotion()
   return (
     <div ref={ref} className={cn('relative overflow-hidden', className)}>
-      <m.div style={{ y }} className="absolute inset-x-0 -inset-y-[6%]">
+      <m.div style={still ? undefined : { y }} className="absolute inset-x-0 -inset-y-[6%]">
         {children}
       </m.div>
     </div>

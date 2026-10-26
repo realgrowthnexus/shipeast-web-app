@@ -4,6 +4,9 @@ import * as m from 'motion/react-m'
 import type { ReactNode } from 'react'
 import { duration, ease, rise, staggerStep } from '@/lib/motion'
 
+/** Plain attributes forwarded to the element. */
+type PassThrough = { id?: string; 'aria-labelledby'?: string; 'aria-label'?: string }
+
 type As = 'div' | 'section' | 'li' | 'ul' | 'ol' | 'article' | 'header' | 'figure' | 'p' | 'span'
 
 /**
@@ -16,6 +19,7 @@ export function Reveal({
   delay = 0,
   as = 'div',
   y = rise,
+  ...rest
 }: {
   children: ReactNode
   className?: string
@@ -24,10 +28,11 @@ export function Reveal({
   as?: As
   /** Rise distance in px; 0 for a plain fade. */
   y?: number
-}) {
+} & PassThrough) {
   const Tag = m[as]
   return (
     <Tag
+      {...rest}
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -45,15 +50,17 @@ export function Stagger({
   className,
   as = 'ul',
   delay = 0,
+  ...rest
 }: {
   children: ReactNode
   className?: string
   as?: As
   delay?: number
-}) {
+} & PassThrough) {
   const Tag = m[as]
   return (
     <Tag
+      {...rest}
       className={className}
       initial="hidden"
       whileInView="shown"

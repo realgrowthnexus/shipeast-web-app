@@ -2,9 +2,14 @@ import { PackageSearch } from 'lucide-react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { Breadcrumb } from '@/components/shop/breadcrumb'
-import { ProductGrid } from '@/components/shop/product-grid'
-import { Container, PageIntro } from '@/components/site/page-intro'
+import Link from 'next/link'
+import { CategoryChips } from '@/components/pages/shop/category-card'
+import { HelpStrip } from '@/components/pages/shop/shop-promises'
+import { StaggerProductGrid } from '@/components/pages/shop/stagger-product-grid'
+import { CategoryIcon } from '@/components/site/category-icon'
+import { Container } from '@/components/site/page-intro'
+import { Section, SectionHeader } from '@/components/site/section'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { Button, ButtonLink } from '@/components/ui/button'
 import { EmptyState, Skeleton } from '@/components/ui/card'
 import { Select } from '@/components/ui/field'
@@ -19,6 +24,7 @@ import {
   SORTS,
 } from '@/lib/shop-filters'
 import { atLeastOne } from '@/lib/static-params'
+import { categoryPhotos } from '@/lib/stock-photos'
 
 export async function generateStaticParams() {
   return atLeastOne(
@@ -46,19 +52,74 @@ export default async function CategoryPage({
   const category = await getCategory((await params).category)
   if (!category) notFound()
 
+  const [settings, categories] = await Promise.all([getSettings(), getCategories()])
+  const photo = categoryPhotos[category.slug]
+  const count = categories.find((c) => c.id === category.id)?.count
+  const others = categories.filter((c) => c.id !== category.id)
+
   return (
     <>
-      <PageIntro eyebrow="Shop" title={category.name}>
-        <div className="-mt-4 mb-3">
-          <Breadcrumb items={[{ href: '/shop', label: 'Shop' }, { label: category.name }]} />
+      <section className="bg-crimson text-white">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 gutter section-sm md:grid-cols-12 lg:gap-12">
+          <div className="flex animate-rise flex-col gap-4 md:col-span-7">
+            <nav aria-label="Breadcrumb" className="text-small">
+              <ol className="flex flex-wrap items-center gap-2 text-on-crimson-muted">
+                <li>
+                  <Link
+                    href="/shop"
+                    className="underline-offset-2 hover:text-white hover:underline"
+                  >
+                    Shop
+                  </Link>
+                </li>
+                <li aria-hidden>/</li>
+                <li aria-current="page" className="font-semibold text-white">
+                  {category.name}
+                </li>
+              </ol>
+            </nav>
+            <div className="flex items-center gap-4">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson-800 text-blush [&_svg]:size-6">
+                <CategoryIcon slug={category.slug} />
+              </span>
+              <h1 className="text-h1 text-balance">{category.name}</h1>
+            </div>
+            <p className="max-w-2xl text-lead text-on-crimson-muted">{category.description}</p>
+            {count !== undefined && (
+              <p className="text-small font-semibold text-blush">
+                {count} {count === 1 ? 'item' : 'items'}, bought fresh on the day we deliver
+              </p>
+            )}
+          </div>
+          {photo && (
+            <StockPhoto
+              name={photo}
+              sizes="(min-width: 1024px) 440px, (min-width: 768px) 40vw, 0px"
+              className="hidden aspect-16/9 animate-rise rounded-2xl [animation-delay:120ms] md:col-span-5 md:block"
+            />
+          )}
         </div>
-        {category.description}
-      </PageIntro>
+      </section>
       <Container className="section-sm">
         <Suspense fallback={<ResultsSkeleton />}>
           <Results categoryId={category.id} slug={category.slug} searchParams={searchParams} />
         </Suspense>
       </Container>
+      <Section tone="surface" size="sm" aria-labelledby="help">
+        <SectionHeader
+          id="help"
+          eyebrow="Need a hand?"
+          title="We’re here before you order"
+          className="mb-8"
+        />
+        <HelpStrip itemRequests={settings.features.item_requests} whatsapp={settings.whatsapp} />
+        {others.length > 0 && (
+          <div className="mt-10 flex flex-col gap-3 border-t border-line pt-8">
+            <h3 className="text-h3 text-ink">Keep shopping</h3>
+            <CategoryChips categories={others} />
+          </div>
+        )}
+      </Section>
     </>
   )
 }
@@ -129,7 +190,7 @@ async function Results({
       )}
 
       {result.items.length ? (
-        <ProductGrid products={result.items} jmdPerUsd={settings.jmdPerUsd} />
+        <StaggerProductGrid products={result.items} jmdPerUsd={settings.jmdPerUsd} />
       ) : (
         <EmptyState
           icon={<PackageSearch aria-hidden />}

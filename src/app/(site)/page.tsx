@@ -1,69 +1,65 @@
-import {
-  Camera,
-  DoorOpen,
-  Clock3,
-  MapPin,
-  MessageSquareText,
-  Repeat2,
-  ShieldCheck,
-} from 'lucide-react'
+import { DollarSign, MessageSquareText, PackageX } from 'lucide-react'
 import Link from 'next/link'
-import { ProofPair } from '@/components/order/proof-pair'
-import { BasketCard, CategoryTile } from '@/components/shop/product-card'
-import { CategoryIcon } from '@/components/site/category-icon'
-import { Container } from '@/components/site/page-intro'
-import { StockPhoto } from '@/components/site/stock-photo'
+import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
+import { HomeHero } from '@/components/pages/home/hero'
+import { PhotoCardLink } from '@/components/pages/home/photo-card'
+import { ProofBand } from '@/components/pages/home/proof-band'
+import { HomeSteps } from '@/components/pages/home/steps'
+import { SwapChoices } from '@/components/pages/home/swaps'
+import { HomeZones } from '@/components/pages/home/zones'
+import { BasketCard } from '@/components/shop/product-card'
+import { CtaBand } from '@/components/site/cta-band'
+import { PhotoFeature } from '@/components/site/photo-feature'
+import { PromiseTicker } from '@/components/site/promise-ticker'
+import { Section, SectionHeader } from '@/components/site/section'
 import { Accordion } from '@/components/ui/accordion'
 import { ButtonLink } from '@/components/ui/button'
 import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
-import { formatClockTime, formatUsd } from '@/lib/format'
+import { formatClockTime } from '@/lib/format'
 import { categoryPhotos, type StockPhotoKey } from '@/lib/stock-photos'
 
-const steps: { title: string; body: string; photo: StockPhotoKey }[] = [
+const abroad = [
   {
-    title: 'Fill a basket',
-    photo: 'stepOrder',
-    body: 'Pick groceries, household, pharmacy and baby items, or a ready-made basket. Prices are in US dollars.',
+    icon: DollarSign,
+    title: 'Pay in US dollars',
+    body: 'By PayPal, debit or credit card through PayPal, or bank transfer. You see the full total before you pay.',
   },
   {
-    title: 'Tell us who it’s for',
-    photo: 'stepFamily',
-    body: 'Add your family member’s address, phone and a nearby landmark, and choose what we do if something is out of stock.',
-  },
-  {
-    title: 'We shop in Jamaica',
-    photo: 'stepShop',
-    body: 'Our driver buys everything at the store and sends you a photo of the receipt.',
-  },
-  {
-    title: 'Delivered to the door',
-    photo: 'stepDoor',
-    body: 'Your family gets a text when we’re on the way. You get a photo at the door when it’s handed over.',
-  },
-]
-
-const reasons = [
-  {
-    icon: Camera,
-    title: 'Proof, not promises',
-    body: 'A photo of the store receipt and a photo at the door, on every order.',
-  },
-  {
-    icon: Repeat2,
-    title: 'You decide on swaps',
-    body: 'Allow a similar item, have us ask you first, or leave it out and get that money back.',
+    icon: PackageX,
+    title: 'No barrels, no waiting weeks',
+    body: 'Nothing is shipped. We buy everything in Jamaica, so it can be at their door the same day.',
   },
   {
     icon: MessageSquareText,
     title: 'Your family installs nothing',
-    body: 'They just get a text when the driver is on the way and when it’s delivered.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'A local team you can reach',
-    body: 'ShipEast Couriers & Bearer Service Ltd, based in St. Thomas. Message us any time.',
+    body: 'They get a text when the driver is on the way and when it’s delivered. You get email and a tracking link.',
   },
 ]
+
+const occasions: { photo: StockPhotoKey; title: string; body: string }[] = [
+  {
+    photo: 'giftChristmas',
+    title: 'Christmas',
+    body: 'Hampers with festive staples, at their door for the holidays.',
+  },
+  {
+    photo: 'giftBirthday',
+    title: 'Birthdays',
+    body: 'Their favourites and a printed gift message for the day.',
+  },
+  {
+    photo: 'giftSchool',
+    title: 'Back to school',
+    body: 'Lunch-box snacks and household basics for the new term.',
+  },
+  {
+    photo: 'giftBaby',
+    title: 'New baby',
+    body: 'Diapers, wipes and formula, so the new parents can rest.',
+  },
+]
+
+const linkClass = 'inline-flex min-h-11 items-center font-semibold text-crimson hover:underline'
 
 export default async function HomePage() {
   const [settings, zones, categories, baskets, faqs] = await Promise.all([
@@ -74,276 +70,195 @@ export default async function HomePage() {
     getFaqs(),
   ])
   const parishes = zones.map((z) => z.parish).join(' and ')
+  const cutoff = formatClockTime(zones[0]?.cutoffTime ?? '13:00')
 
   return (
     <>
-      {/* Hero: the promise, and the proof of it */}
-      <section className="overflow-hidden bg-crimson text-white">
-        <Container className="grid items-center gap-12 section-lg lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <h1 className="text-display text-balance">Send groceries, not money</h1>
-            <p className="mt-6 max-w-xl text-lead text-on-crimson-muted">
-              Fill a basket online. We buy it in Jamaica and deliver to your family’s door the same
-              day, with a photo of the receipt and a photo at the door.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/shop" variant="onDark" size="lg">
-                Start shopping
-              </ButtonLink>
-              <ButtonLink
-                href="/how-it-works"
-                size="lg"
-                variant="ghost"
-                className="text-white hover:bg-white/10"
-              >
-                How it works
-              </ButtonLink>
-            </div>
-            <p className="mt-8 flex items-center gap-2 text-on-crimson-muted">
-              <MapPin className="size-5 text-blush" aria-hidden />
-              Delivering to {parishes} today
-            </p>
-          </div>
-          {/* The photo says what we send; the proof cards overlap it to say how you know */}
-          <div className="mx-auto w-full max-w-md lg:max-w-none">
-            <StockPhoto
-              name="heroGroceries"
-              preload
-              sizes="(min-width: 1024px) 520px, (min-width: 448px) 448px, 100vw"
-              className="aspect-4/3 rounded-xl"
-            />
-            <div className="relative -mt-20 px-4 sm:-mt-28 sm:px-8">
-              <ProofPair
-                tilt
-                onDark
-                receipt={{
-                  store: 'PRICESMART',
-                  lines: [
-                    { name: 'Long Grain Rice', cents: 1450 },
-                    { name: 'Cooking Oil', cents: 1325 },
-                    { name: 'Corned Beef x2', cents: 950 },
-                    { name: 'Evaporated Milk', cents: 1590 },
-                  ],
-                  totalCents: 5315,
-                  at: '2026-10-25T15:40:00Z',
-                }}
-                door={{
-                  recipient: 'Marcia Campbell',
-                  place: 'Morant Bay, St. Thomas',
-                  at: '2026-10-25T17:05:00Z',
-                }}
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* 1. Hero (crimson) */}
+      <HomeHero parishes={parishes} />
 
-      {/* How it works: a real sequence, so the steps are numbered */}
-      <section aria-labelledby="how-h" className="section">
-        <Container>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="mb-3 eyebrow text-crimson">Four steps</p>
-              <h2 id="how-h" className="text-h2 text-ink">
-                How it works
-              </h2>
-            </div>
-            <Link href="/how-it-works" className="font-semibold text-crimson hover:underline">
+      {/* 2. The promises every order carries (oxblood) */}
+      <PromiseTicker />
+
+      {/* 3. How it works (canvas) */}
+      <Section wide aria-labelledby="how-h">
+        <SectionHeader
+          id="how-h"
+          eyebrow="Four steps"
+          title="How it works"
+          lead="You order from wherever you are. We do the shopping and the driving in Jamaica."
+          action={
+            <Link href="/how-it-works" className={linkClass}>
               The full journey of an order
             </Link>
-          </div>
-          <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, i) => (
-              <li key={step.title} className="flex flex-col gap-3">
-                <StockPhoto
-                  name={step.photo}
-                  sizes="(min-width: 1024px) 254px, (min-width: 640px) 50vw, 100vw"
-                  className="mb-2 aspect-video sm:aspect-4/3"
-                />
-                <span className="text-numeral text-signal tabular-nums" aria-hidden>
-                  {i + 1}
-                </span>
-                <h3 className="text-h3 text-ink">{step.title}</h3>
-                <p className="text-ink-body">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
+          }
+        />
+        <HomeSteps />
+      </Section>
 
-      {/* Shop by category */}
-      <section aria-labelledby="cat-h" className="border-t border-line section">
-        <Container>
-          <div>
-            <p className="mb-3 eyebrow text-crimson">The shop</p>
-            <h2 id="cat-h" className="text-h2 text-ink">
-              What we can buy for them
-            </h2>
-          </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {categories.map((c) => (
-              <CategoryTile
-                key={c.id}
+      {/* 4. Shop by category (surface) */}
+      <Section tone="surface" wide aria-labelledby="cat-h">
+        <SectionHeader
+          id="cat-h"
+          eyebrow="The shop"
+          title="What we can buy for them"
+          lead="Everyday needs from the store shelf, priced in US dollars."
+          action={
+            <Link href="/shop" className={linkClass}>
+              See the whole shop
+            </Link>
+          }
+        />
+        <Stagger className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {categories.map((c) => (
+            <StaggerItem key={c.id}>
+              <PhotoCardLink
                 href={`/shop/${c.slug}`}
-                name={c.name}
-                description={c.description}
-                count={c.count}
-                icon={<CategoryIcon slug={c.slug} />}
                 photo={categoryPhotos[c.slug]}
+                title={c.name}
+                body={c.description}
+                meta={`${c.count} items`}
+                aspect="aspect-4/3 lg:aspect-4/5"
+                sizes="(min-width: 1280px) 300px, (min-width: 1024px) 23vw, (min-width: 640px) 50vw, 100vw"
               />
-            ))}
-          </div>
-        </Container>
-      </section>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Section>
 
-      {/* Ready-made baskets */}
-      <section aria-labelledby="bsk-h" className="bg-surface-tint/60 section">
-        <Container>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div>
-                <p className="mb-3 eyebrow text-crimson">Save on bundles</p>
-                <h2 id="bsk-h" className="text-h2 text-ink">
-                  Ready-made baskets
-                </h2>
-              </div>
-              <p className="mt-2 max-w-xl text-ink-muted">
-                Packed for the usual needs, for less than buying each item on its own.
-              </p>
-            </div>
-            <Link href="/baskets" className="font-semibold text-crimson hover:underline">
+      {/* 5. Ready-made baskets (tint) */}
+      <Section tone="tint" wide aria-labelledby="bsk-h">
+        <SectionHeader
+          id="bsk-h"
+          eyebrow="Save on bundles"
+          title="Ready-made baskets"
+          lead="Packed for the usual needs, for less than buying each item on its own."
+          action={
+            <Link href="/baskets" className={linkClass}>
               See all baskets
             </Link>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }) => (
+          }
+        />
+        <Stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }) => (
+            <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
               <BasketCard
-                key={basket.id}
                 basket={basket}
                 jmdPerUsd={settings.jmdPerUsd}
                 itemCount={itemCount}
                 separateCents={separateCents}
               />
-            ))}
-          </div>
-        </Container>
-      </section>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Section>
 
-      {/* Why ShipEast */}
-      <section aria-labelledby="why-h" className="section">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <p className="mb-3 eyebrow text-crimson">Why ShipEast</p>
-            <h2 id="why-h" className="text-h2 text-balance text-ink">
-              You see what was bought, and that it arrived
-            </h2>
-            <StockPhoto
-              name="whyFamily"
-              sizes="(min-width: 1024px) 420px, 100vw"
-              className="mt-8 aspect-4/3 lg:aspect-4/5"
-            />
-          </div>
-          <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
-            {reasons.map(({ icon: Icon, title, body }) => (
+      {/* 6. Proof on every order (crimson) */}
+      <ProofBand />
+
+      {/* 7. You decide on swaps (canvas) */}
+      <Section wide aria-labelledby="swap-h">
+        <SectionHeader
+          id="swap-h"
+          eyebrow="If something is out of stock"
+          title="You decide on swaps"
+          lead="Shelves run out sometimes. Pick what we do at checkout, and we stick to it."
+        />
+        <SwapChoices />
+      </Section>
+
+      {/* 8. Made for Jamaicans abroad (surface) */}
+      <Section tone="surface" wide aria-labelledby="abroad-h">
+        <PhotoFeature photo="homeSenderPhone" parallax aspect="aspect-4/3 lg:aspect-4/5">
+          <p className="mb-3 eyebrow text-crimson">From wherever you are</p>
+          <h2 id="abroad-h" className="text-h2 text-balance text-ink">
+            Made for Jamaicans abroad
+          </h2>
+          <p className="mt-3 max-w-2xl text-lead text-ink-body">
+            Looking after family back home shouldn’t mean sending cash and hoping. Order from your
+            phone in a few minutes and see it arrive.
+          </p>
+          <ul className="mt-8 grid gap-6">
+            {abroad.map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-4">
-                <Icon className="mt-1 size-6 shrink-0 text-crimson" aria-hidden />
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-tint">
+                  <Icon className="size-6 text-crimson" aria-hidden />
+                </span>
                 <div>
-                  <h3 className="font-bold text-ink">{title}</h3>
-                  <p className="mt-1 text-ink-muted">{body}</p>
+                  <h3 className="text-h3 text-ink">{title}</h3>
+                  <p className="mt-1 text-ink-body">{body}</p>
                 </div>
               </li>
             ))}
           </ul>
-        </Container>
-      </section>
+          <ButtonLink href="/shop" size="lg" className="mt-9">
+            Start shopping
+          </ButtonLink>
+        </PhotoFeature>
+      </Section>
 
-      {/* Coverage */}
-      <section aria-labelledby="zone-h" className="border-t border-line section">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <div>
-              <p className="mb-3 eyebrow text-crimson">Coverage</p>
-              <h2 id="zone-h" className="text-h2 text-ink">
-                Where we deliver
-              </h2>
-            </div>
-            <p className="mt-3 text-ink-muted">More parishes are coming as we add drivers.</p>
-            <Link
-              href="/delivery"
-              className="mt-4 inline-block font-semibold text-crimson hover:underline"
-            >
-              Delivery areas and fees
+      {/* 9. Where we deliver (oxblood) */}
+      <HomeZones zones={zones} />
+
+      {/* 10. Gifts and occasions (canvas) */}
+      <Section wide aria-labelledby="gift-h">
+        <SectionHeader
+          id="gift-h"
+          eyebrow="Gifts and occasions"
+          title="For the days that matter"
+          lead="Send a basket for a birthday, the holidays or a new arrival, with a gift message."
+          action={
+            <Link href="/gifts" className={linkClass}>
+              See gift ideas
             </Link>
-            <StockPhoto
-              name="kingston"
-              sizes="(min-width: 1024px) 420px, 100vw"
-              className="mt-8 aspect-video"
-            />
-          </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {zones.map((z) => (
-              <li key={z.id} className="rounded-lg border border-line bg-surface p-card">
-                <p className="flex items-center gap-2 text-h3 text-ink">
-                  <MapPin className="size-5 text-crimson" aria-hidden />
-                  {z.parish}
-                </p>
-                <dl className="mt-3 grid grid-cols-2 gap-2 text-small">
-                  <div>
-                    <dt className="text-ink-muted">Delivery fee</dt>
-                    <dd className="font-semibold text-ink">{formatUsd(z.feeCents)}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-ink-muted">Same-day cut-off</dt>
-                    <dd className="flex items-center gap-1 font-semibold text-ink">
-                      <Clock3 className="size-4 text-crimson" aria-hidden />
-                      {formatClockTime(z.cutoffTime)}
-                    </dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+          }
+        />
+        <Stagger className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {occasions.map((o) => (
+            <StaggerItem key={o.title}>
+              <PhotoCardLink
+                href="/gifts"
+                photo={o.photo}
+                title={o.title}
+                body={o.body}
+                meta="Gift ideas"
+                sizes="(min-width: 1280px) 300px, (min-width: 1024px) 23vw, (min-width: 640px) 50vw, 100vw"
+              />
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Section>
 
-      {/* Questions */}
-      <section aria-labelledby="faq-h" className="border-t border-line section">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <div>
-              <p className="mb-3 eyebrow text-crimson">Good to know</p>
-              <h2 id="faq-h" className="text-h2 text-ink">
-                Questions people ask
-              </h2>
-            </div>
-            <Link
-              href="/faq"
-              className="mt-4 inline-block font-semibold text-crimson hover:underline"
-            >
+      {/* 11. Questions people ask (surface) */}
+      <Section tone="surface" aria-labelledby="faq-h">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <SectionHeader
+              id="faq-h"
+              eyebrow="Good to know"
+              title="Questions people ask"
+              lead="The short answers. There’s more on the questions page."
+            />
+            <Link href="/faq" className={`mt-4 ${linkClass}`}>
               All questions and answers
             </Link>
           </div>
-          <Accordion
-            items={faqs.slice(0, 5).map((f) => ({ id: f.id, title: f.question, body: f.answer }))}
-          />
-        </Container>
-      </section>
+          <Reveal className="lg:col-span-7" delay={0.1}>
+            <Accordion
+              items={faqs.slice(0, 5).map((f) => ({ id: f.id, title: f.question, body: f.answer }))}
+            />
+          </Reveal>
+        </div>
+      </Section>
 
-      {/* Closing call to action */}
-      <section className="bg-crimson text-white">
-        <Container className="flex flex-col items-start gap-6 section-sm sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-4">
-            <DoorOpen className="mt-1 size-9 shrink-0 text-blush" strokeWidth={1.5} aria-hidden />
-            <p className="max-w-xl text-h2">
-              Order before {formatClockTime(zones[0]?.cutoffTime ?? '13:00')} and it’s at their door
-              today.
-            </p>
-          </div>
-          <ButtonLink href="/shop" variant="onDark" size="lg">
-            Start shopping
-          </ButtonLink>
-        </Container>
-      </section>
+      {/* 12. Closing call to action (crimson panel on canvas) */}
+      <CtaBand
+        title={<>Order before {cutoff} and it’s at their door today.</>}
+        photo="homeDoorWelcome"
+        secondary={{ href: '/how-it-works', label: 'How it works' }}
+      >
+        Same-day delivery in {parishes}, with a photo of the receipt and a photo at the door.
+      </CtaBand>
     </>
   )
 }
