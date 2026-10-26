@@ -14,7 +14,7 @@ const nav = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur print:hidden">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 gutter sm:h-18">
         <Link href="/" className="mr-auto rounded-sm" aria-label="ShipEast Shop & Send, home">
           <Wordmark />
