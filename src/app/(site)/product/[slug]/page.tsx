@@ -1,11 +1,14 @@
-import { CircleCheck, Clock, Repeat } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { AddToBasket } from '@/components/shop/add-to-basket'
 import { Breadcrumb, deliveryPromise } from '@/components/shop/breadcrumb'
-import { ProductGrid } from '@/components/shop/product-grid'
 import { ProductImage } from '@/components/shop/product-image'
+import { TrustRow } from '@/components/pages/shop/shop-promises'
+import { StaggerProductGrid } from '@/components/pages/shop/stagger-product-grid'
 import { Container } from '@/components/site/page-intro'
+import { Section, SectionHeader } from '@/components/site/section'
 import { Badge } from '@/components/ui/badge'
 import { ButtonLink } from '@/components/ui/button'
 import { Price } from '@/components/ui/price'
@@ -53,6 +56,9 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
     .slice(0, 4)
   const inStock = product.status === 'visible'
   const cutoff = formatClockTime(zones[0]?.cutoffTime ?? '13:00')
+  const sameDay = zones.length
+    ? deliveryPromise(zones, cutoff)
+    : 'Delivery is paused for now. Check back soon.'
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -86,77 +92,92 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
         />
 
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <div className="relative">
+          <div className="relative lg:sticky lg:top-24 lg:self-start">
             <ProductImage
               src={product.imagePath}
               alt={product.name}
               categoryId={product.categoryId}
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className={inStock ? 'rounded-lg' : 'rounded-lg opacity-60 grayscale-[40%]'}
+              className={inStock ? 'rounded-xl' : 'rounded-xl opacity-60 grayscale-[40%]'}
             />
             {!inStock && <Badge className="absolute top-3 left-3">Out of stock</Badge>}
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
+            <div className="flex animate-rise flex-col gap-2">
+              {category && <p className="eyebrow text-crimson">{category.name}</p>}
               <h1 className="text-h1 text-balance text-ink">{product.name}</h1>
               <p className="text-lead text-ink-body">{product.size}</p>
             </div>
 
-            <Price cents={product.priceCents} jmdPerUsd={settings.jmdPerUsd} size="lg" />
+            <div className="flex flex-col gap-5 rounded-xl border border-line bg-surface p-card">
+              <Price cents={product.priceCents} jmdPerUsd={settings.jmdPerUsd} size="lg" />
 
-            {inStock ? (
-              <AddToBasket kind="product" id={product.id} name={product.name} variant="full" />
-            ) : (
-              <div className="flex flex-col gap-3 rounded-md bg-warn-tint p-4 text-ink">
-                <p className="font-semibold">Out of stock right now</p>
-                <p className="text-small">
-                  We restock often. In the meantime, have a look at similar items.
-                </p>
-                {category && (
-                  <ButtonLink
-                    href={`/shop/${category.slug}`}
-                    variant="outline"
-                    size="sm"
-                    className="self-start"
-                  >
-                    More in {category.name}
-                  </ButtonLink>
-                )}
-              </div>
-            )}
+              {inStock ? (
+                <AddToBasket kind="product" id={product.id} name={product.name} variant="full" />
+              ) : (
+                <div className="flex flex-col gap-3 rounded-md bg-warn-tint p-4 text-ink">
+                  <p className="font-semibold">Out of stock right now</p>
+                  <p className="text-small">
+                    We restock often. In the meantime, have a look at similar items.
+                  </p>
+                  {category && (
+                    <ButtonLink
+                      href={`/shop/${category.slug}`}
+                      variant="outline"
+                      size="sm"
+                      className="self-start"
+                    >
+                      More in {category.name}
+                    </ButtonLink>
+                  )}
+                </div>
+              )}
 
-            <p className="text-ink">{product.description}</p>
-
-            <ul className="flex flex-col gap-3 border-t border-line pt-6 text-small text-ink">
-              <li className="flex gap-3">
+              <p className="flex gap-3 border-t border-line pt-4 text-small text-ink-body">
                 <Clock className="mt-0.5 size-5 shrink-0 text-crimson" aria-hidden />
-                {zones.length
-                  ? deliveryPromise(zones, cutoff)
-                  : 'Delivery is paused for now. Check back soon.'}
-              </li>
-              <li className="flex gap-3">
-                <Repeat className="mt-0.5 size-5 shrink-0 text-crimson" aria-hidden />
-                If the store has run out on the day, you choose at checkout: a similar item, a call
-                first, or leave it out and get that amount back.
-              </li>
-              <li className="flex gap-3">
-                <CircleCheck className="mt-0.5 size-5 shrink-0 text-crimson" aria-hidden />
-                You get a photo of the store receipt and a photo at the door.
-              </li>
-            </ul>
+                {sameDay}
+              </p>
+            </div>
+
+            <section aria-labelledby="about-item" className="flex flex-col gap-2">
+              <h2 id="about-item" className="text-h3 text-ink">
+                About this item
+              </h2>
+              <p className="text-ink-body">{product.description}</p>
+            </section>
           </div>
         </div>
 
-        {related.length > 0 && (
-          <section aria-labelledby="related" className="mt-6 border-t border-line pt-10">
-            <h2 id="related" className="mb-5 text-h2 text-ink">
-              Also in {category?.name ?? 'the shop'}
-            </h2>
-            <ProductGrid products={related} jmdPerUsd={settings.jmdPerUsd} />
-          </section>
-        )}
+        <section aria-labelledby="every-order" className="flex flex-col gap-4">
+          <h2 id="every-order" className="text-h3 text-ink">
+            With every order
+          </h2>
+          <TrustRow />
+        </section>
       </Container>
+
+      {related.length > 0 && (
+        <Section tone="surface" size="sm" aria-labelledby="related">
+          <SectionHeader
+            id="related"
+            eyebrow="You might also need"
+            title={`Also in ${category?.name ?? 'the shop'}`}
+            className="mb-8"
+            action={
+              category && (
+                <Link
+                  href={`/shop/${category.slug}`}
+                  className="inline-flex min-h-11 items-center font-semibold text-crimson underline-offset-4 hover:underline"
+                >
+                  See all {category.name}
+                </Link>
+              )
+            }
+          />
+          <StaggerProductGrid products={related} jmdPerUsd={settings.jmdPerUsd} />
+        </Section>
+      )}
     </>
   )
 }

@@ -1,12 +1,14 @@
-import { Menu, User } from 'lucide-react'
+import { Menu, User, X } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { BasketLink, BasketLinkFallback } from './basket-link'
+import { HeaderShell } from './header-shell'
 import { Wordmark } from './wordmark'
 
 const nav = [
   { href: '/shop', label: 'Shop' },
   { href: '/baskets', label: 'Baskets' },
+  { href: '/gifts', label: 'Gifts' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/delivery', label: 'Delivery' },
   { href: '/track', label: 'Track an order' },
@@ -14,8 +16,8 @@ const nav = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur print:hidden">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 gutter sm:h-18">
+    <HeaderShell>
+      <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter sm:h-18">
         <Link href="/" className="mr-auto rounded-sm" aria-label="ShipEast Shop & Send, home">
           <Wordmark />
         </Link>
@@ -26,9 +28,13 @@ export function SiteHeader() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-md px-3 py-2 font-semibold text-ink transition-colors hover:bg-surface-tint hover:text-crimson"
+                  className="group relative rounded-md px-3 py-2 font-semibold text-ink transition-colors hover:text-crimson"
                 >
                   {item.label}
+                  <span
+                    className="absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 rounded-full bg-crimson transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
+                    aria-hidden
+                  />
                 </Link>
               </li>
             ))}
@@ -49,12 +55,13 @@ export function SiteHeader() {
         {/* Phone menu: <details> works before JavaScript loads. */}
         <details className="group relative lg:hidden">
           <summary className="grid size-11 cursor-pointer list-none place-items-center rounded-md text-ink hover:bg-surface-tint [&::-webkit-details-marker]:hidden">
-            <Menu className="size-6" aria-hidden />
+            <Menu className="size-6 group-open:hidden" aria-hidden />
+            <X className="hidden size-6 group-open:block" aria-hidden />
             <span className="sr-only">Menu</span>
           </summary>
           <nav
             aria-label="Main"
-            className="absolute top-full right-0 mt-2 w-64 rounded-lg border border-line bg-surface p-2 shadow-float"
+            className="absolute top-full right-0 mt-2 w-72 origin-top-right animate-rise rounded-lg border border-line bg-surface p-2 shadow-overlay"
           >
             <ul>
               {nav.map((item) => (
@@ -71,6 +78,6 @@ export function SiteHeader() {
           </nav>
         </details>
       </div>
-    </header>
+    </HeaderShell>
   )
 }

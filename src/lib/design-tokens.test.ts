@@ -51,10 +51,36 @@ const pairs: [string, string, number][] = [
   ['info', 'info-tint', 4.5],
   ['warn', 'warn-tint', 4.5],
   ['danger', 'danger-tint', 4.5],
+  ['ink', 'crimson-50', 4.5],
+  ['ink-body', 'crimson-50', 4.5],
+  ['crimson', 'crimson-50', 4.5],
+  ['white', 'crimson-700', 4.5],
+  ['blush', 'crimson-800', 4.5],
+  ['white', 'oxblood', 4.5],
   // Non-text: form control borders need 3:1 (WCAG 1.4.11).
   ['line-strong', 'surface', 3],
   ['line-strong', 'canvas', 3],
 ]
+
+describe('brand shades match the named colours', () => {
+  it.each([
+    ['crimson-100', 'surface-tint'],
+    ['crimson-200', 'blush'],
+    ['crimson-500', 'signal'],
+    ['crimson-600', 'crimson'],
+    ['crimson-700', 'crimson-deep'],
+    ['crimson-900', 'oxblood'],
+    ['neutral-0', 'surface'],
+    ['neutral-50', 'canvas'],
+    ['neutral-100', 'line'],
+    ['neutral-400', 'line-strong'],
+    ['neutral-500', 'ink-muted'],
+    ['neutral-700', 'ink-body'],
+    ['neutral-900', 'ink'],
+  ])('%s equals %s', (shade, named) => {
+    expect(color(shade)).toBe(color(named))
+  })
+})
 
 describe('brand colour contrast', () => {
   it.each(pairs)('%s on %s is at least %d:1', (fg, bg, min) => {

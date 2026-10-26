@@ -19,7 +19,7 @@ export function ProductCard({
 }) {
   const outOfStock = product.status === 'out_of_stock'
   return (
-    <article className="group relative flex w-full flex-col gap-3 rounded-lg border border-line bg-surface p-3 transition-colors hover:border-blush">
+    <article className="group relative flex w-full hover-lift flex-col gap-3 rounded-lg border border-line bg-surface p-3 hover:border-blush">
       <div className="relative">
         <ProductImage
           src={product.imagePath}
@@ -59,12 +59,13 @@ export function BasketCard({
 }) {
   const photo = basketPhotos[basket.slug]
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-xl bg-crimson text-white">
+    <article className="group relative flex hover-lift flex-col overflow-hidden rounded-xl bg-crimson text-white">
       {photo && (
         <StockPhoto
           name={photo}
           sizes="(min-width: 1024px) 368px, (min-width: 768px) 50vw, 100vw"
           className="aspect-video rounded-none"
+          zoom
         />
       )}
       <div className="flex flex-1 flex-col gap-2 p-card">
@@ -112,10 +113,15 @@ export function CategoryTile({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-4 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-blush"
+      className="group flex hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-4 hover:border-blush"
     >
       {photo ? (
-        <StockPhoto name={photo} sizes="96px" className="size-20 shrink-0 rounded-md sm:size-24" />
+        <StockPhoto
+          name={photo}
+          sizes="96px"
+          className="size-20 shrink-0 rounded-md sm:size-24"
+          zoom
+        />
       ) : (
         <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
           {icon}

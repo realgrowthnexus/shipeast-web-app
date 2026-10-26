@@ -1,0 +1,55 @@
+import { photo, type StockPhoto } from './types'
+
+/** Photos added for: About, gifts, monthly orders, contact, request an item, 404. Key names must not clash with other photo files. */
+export const companyPhotos = {
+  companyCoast: photo({
+    unsplashId: 'lzecv_xfTgo',
+    src: 'https://images.unsplash.com/photo-1656729745827-4ac6838bd2c9',
+    width: 5184,
+    height: 3456,
+    alt: 'A rocky shore and a small jetty on the Jamaican coast',
+    photographer: 'Kemoi Brown',
+    username: 'kemoibrown',
+    usedOn: 'About',
+  }),
+  companyCountryRoad: photo({
+    unsplashId: 'cqE9f81PSY8',
+    src: 'https://images.unsplash.com/photo-1780332534975-6318b3d734d7',
+    width: 5194,
+    height: 3456,
+    alt: 'A two-lane country road in Jamaica, lined with palms and trees',
+    photographer: 'Kern Morris',
+    username: 'kernsway',
+    usedOn: 'About',
+  }),
+  companyGiftHands: photo({
+    unsplashId: '3BvVFcZIL7I',
+    src: 'https://images.unsplash.com/photo-1625552187571-7ee60ac43d2b',
+    width: 5530,
+    height: 5188,
+    alt: 'Two hands passing a wrapped gift box from one person to another',
+    photographer: 'Olivia Bollen',
+    username: 'takencareof',
+    usedOn: 'Gifts',
+  }),
+  companyGiftCard: photo({
+    unsplashId: 'hZgbudoG_Qg',
+    src: 'https://images.unsplash.com/photo-1549116917-bccf55924737',
+    width: 5184,
+    height: 3456,
+    alt: 'Hands tying a ribbon around a small card',
+    photographer: 'Ivan',
+    username: 'artistiq',
+    usedOn: 'Gifts',
+  }),
+  companyFamilyMeal: photo({
+    unsplashId: 'gorbBYbo6KM',
+    src: 'https://images.unsplash.com/photo-1627662166825-a860471632e4',
+    width: 3600,
+    height: 4056,
+    alt: 'A family sharing a meal at the table at home',
+    photographer: 'Tyson',
+    username: 'tysonbrand',
+    usedOn: 'Monthly orders',
+  }),
+} satisfies Record<string, StockPhoto>

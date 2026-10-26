@@ -1,7 +1,8 @@
 # Design system
 
 The ShipEast Shop & Send brand system, built from the client's proposal, scope and quote PDFs.
-Tokens live in `src/app/globals.css`; `/styleguide` shows every one of them live, and
+Tokens live in `src/app/globals.css` and are listed in full, with shades, hovers and motion, in
+`docs/TOKENS.md`; `/styleguide` shows every one of them live, and
 `src/lib/design-tokens.test.ts` checks contrast and token use on every test run.
 
 **No gradients of any kind.** Flat brand colours only. Red feels premium through large solid
@@ -79,3 +80,19 @@ the cookie banner, the hero proof photos) use `shadow-float`.
 - **Choice cards:** as inputs; when chosen, crimson border and ring on `surface-tint`.
 - **Section header:** `eyebrow`, then `text-h2`, then an optional `text-lead`.
 - **Icons:** Lucide only. Crimson on light surfaces, blush on crimson.
+
+## Marketing page building blocks
+
+Use these, in `src/components/site/` and `src/components/motion/`, before writing new layout:
+
+- `Section` (`tone`: canvas, surface, tint, crimson, oxblood; `size`; `wide`) is one band of the page.
+  Alternate the tones so each section reads as its own chapter. Never put two crimson bands next to each other.
+- `SectionHeader` gives the eyebrow, title, lead and an optional action link, revealed on scroll.
+- `PhotoFeature` puts a photo beside text, with an optional parallax.
+- `CtaBand` is the closing crimson panel with one main action.
+- `PromiseTicker` is the slow band of real promises: the receipt photo, the door photo, same day and so on.
+- `StockPhoto` (with `zoom` inside card links) shows a photo from the registry.
+- `Reveal`, `Stagger` / `StaggerItem` and `Parallax` handle motion. See `docs/TOKENS.md` for the rules.
+
+Every claim on a page must be true today. Don't invent testimonials, ratings, order counts or
+"trusted by" logos. Use the promises we keep on every order instead.

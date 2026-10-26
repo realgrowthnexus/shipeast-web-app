@@ -22,7 +22,7 @@ export function PageIntro({
   return (
     <div className={cn(dark ? 'bg-crimson text-white' : 'border-b border-line')}>
       <div className="mx-auto grid w-full max-w-6xl gap-8 gutter section-sm lg:grid-cols-[1fr_auto] lg:items-end">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl animate-rise">
           {eyebrow && (
             <p className={cn('mb-3 eyebrow', dark ? 'text-blush' : 'text-crimson')}>{eyebrow}</p>
           )}
@@ -33,7 +33,7 @@ export function PageIntro({
             </div>
           )}
         </div>
-        {aside}
+        {aside && <div className="animate-rise [animation-delay:120ms]">{aside}</div>}
       </div>
     </div>
   )
