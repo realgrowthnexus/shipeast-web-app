@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
-import { BasketCard, flagStrip } from '@/components/shop/product-card'
+import { BasketCard } from '@/components/shop/product-card'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
 import { Section, SectionHeader } from '@/components/site/section'
@@ -53,14 +53,13 @@ export default async function BasketsPage() {
           <Stagger
             className={`grid gap-4 sm:grid-cols-2 ${baskets.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}
           >
-            {baskets.map(({ basket, itemCount, separateCents }, i) => (
+            {baskets.map(({ basket, itemCount, separateCents }) => (
               <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
                 <BasketCard
                   basket={basket}
                   jmdPerUsd={settings.jmdPerUsd}
                   itemCount={itemCount}
                   separateCents={separateCents}
-                  strip={flagStrip(i)}
                 />
               </StaggerItem>
             ))}

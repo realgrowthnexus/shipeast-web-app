@@ -53,14 +53,30 @@ what the color is for.
 The user asked for touches of the Jamaican flag so visitors see at once that this is a Jamaican
 service. These are the only colors outside the brand palette, and they are accents.
 
-| Token      | Hex       | Use                                                             |
-| ---------- | --------- | --------------------------------------------------------------- |
-| `jm-green` | `#009B3A` | Flag mark, basket price strips (with `jm-black` text only)      |
-| `jm-gold`  | `#FED100` | Flag mark, icons on red and oxblood, deal tiles with `ink` text |
-| `jm-black` | `#000000` | Flag mark, basket price strips (with white text)                |
+Each flag colour has one job, so shoppers learn what it means:
+
+| Token      | Hex       | Its one job                                                                                      |
+| ---------- | --------- | ------------------------------------------------------------------------------------------------ |
+| `jm-gold`  | `#FED100` | Savings and deals only: deal tiles, basket price strips, sale tags. `ink` or `crimson-deep` text |
+| `jm-green` | `#009B3A` | Good news only: in stock, delivered, success. `jm-black` text                                    |
+| `jm-black` | `#000000` | The flag mark only                                                                               |
+
+Gold is never decoration: no gold icons, underlines or links on red.
 
 Use the flag through `src/components/site/jamaica.tsx`: `JamaicaFlag` (the flag, drawn flat) and
 `FlagBadge` (a pill with the flag). No striped flag bars: the user found them out of place.
+
+### Colour roles
+
+From the colour audit (Oct 26, 2026). Every colour has one job:
+
+- **Crimson:** brand and action. The header, primary and Add buttons, prices, and one big
+  brand band per screen (the first shelf, the proof band, coverage, the closing panel).
+- **Oxblood:** depth, used rarely. The footer and the promise ticker. Never product shelves.
+- **Surface (warm white):** the product stage. Product cards sit on it, with a `blush` edge.
+- **Surface-tint:** the one pink band (`Section tone="tint"`). Alternate it with the page
+  background so sections separate. `crimson-50` is not a band colour.
+- The header is two tones: crimson, with crimson-700 above and below it.
 
 ### Status
 

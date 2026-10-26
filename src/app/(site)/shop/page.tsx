@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { CategoryChips, CategoryPhotoCard } from '@/components/pages/shop/category-card'
 import { CantFindBanner, HowWeShop } from '@/components/pages/shop/shop-promises'
-import { BasketCard, flagStrip } from '@/components/shop/product-card'
-import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
+import { BasketCard } from '@/components/shop/product-card'
+import { ProductShelf, shelfLeads, shelfProducts, shelfTone } from '@/components/shop/product-shelf'
 import { SearchBox } from '@/components/shop/search-box'
 import { deliveryPromise } from '@/components/shop/breadcrumb'
 import { CtaBand } from '@/components/site/cta-band'
@@ -99,14 +99,13 @@ export default async function ShopPage() {
             }
           />
           <Stagger className="grid gap-4 md:grid-cols-3">
-            {baskets.map(({ basket, itemCount, separateCents }, i) => (
+            {baskets.map(({ basket, itemCount, separateCents }) => (
               <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
                 <BasketCard
                   basket={basket}
                   jmdPerUsd={settings.jmdPerUsd}
                   itemCount={itemCount}
                   separateCents={separateCents}
-                  strip={flagStrip(i)}
                 />
               </StaggerItem>
             ))}
@@ -124,7 +123,7 @@ export default async function ShopPage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={i % 2 ? 'oxblood' : 'blush'}
+          tone={shelfTone(i)}
         />
       ))}
 

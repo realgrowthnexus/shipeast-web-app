@@ -25,11 +25,19 @@ export function shelfProducts(products: Product[], categoryId: string) {
     )
 }
 
+export type ShelfTone = 'crimson' | 'tint' | 'canvas'
+
+/**
+ * Band colour for the nth shelf on a page: the first is the one red brand shelf, the rest
+ * alternate blush and the page background so each aisle reads as its own section.
+ */
+export const shelfTone = (i: number): ShelfTone => (i === 0 ? 'crimson' : i % 2 ? 'tint' : 'canvas')
+
 /**
  * A store shelf: one department's products with prices and one-tap add. Scrolls sideways on
  * phones and shows five across on wide screens, with a link to the whole aisle. No entrance
- * animation: in a store the products should simply be there. Red cards with white Add buttons
- * sit on a blush or oxblood band, so the shelves read as store colour, not a white page.
+ * animation: in a store the products should simply be there. Cards stay warm white so the
+ * product and its price lead; the band behind them carries the colour.
  */
 export function ProductShelf({
   id,
@@ -38,7 +46,7 @@ export function ProductShelf({
   href,
   products,
   jmdPerUsd,
-  tone = 'blush',
+  tone = 'tint',
 }: {
   id: string
   title: string
@@ -46,10 +54,10 @@ export function ProductShelf({
   href: string
   products: Product[]
   jmdPerUsd: number
-  tone?: 'blush' | 'oxblood'
+  tone?: ShelfTone
 }) {
   if (!products.length) return null
-  const dark = tone === 'oxblood'
+  const dark = tone === 'crimson'
   return (
     <Section tone={tone} size="sm" wide aria-labelledby={id}>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
@@ -58,14 +66,14 @@ export function ProductShelf({
             {title}
           </h2>
           {lead && (
-            <p className={cn('mt-1', dark ? 'text-on-oxblood-muted' : 'text-ink-body')}>{lead}</p>
+            <p className={cn('mt-1', dark ? 'text-on-crimson-muted' : 'text-ink-body')}>{lead}</p>
           )}
         </div>
         <Link
           href={href}
           className={cn(
             'group inline-flex min-h-11 items-center gap-1.5 font-semibold hover:underline',
-            dark ? 'text-jm-gold' : 'text-crimson',
+            dark ? 'text-white' : 'text-crimson',
           )}
         >
           See all {title.toLowerCase()}
@@ -84,8 +92,7 @@ export function ProductShelf({
             <ProductCard
               product={p}
               jmdPerUsd={jmdPerUsd}
-              tone="crimson"
-              action={<AddToBasket kind="product" id={p.id} name={p.name} onDark />}
+              action={<AddToBasket kind="product" id={p.id} name={p.name} />}
             />
           </li>
         ))}

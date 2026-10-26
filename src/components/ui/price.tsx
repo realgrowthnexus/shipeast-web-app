@@ -18,14 +18,14 @@ export function Price({
   size?: 'sm' | 'md' | 'lg'
   /** Price before a basket saving, shown struck through. */
   was?: number
-  /** Text colour for the surface behind it: white on crimson or black, jm-black on green. */
-  tone?: 'ink' | 'white' | 'black'
+  /** Text colour: `crimson` on product cards, `white` on crimson. */
+  tone?: 'ink' | 'crimson' | 'white'
   className?: string
 }) {
   const t = {
     ink: { main: 'text-ink', sub: 'text-ink-muted' },
+    crimson: { main: 'text-crimson', sub: 'text-ink-muted' },
     white: { main: 'text-white', sub: 'text-on-crimson-muted' },
-    black: { main: 'text-jm-black', sub: 'text-jm-black' },
   }[tone]
   return (
     <span className={cn('inline-flex flex-col leading-tight', className)}>
