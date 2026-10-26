@@ -18,9 +18,10 @@ import {
   shopQueryString,
   SORTS,
 } from '@/lib/shop-filters'
+import { atLeastOne } from '@/lib/static-params'
 
 export async function generateStaticParams() {
-  return (await getCategories()).map((c) => ({ category: c.slug }))
+  return atLeastOne('category', (await getCategories()).map((c) => c.slug))
 }
 
 export async function generateMetadata({

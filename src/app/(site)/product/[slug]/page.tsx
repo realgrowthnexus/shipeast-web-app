@@ -13,9 +13,10 @@ import { getProduct, getProducts } from '@/lib/data/catalogue'
 import { getActiveZones, getCategories, getSettings } from '@/lib/data/site'
 import { formatClockTime } from '@/lib/format'
 import { site } from '@/lib/site'
+import { atLeastOne } from '@/lib/static-params'
 
 export async function generateStaticParams() {
-  return (await getProducts()).map((p) => ({ slug: p.slug }))
+  return atLeastOne('slug', (await getProducts()).map((p) => p.slug))
 }
 
 export async function generateMetadata({

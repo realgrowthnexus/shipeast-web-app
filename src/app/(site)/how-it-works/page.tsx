@@ -6,6 +6,7 @@ import { ButtonLink } from '@/components/ui/button'
 import { getActiveZones } from '@/lib/data/site'
 import { formatClockTime } from '@/lib/format'
 import { TRACKER_STAGES } from '@/lib/order-status'
+import { SUBSTITUTION_RULES } from '@/lib/substitution'
 
 export const metadata: Metadata = {
   title: 'How it works',
@@ -22,21 +23,6 @@ const stageText: Record<(typeof TRACKER_STAGES)[number]['key'], string> = {
   delivered: 'Handed over at the door. You get a photo and the name of who received it.',
   closed: 'Any refund for missing items is sent and the order is finished.',
 }
-
-const substitutionRules = [
-  {
-    title: 'Allow similar',
-    body: 'The driver picks the closest match at the same price or less. If it costs less, you get the difference back.',
-  },
-  {
-    title: 'Ask me first',
-    body: 'We message you before swapping anything. No answer in time means we leave it out and refund it.',
-  },
-  {
-    title: 'Leave it out',
-    body: 'We skip the item and refund what you paid for it.',
-  },
-]
 
 export default async function HowItWorksPage() {
   const zones = await getActiveZones()
@@ -110,7 +96,7 @@ export default async function HowItWorksPage() {
             shows every item as found, swapped or missing.
           </p>
           <ul className="mt-8 grid gap-4 md:grid-cols-3">
-            {substitutionRules.map((r) => (
+            {SUBSTITUTION_RULES.map((r) => (
               <li key={r.title} className="rounded-lg border border-line bg-blush-100 p-6">
                 <h3 className="text-lg font-bold text-ink">{r.title}</h3>
                 <p className="mt-1 text-ink-muted">{r.body}</p>

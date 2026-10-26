@@ -53,7 +53,7 @@ export default async function FaqPage() {
               <li key={g}>
                 <a
                   href={`#${g.toLowerCase()}`}
-                  className="inline-flex min-h-10 items-center rounded-md border border-line bg-blush-100 px-3 font-semibold text-ink hover:border-blush lg:w-full lg:border-0 lg:bg-transparent lg:hover:bg-blush-200"
+                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-blush-100 px-3 font-semibold text-ink hover:border-blush lg:w-full lg:border-0 lg:bg-transparent lg:hover:bg-blush-200"
                 >
                   {g}
                 </a>

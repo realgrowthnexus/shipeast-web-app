@@ -119,16 +119,23 @@ export function ChoiceGroup({
   options,
   defaultValue,
   columns = 1,
+  error,
 }: {
   name: string
   legend: string
   options: { value: string; title: string; description?: string; icon?: ReactNode }[]
   defaultValue?: string
   columns?: 1 | 2 | 3
+  error?: string
 }) {
   return (
-    <fieldset>
+    <fieldset aria-describedby={error ? `${name}-error` : undefined}>
       <legend className="mb-2 text-sm font-semibold text-ink">{legend}</legend>
+      {error && (
+        <p id={`${name}-error`} className="mb-2 text-sm font-medium text-danger">
+          {error}
+        </p>
+      )}
       <div
         className={cn(
           'grid gap-2.5',

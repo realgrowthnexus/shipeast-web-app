@@ -65,7 +65,7 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="inline-flex min-h-10 items-center text-white/80 hover:text-white"
+                    className="inline-flex min-h-11 items-center text-white/80 hover:text-white"
                   >
                     {l.label}
                   </Link>

@@ -12,6 +12,16 @@ export const settings: SiteSettings = {
   phone: '',
   email: 'info@shipeastja.com',
   bankTransferHoursToPay: 48,
+  // Left empty: ShipEast hasn't confirmed the account. The bank transfer page says so.
+  bankTransfer: {
+    bankName: '',
+    accountName: '',
+    accountNumber: '',
+    branch: '',
+    accountType: '',
+    currency: 'USD',
+    notes: '',
+  },
   features: {
     monthly_orders: false,
     auto_offers: false,
