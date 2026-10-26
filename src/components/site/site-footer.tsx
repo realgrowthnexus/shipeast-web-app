@@ -39,7 +39,7 @@ const columns = [
 export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string }) {
   const waDigits = whatsapp?.replace(/\D/g, '')
   return (
-    <footer className="bg-oxblood text-white">
+    <footer className="bg-oxblood text-white print:hidden">
       <div className="mx-auto grid max-w-6xl gap-10 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)]">
         <div className="flex flex-col gap-4">
           <Wordmark onDark />

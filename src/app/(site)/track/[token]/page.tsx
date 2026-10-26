@@ -1,9 +1,10 @@
-import { ArrowRight, CalendarDays, Check, Gift, MapPin, Repeat, Truck, X } from 'lucide-react'
+import { ArrowRight, CalendarDays, Gift, MapPin, Repeat, Truck } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { ProofSlot } from '@/components/order/proof-slot'
+import { ItemOutcome } from '@/components/order/item-outcome'
 import { TrackingTimeline } from '@/components/order/tracking-timeline'
 import { Container } from '@/components/site/page-intro'
 import { Alert } from '@/components/ui/alert'
@@ -186,30 +187,4 @@ async function Tracking({ params }: { params: PageProps<'/track/[token]'>['param
       </div>
     </div>
   )
-}
-
-function ItemOutcome({ item }: { item: SenderOrder['items'][number] }) {
-  if (item.outcome === 'found') {
-    return (
-      <span className="flex items-center gap-1 text-small font-semibold text-ok">
-        <Check className="size-4" aria-hidden /> Bought
-      </span>
-    )
-  }
-  if (item.outcome === 'substituted') {
-    return (
-      <span className="flex items-center gap-1 text-small font-semibold text-info">
-        <Repeat className="size-4" aria-hidden /> Swapped
-      </span>
-    )
-  }
-  if (item.outcome === 'missing') {
-    return (
-      <span className="flex items-center gap-1 text-small font-semibold text-warn">
-        <X className="size-4" aria-hidden /> Not in stock
-        {item.refundCents > 0 && `, ${formatUsd(item.refundCents)} back`}
-      </span>
-    )
-  }
-  return null
 }

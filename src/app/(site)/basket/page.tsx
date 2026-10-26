@@ -22,6 +22,7 @@ import { priceBasket, type PricedBasket, type PricedLine } from '@/lib/basket/pr
 import { MAX_QUANTITY } from '@/lib/basket/state'
 import { getCatalogue } from '@/lib/data/catalogue'
 import { getSettings } from '@/lib/data/site'
+import { isOrderNumber } from '@/lib/ids'
 import { formatClockTime, formatJmd, formatUsd, usdCentsToJmd } from '@/lib/format'
 import { SubmitOnChangeSelect } from './submit-on-change'
 
@@ -30,27 +31,33 @@ export const metadata: Metadata = {
   robots: { index: false },
 }
 
-export default function BasketPage() {
+export default function BasketPage({ searchParams }: PageProps<'/basket'>) {
   return (
     <>
       <PageIntro title="Your basket" />
       <Container className="section-sm">
         <Suspense fallback={<BasketSkeleton />}>
-          <BasketView />
+          <BasketView searchParams={searchParams} />
         </Suspense>
       </Container>
     </>
   )
 }
 
-async function BasketView() {
+async function BasketView({
+  searchParams,
+}: {
+  searchParams: PageProps<'/basket'>['searchParams']
+}) {
   // Pricing and delivery days read the clock, so this part always renders per request.
   await connection()
-  const [state, catalogue, settings] = await Promise.all([
+  const [state, catalogue, settings, sp] = await Promise.all([
     readBasket(),
     getCatalogue(),
     getSettings(),
+    searchParams,
   ])
+  const reordered = typeof sp.from === 'string' && isOrderNumber(sp.from) ? sp.from : null
   const priced = priceBasket(state, catalogue)
   const rate = settings.jmdPerUsd
 
@@ -82,6 +89,11 @@ async function BasketView() {
         <h2 id="items" className="sr-only">
           Items
         </h2>
+        {reordered && (
+          <Alert tone="info" title={`We added the items from order ${reordered}`}>
+            Prices are today’s, so the total may differ a little from last time.
+          </Alert>
+        )}
         {priced.hasUnavailable && (
           <Alert tone="warn" title="Some items aren’t available today">
             Remove them to continue. You aren’t charged for them.
