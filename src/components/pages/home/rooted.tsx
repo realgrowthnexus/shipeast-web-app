@@ -1,6 +1,6 @@
 import { HeartHandshake, MapPin, ShoppingBasket } from 'lucide-react'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
-import { FlagStripe, JamaicaFlag } from '@/components/site/jamaica'
+import { JamaicaFlag } from '@/components/site/jamaica'
 import { Section } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 
@@ -42,7 +42,6 @@ export function RootedInJamaica() {
             ShipEast is a Jamaican company. Your order is shopped, packed and driven by our own team
             on the island, not sent from a warehouse abroad.
           </p>
-          <FlagStripe className="mt-8 h-1.5 w-24 overflow-hidden rounded-full" />
           <Stagger className="mt-8 grid gap-6">
             {points.map(({ icon: Icon, title, body }) => (
               <StaggerItem key={title} className="flex gap-4">

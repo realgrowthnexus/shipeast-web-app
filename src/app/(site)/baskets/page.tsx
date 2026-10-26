@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
-import { BasketCard } from '@/components/shop/product-card'
+import { BasketCard, flagStrip } from '@/components/shop/product-card'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
 import { Section, SectionHeader } from '@/components/site/section'
@@ -12,7 +12,6 @@ import { ButtonLink } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/card'
 import { getBaskets, getSettings } from '@/lib/data/site'
 import { formatUsd } from '@/lib/format'
-import { FlagStripe } from '@/components/site/jamaica'
 
 export const metadata: Metadata = {
   title: 'Ready-made baskets',
@@ -44,7 +43,6 @@ export default async function BasketsPage() {
             className="hidden aspect-4/3 animate-rise rounded-2xl [animation-delay:120ms] lg:col-span-5 lg:block"
           />
         </div>
-        <FlagStripe className="h-1.5" />
       </section>
 
       <Section size="sm" aria-labelledby="all-baskets">
@@ -55,13 +53,14 @@ export default async function BasketsPage() {
           <Stagger
             className={`grid gap-4 sm:grid-cols-2 ${baskets.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}
           >
-            {baskets.map(({ basket, itemCount, separateCents }) => (
+            {baskets.map(({ basket, itemCount, separateCents }, i) => (
               <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
                 <BasketCard
                   basket={basket}
                   jmdPerUsd={settings.jmdPerUsd}
                   itemCount={itemCount}
                   separateCents={separateCents}
+                  strip={flagStrip(i)}
                 />
               </StaggerItem>
             ))}

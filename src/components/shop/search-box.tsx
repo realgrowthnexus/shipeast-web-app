@@ -14,7 +14,7 @@ export function SearchBox({
   autoFocus?: boolean
   /** Unique per page: the header has its own box. */
   id?: string
-  /** The shorter box in the site header. */
+  /** The shorter box in the site header: a white pill on crimson. */
   compact?: boolean
 }) {
   return (
@@ -35,13 +35,18 @@ export function SearchBox({
         placeholder="Rice, diapers, detergent…"
         maxLength={80}
         className={cn(
-          'w-full rounded-md border-[1.5px] border-line-strong bg-surface pr-28 pl-12 text-body text-ink placeholder:text-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson focus:outline-none',
-          compact ? 'min-h-11' : 'min-h-13',
+          'w-full pr-28 pl-12 text-body text-ink placeholder:text-ink-muted focus:outline-none',
+          compact
+            ? 'min-h-12 rounded-full border-0 bg-white shadow-lift focus:ring-3 focus:ring-jm-gold'
+            : 'min-h-13 rounded-md border-[1.5px] border-line-strong bg-surface focus:border-crimson focus:ring-1 focus:ring-crimson',
         )}
       />
       <button
         type="submit"
-        className="absolute top-1.5 right-1.5 bottom-1.5 rounded-sm bg-crimson px-4 font-semibold text-white transition-colors hover:bg-crimson-deep"
+        className={cn(
+          'absolute top-1.5 right-1.5 bottom-1.5 bg-crimson px-4 font-semibold text-white transition-colors hover:bg-crimson-deep',
+          compact ? 'rounded-full px-5' : 'rounded-sm',
+        )}
       >
         Search
       </button>

@@ -10,6 +10,7 @@ export function Price({
   jmdPerUsd,
   size = 'md',
   was,
+  tone = 'ink',
   className,
 }: {
   cents: number
@@ -17,14 +18,22 @@ export function Price({
   size?: 'sm' | 'md' | 'lg'
   /** Price before a basket saving, shown struck through. */
   was?: number
+  /** Text colour for the surface behind it: white on crimson or black, jm-black on green. */
+  tone?: 'ink' | 'white' | 'black'
   className?: string
 }) {
+  const t = {
+    ink: { main: 'text-ink', sub: 'text-ink-muted' },
+    white: { main: 'text-white', sub: 'text-on-crimson-muted' },
+    black: { main: 'text-jm-black', sub: 'text-jm-black' },
+  }[tone]
   return (
     <span className={cn('inline-flex flex-col leading-tight', className)}>
       <span className="flex items-baseline gap-2">
         <span
           className={cn(
-            'font-extrabold text-ink tabular-nums',
+            'font-extrabold tabular-nums',
+            t.main,
             size === 'sm' && 'text-body',
             size === 'md' && 'text-lead',
             size === 'lg' && 'text-h2',
@@ -33,13 +42,13 @@ export function Price({
           {formatUsd(cents)}
         </span>
         {was !== undefined && was > cents && (
-          <s className="text-small text-ink-muted tabular-nums">
+          <s className={cn('text-small tabular-nums', t.sub)}>
             <span className="sr-only">was </span>
             {formatUsd(was)}
           </s>
         )}
       </span>
-      <span className={cn('text-ink-muted tabular-nums', size === 'lg' ? 'text-body' : 'text-xs')}>
+      <span className={cn('tabular-nums', t.sub, size === 'lg' ? 'text-body' : 'text-xs')}>
         about {formatJmd(usdCentsToJmd(cents, jmdPerUsd))}
       </span>
     </span>

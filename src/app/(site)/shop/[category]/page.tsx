@@ -25,7 +25,6 @@ import {
 } from '@/lib/shop-filters'
 import { atLeastOne } from '@/lib/static-params'
 import { categoryPhotos } from '@/lib/stock-photos'
-import { FlagStripe } from '@/components/site/jamaica'
 
 export async function generateStaticParams() {
   return atLeastOne(
@@ -100,7 +99,6 @@ export default async function CategoryPage({
             />
           )}
         </div>
-        <FlagStripe className="h-1.5" />
       </section>
       <Container className="section-sm">
         <Suspense fallback={<ResultsSkeleton />}>

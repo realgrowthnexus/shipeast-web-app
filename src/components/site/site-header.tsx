@@ -6,7 +6,7 @@ import { getCategories } from '@/lib/data/site'
 import { BasketLink, BasketLinkFallback } from './basket-link'
 import { CategoryIcon } from './category-icon'
 import { HeaderShell } from './header-shell'
-import { FlagStripe, JamaicaFlag } from './jamaica'
+import { JamaicaFlag } from './jamaica'
 import { Wordmark } from './wordmark'
 
 /** Store sections beside the departments. */
@@ -45,13 +45,12 @@ export async function SiteHeader() {
   return (
     <>
       <div className="bg-oxblood text-white print:hidden">
-        <FlagStripe />
         <div className="mx-auto flex min-h-10 max-w-wide items-center justify-between gap-4 gutter text-small">
           <p className="flex items-center gap-2.5 font-semibold">
             <JamaicaFlag className="w-6" />
             Shopped and delivered in Jamaica
           </p>
-          <ul className="hidden items-center gap-6 text-on-oxblood-muted md:flex">
+          <ul className="hidden items-center gap-6 text-on-oxblood-muted lg:flex">
             {strip.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-2">
                 <Icon className="size-4 text-jm-gold" aria-hidden />
@@ -69,14 +68,14 @@ export async function SiteHeader() {
             className="mr-auto rounded-sm lg:mr-4"
             aria-label="ShipEast Shop & Send, home"
           >
-            <Wordmark />
+            <Wordmark onDark />
           </Link>
 
           <SearchBox id="header-q" compact className="hidden max-w-2xl flex-1 md:block" />
 
           <Link
             href="/account"
-            className="grid size-11 place-items-center rounded-md text-ink hover:bg-surface-tint md:ml-auto"
+            className="grid size-11 place-items-center rounded-full text-white hover:bg-crimson-700 md:ml-auto"
           >
             <User className="size-5" aria-hidden />
             <span className="sr-only">Your account</span>
@@ -87,7 +86,7 @@ export async function SiteHeader() {
 
           {/* Phone menu: <details> works before JavaScript loads. */}
           <details className="group relative lg:hidden">
-            <summary className="grid size-11 cursor-pointer list-none place-items-center rounded-md text-ink hover:bg-surface-tint [&::-webkit-details-marker]:hidden">
+            <summary className="grid size-11 cursor-pointer list-none place-items-center rounded-full text-white hover:bg-crimson-700 [&::-webkit-details-marker]:hidden">
               <Menu className="size-6 group-open:hidden" aria-hidden />
               <X className="hidden size-6 group-open:block" aria-hidden />
               <span className="sr-only">Menu</span>
@@ -148,7 +147,7 @@ export async function SiteHeader() {
       {/* The department bar: wide screens only (phones use the menu) */}
       <nav
         aria-label="Departments"
-        className="hidden border-b border-line bg-surface lg:block print:hidden"
+        className="hidden bg-crimson-700 text-white lg:block print:hidden"
       >
         <div className="mx-auto flex max-w-wide items-center gap-1 gutter">
           <ul className="flex items-center gap-1">
@@ -156,7 +155,7 @@ export async function SiteHeader() {
               <li key={d.href}>
                 <Link
                   href={d.href}
-                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-ink transition-colors hover:text-crimson [&_svg]:size-4.5 [&_svg]:text-crimson"
+                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-white [&_svg]:size-4.5 [&_svg]:text-jm-gold"
                 >
                   <CategoryIcon slug={d.slug} />
                   {d.label}
@@ -168,7 +167,7 @@ export async function SiteHeader() {
               <li key={a.href}>
                 <Link
                   href={a.href}
-                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-ink transition-colors hover:text-crimson"
+                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-white"
                 >
                   {a.label}
                   <Underline />
@@ -181,7 +180,7 @@ export async function SiteHeader() {
               <li key={h.href}>
                 <Link
                   href={h.href}
-                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-ink-body hover:text-crimson"
+                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-on-crimson-muted hover:text-white"
                 >
                   {h.href === '/track' && <PackageSearch className="size-4" aria-hidden />}
                   {h.label}
@@ -198,7 +197,7 @@ export async function SiteHeader() {
 function Underline() {
   return (
     <span
-      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-crimson transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
+      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-jm-gold transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
       aria-hidden
     />
   )

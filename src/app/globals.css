@@ -70,8 +70,9 @@
 
   /*
    * Jamaican flag colours, at the user's request, so visitors see at a glance that this is a
-   * Jamaican service. Decorative only: the flag mark, flag stripes and small accents. Never body
-   * text, never a large surface, never mixed into a gradient. Ink text may sit on gold.
+   * Jamaican service. Accents only: the flag mark, gold icons, deal tiles and basket price strips.
+   * Never body text, never a full band, never mixed into a gradient. Ink or black text may sit on
+   * gold, black text on green, white text on black.
    */
   --color-jm-green: #009b3a;
   --color-jm-gold: #fed100;

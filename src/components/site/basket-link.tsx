@@ -7,12 +7,12 @@ function BasketButton({ count }: { count: number | null }) {
   return (
     <Link
       href="/basket"
-      className="relative flex min-h-11 items-center gap-2 rounded-md bg-crimson px-3.5 font-semibold text-white transition-colors hover:bg-crimson-deep"
+      className="relative flex min-h-11 items-center gap-2 rounded-full bg-white px-4 font-bold text-crimson-deep transition-colors hover:bg-surface-tint"
     >
       <ShoppingBasket className="size-5" aria-hidden />
       <span className="hidden sm:inline">Basket</span>
       <span
-        className="grid min-w-6 place-items-center rounded-full bg-surface px-1.5 text-xs font-bold text-crimson-deep tabular-nums"
+        className="grid min-w-6 place-items-center rounded-full bg-crimson px-1.5 text-xs font-bold text-white tabular-nums"
         aria-hidden={count === null}
       >
         {count ?? ' '}

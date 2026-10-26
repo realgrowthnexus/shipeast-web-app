@@ -10,7 +10,7 @@ import { RootedInJamaica } from '@/components/pages/home/rooted'
 import { HomeSteps } from '@/components/pages/home/steps'
 import { SwapChoices } from '@/components/pages/home/swaps'
 import { HomeZones } from '@/components/pages/home/zones'
-import { BasketCard } from '@/components/shop/product-card'
+import { BasketCard, flagStrip } from '@/components/shop/product-card'
 import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
@@ -86,7 +86,7 @@ export default async function HomePage() {
       {/* 2. Departments as round photo tiles */}
       <DepartmentRail categories={categories} />
 
-      {/* 3. One shelf per department, with prices and one-tap add */}
+      {/* 3. One shelf per department: red cards on blush and oxblood bands, ending on blush */}
       {categories.map((c, i) => (
         <ProductShelf
           key={c.id}
@@ -96,7 +96,7 @@ export default async function HomePage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={i % 2 ? 'canvas' : 'surface'}
+          tone={(categories.length - 1 - i) % 2 ? 'oxblood' : 'blush'}
         />
       ))}
 
@@ -119,8 +119,8 @@ export default async function HomePage() {
         <HomeSteps />
       </Section>
 
-      {/* 6. Ready-made baskets (tint) */}
-      <Section tone="tint" wide aria-labelledby="bsk-h">
+      {/* 6. Ready-made baskets (blush) */}
+      <Section tone="blush" wide aria-labelledby="bsk-h">
         <SectionHeader
           id="bsk-h"
           eyebrow="Save on bundles"
@@ -133,13 +133,14 @@ export default async function HomePage() {
           }
         />
         <Stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }) => (
+          {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }, i) => (
             <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
               <BasketCard
                 basket={basket}
                 jmdPerUsd={settings.jmdPerUsd}
                 itemCount={itemCount}
                 separateCents={separateCents}
+                strip={flagStrip(i)}
               />
             </StaggerItem>
           ))}

@@ -61,6 +61,13 @@ const pairs: [string, string, number][] = [
   ['ink', 'jm-gold', 4.5],
   ['jm-gold', 'jm-black', 4.5],
   ['jm-gold', 'oxblood', 4.5],
+  // Basket price strips in the three flag colours.
+  ['jm-black', 'jm-green', 4.5],
+  ['jm-black', 'jm-gold', 4.5],
+  ['white', 'jm-black', 4.5],
+  ['on-crimson-muted', 'jm-black', 4.5],
+  ['on-crimson-muted', 'crimson-800', 4.5],
+  ['crimson-deep', 'white', 4.5],
   // Non-text: form control borders need 3:1 (WCAG 1.4.11).
   ['line-strong', 'surface', 3],
   ['line-strong', 'canvas', 3],

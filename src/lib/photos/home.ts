@@ -22,4 +22,14 @@ export const homePhotos = {
     username: 'ageing_better',
     usedOn: 'Home page',
   }),
+  homeHeroBag: photo({
+    unsplashId: 'H68wqw0MHUo',
+    src: 'https://images.unsplash.com/photo-1792736945298-a480710126cb',
+    width: 5472,
+    height: 3648,
+    alt: 'A mesh shopping bag full of bananas, peppers and fresh vegetables',
+    photographer: 'Illia Bondar',
+    username: 'viktoriiailliaphotography',
+    usedOn: 'Home page',
+  }),
 } satisfies Record<string, StockPhoto>

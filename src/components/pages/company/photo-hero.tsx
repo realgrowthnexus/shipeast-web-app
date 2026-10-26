@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import type { StockPhotoKey } from '@/lib/stock-photos'
-import { FlagStripe } from '@/components/site/jamaica'
 
 /**
  * The crimson opening band of the company pages: eyebrow, the page's h1 and lead on one side,
@@ -49,7 +48,6 @@ export function PhotoHero({
           </div>
         )}
       </div>
-      <FlagStripe className="h-1.5" />
     </section>
   )
 }

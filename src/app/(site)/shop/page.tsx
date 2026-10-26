@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { CategoryChips, CategoryPhotoCard } from '@/components/pages/shop/category-card'
 import { CantFindBanner, HowWeShop } from '@/components/pages/shop/shop-promises'
-import { BasketCard } from '@/components/shop/product-card'
+import { BasketCard, flagStrip } from '@/components/shop/product-card'
 import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { SearchBox } from '@/components/shop/search-box'
 import { deliveryPromise } from '@/components/shop/breadcrumb'
 import { CtaBand } from '@/components/site/cta-band'
-import { FlagBadge, FlagStripe } from '@/components/site/jamaica'
+import { FlagBadge } from '@/components/site/jamaica'
 import { Section, SectionHeader } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { getProducts } from '@/lib/data/catalogue'
@@ -59,7 +59,6 @@ export default async function ShopPage() {
             className="hidden aspect-4/3 animate-rise rounded-2xl [animation-delay:200ms] lg:col-span-5 lg:block"
           />
         </div>
-        <FlagStripe className="h-1.5" />
       </section>
 
       <Section aria-labelledby="categories" size="sm">
@@ -100,13 +99,14 @@ export default async function ShopPage() {
             }
           />
           <Stagger className="grid gap-4 md:grid-cols-3">
-            {baskets.map(({ basket, itemCount, separateCents }) => (
+            {baskets.map(({ basket, itemCount, separateCents }, i) => (
               <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
                 <BasketCard
                   basket={basket}
                   jmdPerUsd={settings.jmdPerUsd}
                   itemCount={itemCount}
                   separateCents={separateCents}
+                  strip={flagStrip(i)}
                 />
               </StaggerItem>
             ))}
@@ -124,7 +124,7 @@ export default async function ShopPage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={i % 2 ? 'surface' : 'canvas'}
+          tone={i % 2 ? 'oxblood' : 'blush'}
         />
       ))}
 
