@@ -34,7 +34,7 @@ export default function BasketPage() {
   return (
     <>
       <PageIntro title="Your basket" />
-      <Container className="py-10">
+      <Container className="section-sm">
         <Suspense fallback={<BasketSkeleton />}>
           <BasketView />
         </Suspense>
@@ -87,7 +87,7 @@ async function BasketView() {
             Remove them to continue. You aren’t charged for them.
           </Alert>
         )}
-        <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-blush-100">
+        <ul className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
           {priced.lines.map((line) => (
             <BasketLineRow key={`${line.kind}-${line.id}`} line={line} rate={rate} />
           ))}
@@ -102,9 +102,9 @@ async function BasketView() {
 
       <aside
         aria-labelledby="summary"
-        className="flex flex-col gap-5 self-start rounded-lg border border-line bg-blush-100 p-5 shadow-card lg:sticky lg:top-24"
+        className="flex flex-col gap-5 self-start rounded-lg border border-line bg-surface p-card-lg lg:sticky lg:top-24"
       >
-        <h2 id="summary" className="text-xl font-extrabold text-ink">
+        <h2 id="summary" className="text-h3 text-ink">
           Order summary
         </h2>
 
@@ -114,7 +114,7 @@ async function BasketView() {
           action={chooseParish}
           className="flex flex-col gap-1.5"
         >
-          <label htmlFor="zoneId" className="text-sm font-semibold text-ink">
+          <label htmlFor="zoneId" className="text-small font-semibold text-ink">
             Delivering to
           </label>
           <div className="flex gap-2">
@@ -139,7 +139,7 @@ async function BasketView() {
               </Button>
             </noscript>
           </div>
-          <p className="text-sm text-ink-muted">
+          <p className="text-small text-ink-muted">
             {priced.zone
               ? `Same-day delivery when you order by ${formatClockTime(priced.zone.cutoffTime)}, Jamaica time.`
               : `We deliver to ${activeZones.map((z) => z.parish).join(' and ')} for now.`}
@@ -151,7 +151,7 @@ async function BasketView() {
         <Totals priced={priced} rate={rate} />
 
         {priced.shortOfMinimumCents > 0 && priced.zone && (
-          <p className="rounded-md bg-warn-tint p-3 text-sm text-ink">
+          <p className="rounded-md bg-warn-tint p-3 text-small text-ink">
             Add {formatUsd(priced.shortOfMinimumCents)} more to reach the{' '}
             {formatUsd(priced.zone.minOrderCents)} minimum for {priced.zone.parish}.
           </p>
@@ -161,12 +161,10 @@ async function BasketView() {
       </aside>
 
       {/* Phones: total and checkout stay in reach while scrolling the list. */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t border-line bg-blush-50/95 px-4 py-3 backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t border-line bg-canvas/95 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex flex-col leading-tight">
           <span className="text-xs text-ink-muted">Total</span>
-          <span className="text-lg font-extrabold text-ink tabular-nums">
-            {formatUsd(priced.totalCents)}
-          </span>
+          <span className="text-h3 text-ink tabular-nums">{formatUsd(priced.totalCents)}</span>
         </div>
         <CheckoutButton priced={priced} className="flex-1" compact />
       </div>
@@ -182,7 +180,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
     </>
   )
   const step =
-    'grid size-10 place-items-center text-crimson hover:bg-blush-200 disabled:text-ink-muted/40 disabled:hover:bg-transparent'
+    'grid size-11 place-items-center text-crimson hover:bg-surface-tint disabled:text-ink-disabled disabled:hover:bg-transparent'
   return (
     <li className="flex gap-3 p-3 sm:gap-4">
       {line.kind === 'product' ? (
@@ -204,7 +202,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
             <Link href={line.href} className="font-semibold text-ink hover:text-crimson">
               {line.name}
             </Link>
-            <span className="text-sm text-ink-muted">
+            <span className="text-small text-ink-muted">
               {line.detail} · {formatUsd(line.unitCents)} each
             </span>
           </div>
@@ -226,7 +224,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
             <div
               role="group"
               aria-label={`Quantity of ${line.name}`}
-              className="inline-flex items-center overflow-hidden rounded-md border-2 border-line bg-white"
+              className="inline-flex items-center overflow-hidden rounded-md border-[1.5px] border-line-strong bg-surface"
             >
               <form action={updateQuantity}>
                 {hidden}
@@ -256,13 +254,13 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
               </form>
             </div>
           ) : (
-            <span className="text-sm text-ink-muted">Out of stock today</span>
+            <span className="text-small text-ink-muted">Out of stock today</span>
           )}
           <form action={removeFromBasket}>
             {hidden}
             <button
               type="submit"
-              className="flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold text-ink-muted hover:bg-blush-200 hover:text-danger"
+              className="flex min-h-11 items-center gap-1.5 rounded-md px-2 text-small font-semibold text-ink-muted hover:bg-surface-tint hover:text-danger"
             >
               <Trash2 className="size-4" aria-hidden />
               Remove<span className="sr-only"> {line.name}</span>
@@ -278,7 +276,7 @@ function PromoForm({ priced }: { priced: PricedBasket }) {
   const { promo } = priced
   if (promo.status === 'applied') {
     return (
-      <div className="flex items-center gap-3 rounded-md bg-ok-tint p-3 text-sm">
+      <div className="flex items-center gap-3 rounded-md bg-ok-tint p-3 text-small">
         <Tag className="size-4 shrink-0 text-ok" aria-hidden />
         <div className="flex flex-1 flex-col">
           <span className="font-bold text-ok">{promo.code}</span>
@@ -287,7 +285,7 @@ function PromoForm({ priced }: { priced: PricedBasket }) {
         <form action={removePromo}>
           <button
             type="submit"
-            className="grid size-10 place-items-center rounded-md text-ink-muted hover:bg-white"
+            className="grid size-11 place-items-center rounded-md text-ink-muted hover:bg-surface"
           >
             <X className="size-4" aria-hidden />
             <span className="sr-only">Remove code {promo.code}</span>
@@ -303,7 +301,7 @@ function PromoForm({ priced }: { priced: PricedBasket }) {
       action={applyPromo}
       className="flex flex-col gap-1.5"
     >
-      <label htmlFor="code" className="text-sm font-semibold text-ink">
+      <label htmlFor="code" className="text-small font-semibold text-ink">
         Promo code <span className="font-normal text-ink-muted">(optional)</span>
       </label>
       <div className="flex gap-2">
@@ -322,7 +320,7 @@ function PromoForm({ priced }: { priced: PricedBasket }) {
         </Button>
       </div>
       {error && (
-        <p id="code-error" className="text-sm font-medium text-danger">
+        <p id="code-error" className="text-small font-medium text-danger">
           {error}
         </p>
       )}
@@ -355,12 +353,10 @@ function Totals({ priced, rate }: { priced: PricedBasket; rate: number }) {
         </dd>
       </div>
       <div className={`${row} items-baseline border-t border-line pt-3`}>
-        <dt className="text-lg font-bold">Total</dt>
+        <dt className="text-h3">Total</dt>
         <dd className="text-right leading-tight">
-          <span className="block text-2xl font-black tabular-nums">
-            {formatUsd(priced.totalCents)}
-          </span>
-          <span className="block text-sm text-ink-muted tabular-nums">
+          <span className="block text-h2 tabular-nums">{formatUsd(priced.totalCents)}</span>
+          <span className="block text-small text-ink-muted tabular-nums">
             about {formatJmd(usdCentsToJmd(priced.totalCents, rate))}
           </span>
         </dd>

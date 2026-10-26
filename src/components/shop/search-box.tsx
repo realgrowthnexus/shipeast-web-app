@@ -28,7 +28,7 @@ export function SearchBox({
         autoFocus={autoFocus}
         placeholder="Rice, diapers, detergent…"
         maxLength={80}
-        className="min-h-13 w-full rounded-md border-2 border-line bg-white pr-28 pl-12 text-base text-ink placeholder:text-ink-muted/70 focus:border-crimson focus:outline-none"
+        className="min-h-13 w-full rounded-md border-[1.5px] border-line-strong bg-surface pr-28 pl-12 text-body text-ink placeholder:text-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson focus:outline-none"
       />
       <button
         type="submit"

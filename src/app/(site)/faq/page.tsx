@@ -39,21 +39,21 @@ export default async function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <PageIntro title="Questions and answers">
+      <PageIntro eyebrow="Help" title="Questions and answers">
         Can’t find what you need?{' '}
         <Link href="/contact" className="font-semibold text-crimson underline">
           Contact us
         </Link>{' '}
         and we’ll answer.
       </PageIntro>
-      <Container className="grid gap-10 py-12 sm:py-16 lg:grid-cols-[14rem_1fr]">
+      <Container className="grid gap-10 section-sm lg:grid-cols-[14rem_1fr]">
         <nav aria-label="Topics" className="lg:sticky lg:top-24 lg:h-fit">
           <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
             {present.map((g) => (
               <li key={g}>
                 <a
                   href={`#${g.toLowerCase()}`}
-                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-blush-100 px-3 font-semibold text-ink hover:border-blush lg:w-full lg:border-0 lg:bg-transparent lg:hover:bg-blush-200"
+                  className="inline-flex min-h-11 items-center rounded-md border border-line bg-surface px-3 font-semibold text-ink hover:border-blush lg:w-full lg:border-0 lg:bg-transparent lg:hover:bg-surface-tint"
                 >
                   {g}
                 </a>
@@ -69,7 +69,7 @@ export default async function FaqPage() {
               aria-labelledby={`${g}-h`}
               className="scroll-mt-24"
             >
-              <h2 id={`${g}-h`} className="mb-4 text-2xl font-extrabold tracking-tight text-ink">
+              <h2 id={`${g}-h`} className="mb-4 text-h2 text-ink">
                 {g}
               </h2>
               <Accordion

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ConfirmedPage(props: PageProps<'/order/[orderRef]/confirmed'>) {
   return (
-    <Container className="max-w-4xl py-10 sm:py-14">
+    <Container className="max-w-4xl section-sm">
       <Suspense fallback={<Skeleton className="h-[34rem]" />}>
         <Confirmed {...props} />
       </Suspense>
@@ -59,10 +59,10 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
             <CircleCheck className="size-7" aria-hidden />
           )}
         </span>
-        <h1 className="text-4xl font-black tracking-tight text-balance text-ink">
+        <h1 className="text-h1 text-balance text-ink">
           {processing ? 'Your payment is being processed' : 'Thank you, your order is in'}
         </h1>
-        <p className="text-lg text-ink-muted">
+        <p className="text-lead text-ink-body">
           Order <strong className="text-ink">{order.orderNo}</strong>
           {processing
             ? '. PayPal is still confirming the payment. We start as soon as it clears, usually within minutes.'
@@ -77,16 +77,16 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
         </Alert>
       )}
 
-      <section aria-labelledby="next" className="rounded-lg bg-crimson p-6 text-white sm:p-8">
-        <h2 id="next" className="text-xl font-extrabold">
+      <section aria-labelledby="next" className="rounded-xl bg-crimson p-card text-white sm:p-8">
+        <h2 id="next" className="text-h3">
           What happens next
         </h2>
         <ol className="mt-5 grid gap-5 sm:grid-cols-3">
           {steps.map(([title, body], i) => (
             <li key={title} className="flex flex-col gap-1">
-              <span className="text-3xl font-black text-blush">{i + 1}</span>
+              <span className="text-h2 font-black text-blush">{i + 1}</span>
               <span className="font-bold">{title}</span>
-              <span className="text-white/85">{body}</span>
+              <span className="text-on-crimson-muted">{body}</span>
             </li>
           ))}
         </ol>
@@ -94,17 +94,17 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
 
       <section
         aria-labelledby="share"
-        className="flex flex-col gap-4 rounded-lg border border-line bg-blush-100 p-5 sm:p-6"
+        className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-card-lg"
       >
-        <h2 id="share" className="flex items-center gap-2 text-xl font-extrabold text-ink">
+        <h2 id="share" className="flex items-center gap-2 text-h3 text-ink">
           <Share2 className="size-5 text-crimson" aria-hidden />
           Share the tracking link
         </h2>
         <p className="text-ink">
           Anyone with this link can follow the order and see the photos. No account needed.
         </p>
-        <div className="flex flex-wrap items-center gap-2 rounded-md border-2 border-line bg-white p-2 pl-4">
-          <span className="min-w-0 flex-1 truncate text-sm text-ink-muted">{trackUrl}</span>
+        <div className="flex flex-wrap items-center gap-2 rounded-md border-[1.5px] border-line-strong bg-surface p-2 pl-4">
+          <span className="min-w-0 flex-1 truncate text-small text-ink-muted">{trackUrl}</span>
           <CopyButton value={trackUrl} label="tracking link" />
         </div>
         <div className="flex flex-wrap gap-3">

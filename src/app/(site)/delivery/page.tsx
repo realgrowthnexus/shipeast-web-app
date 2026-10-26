@@ -26,12 +26,12 @@ export default async function DeliveryPage() {
 
   return (
     <>
-      <PageIntro title="Delivery areas and fees">
+      <PageIntro eyebrow="Delivery" title="Delivery areas and fees">
         We deliver in {active.map((z) => z.parish).join(' and ')} today. Fees are per order, not per
         item.
       </PageIntro>
 
-      <Container className="py-12 sm:py-16">
+      <Container className="section-sm">
         {active.length === 0 ? (
           <Alert tone="warn" title="We are not taking deliveries right now">
             Check back soon, or message us to ask when your area opens.
@@ -41,17 +41,15 @@ export default async function DeliveryPage() {
             {/* Phones: one card per parish, so the fee is never hidden off-screen */}
             <ul className="grid gap-3 sm:hidden">
               {active.map((z) => (
-                <li key={z.id} className="rounded-lg border border-line bg-white p-5">
+                <li key={z.id} className="rounded-lg border border-line bg-surface p-card">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="flex items-center gap-2 text-lg font-bold text-ink">
+                    <p className="flex items-center gap-2 text-h3 text-ink">
                       <MapPin className="size-5 text-crimson" aria-hidden />
                       {z.parish}
                     </p>
-                    <p className="text-lg font-bold text-ink tabular-nums">
-                      {formatUsd(z.feeCents)}
-                    </p>
+                    <p className="text-h3 text-ink tabular-nums">{formatUsd(z.feeCents)}</p>
                   </div>
-                  <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                  <dl className="mt-3 grid grid-cols-2 gap-2 text-small">
                     <div>
                       <dt className="text-ink-muted">{speedLabel[z.speed]} if paid by</dt>
                       <dd className="font-semibold text-ink">{formatClockTime(z.cutoffTime)}</dd>
@@ -66,10 +64,10 @@ export default async function DeliveryPage() {
                 </li>
               ))}
             </ul>
-            <div className="hidden overflow-x-auto rounded-lg border border-line bg-white sm:block">
+            <div className="hidden overflow-x-auto rounded-lg border border-line bg-surface sm:block">
               <table className="w-full text-left">
                 <caption className="sr-only">Delivery fees and cut-off times by parish</caption>
-                <thead className="border-b border-line bg-blush-100 text-sm text-ink-muted">
+                <thead className="border-b border-line bg-surface text-small text-ink-muted">
                   <tr>
                     <th scope="col" className="px-5 py-3 font-semibold">
                       Parish
@@ -109,7 +107,7 @@ export default async function DeliveryPage() {
                       <td className="px-5 py-4 text-ink tabular-nums">
                         {formatUsd(z.minOrderCents)}
                       </td>
-                      <td className="px-5 py-4 text-right text-lg font-bold text-ink tabular-nums">
+                      <td className="px-5 py-4 text-right text-h3 text-ink tabular-nums">
                         {formatUsd(z.feeCents)}
                       </td>
                     </tr>
@@ -122,7 +120,7 @@ export default async function DeliveryPage() {
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
           <section aria-labelledby="rules-h">
-            <h2 id="rules-h" className="text-2xl font-extrabold tracking-tight text-ink">
+            <h2 id="rules-h" className="text-h2 text-ink">
               Good to know
             </h2>
             <ul className="mt-4 flex flex-col gap-3">
@@ -148,7 +146,7 @@ export default async function DeliveryPage() {
 
           {soon.length > 0 && (
             <section aria-labelledby="soon-h">
-              <h2 id="soon-h" className="text-2xl font-extrabold tracking-tight text-ink">
+              <h2 id="soon-h" className="text-h2 text-ink">
                 Coming later
               </h2>
               <p className="mt-2 text-ink-muted">
@@ -158,7 +156,7 @@ export default async function DeliveryPage() {
                 {soon.map((z) => (
                   <li
                     key={z.id}
-                    className="rounded-full border border-line bg-blush-100 px-3 py-1.5 text-sm text-ink"
+                    className="rounded-full border border-line bg-surface px-3 py-1.5 text-small text-ink"
                   >
                     {z.parish}
                   </li>

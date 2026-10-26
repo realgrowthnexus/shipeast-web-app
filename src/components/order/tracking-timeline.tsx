@@ -35,10 +35,10 @@ export function TrackingTimeline({
             )}
             <span
               className={cn(
-                'relative grid size-8 shrink-0 place-items-center rounded-full border-2 text-sm font-bold',
+                'relative grid size-8 shrink-0 place-items-center rounded-full border-2 text-small font-bold',
                 done && 'border-crimson bg-crimson text-white',
-                active && 'border-signal bg-white text-signal',
-                !done && !active && 'border-line bg-white text-ink-muted',
+                active && 'border-signal bg-surface text-signal',
+                !done && !active && 'border-line bg-surface text-ink-muted',
               )}
             >
               {done ? <Check className="size-4" aria-hidden /> : i + 1}
@@ -54,10 +54,10 @@ export function TrackingTimeline({
                 {active && <span className="sr-only"> (current step)</span>}
               </span>
               {active && (
-                <span className="text-sm text-ink">{ORDER_STATUS[status].senderText}</span>
+                <span className="text-small text-ink">{ORDER_STATUS[status].senderText}</span>
               )}
               {times[stage.key] && (
-                <span className="text-sm text-ink-muted tabular-nums">
+                <span className="text-small text-ink-muted tabular-nums">
                   {formatDateTime(times[stage.key]!)}
                 </span>
               )}

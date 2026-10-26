@@ -63,7 +63,7 @@ export function AddToBasket({
           Add to basket
         </Button>
       </div>
-      <div aria-live="polite" className="min-h-6 text-sm">
+      <div aria-live="polite" className="min-h-6 text-small">
         {added && (
           <p className="flex flex-wrap items-center gap-x-2 font-semibold text-ok">
             <Check className="size-4" aria-hidden />

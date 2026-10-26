@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <Container className="py-10 sm:py-14">
-      <h1 className="mb-8 text-4xl font-black tracking-tight text-ink">Checkout</h1>
+    <Container className="section-sm">
+      <h1 className="mb-8 text-h1 text-ink">Checkout</h1>
       <Suspense fallback={<CheckoutSkeleton />}>
         <CheckoutView />
       </Suspense>
@@ -68,13 +68,13 @@ async function CheckoutView() {
           footer={
             <Link
               href="/basket"
-              className="text-sm font-semibold text-crimson underline-offset-2 hover:underline"
+              className="text-small font-semibold text-crimson underline-offset-2 hover:underline"
             >
               Change your basket
             </Link>
           }
         />
-        <p className="flex gap-2 text-sm text-ink-muted">
+        <p className="flex gap-2 text-small text-ink-muted">
           <LockKeyhole className="mt-0.5 size-4 shrink-0" aria-hidden />
           Payments are handled by PayPal or your bank. We never see or store your card details.
         </p>

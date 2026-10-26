@@ -38,15 +38,15 @@ export default async function GiftsPage() {
 
   return (
     <>
-      <PageIntro title="Gifts and occasions" tone="crimson">
+      <PageIntro eyebrow="Shop" title="Gifts and occasions" tone="crimson">
         A basket at the door, with your own message printed and handed over.
       </PageIntro>
-      <Container className="py-16 sm:py-20">
+      <Container className="section">
         <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {occasions.map(({ icon: Icon, title, body }) => (
             <li key={title}>
               <Icon className="size-8 text-crimson" aria-hidden />
-              <h2 className="mt-3 text-xl font-bold text-ink">{title}</h2>
+              <h2 className="mt-3 text-h3 text-ink">{title}</h2>
               <p className="mt-1 text-ink-muted">{body}</p>
             </li>
           ))}
@@ -54,7 +54,7 @@ export default async function GiftsPage() {
 
         {baskets.length > 0 && (
           <section aria-labelledby="gift-baskets-h" className="mt-16">
-            <h2 id="gift-baskets-h" className="text-3xl font-extrabold tracking-tight text-ink">
+            <h2 id="gift-baskets-h" className="text-h2 text-ink">
               Baskets for the occasion
             </h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -71,8 +71,8 @@ export default async function GiftsPage() {
           </section>
         )}
 
-        <div className="mt-16 flex flex-col items-start gap-4 rounded-lg border border-line bg-blush-100 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-center gap-3 text-lg font-semibold text-ink">
+        <div className="mt-16 flex flex-col items-start gap-4 rounded-lg border border-line bg-surface p-card sm:flex-row sm:items-center sm:justify-between">
+          <p className="flex items-center gap-3 text-lead font-semibold text-ink">
             <Gift className="size-6 shrink-0 text-crimson" aria-hidden />
             Add a gift message to any order at checkout.
           </p>

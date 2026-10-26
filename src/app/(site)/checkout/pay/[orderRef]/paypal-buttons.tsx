@@ -130,10 +130,10 @@ export function PayPalButtons({
         className={state === 'working' ? 'pointer-events-none opacity-60' : undefined}
       />
       {state === 'working' && (
-        <p className="text-sm font-semibold text-ink">Confirming your payment…</p>
+        <p className="text-small font-semibold text-ink">Confirming your payment…</p>
       )}
       {message && (
-        <p role="alert" className="text-sm font-medium text-danger">
+        <p role="alert" className="text-small font-medium text-danger">
           {message}
         </p>
       )}

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function BankTransferPage(props: PageProps<'/checkout/bank-transfer/[orderRef]'>) {
   return (
-    <Container className="max-w-4xl py-10 sm:py-14">
+    <Container className="max-w-4xl section-sm">
       <Suspense fallback={<Skeleton className="h-[36rem]" />}>
         <BankTransfer {...props} />
       </Suspense>
@@ -55,10 +55,10 @@ async function BankTransfer({
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-3">
         <p className="font-semibold text-crimson">Order {order.orderNo} is saved</p>
-        <h1 className="text-4xl font-black tracking-tight text-balance text-ink">
+        <h1 className="text-h1 text-balance text-ink">
           {paid ? 'Your transfer has arrived' : 'Now send the bank transfer'}
         </h1>
-        <p className="max-w-2xl text-lg text-ink-muted">
+        <p className="max-w-2xl text-lead text-ink-body">
           {paid
             ? 'Thank you. We’re getting your order ready.'
             : 'We start shopping as soon as the money lands in our account. Use your order number as the reference so we can match it.'}
@@ -74,9 +74,9 @@ async function BankTransfer({
       <div className="grid gap-6 lg:grid-cols-[1fr_20rem]">
         <section
           aria-labelledby="bank-details"
-          className="flex flex-col gap-5 rounded-lg border border-line bg-blush-100 p-5 sm:p-6"
+          className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-card-lg"
         >
-          <h2 id="bank-details" className="flex items-center gap-2 text-xl font-extrabold text-ink">
+          <h2 id="bank-details" className="flex items-center gap-2 text-h3 text-ink">
             <Landmark className="size-5 text-crimson" aria-hidden />
             Transfer details
           </h2>
@@ -89,7 +89,7 @@ async function BankTransfer({
                     key={label}
                     className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3"
                   >
-                    <dt className="text-sm text-ink-muted">{label}</dt>
+                    <dt className="text-small text-ink-muted">{label}</dt>
                     <dd className="flex items-center gap-2 font-bold text-ink tabular-nums">
                       {value}
                       {copy && <CopyButton value={value} label={label} />}
@@ -103,22 +103,22 @@ async function BankTransfer({
               sent.
             </Alert>
           )}
-          {bank.notes && <p className="text-sm text-ink">{bank.notes}</p>}
-          <p className="text-sm text-ink-muted">
+          {bank.notes && <p className="text-small text-ink">{bank.notes}</p>}
+          <p className="text-small text-ink-muted">
             That is about {formatJmd(usdCentsToJmd(order.totalCents, order.jmdPerUsd))}. Send the
             exact US dollar amount; bank fees on your side are yours to cover.
           </p>
         </section>
 
         <div className="flex flex-col gap-4">
-          <div className="flex gap-3 rounded-lg bg-crimson p-5 text-white">
+          <div className="flex gap-3 rounded-xl bg-crimson p-card text-white">
             <Clock className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
             <p>
               Please pay by <strong>{formatDateTime(deadline)}</strong>, Jamaica time. After that
               the order is cancelled and nothing is owed.
             </p>
           </div>
-          <p className="text-sm text-ink-muted">
+          <p className="text-small text-ink-muted">
             Keep your order number, {order.orderNo}. The tracking page shows when your transfer has
             arrived.
           </p>

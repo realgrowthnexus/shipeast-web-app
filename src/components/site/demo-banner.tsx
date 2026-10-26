@@ -4,7 +4,7 @@ import { Info } from 'lucide-react'
 export function DemoBanner() {
   return (
     <div className="bg-ink text-white">
-      <p className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2 text-sm">
+      <p className="mx-auto flex max-w-6xl items-center gap-2 gutter py-2 text-small">
         <Info className="size-4 shrink-0 text-blush" aria-hidden />
         Preview with sample products and prices. Orders can&apos;t be placed yet.
       </p>

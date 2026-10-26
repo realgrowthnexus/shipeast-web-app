@@ -31,7 +31,7 @@ export function Alert({
       <Icon className="mt-0.5 size-5 shrink-0" aria-hidden />
       <div className="flex flex-1 flex-col gap-1">
         <p className="font-semibold">{title}</p>
-        {children && <div className="text-sm text-ink">{children}</div>}
+        {children && <div className="text-small text-ink">{children}</div>}
         {action && <div className="mt-2">{action}</div>}
       </div>
     </div>

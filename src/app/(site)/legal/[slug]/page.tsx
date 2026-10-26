@@ -31,13 +31,13 @@ export default async function LegalPage({ params }: PageProps<'/legal/[slug]'>) 
 
   return (
     <>
-      <PageIntro title={page.title}>
+      <PageIntro eyebrow="Policies" title={page.title}>
         {page.summary}
-        <span className="mt-2 block text-sm">
+        <span className="mt-2 block text-small">
           Last updated {formatDate(`${page.updated}T12:00:00Z`)}
         </span>
       </PageIntro>
-      <Container className="grid gap-10 py-12 sm:py-16 lg:grid-cols-[14rem_1fr]">
+      <Container className="grid gap-10 section-sm lg:grid-cols-[14rem_1fr]">
         <nav aria-label="Policies" className="lg:sticky lg:top-24 lg:h-fit">
           <ul className="flex flex-wrap gap-2 lg:flex-col lg:gap-1">
             {LEGAL_SLUGS.map((s) => (
@@ -45,7 +45,7 @@ export default async function LegalPage({ params }: PageProps<'/legal/[slug]'>) 
                 <Link
                   href={`/legal/${s}`}
                   aria-current={s === slug ? 'page' : undefined}
-                  className="inline-flex min-h-11 items-center rounded-md px-3 font-semibold text-ink hover:bg-blush-200 aria-[current=page]:bg-crimson aria-[current=page]:text-white lg:w-full"
+                  className="inline-flex min-h-11 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-tint aria-[current=page]:bg-crimson aria-[current=page]:text-white lg:w-full"
                 >
                   {titles[s]}
                 </Link>
@@ -61,7 +61,7 @@ export default async function LegalPage({ params }: PageProps<'/legal/[slug]'>) 
           )}
           {page.sections.map((section) => (
             <section key={section.heading} className="mb-8">
-              <h2 className="mb-3 text-xl font-bold text-ink">{section.heading}</h2>
+              <h2 className="mb-3 text-h3 text-ink">{section.heading}</h2>
               {section.body.map((p) => (
                 <p key={p.slice(0, 40)} className="mb-3 text-ink">
                   {p}

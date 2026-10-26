@@ -16,16 +16,16 @@ export const metadata: Metadata = {
 export default function TrackPage() {
   return (
     <>
-      <PageIntro title="Track an order">
+      <PageIntro eyebrow="Your order" title="Track an order">
         Use the link in your order email, or enter your order number and email below. Your family
         can use the same link; no account needed.
       </PageIntro>
-      <Container className="grid max-w-4xl gap-8 py-12 md:grid-cols-[1fr_16rem]">
-        <Card className="p-5 sm:p-8">
+      <Container className="grid max-w-4xl gap-8 section-sm md:grid-cols-[1fr_16rem]">
+        <Card className="p-card-lg">
           <TrackForm />
         </Card>
         {isDemoMode() && (
-          <aside className="flex flex-col gap-2 text-sm">
+          <aside className="flex flex-col gap-2 text-small">
             <p className="font-semibold text-ink">Preview orders</p>
             <ul className="flex flex-col gap-1">
               {demoOrders.map((o) => (

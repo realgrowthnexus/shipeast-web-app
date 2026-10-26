@@ -12,7 +12,7 @@ function BasketButton({ count }: { count: number | null }) {
       <ShoppingBasket className="size-5" aria-hidden />
       <span className="hidden sm:inline">Basket</span>
       <span
-        className="grid min-w-6 place-items-center rounded-full bg-white px-1.5 text-xs font-bold text-crimson-deep tabular-nums"
+        className="grid min-w-6 place-items-center rounded-full bg-surface px-1.5 text-xs font-bold text-crimson-deep tabular-nums"
         aria-hidden={count === null}
       >
         {count ?? ' '}

@@ -53,6 +53,7 @@ export default async function MonthlyPage() {
   return (
     <>
       <PageIntro
+        eyebrow="Monthly orders"
         title={monthly ? 'Set up their basket once' : 'Sending every month?'}
         tone="crimson"
       >
@@ -60,13 +61,13 @@ export default async function MonthlyPage() {
           ? 'Choose the items once, pick a day, and we shop and deliver every month. Each delivery comes with the receipt photo and the door photo.'
           : 'Make it quick. With a free account, the next order is one tap.'}
       </PageIntro>
-      <Container className="py-16 sm:py-20">
+      <Container className="section">
         <ul className="grid gap-8 md:grid-cols-3">
           {points.map(({ icon: Icon, title, body }) => (
             <li key={title} className="flex flex-col gap-3">
               <Icon className="size-8 text-crimson" aria-hidden />
-              <h2 className="text-xl font-bold text-ink">{title}</h2>
-              <p className="text-ink-muted">{body}</p>
+              <h2 className="text-h3 text-ink">{title}</h2>
+              <p className="text-ink-body">{body}</p>
             </li>
           ))}
         </ul>
