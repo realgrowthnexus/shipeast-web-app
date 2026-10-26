@@ -113,6 +113,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                       src={hit.product.imagePath}
                       alt=""
                       categoryId={hit.product.categoryId}
+                      slug={hit.product.slug}
                       sizes="80px"
                       className="w-20 shrink-0"
                     />

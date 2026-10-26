@@ -2,8 +2,12 @@ import { DollarSign, MessageSquareText, PackageX } from 'lucide-react'
 import Link from 'next/link'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { HomeHero } from '@/components/pages/home/hero'
+import { CompareWays } from '@/components/pages/home/compare'
+import { DepartmentRail } from '@/components/pages/home/departments'
 import { PhotoCardLink } from '@/components/pages/home/photo-card'
 import { ProofBand } from '@/components/pages/home/proof-band'
+import { RootedInJamaica } from '@/components/pages/home/rooted'
+import { ProductShelf } from '@/components/pages/home/shelf'
 import { HomeSteps } from '@/components/pages/home/steps'
 import { SwapChoices } from '@/components/pages/home/swaps'
 import { HomeZones } from '@/components/pages/home/zones'
@@ -14,9 +18,10 @@ import { PromiseTicker } from '@/components/site/promise-ticker'
 import { Section, SectionHeader } from '@/components/site/section'
 import { Accordion } from '@/components/ui/accordion'
 import { ButtonLink } from '@/components/ui/button'
+import { getProducts } from '@/lib/data/catalogue'
 import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
 import { formatClockTime } from '@/lib/format'
-import { categoryPhotos, type StockPhotoKey } from '@/lib/stock-photos'
+import type { StockPhotoKey } from '@/lib/stock-photos'
 
 const abroad = [
   {
@@ -62,25 +67,58 @@ const occasions: { photo: StockPhotoKey; title: string; body: string }[] = [
 const linkClass = 'inline-flex min-h-11 items-center font-semibold text-crimson hover:underline'
 
 export default async function HomePage() {
-  const [settings, zones, categories, baskets, faqs] = await Promise.all([
+  const [settings, zones, categories, baskets, faqs, products] = await Promise.all([
     getSettings(),
     getActiveZones(),
     getCategories(),
     getBaskets({ featured: true }),
     getFaqs(),
+    getProducts(),
   ])
+  // In-stock first, featured first, so each shelf leads with what we can buy today
+  const shelf = (categoryId: string) =>
+    products
+      .filter((p) => p.categoryId === categoryId)
+      .sort(
+        (a, b) =>
+          Number(a.status !== 'visible') - Number(b.status !== 'visible') ||
+          Number(b.featured) - Number(a.featured),
+      )
+  const shelfLead: Record<string, string> = {
+    groceries: 'Rice, flour, oil and the staples they cook with every day.',
+    household: 'Detergent, paper goods and cleaning basics.',
+    pharmacy: 'Pain relief, vitamins and first aid.',
+    'baby-and-child': 'Diapers, wipes and formula for the little ones.',
+  }
   const parishes = zones.map((z) => z.parish).join(' and ')
   const cutoff = formatClockTime(zones[0]?.cutoffTime ?? '13:00')
 
   return (
     <>
-      {/* 1. Hero (crimson) */}
+      {/* 1. Store front: main banner and two deal tiles */}
       <HomeHero parishes={parishes} />
 
-      {/* 2. The promises every order carries (oxblood) */}
+      {/* 2. Departments as round photo tiles */}
+      <DepartmentRail categories={categories} />
+
+      {/* 3. One shelf per department, with prices and one-tap add */}
+      {categories.map((c, i) => (
+        <ProductShelf
+          key={c.id}
+          id={`shelf-${c.slug}`}
+          title={c.name}
+          lead={shelfLead[c.slug] ?? c.description}
+          href={`/shop/${c.slug}`}
+          products={shelf(c.id)}
+          jmdPerUsd={settings.jmdPerUsd}
+          tone={i % 2 ? 'canvas' : 'surface'}
+        />
+      ))}
+
+      {/* 4. The promises every order carries (oxblood) */}
       <PromiseTicker />
 
-      {/* 3. How it works (canvas) */}
+      {/* 5. How it works (canvas) */}
       <Section wide aria-labelledby="how-h">
         <SectionHeader
           id="how-h"
@@ -96,37 +134,7 @@ export default async function HomePage() {
         <HomeSteps />
       </Section>
 
-      {/* 4. Shop by category (surface) */}
-      <Section tone="surface" wide aria-labelledby="cat-h">
-        <SectionHeader
-          id="cat-h"
-          eyebrow="The shop"
-          title="What we can buy for them"
-          lead="Everyday needs from the store shelf, priced in US dollars."
-          action={
-            <Link href="/shop" className={linkClass}>
-              See the whole shop
-            </Link>
-          }
-        />
-        <Stagger className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-          {categories.map((c) => (
-            <StaggerItem key={c.id}>
-              <PhotoCardLink
-                href={`/shop/${c.slug}`}
-                photo={categoryPhotos[c.slug]}
-                title={c.name}
-                body={c.description}
-                meta={`${c.count} items`}
-                aspect="aspect-4/3 lg:aspect-4/5"
-                sizes="(min-width: 1280px) 300px, (min-width: 1024px) 23vw, (min-width: 640px) 50vw, 100vw"
-              />
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </Section>
-
-      {/* 5. Ready-made baskets (tint) */}
+      {/* 6. Ready-made baskets (tint) */}
       <Section tone="tint" wide aria-labelledby="bsk-h">
         <SectionHeader
           id="bsk-h"
@@ -153,10 +161,10 @@ export default async function HomePage() {
         </Stagger>
       </Section>
 
-      {/* 6. Proof on every order (crimson) */}
+      {/* 7. Proof on every order (crimson) */}
       <ProofBand />
 
-      {/* 7. You decide on swaps (canvas) */}
+      {/* 8. You decide on swaps (canvas) */}
       <Section wide aria-labelledby="swap-h">
         <SectionHeader
           id="swap-h"
@@ -167,7 +175,7 @@ export default async function HomePage() {
         <SwapChoices />
       </Section>
 
-      {/* 8. Made for Jamaicans abroad (surface) */}
+      {/* 9. Made for Jamaicans abroad (surface) */}
       <Section tone="surface" wide aria-labelledby="abroad-h">
         <PhotoFeature photo="homeSenderPhone" parallax aspect="aspect-4/3 lg:aspect-4/5">
           <p className="mb-3 eyebrow text-crimson">From wherever you are</p>
@@ -197,10 +205,24 @@ export default async function HomePage() {
         </PhotoFeature>
       </Section>
 
-      {/* 9. Where we deliver (oxblood) */}
+      {/* 10. Compared with cash or a barrel (canvas) */}
+      <Section wide aria-labelledby="cmp-h">
+        <SectionHeader
+          id="cmp-h"
+          eyebrow="Better than cash or a barrel"
+          title="The easier way to look after home"
+          lead="Cash still means a trip to the store. A barrel takes weeks and can’t carry fresh food. We do the shopping for them, today."
+        />
+        <CompareWays />
+      </Section>
+
+      {/* 11. Where we deliver (oxblood) */}
       <HomeZones zones={zones} />
 
-      {/* 10. Gifts and occasions (canvas) */}
+      {/* 12. A Jamaican service (tint) */}
+      <RootedInJamaica />
+
+      {/* 13. Gifts and occasions (canvas) */}
       <Section wide aria-labelledby="gift-h">
         <SectionHeader
           id="gift-h"
@@ -229,7 +251,7 @@ export default async function HomePage() {
         </Stagger>
       </Section>
 
-      {/* 11. Questions people ask (surface) */}
+      {/* 14. Questions people ask (surface) */}
       <Section tone="surface" aria-labelledby="faq-h">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -251,7 +273,7 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* 12. Closing call to action (crimson panel on canvas) */}
+      {/* 15. Closing call to action (crimson panel on canvas) */}
       <CtaBand
         title={<>Order before {cutoff} and it’s at their door today.</>}
         photo="homeDoorWelcome"

@@ -27,8 +27,8 @@ shade steps, shadows and photography instead.
 | `crimson-500` | `#E30D3B` | `signal`       | Big numerals, live dot, focus ring. Never text under 24px   |
 | `crimson-600` | `#AE0E31` | `crimson`      | Primary buttons, hero blocks, links, eyebrow labels         |
 | `crimson-700` | `#7A0A23` | `crimson-deep` | Hover and pressed on crimson, ghost-button hover on crimson |
-| `crimson-800` | `#520819` |                | Pressed on crimson-deep, deep panels inside crimson bands   |
-| `crimson-900` | `#2A0A12` | `oxblood`      | Footer, dark bands, the promise ticker                      |
+| `crimson-800` | `#62091F` |                | Pressed on crimson-deep, deep panels inside crimson bands   |
+| `crimson-900` | `#4A0B1C` | `oxblood`      | Footer, dark bands, the promise ticker                      |
 | `crimson-950` | `#1A050B` |                | The footer's bottom strip, image frames on oxblood          |
 
 ### Warm neutrals
@@ -47,6 +47,21 @@ shade steps, shadows and photography instead.
 
 Prefer the named alias when one exists (`text-ink`, not `text-neutral-900`), because it says
 what the color is for.
+
+### Jamaican flag
+
+The user asked for touches of the Jamaican flag so visitors see at once that this is a Jamaican
+service. These are the only colors outside the brand palette, and they are accents.
+
+| Token      | Hex       | Use                                                            |
+| ---------- | --------- | -------------------------------------------------------------- |
+| `jm-green` | `#009B3A` | Flag mark and flag stripes only. Never text, never behind text |
+| `jm-gold`  | `#FED100` | Flag, stripes, icons on oxblood, one deal tile with `ink` text |
+| `jm-black` | `#000000` | Flag mark and flag stripes only                                |
+
+Use them through `src/components/site/jamaica.tsx`: `JamaicaFlag` (the flag, drawn flat),
+`FlagStripe` (a thin green, gold and black bar on the edge of a band or panel) and `FlagBadge`.
+One flag or stripe per area is enough; they are a signature, not a pattern.
 
 ### Status
 

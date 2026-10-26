@@ -200,6 +200,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
           src={line.imagePath}
           alt=""
           categoryId={line.categoryId ?? undefined}
+          slug={line.href.replace('/product/', '')}
           sizes="96px"
           className="w-20 shrink-0 self-start sm:w-24"
         />

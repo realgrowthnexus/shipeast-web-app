@@ -11,6 +11,7 @@ import { companyPhotos } from './photos/company'
 import { corePhotos } from './photos/core'
 import { guidePhotos } from './photos/guide'
 import { homePhotos } from './photos/home'
+import { jamaicaPhotos } from './photos/jamaica'
 import { shopPhotos } from './photos/shop'
 import type { StockPhoto } from './photos/types'
 
@@ -22,6 +23,7 @@ export const stockPhotos = {
   ...shopPhotos,
   ...guidePhotos,
   ...companyPhotos,
+  ...jamaicaPhotos,
 } satisfies Record<string, StockPhoto>
 
 export type StockPhotoKey = keyof typeof stockPhotos

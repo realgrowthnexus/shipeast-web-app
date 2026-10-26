@@ -7,6 +7,7 @@ import {
   Repeat2,
   Receipt,
 } from 'lucide-react'
+import { JamaicaFlag } from './jamaica'
 
 /**
  * A slow band of the promises every order carries. Facts only, never invented numbers. The list
@@ -27,6 +28,10 @@ export function PromiseTicker({ tone = 'oxblood' }: { tone?: 'oxblood' | 'tint' 
   const dark = tone === 'oxblood'
   const list = (hidden: boolean) => (
     <ul className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden || undefined}>
+      <li className="flex items-center gap-3 font-semibold whitespace-nowrap">
+        <JamaicaFlag className="w-7" />
+        Shopped and delivered in Jamaica
+      </li>
       {promises.map(({ icon: Icon, text }) => (
         <li key={text} className="flex items-center gap-3 font-semibold whitespace-nowrap">
           <Icon className={dark ? 'size-5 text-blush' : 'size-5 text-crimson'} aria-hidden />

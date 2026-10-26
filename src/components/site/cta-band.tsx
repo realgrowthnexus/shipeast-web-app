@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Reveal } from '@/components/motion/reveal'
 import { ButtonLink } from '@/components/ui/button'
 import type { StockPhotoKey } from '@/lib/stock-photos'
+import { FlagStripe } from './jamaica'
 import { StockPhoto } from './stock-photo'
 
 /**
@@ -54,6 +55,7 @@ export function CtaBand({
               className="hidden rounded-none lg:col-span-5 lg:block"
             />
           )}
+          <FlagStripe className="h-1.5 lg:col-span-12" />
         </Reveal>
       </div>
     </section>

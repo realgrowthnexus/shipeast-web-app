@@ -10,8 +10,11 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
 - Warm, everyday, Caribbean where we can find it: family, groceries, the door, Kingston and St.
   Thomas. No studio shots of models staring at the camera.
 - No overlays, tints, gradients or text on top of a photo. Crimson blocks sit beside photos.
-- No PriceSmart photos, no store or delivery-company logos, and no real product photos here:
-  products keep their placeholders until ShipEast supplies photos.
+- No PriceSmart photos and no store or delivery-company logos.
+- Product photos live in `src/lib/photos/products.ts`, keyed by product slug. Each one must
+  show that exact item, with no brand visible. When no photo truly matches, the product keeps
+  its placeholder: an unrelated photo is never acceptable (user, October 26, 2026). A photo
+  uploaded in the admin always wins over the stock photo.
 - 12px corners (`rounded-lg`), cropped to 4:3 for steps and occasions, 16:9 for places and basket
   headers, 4:5 for the tall people shot in "Why ShipEast".
 - Only pages that sell or explain get photos. Basket, checkout, payment, tracking, product pages,
