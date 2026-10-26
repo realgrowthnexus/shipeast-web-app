@@ -79,3 +79,11 @@ export function toTitleCase(name: string): string {
     .replace(/(^|[\s\-'])(\p{L})/gu, (_, sep: string, ch: string) => sep + ch.toUpperCase())
     .replace(/\bMc(\p{L})/gu, (_, ch: string) => `Mc${ch.toUpperCase()}`)
 }
+
+/** `13:00` (a cut-off time stored in Jamaica time) → `1:00 PM`. */
+export function formatClockTime(hhmm: string): string {
+  const [h, m] = hhmm.split(':').map(Number)
+  const suffix = h >= 12 ? 'PM' : 'AM'
+  const hour = h % 12 === 0 ? 12 : h % 12
+  return `${hour}:${String(m).padStart(2, '0')} ${suffix}`
+}
