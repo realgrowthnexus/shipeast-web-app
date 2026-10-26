@@ -6,6 +6,7 @@ const tones = {
   canvas: '',
   surface: 'bg-surface',
   tint: 'bg-crimson-50',
+  blush: 'bg-surface-tint',
   crimson: 'bg-crimson text-white',
   oxblood: 'bg-oxblood text-white',
 } as const

@@ -4,8 +4,8 @@ import { type ReactNode, useEffect, useState } from 'react'
 import { cn } from '@/lib/cn'
 
 /**
- * The sticky header frame. Once the page scrolls it gains a solid background and a soft shadow,
- * so it reads as floating over the content.
+ * The sticky header frame: always crimson, so the store's colour leads. Once the page scrolls it
+ * gains a soft shadow, so it reads as floating over the content.
  */
 export function HeaderShell({ children }: { children: ReactNode }) {
   const [scrolled, setScrolled] = useState(false)
@@ -20,7 +20,7 @@ export function HeaderShell({ children }: { children: ReactNode }) {
       data-scrolled={scrolled || undefined}
       className={cn(
         'sticky top-0 z-40 border-b transition-[background-color,box-shadow,border-color] duration-300 ease-out-soft print:hidden',
-        scrolled ? 'border-line bg-surface shadow-lift' : 'border-transparent bg-canvas',
+        scrolled ? 'border-crimson-700 bg-crimson shadow-lift' : 'border-transparent bg-crimson',
       )}
     >
       {children}

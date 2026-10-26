@@ -22,20 +22,6 @@ export function JamaicaFlag({ className, label }: { className?: string; label?: 
   )
 }
 
-/**
- * A thin bar in the three flag colours, in flat blocks. Used as an edge on bands and panels:
- * the top of the header and footer, the foot of the closing call to action.
- */
-export function FlagStripe({ className }: { className?: string }) {
-  return (
-    <div className={cn('flex h-1', className)} aria-hidden>
-      <span className="flex-1 bg-jm-green" />
-      <span className="flex-1 bg-jm-gold" />
-      <span className="flex-1 bg-jm-black" />
-    </div>
-  )
-}
-
 /** A small pill with the flag, for eyebrows and hero badges. */
 export function FlagBadge({
   children,

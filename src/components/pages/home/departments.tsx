@@ -16,7 +16,7 @@ export function DepartmentRail({ categories }: { categories: Department[] }) {
     <nav aria-label="Shop by department" className="pb-4 sm:pb-8">
       <div className="mx-auto max-w-wide gutter">
         <h2 className="mb-5 text-h3 text-ink">Shop by department</h2>
-        <ul className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-7">
+        <ul className="-mx-4 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0 lg:grid-cols-7">
           {categories.map((c) => {
             const photo = categoryPhotos[c.slug]
             return (

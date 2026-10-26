@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AddToBasket } from '@/components/shop/add-to-basket'
 import { ProductCard } from '@/components/shop/product-card'
 import { Section } from '@/components/site/section'
-import type { SectionTone } from '@/components/site/section'
+import { cn } from '@/lib/cn'
 import type { Product } from '@/lib/types'
 
 /** The line under each department's shelf title. Other departments use their description. */
@@ -28,7 +28,8 @@ export function shelfProducts(products: Product[], categoryId: string) {
 /**
  * A store shelf: one department's products with prices and one-tap add. Scrolls sideways on
  * phones and shows five across on wide screens, with a link to the whole aisle. No entrance
- * animation: in a store the products should simply be there.
+ * animation: in a store the products should simply be there. Red cards with white Add buttons
+ * sit on a blush or oxblood band, so the shelves read as store colour, not a white page.
  */
 export function ProductShelf({
   id,
@@ -37,7 +38,7 @@ export function ProductShelf({
   href,
   products,
   jmdPerUsd,
-  tone = 'canvas',
+  tone = 'blush',
 }: {
   id: string
   title: string
@@ -45,21 +46,27 @@ export function ProductShelf({
   href: string
   products: Product[]
   jmdPerUsd: number
-  tone?: SectionTone
+  tone?: 'blush' | 'oxblood'
 }) {
   if (!products.length) return null
+  const dark = tone === 'oxblood'
   return (
     <Section tone={tone} size="sm" wide aria-labelledby={id}>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
-          <h2 id={id} className="text-h2 text-ink">
+          <h2 id={id} className={cn('text-h2', dark ? 'text-white' : 'text-ink')}>
             {title}
           </h2>
-          {lead && <p className="mt-1 text-ink-body">{lead}</p>}
+          {lead && (
+            <p className={cn('mt-1', dark ? 'text-on-oxblood-muted' : 'text-ink-body')}>{lead}</p>
+          )}
         </div>
         <Link
           href={href}
-          className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-crimson hover:underline"
+          className={cn(
+            'group inline-flex min-h-11 items-center gap-1.5 font-semibold hover:underline',
+            dark ? 'text-jm-gold' : 'text-crimson',
+          )}
         >
           See all {title.toLowerCase()}
           <ArrowRight
@@ -68,7 +75,7 @@ export function ProductShelf({
           />
         </Link>
       </div>
-      <ul className="-mx-4 grid snap-x auto-cols-[46%] grid-flow-col gap-3 overflow-x-auto px-4 pb-2 sm:auto-cols-[31%] md:mx-0 md:auto-cols-auto md:grid-flow-row md:grid-cols-4 md:overflow-visible md:px-0 lg:grid-cols-5 lg:gap-4">
+      <ul className="-mx-4 grid snap-x scroll-px-4 auto-cols-[46%] grid-flow-col gap-3 overflow-x-auto px-4 pb-2 sm:auto-cols-[31%] md:mx-0 md:auto-cols-auto md:grid-flow-row md:grid-cols-4 md:overflow-visible md:px-0 lg:grid-cols-5 lg:gap-4">
         {products.slice(0, 5).map((p, i) => (
           <li
             key={p.id}
@@ -77,7 +84,8 @@ export function ProductShelf({
             <ProductCard
               product={p}
               jmdPerUsd={jmdPerUsd}
-              action={<AddToBasket kind="product" id={p.id} name={p.name} />}
+              tone="crimson"
+              action={<AddToBasket kind="product" id={p.id} name={p.name} onDark />}
             />
           </li>
         ))}
