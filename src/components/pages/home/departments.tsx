@@ -46,7 +46,7 @@ export function DepartmentRail({ categories }: { categories: Department[] }) {
               <Gift aria-hidden />
             </IconFace>
           </Tile>
-          <Tile href="/monthly" label="Monthly" meta="Every month">
+          <Tile href="/monthly" label="Monthly" meta="Reorder">
             <IconFace>
               <CalendarSync aria-hidden />
             </IconFace>

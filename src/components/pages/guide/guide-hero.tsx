@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import type { StockPhotoKey } from '@/lib/stock-photos'
+import { FlagStripe } from '@/components/site/jamaica'
 
 /**
  * Top of the guide pages: a solid crimson block with the page title, and a large photo beside it
@@ -49,6 +50,7 @@ export function GuideHero({
           </div>
         )}
       </div>
+      <FlagStripe className="h-1.5" />
     </section>
   )
 }

@@ -22,6 +22,7 @@ import { Alert } from '@/components/ui/alert'
 import { getFaqs, getZones } from '@/lib/data/site'
 import { formatClockTime, formatUsd } from '@/lib/format'
 import type { DeliveryZone } from '@/lib/types'
+import { JamaicaFlag } from '@/components/site/jamaica'
 
 export const metadata: Metadata = {
   title: 'Delivery areas and fees',
@@ -166,6 +167,28 @@ export default async function DeliveryPage() {
             ))}
           </Stagger>
         )}
+      </Section>
+
+      <Section tone="surface" wide aria-labelledby="parishes-h">
+        <PhotoFeature photo="jmKingstonHills" side="end">
+          <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
+            <JamaicaFlag className="w-7" />
+            Our two parishes
+          </p>
+          <h2 id="parishes-h" className="text-h2 text-balance text-ink">
+            Kingston and St. Thomas, the roads we know
+          </h2>
+          <div className="mt-5 flex flex-col gap-4 text-lead text-ink-body">
+            <p>
+              Our team is based in St. Thomas, east of Kingston. We started with the two parishes we
+              drive every day, so our drivers know the roads, the landmarks and the stores.
+            </p>
+            <p>
+              Give us a nearby landmark with the address, the way you would give directions at home,
+              and it helps the driver find the right gate.
+            </p>
+          </div>
+        </PhotoFeature>
       </Section>
 
       {active.length > 0 && (

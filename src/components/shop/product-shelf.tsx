@@ -6,6 +6,25 @@ import { Section } from '@/components/site/section'
 import type { SectionTone } from '@/components/site/section'
 import type { Product } from '@/lib/types'
 
+/** The line under each department's shelf title. Other departments use their description. */
+export const shelfLeads: Record<string, string> = {
+  groceries: 'Rice, flour, oil and the staples they cook with every day.',
+  household: 'Detergent, paper goods and cleaning basics.',
+  pharmacy: 'Pain relief, vitamins and first aid.',
+  'baby-and-child': 'Diapers, wipes and formula for the little ones.',
+}
+
+/** One department's products for a shelf: in stock first, then featured first. */
+export function shelfProducts(products: Product[], categoryId: string) {
+  return products
+    .filter((p) => p.categoryId === categoryId)
+    .sort(
+      (a, b) =>
+        Number(a.status !== 'visible') - Number(b.status !== 'visible') ||
+        Number(b.featured) - Number(a.featured),
+    )
+}
+
 /**
  * A store shelf: one department's products with prices and one-tap add. Scrolls sideways on
  * phones and shows five across on wide screens, with a link to the whole aisle. No entrance

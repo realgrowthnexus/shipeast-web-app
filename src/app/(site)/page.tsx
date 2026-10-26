@@ -7,11 +7,11 @@ import { DepartmentRail } from '@/components/pages/home/departments'
 import { PhotoCardLink } from '@/components/pages/home/photo-card'
 import { ProofBand } from '@/components/pages/home/proof-band'
 import { RootedInJamaica } from '@/components/pages/home/rooted'
-import { ProductShelf } from '@/components/pages/home/shelf'
 import { HomeSteps } from '@/components/pages/home/steps'
 import { SwapChoices } from '@/components/pages/home/swaps'
 import { HomeZones } from '@/components/pages/home/zones'
 import { BasketCard } from '@/components/shop/product-card'
+import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
 import { PromiseTicker } from '@/components/site/promise-ticker'
@@ -75,21 +75,6 @@ export default async function HomePage() {
     getFaqs(),
     getProducts(),
   ])
-  // In-stock first, featured first, so each shelf leads with what we can buy today
-  const shelf = (categoryId: string) =>
-    products
-      .filter((p) => p.categoryId === categoryId)
-      .sort(
-        (a, b) =>
-          Number(a.status !== 'visible') - Number(b.status !== 'visible') ||
-          Number(b.featured) - Number(a.featured),
-      )
-  const shelfLead: Record<string, string> = {
-    groceries: 'Rice, flour, oil and the staples they cook with every day.',
-    household: 'Detergent, paper goods and cleaning basics.',
-    pharmacy: 'Pain relief, vitamins and first aid.',
-    'baby-and-child': 'Diapers, wipes and formula for the little ones.',
-  }
   const parishes = zones.map((z) => z.parish).join(' and ')
   const cutoff = formatClockTime(zones[0]?.cutoffTime ?? '13:00')
 
@@ -107,9 +92,9 @@ export default async function HomePage() {
           key={c.id}
           id={`shelf-${c.slug}`}
           title={c.name}
-          lead={shelfLead[c.slug] ?? c.description}
+          lead={shelfLeads[c.slug] ?? c.description}
           href={`/shop/${c.slug}`}
-          products={shelf(c.id)}
+          products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
           tone={i % 2 ? 'canvas' : 'surface'}
         />

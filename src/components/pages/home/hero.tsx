@@ -90,9 +90,9 @@ export function HomeHero({ parishes }: { parishes: string }) {
           <DealTile
             href="/monthly"
             photo="pantry"
-            eyebrow="Set it and forget it"
-            title="Monthly orders"
-            body="The same basket at their door every month."
+            eyebrow="Sending every month?"
+            title="Send it again"
+            body="Save their address once and reorder in one tap."
             tone="tint"
             delay="[animation-delay:280ms]"
           />

@@ -12,6 +12,7 @@ import { ButtonLink } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/card'
 import { getBaskets, getSettings } from '@/lib/data/site'
 import { formatUsd } from '@/lib/format'
+import { FlagStripe } from '@/components/site/jamaica'
 
 export const metadata: Metadata = {
   title: 'Ready-made baskets',
@@ -43,6 +44,7 @@ export default async function BasketsPage() {
             className="hidden aspect-4/3 animate-rise rounded-2xl [animation-delay:120ms] lg:col-span-5 lg:block"
           />
         </div>
+        <FlagStripe className="h-1.5" />
       </section>
 
       <Section size="sm" aria-labelledby="all-baskets">
