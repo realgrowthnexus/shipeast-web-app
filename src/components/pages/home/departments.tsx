@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { categoryPhotos, type StockPhotoKey } from '@/lib/stock-photos'
+import { HomeSection } from './home-section'
 
 type Department = { id: string; slug: string; name: string }
 
@@ -11,11 +12,10 @@ const aisles: { href: string; label: string; photo: StockPhotoKey }[] = [
 ]
 
 /**
- * The store's aisles as round photo tiles, like the department row of a grocery site. Scrolls
- * sideways on phones with the next tile peeking in; one row on wide screens. No item counts:
- * they only advertise how small a launch catalogue is.
+ * The store's aisles as small square cards: photo, then name. A thin border that turns
+ * crimson on hover, with the photo easing in. Three across on phones, six on wide screens.
  */
-export function DepartmentRail({ categories }: { categories: Department[] }) {
+export function DepartmentGrid({ categories }: { categories: Department[] }) {
   const tiles = [
     ...categories.map((c) => ({
       href: `/shop/${c.slug}`,
@@ -25,34 +25,35 @@ export function DepartmentRail({ categories }: { categories: Department[] }) {
     ...aisles,
   ]
   return (
-    <nav aria-label="Shop by department" className="pt-8 pb-2 sm:pt-10">
-      <div className="mx-auto max-w-wide gutter">
-        <h2 className="mb-4 text-h3 text-ink">Shop by department</h2>
-        <ul className="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-6 sm:gap-4 sm:overflow-visible sm:px-0">
-          {tiles.map((t) => (
-            <li key={t.href} className="w-22 shrink-0 snap-start sm:w-auto">
-              <Link
-                href={t.href}
-                className="group flex flex-col items-center gap-2.5 rounded-lg p-1 text-center"
-              >
-                <span className="block size-20 overflow-hidden rounded-full border border-line bg-canvas transition-[border-color,transform] duration-250 ease-out-soft group-hover:-translate-y-0.5 group-hover:border-crimson motion-reduce:transition-none sm:size-24">
-                  {t.photo && (
-                    <StockPhoto
-                      name={t.photo}
-                      sizes="96px"
-                      className="size-full rounded-full"
-                      zoom
-                    />
-                  )}
-                </span>
-                <span className="text-small font-semibold text-ink group-hover:text-crimson">
-                  {t.label}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+    <HomeSection
+      id="dept-h"
+      title="Shop by department"
+      link={{ href: '/shop', label: 'All departments', short: 'All' }}
+    >
+      <ul className="grid grid-cols-3 gap-3 sm:grid-cols-6 sm:gap-4">
+        {tiles.map((t) => (
+          <li key={t.href}>
+            <Link
+              href={t.href}
+              className="group flex h-full flex-col items-center gap-3 rounded-lg border border-line bg-surface p-2 text-center transition-[border-color,box-shadow] duration-250 ease-out-soft hover:border-crimson hover:shadow-lift sm:p-3"
+            >
+              <span className="block aspect-square w-full overflow-hidden rounded-md bg-canvas">
+                {t.photo && (
+                  <StockPhoto
+                    name={t.photo}
+                    sizes="(min-width: 640px) 180px, 30vw"
+                    className="size-full rounded-md"
+                    zoom
+                  />
+                )}
+              </span>
+              <span className="pb-1 text-small font-semibold text-ink group-hover:text-crimson">
+                {t.label}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </HomeSection>
   )
 }

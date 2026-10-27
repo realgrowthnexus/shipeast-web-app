@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/cn'
 import { Price } from '@/components/ui/price'
 import { basketPhotos, type StockPhotoKey } from '@/lib/stock-photos'
 import type { Basket, Product } from '@/lib/types'
@@ -10,37 +11,44 @@ import { ProductImage } from './product-image'
 export function ProductCard({
   product,
   jmdPerUsd,
+  category,
   action,
 }: {
   product: Product
   jmdPerUsd: number
+  /** The department name, shown small above the title in mixed grids. */
+  category?: string
   /** Add-to-basket control; the card stays a plain link without it. */
   action?: ReactNode
 }) {
   const outOfStock = product.status === 'out_of_stock'
   return (
-    <article className="group relative flex w-full hover-lift flex-col gap-3 rounded-lg border border-line bg-surface p-3 hover:border-line-strong">
+    <article className="group relative flex w-full flex-col gap-3 rounded-lg border border-line bg-surface p-3 transition-[box-shadow,border-color] duration-250 ease-out-soft hover:border-line-strong hover:shadow-lift">
       <div className="relative">
         <ProductImage
           src={product.imagePath}
           alt={product.name}
           categoryId={product.categoryId}
           slug={product.slug}
-          className={outOfStock ? 'opacity-60 grayscale-[40%]' : undefined}
+          className={cn('aspect-square', outOfStock && 'opacity-60 grayscale-[40%]')}
         />
         {outOfStock && <Badge className="absolute top-2 left-2">Out of stock</Badge>}
       </div>
-      <div className="flex flex-1 flex-col gap-1 px-1">
-        <h3 className="line-clamp-2 leading-snug font-semibold text-ink">
+      <div className="flex flex-1 flex-col gap-0.5 px-0.5">
+        {category && <p className="text-xs font-medium text-ink-muted">{category}</p>}
+        <h3 className="line-clamp-2 text-small leading-snug font-semibold text-ink sm:text-body">
           <Link href={`/product/${product.slug}`} className="after:absolute after:inset-0">
             {product.name}
           </Link>
         </h3>
-        <p className="text-small text-ink-muted">{product.size}</p>
+        <p className="text-xs text-ink-muted">{product.size}</p>
       </div>
-      <div className="flex flex-col gap-3 px-1 pb-1">
-        <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} />
-        {action && !outOfStock && <div className="relative z-10 [&_button]:w-full">{action}</div>}
+      {/* Price beside a small Add on wide cards; stacked, with a full-width Add, on narrow ones */}
+      <div className="flex flex-col gap-2.5 px-0.5 xl:flex-row xl:items-end xl:justify-between">
+        <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} size="sm" />
+        {action && !outOfStock && (
+          <div className="relative z-10 [&_button]:w-full xl:[&_button]:w-auto">{action}</div>
+        )}
       </div>
     </article>
   )
@@ -51,12 +59,15 @@ export function BasketCard({
   jmdPerUsd,
   itemCount,
   separateCents,
+  action,
 }: {
   basket: Basket
   jmdPerUsd: number
   itemCount: number
   /** What the items would cost bought one by one. */
   separateCents: number
+  /** Usually a full-width add button, under the price. */
+  action?: ReactNode
 }) {
   const photo = basketPhotos[basket.slug]
   return (
@@ -87,6 +98,7 @@ export function BasketCard({
           </span>
         )}
       </div>
+      {action && <div className="relative z-10 px-5 pb-5 [&_button]:w-full">{action}</div>}
     </article>
   )
 }
