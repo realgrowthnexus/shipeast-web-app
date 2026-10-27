@@ -37,7 +37,7 @@ export function SearchBox({
         className={cn(
           'w-full pr-28 pl-12 text-body text-ink placeholder:text-ink-muted focus:outline-none',
           compact
-            ? 'min-h-12 rounded-full border-0 bg-white shadow-lift focus:ring-3 focus:ring-jm-gold'
+            ? 'min-h-12 rounded-full border-0 bg-white shadow-lift focus:ring-3 focus:ring-blush'
             : 'min-h-13 rounded-md border-[1.5px] border-line-strong bg-surface focus:border-crimson focus:ring-1 focus:ring-crimson',
         )}
       />

@@ -17,14 +17,11 @@ export function AddToBasket({
   id,
   name,
   variant = 'compact',
-  onDark = false,
 }: {
   kind: LineKind
   id: string
   name: string
   variant?: 'compact' | 'full'
-  /** White button, for the compact control on a crimson card. */
-  onDark?: boolean
 }) {
   const [state, action, pending] = useActionState<AddState, FormData>(addToBasket, {
     status: 'idle',
@@ -39,7 +36,7 @@ export function AddToBasket({
         <Button
           type="submit"
           size="sm"
-          variant={onDark ? 'onDark' : added ? 'secondary' : 'primary'}
+          variant={added ? 'secondary' : 'primary'}
           loading={pending}
           className="min-h-11"
         >

@@ -10,8 +10,8 @@ import { RootedInJamaica } from '@/components/pages/home/rooted'
 import { HomeSteps } from '@/components/pages/home/steps'
 import { SwapChoices } from '@/components/pages/home/swaps'
 import { HomeZones } from '@/components/pages/home/zones'
-import { BasketCard, flagStrip } from '@/components/shop/product-card'
-import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
+import { BasketCard } from '@/components/shop/product-card'
+import { ProductShelf, shelfLeads, shelfProducts, shelfTone } from '@/components/shop/product-shelf'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
 import { PromiseTicker } from '@/components/site/promise-ticker'
@@ -86,7 +86,7 @@ export default async function HomePage() {
       {/* 2. Departments as round photo tiles */}
       <DepartmentRail categories={categories} />
 
-      {/* 3. One shelf per department: red cards on blush and oxblood bands, ending on blush */}
+      {/* 3. One shelf per department: the first on crimson, the rest on blush and canvas */}
       {categories.map((c, i) => (
         <ProductShelf
           key={c.id}
@@ -96,7 +96,7 @@ export default async function HomePage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={(categories.length - 1 - i) % 2 ? 'oxblood' : 'blush'}
+          tone={shelfTone(i)}
         />
       ))}
 
@@ -119,8 +119,8 @@ export default async function HomePage() {
         <HomeSteps />
       </Section>
 
-      {/* 6. Ready-made baskets (blush) */}
-      <Section tone="blush" wide aria-labelledby="bsk-h">
+      {/* 6. Ready-made baskets (tint) */}
+      <Section tone="tint" wide aria-labelledby="bsk-h">
         <SectionHeader
           id="bsk-h"
           eyebrow="Save on bundles"
@@ -133,14 +133,13 @@ export default async function HomePage() {
           }
         />
         <Stagger className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }, i) => (
+          {baskets.slice(0, 3).map(({ basket, itemCount, separateCents }) => (
             <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
               <BasketCard
                 basket={basket}
                 jmdPerUsd={settings.jmdPerUsd}
                 itemCount={itemCount}
                 separateCents={separateCents}
-                strip={flagStrip(i)}
               />
             </StaggerItem>
           ))}
@@ -161,8 +160,8 @@ export default async function HomePage() {
         <SwapChoices />
       </Section>
 
-      {/* 9. Made for Jamaicans abroad (surface) */}
-      <Section tone="surface" wide aria-labelledby="abroad-h">
+      {/* 9. Made for Jamaicans abroad (tint) */}
+      <Section tone="tint" wide aria-labelledby="abroad-h">
         <PhotoFeature photo="homeSenderPhone" parallax aspect="aspect-4/3 lg:aspect-4/5">
           <p className="mb-3 eyebrow text-crimson">From wherever you are</p>
           <h2 id="abroad-h" className="text-h2 text-balance text-ink">
@@ -202,7 +201,7 @@ export default async function HomePage() {
         <CompareWays />
       </Section>
 
-      {/* 11. Where we deliver (oxblood) */}
+      {/* 11. Where we deliver (crimson) */}
       <HomeZones zones={zones} />
 
       {/* 12. A Jamaican service (tint) */}
@@ -237,8 +236,8 @@ export default async function HomePage() {
         </Stagger>
       </Section>
 
-      {/* 14. Questions people ask (surface) */}
-      <Section tone="surface" aria-labelledby="faq-h">
+      {/* 14. Questions people ask (tint) */}
+      <Section tone="tint" aria-labelledby="faq-h">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeader

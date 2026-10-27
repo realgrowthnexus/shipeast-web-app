@@ -44,16 +44,16 @@ export async function SiteHeader() {
 
   return (
     <>
-      <div className="bg-oxblood text-white print:hidden">
+      <div className="bg-crimson-700 text-white print:hidden">
         <div className="mx-auto flex min-h-10 max-w-wide items-center justify-between gap-4 gutter text-small">
           <p className="flex items-center gap-2.5 font-semibold">
             <JamaicaFlag className="w-6" />
             Shopped and delivered in Jamaica
           </p>
-          <ul className="hidden items-center gap-6 text-on-oxblood-muted lg:flex">
+          <ul className="hidden items-center gap-6 text-on-crimson-muted lg:flex">
             {strip.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-2">
-                <Icon className="size-4 text-jm-gold" aria-hidden />
+                <Icon className="size-4 text-blush" aria-hidden />
                 {text}
               </li>
             ))}
@@ -155,7 +155,7 @@ export async function SiteHeader() {
               <li key={d.href}>
                 <Link
                   href={d.href}
-                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-white [&_svg]:size-4.5 [&_svg]:text-jm-gold"
+                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-white [&_svg]:size-4.5 [&_svg]:text-blush"
                 >
                   <CategoryIcon slug={d.slug} />
                   {d.label}
@@ -197,7 +197,7 @@ export async function SiteHeader() {
 function Underline() {
   return (
     <span
-      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-jm-gold transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
+      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-white transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
       aria-hidden
     />
   )

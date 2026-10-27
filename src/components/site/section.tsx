@@ -5,8 +5,7 @@ import { cn } from '@/lib/cn'
 const tones = {
   canvas: '',
   surface: 'bg-surface',
-  tint: 'bg-crimson-50',
-  blush: 'bg-surface-tint',
+  tint: 'bg-surface-tint',
   crimson: 'bg-crimson text-white',
   oxblood: 'bg-oxblood text-white',
 } as const

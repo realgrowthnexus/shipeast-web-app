@@ -6,10 +6,10 @@ import { StockPhoto } from '@/components/site/stock-photo'
 import { formatClockTime, formatUsd } from '@/lib/format'
 import type { DeliveryZone } from '@/lib/types'
 
-/** Where we deliver, on oxblood: a photo of Kingston and one card per active zone. */
+/** Where we deliver, on crimson: a photo of Kingston and one card per active zone. */
 export function HomeZones({ zones }: { zones: DeliveryZone[] }) {
   return (
-    <Section tone="oxblood" wide aria-labelledby="zone-h">
+    <Section tone="crimson" wide aria-labelledby="zone-h">
       <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5" y={0}>
           <StockPhoto
@@ -28,7 +28,7 @@ export function HomeZones({ zones }: { zones: DeliveryZone[] }) {
           />
           <Stagger className="mt-8 grid gap-4 sm:grid-cols-2">
             {zones.map((z) => (
-              <StaggerItem key={z.id} className="rounded-xl bg-crimson-800 p-card">
+              <StaggerItem key={z.id} className="rounded-xl bg-crimson-700 p-card">
                 <p className="flex items-center gap-2 text-h3">
                   <MapPin className="size-5 text-blush" aria-hidden />
                   {z.parish}

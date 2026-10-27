@@ -88,7 +88,7 @@ export function HomeHero({ parishes }: { parishes: string }) {
         </div>
       </section>
 
-      {/* Three deal tiles */}
+      {/* Three deal tiles, all gold: on this site gold always means a deal */}
       <section aria-label="Deals" className="pt-6 pb-10 sm:pt-8 sm:pb-14">
         <div className="mx-auto flex max-w-wide snap-x scroll-px-4 gap-3 overflow-x-auto gutter pb-1 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible">
           <DealTile
@@ -97,7 +97,6 @@ export function HomeHero({ parishes }: { parishes: string }) {
             eyebrow="Save on bundles"
             title="Ready-made baskets"
             body="Packed for the usual needs, for less than buying each item."
-            tone="gold"
             delay="[animation-delay:120ms]"
           />
           <DealTile
@@ -106,7 +105,6 @@ export function HomeHero({ parishes }: { parishes: string }) {
             eyebrow="Gifts and occasions"
             title="Gifts for home"
             body="Hampers for Christmas, birthdays and new babies."
-            tone="crimson"
             delay="[animation-delay:200ms]"
           />
           <DealTile
@@ -115,7 +113,6 @@ export function HomeHero({ parishes }: { parishes: string }) {
             eyebrow="Sending every month?"
             title="Send it again"
             body="Save their address once and reorder in one tap."
-            tone="oxblood"
             delay="[animation-delay:280ms]"
           />
         </div>
@@ -124,34 +121,12 @@ export function HomeHero({ parishes }: { parishes: string }) {
   )
 }
 
-const tileTones = {
-  gold: {
-    tile: 'bg-jm-gold text-ink',
-    eyebrow: 'text-ink',
-    body: 'text-ink-body',
-    arrow: 'bg-ink text-jm-gold',
-  },
-  crimson: {
-    tile: 'bg-crimson text-white',
-    eyebrow: 'text-blush',
-    body: 'text-on-crimson-muted',
-    arrow: 'bg-white text-crimson',
-  },
-  oxblood: {
-    tile: 'bg-oxblood text-white',
-    eyebrow: 'text-jm-gold',
-    body: 'text-on-oxblood-muted',
-    arrow: 'bg-jm-gold text-ink',
-  },
-} as const
-
 function DealTile({
   href,
   photo,
   eyebrow,
   title,
   body,
-  tone,
   delay,
 }: {
   href: string
@@ -159,28 +134,25 @@ function DealTile({
   eyebrow: string
   title: string
   body: string
-  tone: keyof typeof tileTones
   delay: string
 }) {
-  const t = tileTones[tone]
   return (
     <Link
       href={href}
       className={cn(
-        'group flex w-[85%] shrink-0 hover-lift animate-rise snap-start gap-4 rounded-2xl p-3 sm:w-[55%] lg:w-auto',
-        t.tile,
+        'group flex w-[85%] shrink-0 hover-lift animate-rise snap-start gap-4 rounded-2xl bg-jm-gold p-3 text-ink sm:w-[55%] lg:w-auto',
         delay,
       )}
     >
       <span className="flex flex-1 flex-col py-2 pl-2">
-        <span className={cn('eyebrow', t.eyebrow)}>{eyebrow}</span>
+        <span className="eyebrow text-crimson-deep">{eyebrow}</span>
         <span className="mt-2 text-h3">{title}</span>
-        <span className={cn('mt-1 text-small', t.body)}>{body}</span>
+        <span className="mt-1 text-small text-ink-body">{body}</span>
         <span className="mt-auto flex items-center gap-2 pt-4 text-small font-bold">
           <span
             className={cn(
               'grid size-9 place-items-center rounded-full transition-transform duration-250 ease-out-soft group-hover:translate-x-1 motion-reduce:transition-none',
-              t.arrow,
+              'bg-crimson text-white',
             )}
           >
             <ArrowRight className="size-4" aria-hidden />

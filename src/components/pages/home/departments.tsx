@@ -88,7 +88,7 @@ function Tile({
 
 function IconFace({ children }: { children: ReactNode }) {
   return (
-    <span className="grid size-full place-items-center bg-crimson text-white [&_svg]:size-9">
+    <span className="grid size-full place-items-center text-crimson [&_svg]:size-9">
       {children}
     </span>
   )
