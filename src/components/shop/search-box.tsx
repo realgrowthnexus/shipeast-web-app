@@ -30,12 +30,13 @@ export function SearchBox({
         id={id}
         name="q"
         type="search"
+        enterKeyHint="search"
         defaultValue={defaultValue}
         autoFocus={autoFocus}
         placeholder="Rice, diapers, detergent…"
         maxLength={80}
         className={cn(
-          'w-full pr-28 pl-12 text-body text-ink placeholder:text-ink-muted focus:outline-none',
+          'w-full pr-14 pl-12 text-body text-ink placeholder:text-ink-muted focus:outline-none sm:pr-28',
           compact
             ? 'min-h-12 rounded-full border-0 bg-white shadow-lift focus:ring-3 focus:ring-blush'
             : 'min-h-13 rounded-md border-[1.5px] border-line-strong bg-surface focus:border-crimson focus:ring-1 focus:ring-crimson',
@@ -44,11 +45,12 @@ export function SearchBox({
       <button
         type="submit"
         className={cn(
-          'absolute top-1.5 right-1.5 bottom-1.5 bg-crimson px-4 font-semibold text-white transition-colors hover:bg-crimson-deep',
-          compact ? 'rounded-full px-5' : 'rounded-sm',
+          'absolute top-1 right-1 bottom-1 grid min-w-11 place-items-center bg-crimson font-semibold text-white transition-colors hover:bg-crimson-deep sm:top-1.5 sm:right-1.5 sm:bottom-1.5 sm:px-5',
+          compact ? 'rounded-full' : 'rounded-sm',
         )}
       >
-        Search
+        <Search className="size-5 sm:hidden" aria-hidden />
+        <span className="sr-only sm:not-sr-only">Search</span>
       </button>
     </form>
   )

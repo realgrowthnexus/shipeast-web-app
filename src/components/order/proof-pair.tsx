@@ -1,7 +1,7 @@
 import { Camera, DoorOpen } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/cn'
-import { formatTime, formatUsd } from '@/lib/format'
+import { formatJmd, formatTime, formatUsd, usdCentsToJmd } from '@/lib/format'
 
 /**
  * The product's promise in one picture: the store receipt and the photo at the door, side
@@ -21,6 +21,8 @@ export function ProofPair({
     totalCents: number
     at?: string
     photo?: string | null
+    /** Ring the drawn receipt up in J$, as a Jamaican till prints it (example receipts). */
+    jmdPerUsd?: number
   }
   door: { recipient: string; place: string; at?: string; photo?: string | null }
   /** Fanned-out look for marketing pages; flat for tracking and order detail. */
@@ -34,9 +36,12 @@ export function ProofPair({
     onDark ? 'text-on-crimson-muted' : 'text-ink-muted',
   )
   const captionIcon = cn('size-4', onDark ? 'text-blush' : 'text-crimson')
+  const rate = receipt.jmdPerUsd
+  const money = (cents: number) =>
+    rate ? formatJmd(usdCentsToJmd(cents, rate)) : formatUsd(cents).replace('USD', '')
   return (
     <div className={cn('grid grid-cols-2 items-start gap-3 sm:gap-5', className)}>
-      <figure className={cn('flex flex-col gap-2', tilt && '-rotate-2 sm:-rotate-3')}>
+      <figure className={cn('flex flex-col gap-2', tilt && '-rotate-1 sm:-rotate-2')}>
         {receipt.photo ? (
           <div className="relative aspect-[3/4] overflow-hidden rounded-md shadow-float">
             <Image
@@ -55,13 +60,17 @@ export function ProofPair({
               {receipt.lines.map((l) => (
                 <li key={l.name} className="flex justify-between gap-2">
                   <span className="truncate">{l.name}</span>
-                  <span className="tabular-nums">{formatUsd(l.cents).replace('USD', '')}</span>
+                  <span className="tabular-nums">{money(l.cents)}</span>
                 </li>
               ))}
             </ul>
             <p className="mt-2 flex justify-between font-bold">
               <span>Total</span>
-              <span className="tabular-nums">{formatUsd(receipt.totalCents)}</span>
+              <span className="tabular-nums">
+                {rate
+                  ? formatJmd(receipt.lines.reduce((t, l) => t + usdCentsToJmd(l.cents, rate), 0))
+                  : formatUsd(receipt.totalCents)}
+              </span>
             </p>
           </div>
         )}
@@ -71,7 +80,7 @@ export function ProofPair({
         </figcaption>
       </figure>
 
-      <figure className={cn('flex flex-col gap-2', tilt && 'mt-6 rotate-2 sm:mt-10 sm:rotate-3')}>
+      <figure className={cn('flex flex-col gap-2', tilt && 'mt-6 rotate-1 sm:mt-10 sm:rotate-2')}>
         <div
           className={cn(
             'relative aspect-[3/4] overflow-hidden rounded-md shadow-float',

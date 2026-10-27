@@ -1,171 +1,71 @@
-import { ArrowRight, Camera, Clock3, MessageSquareText, Receipt } from 'lucide-react'
+import { ArrowRight, Camera, Receipt } from 'lucide-react'
 import Link from 'next/link'
-import { FlagBadge } from '@/components/site/jamaica'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
-import { cn } from '@/lib/cn'
-import type { StockPhotoKey } from '@/lib/stock-photos'
-
-const chips = [
-  { icon: Clock3, text: 'Same day' },
-  { icon: Receipt, text: 'Receipt photo' },
-  { icon: Camera, text: 'Photo at the door' },
-]
-
-/** What comes back with every order, for the card that sits on the photo. Facts only. */
-const proof = [
-  { icon: Receipt, text: 'Photo of the till receipt' },
-  { icon: Camera, text: 'Photo at their door' },
-  { icon: MessageSquareText, text: 'Texts to your family' },
-]
+import { CutoffBadge } from './cutoff-badge'
 
 /**
- * The home hero: a full-width near-white band with the promise on the left and a photo running to the
- * right edge of the screen, then three deal tiles. CSS entrances only, so nothing waits for
- * JavaScript.
+ * The home hero, kept short so the departments and the first shelf show on the first screen:
+ * the live cut-off, the promise, one action and one line of proof. The photo runs to the right
+ * edge on wide screens and is left out on phones.
  */
-export function HomeHero({ parishes }: { parishes: string }) {
-  return (
-    <>
-      <section className="relative overflow-hidden border-b border-line bg-surface">
-        <div className="mx-auto grid w-full max-w-wide gutter lg:min-h-136 lg:grid-cols-12">
-          <div className="flex animate-rise flex-col items-start py-12 sm:py-16 lg:col-span-6 lg:py-20 lg:pr-10">
-            <FlagBadge className="mb-6">Delivering to {parishes} today</FlagBadge>
-            <h1 className="text-display text-balance text-ink">
-              Send groceries, <span className="text-crimson">not money</span>
-            </h1>
-            <p className="mt-5 max-w-lg text-lead text-ink-body">
-              Fill a basket online and pay in US dollars. We shop in Jamaica and deliver to your
-              family’s door the same day.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/shop" size="lg">
-                Start shopping
-                <ArrowRight aria-hidden />
-              </ButtonLink>
-              <ButtonLink href="/how-it-works" size="lg" variant="outline">
-                How it works
-              </ButtonLink>
-            </div>
-            <ul className="mt-8 flex flex-wrap gap-2">
-              {chips.map(({ icon: Icon, text }) => (
-                <li
-                  key={text}
-                  className="flex min-h-9 items-center gap-2 rounded-full border border-line bg-surface px-4 text-small font-semibold text-ink"
-                >
-                  <Icon className="size-4 text-crimson" aria-hidden />
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* The photo: below the text on phones, the right half of the band on wide screens */}
-        <div className="relative lg:absolute lg:inset-y-0 lg:right-0 lg:w-[46%]">
-          <StockPhoto
-            name="homeHeroBag"
-            preload
-            sizes="(min-width: 1024px) 46vw, 100vw"
-            className="aspect-4/3 rounded-none sm:aspect-video lg:aspect-auto lg:h-full"
-          />
-          <div className="absolute bottom-4 left-4 animate-rise rounded-lg border border-line bg-surface p-card shadow-float [animation-delay:200ms] sm:bottom-6 sm:left-6 lg:bottom-10 lg:-left-8 lg:max-w-xs">
-            <p className="eyebrow text-crimson">With every order</p>
-            <ul className="mt-3 grid gap-2.5">
-              {proof.map(({ icon: Icon, text }) => (
-                <li
-                  key={text}
-                  className="flex items-center gap-3 text-small font-semibold text-ink"
-                >
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-surface-tint">
-                    <Icon className="size-4 text-crimson" aria-hidden />
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Three deal tiles, all gold: on this site gold always means a deal */}
-      <section aria-label="Deals" className="pt-6 pb-10 sm:pt-8 sm:pb-14">
-        <div className="mx-auto flex max-w-wide snap-x scroll-px-4 gap-3 overflow-x-auto gutter pb-1 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible">
-          <DealTile
-            href="/baskets"
-            photo="basketFood"
-            eyebrow="Save on bundles"
-            title="Ready-made baskets"
-            body="Packed for the usual needs, for less than buying each item."
-            delay="[animation-delay:120ms]"
-          />
-          <DealTile
-            href="/gifts"
-            photo="giftChristmas"
-            eyebrow="Gifts and occasions"
-            title="Gifts for home"
-            body="Hampers for Christmas, birthdays and new babies."
-            delay="[animation-delay:200ms]"
-          />
-          <DealTile
-            href="/monthly"
-            photo="pantry"
-            eyebrow="Sending every month?"
-            title="Send it again"
-            body="Save their address once and reorder in one tap."
-            delay="[animation-delay:280ms]"
-          />
-        </div>
-      </section>
-    </>
-  )
-}
-
-function DealTile({
-  href,
-  photo,
-  eyebrow,
-  title,
-  body,
-  delay,
+export function HomeHero({
+  parishes,
+  cutoff,
+  feeFrom,
 }: {
-  href: string
-  photo: StockPhotoKey
-  eyebrow: string
-  title: string
-  body: string
-  delay: string
+  parishes: string
+  /** Same-day cut-off in Jamaica time, `13:00`. */
+  cutoff: string
+  /** The lowest delivery fee, already formatted (`USD$8`). */
+  feeFrom?: string
 }) {
   return (
-    <Link
-      href={href}
-      className={cn(
-        'group flex w-[85%] shrink-0 hover-lift animate-rise snap-start gap-4 rounded-2xl bg-jm-gold p-3 text-ink sm:w-[55%] lg:w-auto',
-        delay,
-      )}
-    >
-      <span className="flex flex-1 flex-col py-2 pl-2">
-        <span className="eyebrow text-crimson-deep">{eyebrow}</span>
-        <span className="mt-2 text-h3">{title}</span>
-        <span className="mt-1 text-small text-ink-body">{body}</span>
-        <span className="mt-auto flex items-center gap-2 pt-4 text-small font-bold">
-          <span
-            className={cn(
-              'grid size-9 place-items-center rounded-full transition-transform duration-250 ease-out-soft group-hover:translate-x-1 motion-reduce:transition-none',
-              'bg-crimson text-white',
-            )}
-          >
-            <ArrowRight className="size-4" aria-hidden />
-          </span>
-          Shop now
-        </span>
-      </span>
-      <StockPhoto
-        name={photo}
-        sizes="(min-width: 1280px) 150px, (min-width: 1024px) 12vw, (min-width: 640px) 22vw, 35vw"
-        className="w-[40%] shrink-0 self-stretch rounded-xl"
-        zoom
-      />
-    </Link>
+    <section className="relative overflow-hidden border-b border-line bg-surface">
+      <div className="mx-auto grid w-full max-w-wide gutter lg:grid-cols-12">
+        <div className="flex animate-rise flex-col items-start py-10 sm:py-14 lg:col-span-6 lg:py-16 lg:pr-10">
+          <CutoffBadge cutoff={cutoff} parishes={parishes} />
+          <h1 className="mt-6 text-display text-balance text-ink">
+            Send groceries, <span className="text-crimson">not money</span>
+          </h1>
+          <p className="mt-5 max-w-lg text-lead text-ink-body">
+            Pay in US dollars. We buy everything in Jamaica and deliver it to their door in{' '}
+            {parishes} the same day.{feeFrom && <> Delivery from {feeFrom}.</>}
+          </p>
+          <div className="mt-8 flex w-full flex-wrap items-center gap-x-6 gap-y-3">
+            <ButtonLink href="/shop" size="lg" className="w-full sm:w-auto">
+              Start shopping
+              <ArrowRight aria-hidden />
+            </ButtonLink>
+            <Link
+              href="/how-it-works"
+              className="inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+            >
+              How it works
+            </Link>
+          </div>
+          <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-small font-semibold text-ink-body">
+            <Receipt className="size-4 text-crimson" aria-hidden />
+            Receipt photo
+            <span aria-hidden className="text-ink-muted">
+              ·
+            </span>
+            <Camera className="size-4 text-crimson" aria-hidden />
+            Doorstep photo
+            <span className="font-medium text-ink-muted">with every order</span>
+          </p>
+        </div>
+      </div>
+
+      {/* Wide screens only: the right side of the band */}
+      <div className="hidden lg:absolute lg:inset-y-0 lg:right-0 lg:block lg:w-[46%]">
+        <StockPhoto
+          name="staples"
+          preload
+          sizes="(min-width: 1024px) 46vw, 0px"
+          className="h-full rounded-none"
+        />
+      </div>
+    </section>
   )
 }

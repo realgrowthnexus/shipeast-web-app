@@ -28,7 +28,7 @@ shade steps, shadows and photography instead.
 | `crimson-600` | `#AE0E31` | `crimson`      | Primary buttons, hero blocks, links, eyebrow labels         |
 | `crimson-700` | `#7A0A23` | `crimson-deep` | Hover and pressed on crimson, ghost-button hover on crimson |
 | `crimson-800` | `#62091F` |                | Pressed on crimson-deep, deep panels inside crimson bands   |
-| `crimson-900` | `#4A0B1C` | `oxblood`      | Footer, dark bands, the promise ticker                      |
+| `crimson-900` | `#4A0B1C` | `oxblood`      | Footer and dark bands                                       |
 | `crimson-950` | `#1A050B` |                | The footer's bottom strip, image frames on oxblood          |
 
 ### Warm neutrals
@@ -55,11 +55,11 @@ service. These are the only colors outside the brand palette, and they are accen
 
 Each flag colour has one job, so shoppers learn what it means:
 
-| Token      | Hex       | Its one job                                                                                      |
-| ---------- | --------- | ------------------------------------------------------------------------------------------------ |
-| `jm-gold`  | `#FED100` | Savings and deals only: deal tiles, basket price strips, sale tags. `ink` or `crimson-deep` text |
-| `jm-green` | `#009B3A` | Good news only: in stock, delivered, success. `jm-black` text                                    |
-| `jm-black` | `#000000` | The flag mark only                                                                               |
+| Token      | Hex       | Its one job                                                                 |
+| ---------- | --------- | --------------------------------------------------------------------------- |
+| `jm-gold`  | `#FED100` | Savings only, as small tags ("Save 13%"). Never tiles or strips. `ink` text |
+| `jm-green` | `#009B3A` | Good news only: in stock, delivered, success. `jm-black` text               |
+| `jm-black` | `#000000` | The flag mark only                                                          |
 
 Gold is never decoration: no gold icons, underlines or links on red.
 
@@ -68,18 +68,27 @@ Use the flag through `src/components/site/jamaica.tsx`: `JamaicaFlag` (the flag,
 
 ### Colour roles
 
-From the colour audit and the user's follow-up (Oct 27, 2026: "too much red, simplicity is
-gone"). Keep it calm and minimal:
+From the colour audit, the user's follow-up (Oct 27, 2026: "too much red, simplicity is
+gone") and the three-designer homepage audit (Oct 27, 2026). Keep it calm and minimal:
 
-- **Surface (near white):** the home page background. Sections are separated by space and
+- **Surface (near white):** page, cards and image areas. Sections are separated by space and
   thin `line` borders, not by pink bands.
-- **Crimson:** brand and action. The single header bar, primary and Add buttons, prices, and
-  at most two big brand moments per page (on home: the proof band and the closing panel).
+- **Crimson fill:** at most four filled areas at rest on the home page: the header bar, the
+  hero's Start shopping button, the proof band and the closing panel. An Add button fills
+  only once the item is in the basket.
+- **Crimson line and text:** Add buttons (outline at rest), text links and the "not money"
+  span. Never prices, eyebrows, step dots, pills or table headers.
+- **Ink:** headings and prices.
+- **Line:** every card border and shelf divider (not `blush`).
+- **Blush:** text and icons on crimson, "East" in the wordmark. Never borders or fills on
+  light surfaces.
+- **Surface-tint:** hover and selected states only. Not placeholders or icon circles.
+- **Canvas:** the resting fill behind a photo or placeholder while it loads.
+- **Gold:** small "Save x%" tags only.
 - **Oxblood:** the footer only.
-- **Surface-tint:** small fills only (icon circles, photo placeholders, selected states). Not a
-  full-width band on the home page.
-- **Gold:** deals and savings only.
-- The header is one crimson bar, then a light department bar with a thin line under it.
+- The header is one crimson bar, then a light, text-only department bar with a thin line
+  under it.
+- Eyebrows: on the home page, only the proof band has one.
 
 ### Status
 
@@ -99,11 +108,12 @@ height and letter spacing, and scales smoothly from a 375px phone to a 1024px sc
 
 | Class          | Size    | Weight | Use                          |
 | -------------- | ------- | ------ | ---------------------------- |
-| `text-display` | 48–72px | 900    | Home hero headline           |
+| `text-display` | 48–64px | 900    | Home hero headline           |
 | `text-numeral` | 48–60px | 900    | Step numbers, real facts     |
 | `text-h1`      | 36–48px | 800    | Page titles, CTA band titles |
 | `text-h2`      | 28–36px | 800    | Section titles               |
-| `text-h3`      | 20px    | 800    | Card and step titles         |
+| `text-title`   | 24px    | 800    | Store shelf titles           |
+| `text-h3`      | 20px    | 700    | Card and step titles         |
 | `text-lead`    | 18–20px | 400    | The paragraph under a title  |
 | `text-body`    | 16px    | 400    | Running text                 |
 | `text-small`   | 14px    | 500    | Captions, meta               |
@@ -156,8 +166,8 @@ Never set `tracking-*` or font sizes by hand.
 | stagger                  | 80ms                             | Gap between items in a group      |
 
 **Rules.** Motion is calm. Things fade and rise into place once, and nothing bounces, spins,
-loops forever or follows the cursor. The only loops are the promise ticker, which pauses on
-hover, and skeleton pulses. Everything is switched off when the visitor's device asks for
+loops forever or follows the cursor. The only loop is the skeleton pulse (the promise ticker
+was removed: touch visitors couldn't pause it, which fails WCAG 2.2.2). Everything is switched off when the visitor's device asks for
 reduced motion.
 
 **Components.** All motion components use the `motion` package (Framer Motion) through
@@ -166,10 +176,9 @@ reduced motion.
 | Piece                         | What it does                                                    |
 | ----------------------------- | --------------------------------------------------------------- |
 | `animate-rise`                | CSS page-load entrance for above-the-fold text. No JavaScript   |
-| `<Reveal>`                    | Fade and rise as a block scrolls into view                      |
+| `<Reveal>`                    | Fade and rise as a block scrolls into view. Never on headings   |
 | `<Stagger>` / `<StaggerItem>` | A list whose items appear one after another                     |
 | `<Parallax>`                  | A large photo that drifts slightly as you scroll (one per page) |
-| `animate-marquee`             | The promise ticker                                              |
 | `skeleton`                    | Loading placeholder: a flat tint that breathes                  |
 
 **Never on the hero headline.** The hero's main photo and headline must not wait for

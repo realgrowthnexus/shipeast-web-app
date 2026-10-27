@@ -11,6 +11,11 @@ const icons: Record<string, LucideIcon> = {
   'cat-baby': Baby,
 }
 
+/** True when a product has a real photo: an upload or a stock photo of that exact item. */
+export function hasProductPhoto(product: { imagePath: string | null; slug: string }) {
+  return Boolean(product.imagePath || productPhotos[product.slug])
+}
+
 /**
  * Product photo. An uploaded photo wins; otherwise a stock photo of that exact item (by slug);
  * otherwise a branded placeholder. We never use PriceSmart's own images.
@@ -44,14 +49,12 @@ export function ProductImage({
       />
     )
   return (
-    <div
-      className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-surface-tint', className)}
-    >
+    <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-canvas', className)}>
       {src ? (
         <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
       ) : (
         <div className="absolute inset-0 grid place-items-center" role="img" aria-label={alt}>
-          <Icon className="size-1/3 text-crimson/35" strokeWidth={1.5} aria-hidden />
+          <Icon className="size-8 text-ink-muted" strokeWidth={1.5} aria-hidden />
         </div>
       )}
     </div>

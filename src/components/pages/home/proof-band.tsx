@@ -1,54 +1,75 @@
-import { Camera, Receipt } from 'lucide-react'
-import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { ProofPair } from '@/components/order/proof-pair'
-import { Section, SectionHeader } from '@/components/site/section'
+import { Section } from '@/components/site/section'
+import { formatUsd } from '@/lib/format'
 import { sampleDoor, sampleReceipt } from './sample-proof'
 
-const proofs = [
+const steps = [
   {
-    icon: Receipt,
-    title: 'A photo of the store receipt',
-    body: 'Once everything is bought, the driver photographs the till receipt and we send it to you. You see every item and every price.',
+    title: 'Fill a basket',
+    body: 'Groceries, household, pharmacy and baby items, priced in US dollars.',
   },
   {
-    icon: Camera,
-    title: 'A photo at the door',
-    body: 'When the bags are handed over, you get a photo and the name of the person who took them in.',
+    title: 'Tell us who it’s for',
+    body: 'Their address and a landmark, and what to do if something is out of stock.',
+  },
+  {
+    title: 'We shop in Jamaica',
+    body: 'Our driver buys everything and sends you the receipt photo.',
+  },
+  {
+    title: 'At their door today',
+    body: 'Your family gets a text on the way. You get the doorstep photo.',
   },
 ]
 
-/** The crimson band that explains the two photos every order comes with. */
-export function ProofBand() {
+/**
+ * The page's one crimson band: how an order works, and the two photos every order comes with,
+ * shown on a clearly labelled example order. The receipt is in J$, as a Jamaican till prints it.
+ */
+export function ProofBand({ jmdPerUsd }: { jmdPerUsd: number }) {
   return (
     <Section tone="crimson" wide aria-labelledby="proof-h">
-      <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
-          <SectionHeader
-            onDark
-            id="proof-h"
-            eyebrow="Proof on every order"
-            title="You see what was bought, and that it arrived"
-            lead="No guessing where the money went. Two photos come with every order, sent to your email and your tracking link."
-          />
-          <Stagger className="mt-10 grid gap-6">
-            {proofs.map(({ icon: Icon, title, body }) => (
-              <StaggerItem key={title} className="flex gap-4">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson-700">
-                  <Icon className="size-6 text-blush" aria-hidden />
+          <p className="mb-3 eyebrow text-blush">Proof on every order</p>
+          <h2 id="proof-h" className="text-h2 text-balance">
+            You see what was bought, and that it arrived
+          </h2>
+          <p className="mt-3 max-w-xl text-lead text-on-crimson-muted">
+            Every item and every price on the real receipt, then the bags at their door. Both photos
+            come to your email and your tracking link.
+          </p>
+          <ol className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+            {steps.map((step, i) => (
+              <li key={step.title} className="flex gap-4">
+                <span
+                  aria-hidden
+                  className="w-6 shrink-0 text-h3 font-extrabold text-blush tabular-nums"
+                >
+                  {i + 1}
                 </span>
                 <div>
-                  <h3 className="text-h3">{title}</h3>
-                  <p className="mt-1 text-on-crimson-muted">{body}</p>
+                  <h3 className="font-bold">
+                    <span className="sr-only">Step {i + 1}: </span>
+                    {step.title}
+                  </h3>
+                  <p className="mt-0.5 text-small text-on-crimson-muted">{step.body}</p>
                 </div>
-              </StaggerItem>
+              </li>
             ))}
-          </Stagger>
+          </ol>
         </div>
-        <Reveal className="mx-auto w-full max-w-lg lg:col-span-6 lg:max-w-xl" delay={0.1}>
-          <div className="rounded-2xl bg-crimson-800 px-6 pt-8 pb-12 sm:px-12 sm:pt-12 sm:pb-16">
-            <ProofPair tilt onDark receipt={sampleReceipt} door={sampleDoor} />
+        <figure className="mx-auto w-full max-w-md lg:col-span-6 lg:max-w-lg">
+          <div className="rounded-2xl bg-crimson-800 px-5 pt-5 pb-8 sm:px-10 sm:pt-8 sm:pb-12">
+            <p className="mb-5 inline-flex rounded-sm bg-blush px-2 py-0.5 text-xs font-bold text-crimson-deep">
+              Example order
+            </p>
+            <ProofPair tilt onDark receipt={{ ...sampleReceipt, jmdPerUsd }} door={sampleDoor} />
           </div>
-        </Reveal>
+          <figcaption className="mt-3 text-center text-small text-on-crimson-muted">
+            The sender paid {formatUsd(sampleReceipt.totalCents)}. We send you the real receipt.
+          </figcaption>
+        </figure>
       </div>
     </Section>
   )

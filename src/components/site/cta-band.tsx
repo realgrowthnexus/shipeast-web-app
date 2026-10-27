@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { Reveal } from '@/components/motion/reveal'
 import { ButtonLink } from '@/components/ui/button'
 import type { StockPhotoKey } from '@/lib/stock-photos'
 import { StockPhoto } from './stock-photo'
@@ -14,6 +13,7 @@ export function CtaBand({
   href = '/shop',
   label = 'Start shopping',
   secondary,
+  footnote,
   photo,
 }: {
   title: ReactNode
@@ -22,12 +22,14 @@ export function CtaBand({
   label?: string
   /** A quieter second link, e.g. to WhatsApp or the FAQ. */
   secondary?: { href: string; label: string }
+  /** A small line under the actions, such as the refund promise. */
+  footnote?: ReactNode
   photo?: StockPhotoKey
 }) {
   return (
     <section className="section-sm">
       <div className="mx-auto w-full max-w-wide gutter">
-        <Reveal className="grid overflow-hidden rounded-2xl bg-crimson text-white lg:grid-cols-12">
+        <div className="grid overflow-hidden rounded-2xl bg-crimson text-white lg:grid-cols-12">
           <div className="flex flex-col items-start gap-6 p-card-lg sm:p-12 lg:col-span-7 lg:p-16">
             <h2 className="text-h1 text-balance">{title}</h2>
             {children && <div className="max-w-xl text-lead text-on-crimson-muted">{children}</div>}
@@ -46,6 +48,7 @@ export function CtaBand({
                 </ButtonLink>
               )}
             </div>
+            {footnote && <div className="text-small text-on-crimson-muted">{footnote}</div>}
           </div>
           {photo && (
             <StockPhoto
@@ -54,7 +57,7 @@ export function CtaBand({
               className="hidden rounded-none lg:col-span-5 lg:block"
             />
           )}
-        </Reveal>
+        </div>
       </div>
     </section>
   )
