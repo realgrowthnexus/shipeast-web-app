@@ -20,14 +20,14 @@ const proof = [
 ]
 
 /**
- * The home hero: a full-width blush band with the promise on the left and a photo running to the
+ * The home hero: a full-width near-white band with the promise on the left and a photo running to the
  * right edge of the screen, then three deal tiles. CSS entrances only, so nothing waits for
  * JavaScript.
  */
 export function HomeHero({ parishes }: { parishes: string }) {
   return (
     <>
-      <section className="relative overflow-hidden bg-surface-tint">
+      <section className="relative overflow-hidden border-b border-line bg-surface">
         <div className="mx-auto grid w-full max-w-wide gutter lg:min-h-136 lg:grid-cols-12">
           <div className="flex animate-rise flex-col items-start py-12 sm:py-16 lg:col-span-6 lg:py-20 lg:pr-10">
             <FlagBadge className="mb-6">Delivering to {parishes} today</FlagBadge>
@@ -51,7 +51,7 @@ export function HomeHero({ parishes }: { parishes: string }) {
               {chips.map(({ icon: Icon, text }) => (
                 <li
                   key={text}
-                  className="flex min-h-9 items-center gap-2 rounded-full bg-surface px-4 text-small font-semibold text-ink"
+                  className="flex min-h-9 items-center gap-2 rounded-full border border-line bg-surface px-4 text-small font-semibold text-ink"
                 >
                   <Icon className="size-4 text-crimson" aria-hidden />
                   {text}
@@ -69,7 +69,7 @@ export function HomeHero({ parishes }: { parishes: string }) {
             sizes="(min-width: 1024px) 46vw, 100vw"
             className="aspect-4/3 rounded-none sm:aspect-video lg:aspect-auto lg:h-full"
           />
-          <div className="absolute bottom-4 left-4 animate-rise rounded-lg bg-surface p-card shadow-float [animation-delay:200ms] sm:bottom-6 sm:left-6 lg:bottom-10 lg:-left-8 lg:max-w-xs">
+          <div className="absolute bottom-4 left-4 animate-rise rounded-lg border border-line bg-surface p-card shadow-float [animation-delay:200ms] sm:bottom-6 sm:left-6 lg:bottom-10 lg:-left-8 lg:max-w-xs">
             <p className="eyebrow text-crimson">With every order</p>
             <ul className="mt-3 grid gap-2.5">
               {proof.map(({ icon: Icon, text }) => (
