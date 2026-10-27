@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { AddToBasket } from '@/components/shop/add-to-basket'
 import { ProductCard } from '@/components/shop/product-card'
 import { Section } from '@/components/site/section'
-import { cn } from '@/lib/cn'
 import type { Product } from '@/lib/types'
 
 /** The line under each department's shelf title. Other departments use their description. */
@@ -25,19 +24,12 @@ export function shelfProducts(products: Product[], categoryId: string) {
     )
 }
 
-export type ShelfTone = 'crimson' | 'tint' | 'canvas'
-
-/**
- * Band colour for the nth shelf on a page: the first is the one red brand shelf, the rest
- * alternate blush and the page background so each aisle reads as its own section.
- */
-export const shelfTone = (i: number): ShelfTone => (i === 0 ? 'crimson' : i % 2 ? 'tint' : 'canvas')
-
 /**
  * A store shelf: one department's products with prices and one-tap add. Scrolls sideways on
  * phones and shows five across on wide screens, with a link to the whole aisle. No entrance
- * animation: in a store the products should simply be there. Cards stay warm white so the
- * product and its price lead; the band behind them carries the colour.
+ * animation: in a store the products should simply be there. Kept calm on purpose: a near-white
+ * band, white cards, and red only on prices and Add buttons. `divided` draws a thin line above,
+ * for every shelf after the first.
  */
 export function ProductShelf({
   id,
@@ -46,7 +38,7 @@ export function ProductShelf({
   href,
   products,
   jmdPerUsd,
-  tone = 'tint',
+  divided = false,
 }: {
   id: string
   title: string
@@ -54,27 +46,27 @@ export function ProductShelf({
   href: string
   products: Product[]
   jmdPerUsd: number
-  tone?: ShelfTone
+  divided?: boolean
 }) {
   if (!products.length) return null
-  const dark = tone === 'crimson'
   return (
-    <Section tone={tone} size="sm" wide aria-labelledby={id}>
+    <Section
+      tone="surface"
+      size="sm"
+      wide
+      aria-labelledby={id}
+      innerClassName={divided ? 'border-t border-line pt-10 sm:pt-12' : undefined}
+    >
       <div className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
-          <h2 id={id} className={cn('text-h2', dark ? 'text-white' : 'text-ink')}>
+          <h2 id={id} className="text-h2 text-ink">
             {title}
           </h2>
-          {lead && (
-            <p className={cn('mt-1', dark ? 'text-on-crimson-muted' : 'text-ink-body')}>{lead}</p>
-          )}
+          {lead && <p className="mt-1 text-ink-body">{lead}</p>}
         </div>
         <Link
           href={href}
-          className={cn(
-            'group inline-flex min-h-11 items-center gap-1.5 font-semibold hover:underline',
-            dark ? 'text-white' : 'text-crimson',
-          )}
+          className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-crimson hover:underline"
         >
           See all {title.toLowerCase()}
           <ArrowRight

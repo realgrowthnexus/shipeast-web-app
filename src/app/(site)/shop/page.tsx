@@ -4,7 +4,7 @@ import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { CategoryChips, CategoryPhotoCard } from '@/components/pages/shop/category-card'
 import { CantFindBanner, HowWeShop } from '@/components/pages/shop/shop-promises'
 import { BasketCard } from '@/components/shop/product-card'
-import { ProductShelf, shelfLeads, shelfProducts, shelfTone } from '@/components/shop/product-shelf'
+import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { SearchBox } from '@/components/shop/search-box'
 import { deliveryPromise } from '@/components/shop/breadcrumb'
 import { CtaBand } from '@/components/site/cta-band'
@@ -123,7 +123,7 @@ export default async function ShopPage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={shelfTone(i)}
+          divided={i > 0}
         />
       ))}
 

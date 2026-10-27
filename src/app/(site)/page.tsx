@@ -11,7 +11,7 @@ import { HomeSteps } from '@/components/pages/home/steps'
 import { SwapChoices } from '@/components/pages/home/swaps'
 import { HomeZones } from '@/components/pages/home/zones'
 import { BasketCard } from '@/components/shop/product-card'
-import { ProductShelf, shelfLeads, shelfProducts, shelfTone } from '@/components/shop/product-shelf'
+import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
 import { CtaBand } from '@/components/site/cta-band'
 import { PhotoFeature } from '@/components/site/photo-feature'
 import { PromiseTicker } from '@/components/site/promise-ticker'
@@ -78,15 +78,17 @@ export default async function HomePage() {
   const parishes = zones.map((z) => z.parish).join(' and ')
   const cutoff = formatClockTime(zones[0]?.cutoffTime ?? '13:00')
 
+  // One calm near-white page: red is kept for the header, buttons, prices, the proof band
+  // and the closing panel.
   return (
-    <>
+    <div className="bg-surface">
       {/* 1. Store front: main banner and two deal tiles */}
       <HomeHero parishes={parishes} />
 
       {/* 2. Departments as round photo tiles */}
       <DepartmentRail categories={categories} />
 
-      {/* 3. One shelf per department: the first on crimson, the rest on blush and canvas */}
+      {/* 3. One shelf per department, divided by thin lines */}
       {categories.map((c, i) => (
         <ProductShelf
           key={c.id}
@@ -96,15 +98,15 @@ export default async function HomePage() {
           href={`/shop/${c.slug}`}
           products={shelfProducts(products, c.id)}
           jmdPerUsd={settings.jmdPerUsd}
-          tone={shelfTone(i)}
+          divided={i > 0}
         />
       ))}
 
-      {/* 4. The promises every order carries (oxblood) */}
+      {/* 4. The promises every order carries (a light ticker between thin lines) */}
       <PromiseTicker />
 
-      {/* 5. How it works (canvas) */}
-      <Section wide aria-labelledby="how-h">
+      {/* 5. How it works (surface) */}
+      <Section tone="surface" wide aria-labelledby="how-h">
         <SectionHeader
           id="how-h"
           eyebrow="Four steps"
@@ -119,8 +121,8 @@ export default async function HomePage() {
         <HomeSteps />
       </Section>
 
-      {/* 6. Ready-made baskets (tint) */}
-      <Section tone="tint" wide aria-labelledby="bsk-h">
+      {/* 6. Ready-made baskets (surface) */}
+      <Section tone="surface" wide aria-labelledby="bsk-h">
         <SectionHeader
           id="bsk-h"
           eyebrow="Save on bundles"
@@ -149,8 +151,8 @@ export default async function HomePage() {
       {/* 7. Proof on every order (crimson) */}
       <ProofBand />
 
-      {/* 8. You decide on swaps (canvas) */}
-      <Section wide aria-labelledby="swap-h">
+      {/* 8. You decide on swaps (surface) */}
+      <Section tone="surface" wide aria-labelledby="swap-h">
         <SectionHeader
           id="swap-h"
           eyebrow="If something is out of stock"
@@ -160,8 +162,8 @@ export default async function HomePage() {
         <SwapChoices />
       </Section>
 
-      {/* 9. Made for Jamaicans abroad (tint) */}
-      <Section tone="tint" wide aria-labelledby="abroad-h">
+      {/* 9. Made for Jamaicans abroad (surface) */}
+      <Section tone="surface" wide aria-labelledby="abroad-h">
         <PhotoFeature photo="homeSenderPhone" parallax aspect="aspect-4/3 lg:aspect-4/5">
           <p className="mb-3 eyebrow text-crimson">From wherever you are</p>
           <h2 id="abroad-h" className="text-h2 text-balance text-ink">
@@ -190,8 +192,8 @@ export default async function HomePage() {
         </PhotoFeature>
       </Section>
 
-      {/* 10. Compared with cash or a barrel (canvas) */}
-      <Section wide aria-labelledby="cmp-h">
+      {/* 10. Compared with cash or a barrel (surface) */}
+      <Section tone="surface" wide aria-labelledby="cmp-h">
         <SectionHeader
           id="cmp-h"
           eyebrow="Better than cash or a barrel"
@@ -201,14 +203,14 @@ export default async function HomePage() {
         <CompareWays />
       </Section>
 
-      {/* 11. Where we deliver (crimson) */}
+      {/* 11. Where we deliver (surface, with a line above) */}
       <HomeZones zones={zones} />
 
-      {/* 12. A Jamaican service (tint) */}
+      {/* 12. A Jamaican service (surface) */}
       <RootedInJamaica />
 
-      {/* 13. Gifts and occasions (canvas) */}
-      <Section wide aria-labelledby="gift-h">
+      {/* 13. Gifts and occasions (surface) */}
+      <Section tone="surface" wide aria-labelledby="gift-h">
         <SectionHeader
           id="gift-h"
           eyebrow="Gifts and occasions"
@@ -236,8 +238,8 @@ export default async function HomePage() {
         </Stagger>
       </Section>
 
-      {/* 14. Questions people ask (tint) */}
-      <Section tone="tint" aria-labelledby="faq-h">
+      {/* 14. Questions people ask (surface) */}
+      <Section tone="surface" aria-labelledby="faq-h">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeader
@@ -266,6 +268,6 @@ export default async function HomePage() {
       >
         Same-day delivery in {parishes}, with a photo of the receipt and a photo at the door.
       </CtaBand>
-    </>
+    </div>
   )
 }

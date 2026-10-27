@@ -28,7 +28,7 @@ const points = [
  */
 export function RootedInJamaica() {
   return (
-    <Section tone="tint" wide aria-labelledby="rooted-h">
+    <Section tone="surface" wide aria-labelledby="rooted-h">
       <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-6">
           <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
@@ -45,7 +45,7 @@ export function RootedInJamaica() {
           <Stagger className="mt-8 grid gap-6">
             {points.map(({ icon: Icon, title, body }) => (
               <StaggerItem key={title} className="flex gap-4">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-canvas">
                   <Icon className="size-6 text-crimson" aria-hidden />
                 </span>
                 <div>

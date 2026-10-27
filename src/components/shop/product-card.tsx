@@ -60,7 +60,7 @@ export function BasketCard({
 }) {
   const photo = basketPhotos[basket.slug]
   return (
-    <article className="group relative flex hover-lift flex-col overflow-hidden rounded-xl bg-crimson text-white">
+    <article className="group relative flex hover-lift flex-col overflow-hidden rounded-xl border border-blush bg-surface text-ink hover:border-crimson">
       {photo && (
         <StockPhoto
           name={photo}
@@ -70,13 +70,13 @@ export function BasketCard({
         />
       )}
       <div className="flex flex-1 flex-col gap-2 p-card">
-        <p className="text-small text-blush">{itemCount} items in one basket</p>
+        <p className="text-small font-semibold text-crimson">{itemCount} items in one basket</p>
         <h3 className="text-h3">
           <Link href={`/baskets/${basket.slug}`} className="after:absolute after:inset-0">
             {basket.name}
           </Link>
         </h3>
-        <p className="text-on-crimson-muted">{basket.description}</p>
+        <p className="text-ink-body">{basket.description}</p>
       </div>
       {/* Gold means a saving, everywhere on the site */}
       <div className="flex items-end justify-between gap-3 bg-jm-gold px-5 py-4 text-ink">

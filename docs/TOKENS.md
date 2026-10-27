@@ -68,15 +68,18 @@ Use the flag through `src/components/site/jamaica.tsx`: `JamaicaFlag` (the flag,
 
 ### Colour roles
 
-From the colour audit (Oct 26, 2026). Every colour has one job:
+From the colour audit and the user's follow-up (Oct 27, 2026: "too much red, simplicity is
+gone"). Keep it calm and minimal:
 
-- **Crimson:** brand and action. The header, primary and Add buttons, prices, and one big
-  brand band per screen (the first shelf, the proof band, coverage, the closing panel).
-- **Oxblood:** depth, used rarely. The footer and the promise ticker. Never product shelves.
-- **Surface (warm white):** the product stage. Product cards sit on it, with a `blush` edge.
-- **Surface-tint:** the one pink band (`Section tone="tint"`). Alternate it with the page
-  background so sections separate. `crimson-50` is not a band colour.
-- The header is two tones: crimson, with crimson-700 above and below it.
+- **Surface (near white):** the home page background. Sections are separated by space and
+  thin `line` borders, not by pink bands.
+- **Crimson:** brand and action. The single header bar, primary and Add buttons, prices, and
+  at most two big brand moments per page (on home: the proof band and the closing panel).
+- **Oxblood:** the footer only.
+- **Surface-tint:** small fills only (icon circles, photo placeholders, selected states). Not a
+  full-width band on the home page.
+- **Gold:** deals and savings only.
+- The header is one crimson bar, then a light department bar with a thin line under it.
 
 ### Status
 

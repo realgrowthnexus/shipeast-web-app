@@ -24,7 +24,7 @@ const promises = [
   { icon: MapPin, text: 'St. Thomas and Kingston' },
 ]
 
-export function PromiseTicker({ tone = 'oxblood' }: { tone?: 'oxblood' | 'tint' }) {
+export function PromiseTicker({ tone = 'light' }: { tone?: 'oxblood' | 'light' }) {
   const dark = tone === 'oxblood'
   const list = (hidden: boolean) => (
     <ul className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden || undefined}>
@@ -45,7 +45,7 @@ export function PromiseTicker({ tone = 'oxblood' }: { tone?: 'oxblood' | 'tint' 
       className={
         dark
           ? 'overflow-hidden bg-oxblood py-5 text-white'
-          : 'overflow-hidden border-y border-line bg-crimson-50 py-5 text-ink'
+          : 'overflow-hidden border-y border-line bg-surface py-5 text-ink'
       }
     >
       <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">

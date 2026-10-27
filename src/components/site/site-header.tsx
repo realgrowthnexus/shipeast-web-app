@@ -1,4 +1,4 @@
-import { Camera, Clock3, DollarSign, Menu, PackageSearch, User, X } from 'lucide-react'
+import { Menu, PackageSearch, User, X } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { SearchBox } from '@/components/shop/search-box'
@@ -6,7 +6,6 @@ import { getCategories } from '@/lib/data/site'
 import { BasketLink, BasketLinkFallback } from './basket-link'
 import { CategoryIcon } from './category-icon'
 import { HeaderShell } from './header-shell'
-import { JamaicaFlag } from './jamaica'
 import { Wordmark } from './wordmark'
 
 /** Store sections beside the departments. */
@@ -23,15 +22,8 @@ const help = [
   { href: '/track', label: 'Track an order' },
 ]
 
-/** What every order carries, for the strip above the header. Facts only. */
-const strip = [
-  { icon: Clock3, text: 'Same-day delivery' },
-  { icon: Camera, text: 'Receipt and door photos' },
-  { icon: DollarSign, text: 'Pay in US dollars' },
-]
-
 /**
- * A store header: a slim promise strip, then the logo, search and basket, then a bar of
+ * A store header: one crimson bar with the logo, search and basket, then a light bar of
  * departments. Only the logo row and search stay pinned while scrolling.
  */
 export async function SiteHeader() {
@@ -44,23 +36,6 @@ export async function SiteHeader() {
 
   return (
     <>
-      <div className="bg-crimson-700 text-white print:hidden">
-        <div className="mx-auto flex min-h-10 max-w-wide items-center justify-between gap-4 gutter text-small">
-          <p className="flex items-center gap-2.5 font-semibold">
-            <JamaicaFlag className="w-6" />
-            Shopped and delivered in Jamaica
-          </p>
-          <ul className="hidden items-center gap-6 text-on-crimson-muted lg:flex">
-            {strip.map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-center gap-2">
-                <Icon className="size-4 text-blush" aria-hidden />
-                {text}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
       <HeaderShell>
         <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter sm:h-18 sm:gap-4">
           <Link
@@ -147,7 +122,7 @@ export async function SiteHeader() {
       {/* The department bar: wide screens only (phones use the menu) */}
       <nav
         aria-label="Departments"
-        className="hidden bg-crimson-700 text-white lg:block print:hidden"
+        className="hidden border-b border-line bg-surface text-ink lg:block print:hidden"
       >
         <div className="mx-auto flex max-w-wide items-center gap-1 gutter">
           <ul className="flex items-center gap-1">
@@ -155,7 +130,7 @@ export async function SiteHeader() {
               <li key={d.href}>
                 <Link
                   href={d.href}
-                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-white [&_svg]:size-4.5 [&_svg]:text-blush"
+                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-ink hover:text-crimson [&_svg]:size-4.5 [&_svg]:text-crimson"
                 >
                   <CategoryIcon slug={d.slug} />
                   {d.label}
@@ -167,7 +142,7 @@ export async function SiteHeader() {
               <li key={a.href}>
                 <Link
                   href={a.href}
-                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-white"
+                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:text-crimson"
                 >
                   {a.label}
                   <Underline />
@@ -180,7 +155,7 @@ export async function SiteHeader() {
               <li key={h.href}>
                 <Link
                   href={h.href}
-                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-on-crimson-muted hover:text-white"
+                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
                 >
                   {h.href === '/track' && <PackageSearch className="size-4" aria-hidden />}
                   {h.label}
@@ -197,7 +172,7 @@ export async function SiteHeader() {
 function Underline() {
   return (
     <span
-      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-white transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
+      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-crimson transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
       aria-hidden
     />
   )
