@@ -14,7 +14,7 @@ crimson and oxblood blocks, generous spacing and heavy type.
 | --------------------------------------------- | --------- | ---------------------------------------------------------------------- |
 | `crimson`                                     | `#AE0E31` | Buttons, hero and callout blocks, links, eyebrow labels                |
 | `crimson-deep`                                | `#7A0A23` | Hover and pressed                                                      |
-| `oxblood`                                     | `#4A0B1C` | Footer, dark panels                                                    |
+| `oxblood`                                     | `#4A0B1C` | Dark panels                                                            |
 | `signal`                                      | `#E30D3B` | Big numerals, live dot, active step, focus ring. Never text under 24px |
 | `blush`                                       | `#FFC6D3` | "East" in the wordmark, accent text on crimson                         |
 | `canvas`                                      | `#F8ECF0` | Page background                                                        |
@@ -27,7 +27,7 @@ crimson and oxblood blocks, generous spacing and heavy type.
 | `ink-muted`                                   | `#6B5C63` | Help text, captions, placeholders                                      |
 | `ink-disabled`                                | `#94878D` | Disabled controls and decorative icons only                            |
 | `on-crimson-muted`                            | `#F3DBE0` | Secondary text on crimson (or oxblood)                                 |
-| `on-oxblood-muted`                            | `#C3BABD` | Secondary text in the footer                                           |
+| `on-oxblood-muted`                            | `#C3BABD` | Secondary text on oxblood                                              |
 | `ok` / `info` / `warn` / `danger` (+ `-tint`) |           | Status pills and alerts                                                |
 
 No see-through text colours (`text-white/70` and the like): use the `on-*` tokens.

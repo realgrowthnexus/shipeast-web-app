@@ -13,6 +13,7 @@ export const buttonStyles = cva(
         secondary: 'bg-surface-tint text-crimson-deep hover:bg-blush',
         outline: 'border-[1.5px] border-crimson bg-transparent text-crimson hover:bg-surface-tint',
         ghost: 'text-ink hover:bg-surface-tint',
+        dark: 'bg-ink text-white hover:bg-ink-body',
         onDark: 'bg-white text-crimson-deep hover:bg-surface',
         destructive: 'bg-danger text-white hover:bg-danger-deep',
       },

@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 const swatches = [
   ['crimson', '#AE0E31', 'bg-crimson', 'Buttons, hero and callout blocks, links'],
   ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover and pressed'],
-  ['oxblood', '#4A0B1C', 'bg-oxblood', 'Footer and dark panels'],
+  ['oxblood', '#4A0B1C', 'bg-oxblood', 'Dark panels'],
   ['signal', '#E30D3B', 'bg-signal', 'Numerals, live dot, focus. Never small text'],
   ['blush', '#FFC6D3', 'bg-blush', 'Accent text on crimson'],
   ['canvas', '#F8ECF0', 'bg-canvas', 'Page background'],

@@ -4,6 +4,7 @@ import { Check, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { useActionState } from 'react'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/cn'
 import { QuantityStepper } from '@/components/ui/quantity-stepper'
 import { addToBasket, type AddState } from '@/lib/basket/actions'
 import type { LineKind } from '@/lib/basket/state'
@@ -19,11 +20,14 @@ export function AddToBasket({
   id,
   name,
   variant = 'compact',
+  className,
 }: {
   kind: LineKind
   id: string
   name: string
   variant?: 'compact' | 'full'
+  /** Extra classes for the compact button, e.g. filling it when its card is hovered. */
+  className?: string
 }) {
   const [state, action, pending] = useActionState<AddState, FormData>(addToBasket, {
     status: 'idle',
@@ -40,7 +44,7 @@ export function AddToBasket({
           size="sm"
           variant={added ? 'primary' : 'outline'}
           loading={pending}
-          className="min-h-11"
+          className={cn('min-h-11', !added && className)}
         >
           {!pending && (added ? <Check aria-hidden /> : <Plus aria-hidden />)}
           {added ? 'Added' : 'Add'}

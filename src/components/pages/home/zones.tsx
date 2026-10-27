@@ -1,6 +1,5 @@
 import { Clock3, MapPin } from 'lucide-react'
 import Link from 'next/link'
-import { Section } from '@/components/site/section'
 import { Accordion } from '@/components/ui/accordion'
 import { formatClockTime, formatUsd } from '@/lib/format'
 import type { DeliveryZone, Faq } from '@/lib/types'
@@ -30,20 +29,20 @@ export function pickHomeFaqs(faqs: Faq[], count = 6) {
  */
 export function DeliveryAndQuestions({ zones, faqs }: { zones: DeliveryZone[]; faqs: Faq[] }) {
   return (
-    <Section tone="surface" wide aria-labelledby="zone-h" className="pt-6! sm:pt-8!">
-      <div className="grid gap-12 border-t border-line pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-16">
+    <section aria-labelledby="zone-h" className="py-8 sm:py-10">
+      <div className="mx-auto grid w-full max-w-wide gap-10 gutter lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <h2 id="zone-h" className="text-h2 text-balance text-ink">
+          <h2 id="zone-h" className="text-title text-balance text-ink">
             Where we deliver
           </h2>
-          <p className="mt-3 text-lead text-ink-body">
+          <p className="mt-1 text-small text-ink-muted">
             Same day in {zones.map((z) => z.parish).join(' and ')}, from our team in St. Thomas.
           </p>
-          <ul className="mt-6 grid gap-3">
+          <ul className="mt-5 grid gap-3">
             {zones.map((z) => (
-              <li key={z.id} className="rounded-lg border border-line bg-surface p-card">
-                <p className="flex items-center gap-2 text-h3 text-ink">
-                  <MapPin className="size-5 text-crimson" aria-hidden />
+              <li key={z.id} className="rounded-lg border border-line bg-surface p-4 sm:p-5">
+                <p className="flex items-center gap-2 font-bold text-ink">
+                  <MapPin className="size-4 text-crimson" aria-hidden />
                   {z.parish}
                 </p>
                 <dl className="mt-3 grid grid-cols-2 gap-3 text-small">
@@ -64,26 +63,26 @@ export function DeliveryAndQuestions({ zones, faqs }: { zones: DeliveryZone[]; f
           </ul>
           <Link
             href="/delivery"
-            className="mt-4 inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+            className="mt-3 inline-flex min-h-11 items-center text-small font-semibold text-crimson hover:underline"
           >
             Delivery areas and fees
           </Link>
         </div>
         <div className="lg:col-span-7">
-          <h2 id="faq-h" className="text-h2 text-balance text-ink">
+          <h2 id="faq-h" className="text-title text-balance text-ink">
             Before you order
           </h2>
-          <div className="mt-6">
+          <div className="mt-5">
             <Accordion items={faqs.map((f) => ({ id: f.id, title: f.question, body: f.answer }))} />
           </div>
           <Link
             href="/faq"
-            className="mt-4 inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+            className="mt-3 inline-flex min-h-11 items-center text-small font-semibold text-crimson hover:underline"
           >
             All questions and answers
           </Link>
         </div>
       </div>
-    </Section>
+    </section>
   )
 }

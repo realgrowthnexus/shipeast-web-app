@@ -28,8 +28,8 @@ shade steps, shadows and photography instead.
 | `crimson-600` | `#AE0E31` | `crimson`      | Primary buttons, hero blocks, links, eyebrow labels         |
 | `crimson-700` | `#7A0A23` | `crimson-deep` | Hover and pressed on crimson, ghost-button hover on crimson |
 | `crimson-800` | `#62091F` |                | Pressed on crimson-deep, deep panels inside crimson bands   |
-| `crimson-900` | `#4A0B1C` | `oxblood`      | Footer and dark bands                                       |
-| `crimson-950` | `#1A050B` |                | The footer's bottom strip, image frames on oxblood          |
+| `crimson-900` | `#4A0B1C` | `oxblood`      | Dark bands and panels                                       |
+| `crimson-950` | `#1A050B` |                | Image frames on oxblood                                     |
 
 ### Warm neutrals
 
@@ -85,10 +85,18 @@ gone") and the three-designer homepage audit (Oct 27, 2026). Keep it calm and mi
 - **Surface-tint:** hover and selected states only. Not placeholders or icon circles.
 - **Canvas:** the resting fill behind a photo or placeholder while it loads.
 - **Gold:** small "Save x%" tags only.
-- **Oxblood:** the footer only.
+- **Oxblood:** dark panels on inner pages. The footer is light (`canvas`, ink text, crimson
+  on hover), like the rest of the store.
+- **Ink fill (`dark` button):** the action on a light promo banner, so it doesn't compete with
+  the crimson "Shop now". Never on crimson.
+- **Hover:** cards get a `line-strong` border and `shadow-lift`; department cards turn their
+  border crimson; a card's outline Add button fills crimson while the card is hovered.
 - The header is one crimson bar, then a light, text-only department bar with a thin line
   under it.
 - Eyebrows: on the home page, only the proof band has one.
+- Home sections share one frame (`HomeSection`): `text-title` heading, a quiet "See all" link
+  on the same line, `py-8 sm:py-10`. Crimson fills at rest: header, hero button, proof band
+  and the baskets lead tile.
 
 ### Status
 
