@@ -30,7 +30,7 @@ export type StockPhotoKey = keyof typeof stockPhotos
 
 /** Category slug → photo, for the category tiles. */
 export const categoryPhotos: Record<string, StockPhotoKey> = {
-  groceries: 'catGroceries',
+  groceries: 'pantry',
   household: 'catHousehold',
   pharmacy: 'catPharmacy',
   'baby-and-child': 'catBaby',

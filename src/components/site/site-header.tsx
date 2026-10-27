@@ -1,4 +1,4 @@
-import { Menu, PackageSearch, User, X } from 'lucide-react'
+import { Menu, User, X } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { SearchBox } from '@/components/shop/search-box'
@@ -6,6 +6,7 @@ import { getCategories } from '@/lib/data/site'
 import { BasketLink, BasketLinkFallback } from './basket-link'
 import { CategoryIcon } from './category-icon'
 import { HeaderShell } from './header-shell'
+import { MenuDetails } from './menu-details'
 import { Wordmark } from './wordmark'
 
 /** Store sections beside the departments. */
@@ -37,7 +38,7 @@ export async function SiteHeader() {
   return (
     <>
       <HeaderShell>
-        <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter sm:h-18 sm:gap-4">
+        <div className="mx-auto flex h-14 max-w-wide items-center gap-2 gutter sm:h-18 sm:gap-4">
           <Link
             href="/"
             className="mr-auto rounded-sm lg:mr-4"
@@ -60,7 +61,7 @@ export async function SiteHeader() {
           </Suspense>
 
           {/* Phone menu: <details> works before JavaScript loads. */}
-          <details className="group relative lg:hidden">
+          <MenuDetails className="group relative lg:hidden">
             <summary className="grid size-11 cursor-pointer list-none place-items-center rounded-full text-white hover:bg-crimson-700 [&::-webkit-details-marker]:hidden">
               <Menu className="size-6 group-open:hidden" aria-hidden />
               <X className="hidden size-6 group-open:block" aria-hidden />
@@ -68,7 +69,7 @@ export async function SiteHeader() {
             </summary>
             <nav
               aria-label="Main"
-              className="absolute top-full right-0 mt-2 max-h-[75vh] w-72 origin-top-right animate-rise overflow-y-auto rounded-lg border border-line bg-surface p-2 shadow-overlay"
+              className="absolute top-full right-0 z-50 mt-2 max-h-[75vh] w-72 origin-top-right animate-rise overflow-y-auto rounded-lg border border-line bg-surface p-2 shadow-overlay"
             >
               <p className="px-3 pt-2 pb-1 eyebrow text-ink-muted">Departments</p>
               <ul>
@@ -110,7 +111,7 @@ export async function SiteHeader() {
                 ))}
               </ul>
             </nav>
-          </details>
+          </MenuDetails>
         </div>
 
         {/* Phones: search sits under the logo row */}
@@ -130,9 +131,8 @@ export async function SiteHeader() {
               <li key={d.href}>
                 <Link
                   href={d.href}
-                  className="group relative flex min-h-12 items-center gap-2 rounded-md px-3 font-semibold text-ink hover:text-crimson [&_svg]:size-4.5 [&_svg]:text-crimson"
+                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:text-crimson"
                 >
-                  <CategoryIcon slug={d.slug} />
                   {d.label}
                   <Underline />
                 </Link>
@@ -155,9 +155,8 @@ export async function SiteHeader() {
               <li key={h.href}>
                 <Link
                   href={h.href}
-                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
+                  className="flex min-h-11 items-center rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
                 >
-                  {h.href === '/track' && <PackageSearch className="size-4" aria-hidden />}
                   {h.label}
                 </Link>
               </li>

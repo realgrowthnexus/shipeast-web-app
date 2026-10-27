@@ -1,4 +1,4 @@
-import { MessageCircle } from 'lucide-react'
+import { ChevronDown, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { site } from '@/lib/site'
 import { JamaicaFlag } from './jamaica'
@@ -42,8 +42,8 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
   const waDigits = whatsapp?.replace(/\D/g, '')
   return (
     <footer className="bg-oxblood text-white print:hidden">
-      <div className="mx-auto grid max-w-wide gap-10 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)]">
-        <div className="flex flex-col gap-4">
+      <div className="mx-auto grid max-w-wide grid-cols-2 gap-x-6 gap-y-8 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)] md:gap-10">
+        <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
           <Wordmark onDark />
           <p className="max-w-xs text-on-oxblood-muted">
             We shop in Jamaica for your family and deliver the same day, with a photo of the receipt
@@ -63,9 +63,8 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
             </a>
           )}
         </div>
-        {columns.map((col) => (
-          <nav key={col.title} aria-label={col.title}>
-            <h2 className="mb-3 font-bold text-blush">{col.title}</h2>
+        {columns.map((col) => {
+          const list = (
             <ul className="flex flex-col">
               {col.links.map((l) => (
                 <li key={l.href}>
@@ -78,8 +77,32 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
                 </li>
               ))}
             </ul>
-          </nav>
-        ))}
+          )
+          // Policies fold away on phones; Shop and Help sit side by side
+          return col.title === 'Policies' ? (
+            <nav key={col.title} aria-label={col.title} className="col-span-2 md:col-span-1">
+              <details className="group md:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-bold text-blush [&::-webkit-details-marker]:hidden">
+                  {col.title}
+                  <ChevronDown
+                    className="size-5 transition-transform group-open:rotate-180"
+                    aria-hidden
+                  />
+                </summary>
+                {list}
+              </details>
+              <div className="hidden md:block">
+                <h2 className="mb-3 font-bold text-blush">{col.title}</h2>
+                {list}
+              </div>
+            </nav>
+          ) : (
+            <nav key={col.title} aria-label={col.title}>
+              <h2 className="mb-3 font-bold text-blush">{col.title}</h2>
+              {list}
+            </nav>
+          )
+        })}
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-wide flex-col gap-1 gutter py-6 text-small text-on-oxblood-muted sm:flex-row sm:justify-between">

@@ -19,7 +19,7 @@ export function ProductCard({
 }) {
   const outOfStock = product.status === 'out_of_stock'
   return (
-    <article className="group relative flex w-full hover-lift flex-col gap-3 rounded-lg border border-blush bg-surface p-3 hover:border-crimson">
+    <article className="group relative flex w-full hover-lift flex-col gap-3 rounded-lg border border-line bg-surface p-3 hover:border-line-strong">
       <div className="relative">
         <ProductImage
           src={product.imagePath}
@@ -31,7 +31,7 @@ export function ProductCard({
         {outOfStock && <Badge className="absolute top-2 left-2">Out of stock</Badge>}
       </div>
       <div className="flex flex-1 flex-col gap-1 px-1">
-        <h3 className="leading-snug font-semibold text-ink">
+        <h3 className="line-clamp-2 leading-snug font-semibold text-ink">
           <Link href={`/product/${product.slug}`} className="after:absolute after:inset-0">
             {product.name}
           </Link>
@@ -39,7 +39,7 @@ export function ProductCard({
         <p className="text-small text-ink-muted">{product.size}</p>
       </div>
       <div className="flex flex-col gap-3 px-1 pb-1">
-        <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} tone="crimson" />
+        <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} />
         {action && !outOfStock && <div className="relative z-10 [&_button]:w-full">{action}</div>}
       </div>
     </article>
@@ -60,7 +60,7 @@ export function BasketCard({
 }) {
   const photo = basketPhotos[basket.slug]
   return (
-    <article className="group relative flex hover-lift flex-col overflow-hidden rounded-xl border border-blush bg-surface text-ink hover:border-crimson">
+    <article className="group relative flex hover-lift flex-col overflow-hidden rounded-lg border border-line bg-surface text-ink hover:border-line-strong">
       {photo && (
         <StockPhoto
           name={photo}
@@ -70,7 +70,7 @@ export function BasketCard({
         />
       )}
       <div className="flex flex-1 flex-col gap-2 p-card">
-        <p className="text-small font-semibold text-crimson">{itemCount} items in one basket</p>
+        <p className="text-small font-semibold text-ink-muted">{itemCount} items in one basket</p>
         <h3 className="text-h3">
           <Link href={`/baskets/${basket.slug}`} className="after:absolute after:inset-0">
             {basket.name}
@@ -78,11 +78,11 @@ export function BasketCard({
         </h3>
         <p className="text-ink-body">{basket.description}</p>
       </div>
-      {/* Gold means a saving, everywhere on the site */}
-      <div className="flex items-end justify-between gap-3 bg-jm-gold px-5 py-4 text-ink">
+      {/* Gold means a saving, everywhere on the site: a small tag, never a whole strip */}
+      <div className="flex items-end justify-between gap-3 border-t border-line px-5 py-4 text-ink">
         <Price cents={basket.priceCents} jmdPerUsd={jmdPerUsd} was={separateCents} tone="ink" />
         {separateCents > basket.priceCents && (
-          <span className="rounded-full bg-crimson px-2.5 py-1 text-xs font-bold text-white">
+          <span className="rounded-sm bg-jm-gold px-2 py-0.5 text-xs font-bold whitespace-nowrap text-ink">
             Save {Math.round(((separateCents - basket.priceCents) / separateCents) * 100)}%
           </span>
         )}

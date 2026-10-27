@@ -39,11 +39,12 @@ grows smoothly from a 375px phone to a 1024px screen. Never set `tracking-*` by 
 
 | Class                      | Size       | Weight         | Use                                          |
 | -------------------------- | ---------- | -------------- | -------------------------------------------- |
-| `text-display`             | 48 to 72px | 900            | Home hero headline only                      |
+| `text-display`             | 48 to 64px | 900            | Home hero headline only                      |
 | `text-numeral`             | 48 to 60px | 900            | Step numbers, big stats (with `text-signal`) |
 | `text-h1`                  | 36 to 48px | 800            | One page title per page                      |
 | `text-h2`                  | 28 to 36px | 800            | Section titles, totals                       |
-| `text-h3`                  | 20px       | 800            | Card, step and form-step titles              |
+| `text-title`               | 24px       | 800            | Store shelf titles                           |
+| `text-h3`                  | 20px       | 700            | Card, step and form-step titles              |
 | `text-lead`                | 18 to 20px | 400            | The paragraph under a title                  |
 | `text-body`                | 16px       | 400            | Running text and inputs                      |
 | `text-small`               | 14px       | 500            | Help text, captions, meta, table cells       |
@@ -90,7 +91,6 @@ Use these, in `src/components/site/` and `src/components/motion/`, before writin
 - `SectionHeader` gives the eyebrow, title, lead and an optional action link, revealed on scroll.
 - `PhotoFeature` puts a photo beside text, with an optional parallax.
 - `CtaBand` is the closing crimson panel with one main action.
-- `PromiseTicker` is the slow band of real promises: the receipt photo, the door photo, same day and so on.
 - `StockPhoto` (with `zoom` inside card links) shows a photo from the registry.
 - `Reveal`, `Stagger` / `StaggerItem` and `Parallax` handle motion. See `docs/TOKENS.md` for the rules.
 

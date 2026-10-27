@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { Reveal } from '@/components/motion/reveal'
 import { cn } from '@/lib/cn'
 
 const tones = {
@@ -51,7 +50,8 @@ export function Section({
 }
 
 /**
- * Eyebrow, title and optional lead, revealed on scroll. `onDark` for crimson and oxblood bands.
+ * Eyebrow, title and optional lead. Not animated: headings are in the first paint, so a slow
+ * phone never shows a blank section while JavaScript loads. `onDark` for crimson and oxblood bands.
  * `action` sits at the right on wide screens (a "See all" link).
  */
 export function SectionHeader({
@@ -75,8 +75,7 @@ export function SectionHeader({
 }) {
   const center = align === 'center'
   return (
-    <Reveal
-      as="header"
+    <header
       className={cn(
         'flex flex-wrap items-end justify-between gap-x-8 gap-y-4',
         center && 'flex-col items-center text-center',
@@ -97,6 +96,6 @@ export function SectionHeader({
         )}
       </div>
       {action}
-    </Reveal>
+    </header>
   )
 }

@@ -84,7 +84,7 @@
    * Type scale. Sizes grow smoothly from a 375px phone to a 1024px screen, so one class
    * covers every width. Letter spacing and weight belong to the style: never set them by hand.
    */
-  --text-display: clamp(3rem, 2.134rem + 3.698vw, 4.5rem);
+  --text-display: clamp(3rem, 2.134rem + 3.698vw, 4rem);
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.03em;
   --text-display--font-weight: 900;
@@ -100,10 +100,14 @@
   --text-h2--line-height: 1.1;
   --text-h2--letter-spacing: -0.02em;
   --text-h2--font-weight: 800;
+  --text-title: 1.5rem; /* store shelf titles: quieter than a section h2 */
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.015em;
+  --text-title--font-weight: 800;
   --text-h3: 1.25rem;
   --text-h3--line-height: 1.25;
   --text-h3--letter-spacing: -0.01em;
-  --text-h3--font-weight: 800;
+  --text-h3--font-weight: 700;
   --text-lead: clamp(1.125rem, 1.053rem + 0.308vw, 1.25rem);
   --text-lead--line-height: 1.55;
   --text-body: 1rem;
@@ -250,20 +254,6 @@
 @keyframes skeleton-pulse {
   50% {
     opacity: 0.55;
-  }
-}
-
-/* Endless sideways scroll for the trust ticker. Content must be duplicated once. */
-@utility animate-marquee {
-  animation: marquee 40s linear infinite;
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
   }
 }
 

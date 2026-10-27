@@ -9,8 +9,10 @@ import { addToBasket, type AddState } from '@/lib/basket/actions'
 import type { LineKind } from '@/lib/basket/state'
 
 /**
- * Add-to-basket form. `compact` is the one-tap button on product cards; `full` adds a quantity
- * stepper for product and basket pages. Works as a plain form post before JavaScript loads.
+ * Add-to-basket form. `compact` is the one-tap button on product cards: a crimson outline that
+ * fills once the item is in the basket, so a shelf of cards isn't a wall of red. `full` adds a
+ * quantity stepper for product and basket pages. Works as a plain form post before JavaScript
+ * loads.
  */
 export function AddToBasket({
   kind,
@@ -36,7 +38,7 @@ export function AddToBasket({
         <Button
           type="submit"
           size="sm"
-          variant={added ? 'secondary' : 'primary'}
+          variant={added ? 'primary' : 'outline'}
           loading={pending}
           className="min-h-11"
         >
