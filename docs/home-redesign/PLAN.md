@@ -998,6 +998,17 @@ P7 `whyFamily`: crop 4:5 desktop/phone, 16:9 tablet; `object-position: 45% 40%` 
 
 ### 4.7 S7 Delivering in St. Thomas and Kingston (coverage)
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Full-bleed background photo with a flat overlay**; title block on the overlay, a row of white zone cards on top, links under them. The only overlay on the site. |
+| 2. Background | Photo P8 `jmKingstonHills` (Kingston and its hills) as a `fill` image, `object-cover`, `object-position: center 60%`; on top a flat `bg-photo-scrim` layer (oxblood at **70%**). No gradient, no blur. Text on the overlay: `on-dark` only, **6.2:1 worst case** (see 1B.3). |
+| 3. Container / height | Full-bleed band; content `max-w-page`. `section` padding; `lg:min-h-[640px]` with content vertically centred; auto below lg. ≈ 720px at 1440, ≈ 1,000px at 375. |
+| 4. Columns | 375: 1 column — h2, lead, cards stacked, cut-off note, links. 768: title block, then 2 cards side by side. 1024 / 1440: title block left-aligned (`max-w-2xl`), then 2 cards in a 2-column grid capped at `max-w-4xl` (3+ zones: 3 columns, full `max-w-page`). |
+| 5. Blocks | h2, 1-line lead, 1 card per active zone (2 today), each = speed pill + h3 + 3 data rows (fee, cut-off, minimum); 1 cut-off note; 2 text links. |
+| 6. Why | Senders buy for a *place*. Kingston's hills behind real fees and cut-offs answer "do you deliver to Mum, and when?" with a sense of home, and the full-bleed photo breaks the run of contained sections. Couriers bury fees in a PDF or a call; ours are live from admin. |
+
 #### Copy
 
 | | |
@@ -1005,49 +1016,63 @@ P7 `whyFamily`: crop 4:5 desktop/phone, 16:9 tablet; `object-position: 45% 40%` 
 | `h2` | **Delivering in {parishList}** |
 | Lead | Same-day delivery when you order before the cut-off. More parishes are coming. |
 | Zone card `h3` | `{zone.parish}` |
-| Zone rows (`<dl>`) | Delivery fee — `formatUsd(feeCents)` · Same-day cut-off — `formatClockTime(cutoffTime)` Jamaica time · Minimum order — `formatUsd(minOrderCents)` |
-| Speed pill (top of card body) | `same_day` → "Same day" · `next_day` → "Next day" · `scheduled` → "Scheduled" |
-| Under the cards | `CutoffNote tone="light" cutoff={earliestCutoff}` |
-| Links | Delivery areas and fees → `/delivery` · Family somewhere else in Jamaica? Tell us where → `/contact` |
+| Zone rows (`<dl>`) | Delivery fee: `formatUsd(feeCents)`; Same-day cut-off: `formatClockTime(cutoffTime)` Jamaica time; Minimum order: `formatUsd(minOrderCents)` |
+| Speed pill (top of card body) | `same_day` → "Same day"; `next_day` → "Next day"; `scheduled` → "Scheduled" |
+| Under the cards (on the overlay) | `CutoffNote tone="onDark" cutoff={earliestCutoff}` |
+| Links (on the overlay) | Delivery areas and fees → `/delivery`; Family somewhere else in Jamaica? Tell us where → `/contact` |
 
 #### Data
 
-`getActiveZones()`; photo by a new map `zonePhotos` in `src/lib/stock-photos.ts`:
-`{ 'Kingston': 'jmKingstonHills', 'St. Thomas': 'homeStThomasRoad' }` (keyed by parish
-name). No entry → `bg-crimson` 16:9 block with `MapPin` `size-12 text-blush`.
+`getActiveZones()`. The background photo is fixed (P8); zone cards carry no photos.
 
 #### Layout
 
 ```
-375 stacked gap-6                    768+ grid-cols-2 gap-6 (1 zone: max-w-xl)
-┌──────────────────────────┐        ┌───────────────┐┌───────────────┐
-│ photo 16:9               │        │ photo 16:9    ││ photo 16:9    │
-├──────────────────────────┤        ├───────────────┤├───────────────┤
-│ (Same day)               │        │ St. Thomas    ││ Kingston      │
-│ St. Thomas          h3   │        │ fee      $8   ││ fee     $10   │
-│ Delivery fee   USD$8     │        │ cut-off 1:00PM││ …             │
-│ Same-day cut-off 1:00 PM │        │ minimum  $25  ││               │
-│ Minimum order  USD$25    │        └───────────────┘└───────────────┘
-└──────────────────────────┘        ⏱ Order by 1:00 PM Jamaica time… (CutoffNote)
-                                     Delivery areas and fees   Family somewhere else…
-1024/1440: same 2 columns inside max-w-page; 3+ zones → lg:grid-cols-3
+375                                   1024 / 1440   full-bleed photo, oxblood 70% overlay
+┌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒┐      ┌▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒┐
+│▒ Delivering in St. Thomas   ▒│      │▒   Delivering in St. Thomas and Kingston   (h2)    ▒│
+│▒ and Kingston         (h2)  ▒│      │▒   Same-day delivery when you order before…        ▒│
+│▒ Same-day delivery when…    ▒│      │▒                                                   ▒│
+│▒ ┌────────────────────────┐ ▒│      │▒   ┌──────────────────────┐ ┌──────────────────────┐▒│
+│▒ │ (Same day)             │ ▒│      │▒   │ (Same day)           │ │ (Same day)           │▒│
+│▒ │ St. Thomas        h3   │ ▒│      │▒   │ St. Thomas      h3   │ │ Kingston        h3   │▒│
+│▒ │ Delivery fee   USD$8   │ ▒│      │▒   │ Delivery fee  USD$8  │ │ Delivery fee USD$10  │▒│
+│▒ │ Same-day cut-off 1:00PM│ ▒│      │▒   │ Cut-off     1:00 PM  │ │ Cut-off     1:00 PM  │▒│
+│▒ │ Minimum order  USD$25  │ ▒│      │▒   │ Minimum      USD$25  │ │ Minimum      USD$25  │▒│
+│▒ └────────────────────────┘ ▒│      │▒   └──────────────────────┘ └──────────────────────┘▒│
+│▒ ┌────────────────────────┐ ▒│      │▒   ⏱ Order by 1:00 PM Jamaica time for delivery today▒│
+│▒ │ Kingston …             │ ▒│      │▒   Delivery areas and fees    Family somewhere else… ▒│
+│▒ └────────────────────────┘ ▒│      └▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒┘
+│▒ ⏱ Order by 1:00 PM…        ▒│
+│▒ Delivery areas and fees    ▒│
+└▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒┘
 ```
 
-Section `section bg-surface`. Card `rounded-xl border border-line bg-page overflow-hidden`
-(page-coloured card on a surface band, flat). Body `p-card`. `<dl>` rows `flex
-justify-between gap-4 py-2 border-b border-line last:border-0`; `dt` `text-small
-text-ink-muted`; `dd` `text-body font-semibold text-ink tabular-nums`. Pill `inline-flex
-rounded-full bg-ok-tint text-ok text-xs font-bold px-2 py-0.5` with `Zap` `size-icon-sm`
-for same day; `bg-surface-muted text-ink-muted` for others.
-Photo `sizes="(min-width: 768px) 560px, 100vw"`.
+| Layer | Classes |
+|---|---|
+| `<section>` | `relative isolate overflow-hidden section lg:min-h-[640px] lg:flex lg:items-center text-on-dark on-dark-focus` |
+| Photo | `StockPhoto name="jmKingstonHills" className="absolute inset-0 -z-10 rounded-none" sizes="100vw"` (lazy; not preloaded). Pass `alt=""`: decorative, the title names the place. |
+| Overlay | `div aria-hidden className="absolute inset-0 -z-10 bg-photo-scrim"` placed after the photo |
+| Content | `relative mx-auto w-full max-w-page gutter` |
+| Title block | `max-w-2xl`; `h2` `text-h2 text-balance text-on-dark`; lead `mt-4 text-lead text-on-dark` (not muted: muted fails on the overlay) |
+| Cards grid | `mt-8 lg:mt-12 grid gap-4 md:grid-cols-2 md:gap-6 lg:max-w-4xl` (3+ zones: `lg:grid-cols-3 lg:max-w-none`; 1 zone: `max-w-md`) |
+| Card | `rounded-xl bg-surface p-card text-ink shadow-float` (it floats over a photo, so it gets the float shadow) |
+| `<dl>` rows | `flex justify-between gap-4 py-2 border-b border-line last:border-0`; `dt` `text-small text-ink-muted`; `dd` `text-body font-semibold text-ink tabular-nums` |
+| Pill | `inline-flex items-center gap-1 rounded-full bg-ok-tint text-ok text-xs font-bold px-2 py-0.5` + `Zap` `size-icon-sm` (same day); `bg-surface-muted text-ink-muted` otherwise |
+| Under cards | `mt-8 flex flex-col gap-2 md:flex-row md:items-center md:gap-8`; cut-off note `text-small text-on-dark`, icon `text-on-dark` (not blush: blush is 4.1:1 on the overlay); links `min-h-control inline-flex items-center font-semibold text-on-dark underline underline-offset-4 decoration-on-dark hover:decoration-2` |
 
 #### States
 
 | State | Treatment |
 |---|---|
-| No active zones | replace cards with an `EmptyState`-style block: `MapPin`, "We're not taking orders right now", "Leave your email on the contact page and we'll tell you when we deliver to your family's parish." + link "Contact us". Title becomes "Delivering in Jamaica". |
-| Zone without photo | crimson block |
-| Hover | none (cards are not links) |
+| No active zones | the cards are replaced by one white card: `MapPin` (crimson), "We're not taking orders right now", "Leave your email on the contact page and we'll tell you when we deliver to your family's parish." + link "Contact us". Title becomes "Delivering in Jamaica". |
+| Photo fails to load | the overlay sits on the `page` fallback of `StockImage` → band reads as a lighter oxblood; text still ≥ 6.2:1 (worst case is white) |
+| Hover | none on cards (not links); links thicken their underline |
+| Focus | blush ring on the overlay links (non-text, ≥ 3:1 on the darkest blend); signal ring inside cards (none focusable today) |
+
+#### Motion
+
+None. No parallax on the background photo.
 
 #### Components
 
@@ -1056,14 +1081,16 @@ Photo `sizes="(min-width: 768px) 560px, 100vw"`.
 
 #### Accessibility
 
-Each zone is an `<article aria-labelledby>`; the `<dl>` reads "Delivery fee, USD$8".
-Status pill text is visible (not colour only).
+`<section aria-labelledby="coverage-title" id="coverage" class="scroll-mt-header">`. Each zone
+is an `<article aria-labelledby>`; the `<dl>` reads "Delivery fee, USD$8". Status pill text is
+visible (not colour only). Background photo and overlay are decorative (`alt=""`,
+`aria-hidden`).
 
-#### Photos
+#### Photo
 
-P8 `jmKingstonHills` (Kingston), P9 `homeStThomasRoad` (new key for the existing photo
-`companyCountryRoad` — reuse the same entry; just map `zonePhotos['St. Thomas'] =
-'companyCountryRoad'`; no new registry entry needed).
+P8 `jmKingstonHills` as the background; full-bleed, `object-position: center 60%` (keeps the
+hills and the city in the band at 375, where the band is tall and narrow). Backups P8
+`kingston`, `blueMountains`.
 
 ---
 
