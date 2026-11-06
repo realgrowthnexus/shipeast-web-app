@@ -1,8 +1,9 @@
 @AGENTS.md
+@docs/BRAIN.md
 
 # ShipEast Shop & Send — project rules
 
-Read `docs/PLAN.md` (what we build, page by page, phase by phase) and `docs/BRIEF.md`
+**Read `docs/BRAIN.md` first** (the owner's standing instructions and where to resume). Then read `docs/PLAN.md` (what we build, page by page, phase by phase) and `docs/BRIEF.md`
 (client, business model, decisions) before doing any work.
 
 ## This project is standalone — never mix it up
