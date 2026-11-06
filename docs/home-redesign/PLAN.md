@@ -207,7 +207,7 @@ Never hand-set `tracking-*`, `leading-*` or a font size. The wordmark is the one
 | Sides | `gutter` everywhere |
 | Gaps | Inside cards 8 / 12 / 16px (`gap-2/3/4`). Between blocks 24 / 32 / 48px (`gap-6/8/12`). Title-to-content: `mt-8 lg:mt-12`. |
 | Radius | Photos `rounded-lg` (12px) in grids; hero photo `rounded-2xl` (24px); basket cards `rounded-xl`; S9 panel `rounded-2xl`; buttons/inputs `rounded-md`; pills `rounded-full`; receipt `rounded-sm` top corners only (torn bottom) |
-| Elevation | Cards flat (`border border-line`). `shadow-float` on the hero receipt only. `shadow-lift` on basket-card hover and the scrolled header. `shadow-overlay` on the mobile menu. |
+| Elevation | Cards flat (`border border-line`). `shadow-float` on the hero receipt and the S7 zone cards (they float over a photo). `shadow-lift` on basket-card hover and the scrolled header. `shadow-overlay` on the mobile menu. |
 | Layers | Header `z-header`; hero receipt `z-raised`; mobile menu (dialog top layer) needs none; skip link `z-overlay` |
 
 ### 2.5 Motion budget
