@@ -173,7 +173,7 @@ async function BasketView({
       </aside>
 
       {/* Phones: total and checkout stay in reach while scrolling the list. */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t border-line bg-canvas/95 px-4 py-3 backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-sticky flex items-center gap-4 border-t border-line bg-surface px-4 py-3 lg:hidden">
         <div className="flex flex-col leading-tight">
           <span className="text-xs text-ink-muted">Total</span>
           <span className="text-h3 text-ink tabular-nums">{formatUsd(priced.totalCents)}</span>
@@ -192,7 +192,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
     </>
   )
   const step =
-    'grid size-11 place-items-center text-crimson hover:bg-surface-tint disabled:text-ink-disabled disabled:hover:bg-transparent'
+    'grid size-control place-items-center text-crimson hover:bg-surface-muted disabled:text-ink-disabled disabled:hover:bg-transparent'
   return (
     <li className="flex gap-3 p-3 sm:gap-4">
       {line.kind === 'product' ? (
@@ -205,7 +205,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
           className="w-20 shrink-0 self-start sm:w-24"
         />
       ) : (
-        <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center self-start rounded-md bg-crimson text-xs font-bold text-white sm:w-24">
+        <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center self-start rounded-md bg-crimson text-xs font-bold text-on-dark sm:w-24">
           Basket
         </div>
       )}
@@ -237,7 +237,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
             <div
               role="group"
               aria-label={`Quantity of ${line.name}`}
-              className="inline-flex items-center overflow-hidden rounded-md border-[1.5px] border-line-strong bg-surface"
+              className="inline-flex items-center overflow-hidden rounded-md border-control border-line-strong bg-surface"
             >
               <form action={updateQuantity}>
                 {hidden}
@@ -273,7 +273,7 @@ function BasketLineRow({ line, rate }: { line: PricedLine; rate: number }) {
             {hidden}
             <button
               type="submit"
-              className="flex min-h-11 items-center gap-1.5 rounded-md px-2 text-small font-semibold text-ink-muted hover:bg-surface-tint hover:text-danger"
+              className="flex min-h-control items-center gap-1.5 rounded-md px-2 text-small font-semibold text-ink-muted hover:bg-surface-muted hover:text-danger"
             >
               <Trash2 className="size-4" aria-hidden />
               Remove<span className="sr-only"> {line.name}</span>
@@ -298,7 +298,7 @@ function PromoForm({ priced }: { priced: PricedBasket }) {
         <form action={removePromo}>
           <button
             type="submit"
-            className="grid size-11 place-items-center rounded-md text-ink-muted hover:bg-surface"
+            className="grid size-control place-items-center rounded-md text-ink-muted hover:bg-surface"
           >
             <X className="size-4" aria-hidden />
             <span className="sr-only">Remove code {promo.code}</span>

@@ -2,18 +2,18 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 const tones = {
-  canvas: '',
+  page: '',
   surface: 'bg-surface',
-  tint: 'bg-surface-tint',
-  crimson: 'bg-crimson text-white',
-  oxblood: 'bg-oxblood text-white',
+  muted: 'bg-surface-muted',
+  crimson: 'bg-crimson text-on-dark',
+  oxblood: 'bg-oxblood text-on-dark',
 } as const
 
 export type SectionTone = keyof typeof tones
 
 /** A full-width band of the page. Alternate tones so sections read as separate chapters. */
 export function Section({
-  tone = 'canvas',
+  tone = 'page',
   size = 'md',
   className,
   innerClassName,

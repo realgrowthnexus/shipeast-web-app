@@ -51,7 +51,7 @@ export default function PhotoCreditsPage() {
                 </a>
               </p>
               <p className="mt-auto">
-                <span className="inline-flex rounded-full bg-surface-tint px-3 py-1 text-xs font-semibold text-crimson-deep">
+                <span className="inline-flex rounded-full bg-surface-selected px-3 py-1 text-xs font-semibold text-crimson-deep">
                   {p.usedOn}
                 </span>
               </p>

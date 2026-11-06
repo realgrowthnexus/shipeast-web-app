@@ -143,7 +143,7 @@ export default async function DeliveryPage() {
                     <MapPin className="size-7 shrink-0 text-crimson" aria-hidden />
                     {z.parish}
                   </h3>
-                  <span className="rounded-full bg-surface-tint px-3 py-1 text-small font-semibold text-crimson-deep">
+                  <span className="rounded-full bg-surface-selected px-3 py-1 text-small font-semibold text-crimson-deep">
                     {speedLabel[z.speed]}
                   </span>
                 </div>
@@ -204,7 +204,7 @@ export default async function DeliveryPage() {
             {day.map((s, i) => (
               <StaggerItem
                 key={s.title}
-                className="flex flex-col gap-4 rounded-xl bg-crimson-800 p-card-lg"
+                className="flex flex-col gap-4 rounded-xl bg-crimson-deep p-card-lg"
               >
                 <div className="flex items-center justify-between">
                   <s.icon className="size-7 text-blush" aria-hidden />
@@ -212,7 +212,7 @@ export default async function DeliveryPage() {
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <h3 className="text-h3 text-white">{s.title}</h3>
+                <h3 className="text-h3 text-on-dark">{s.title}</h3>
                 <p className="text-on-crimson-muted">{s.body}</p>
               </StaggerItem>
             ))}
@@ -229,7 +229,7 @@ export default async function DeliveryPage() {
           <ul className="mt-8 flex flex-col gap-6">
             {tips.map((t) => (
               <li key={t.title} className="flex gap-4">
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-tint">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-muted">
                   <t.icon className="size-6 text-crimson" aria-hidden />
                 </span>
                 <div>
@@ -252,7 +252,7 @@ export default async function DeliveryPage() {
           </ul>
           <Link
             href="/legal/delivery"
-            className="mt-6 inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+            className="mt-6 inline-flex min-h-control items-center font-semibold text-crimson hover:underline"
           >
             Read the delivery policy
           </Link>
@@ -271,7 +271,7 @@ export default async function DeliveryPage() {
             {soon.map((z) => (
               <StaggerItem
                 key={z.id}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-canvas px-4 text-ink"
+                className="inline-flex min-h-control items-center gap-2 rounded-full border border-line bg-page px-4 text-ink"
               >
                 <MapPin className="size-4 text-ink-muted" aria-hidden />
                 {z.parish}
@@ -281,7 +281,7 @@ export default async function DeliveryPage() {
           <Reveal className="mt-8" delay={0.1}>
             <Link
               href="/contact"
-              className="inline-flex min-h-11 items-center gap-2 font-semibold text-crimson hover:underline"
+              className="inline-flex min-h-control items-center gap-2 font-semibold text-crimson hover:underline"
             >
               <MessageSquareText className="size-5" aria-hidden />
               Ask about your parish
@@ -291,14 +291,14 @@ export default async function DeliveryPage() {
       )}
 
       {deliveryFaqs.length > 0 && (
-        <Section tone={soon.length > 0 ? 'canvas' : 'tint'} wide aria-labelledby="dfaq-h">
+        <Section tone={soon.length > 0 ? 'page' : 'muted'} wide aria-labelledby="dfaq-h">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
               <SectionHeader id="dfaq-h" eyebrow="Questions" title="About delivery" />
               <Reveal className="mt-6" delay={0.1}>
                 <Link
                   href="/faq#delivery"
-                  className="inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+                  className="inline-flex min-h-control items-center font-semibold text-crimson hover:underline"
                 >
                   See all questions
                 </Link>

@@ -46,7 +46,7 @@ export function SeeAll({ href, label, short }: { href: string; label: string; sh
   return (
     <Link
       href={href}
-      className="group inline-flex min-h-11 shrink-0 items-center gap-1.5 text-small font-semibold text-ink-body hover:text-crimson"
+      className="group inline-flex min-h-control shrink-0 items-center gap-1.5 text-small font-semibold text-ink-body hover:text-crimson"
     >
       {short ? (
         <>

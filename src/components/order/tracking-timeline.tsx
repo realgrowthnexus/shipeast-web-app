@@ -36,7 +36,7 @@ export function TrackingTimeline({
             <span
               className={cn(
                 'relative grid size-8 shrink-0 place-items-center rounded-full border-2 text-small font-bold',
-                done && 'border-crimson bg-crimson text-white',
+                done && 'border-crimson bg-crimson text-on-dark',
                 active && 'border-signal bg-surface text-signal',
                 !done && !active && 'border-line bg-surface text-ink-muted',
               )}

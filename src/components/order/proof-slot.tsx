@@ -18,13 +18,13 @@ export function ProofSlot({
   const title = kind === 'receipt' ? 'Store receipt' : 'At the door'
   return (
     <figure className="flex flex-col gap-2">
-      <div className="relative aspect-[3/4] overflow-hidden rounded-md border border-line bg-surface-tint">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-md border border-line bg-surface-muted">
         {photo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={photo.url} alt={alt} className="absolute inset-0 size-full object-cover" />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
-            <Icon className="size-10 text-crimson/40" strokeWidth={1.5} aria-hidden />
+            <Icon className="size-10 text-ink-disabled" strokeWidth={1.5} aria-hidden />
             <p className="text-small text-ink-muted">
               {kind === 'receipt'
                 ? 'The receipt photo appears here once the driver has shopped.'

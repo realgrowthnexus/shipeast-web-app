@@ -29,7 +29,7 @@ export function CtaBand({
   return (
     <section className="section-sm">
       <div className="mx-auto w-full max-w-wide gutter">
-        <div className="grid overflow-hidden rounded-2xl bg-crimson text-white lg:grid-cols-12">
+        <div className="grid overflow-hidden rounded-2xl bg-crimson text-on-dark lg:grid-cols-12">
           <div className="flex flex-col items-start gap-6 p-card-lg sm:p-12 lg:col-span-7 lg:p-16">
             <h2 className="text-h1 text-balance">{title}</h2>
             {children && <div className="max-w-xl text-lead text-on-crimson-muted">{children}</div>}
@@ -42,7 +42,7 @@ export function CtaBand({
                   href={secondary.href}
                   size="lg"
                   variant="ghost"
-                  className="text-white hover:bg-crimson-700"
+                  className="text-on-dark hover:bg-crimson-deep"
                 >
                   {secondary.label}
                 </ButtonLink>

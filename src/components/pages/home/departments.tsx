@@ -37,7 +37,7 @@ export function DepartmentGrid({ categories }: { categories: Department[] }) {
               href={t.href}
               className="group flex h-full flex-col items-center gap-3 rounded-lg border border-line bg-surface p-2 text-center transition-[border-color,box-shadow] duration-250 ease-out-soft hover:border-crimson hover:shadow-lift sm:p-3"
             >
-              <span className="block aspect-square w-full overflow-hidden rounded-md bg-canvas">
+              <span className="block aspect-square w-full overflow-hidden rounded-md bg-page">
                 {t.photo && (
                   <StockPhoto
                     name={t.photo}

@@ -78,7 +78,7 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
         </Alert>
       )}
 
-      <section aria-labelledby="next" className="rounded-xl bg-crimson p-card text-white sm:p-8">
+      <section aria-labelledby="next" className="rounded-xl bg-crimson p-card text-on-dark sm:p-8">
         <h2 id="next" className="text-h3">
           What happens next
         </h2>
@@ -104,7 +104,7 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
         <p className="text-ink">
           Anyone with this link can follow the order and see the photos. No account needed.
         </p>
-        <div className="flex flex-wrap items-center gap-2 rounded-md border-[1.5px] border-line-strong bg-surface p-2 pl-4">
+        <div className="flex flex-wrap items-center gap-2 rounded-md border-control border-line-strong bg-surface p-2 pl-4">
           <span className="min-w-0 flex-1 truncate text-small text-ink-muted">{trackUrl}</span>
           <CopyButton value={trackUrl} label="tracking link" />
         </div>
@@ -122,7 +122,7 @@ async function Confirmed({ params, searchParams }: PageProps<'/order/[orderRef]/
       {!account && (
         <section
           aria-labelledby="account-offer"
-          className="flex flex-col gap-4 rounded-lg border-2 border-blush bg-surface-tint p-card-lg sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-4 rounded-lg border border-crimson bg-surface-selected p-card-lg sm:flex-row sm:items-center sm:justify-between"
         >
           <div className="flex gap-3">
             <UserRoundPlus className="mt-1 size-6 shrink-0 text-crimson" aria-hidden />

@@ -5,13 +5,13 @@ export function Wordmark({ onDark = false, className }: { onDark?: boolean; clas
   return (
     <span className={cn('inline-flex flex-col leading-none', className)}>
       <span
-        className={cn('text-2xl font-black tracking-tight', onDark ? 'text-white' : 'text-ink')}
+        className={cn('text-2xl font-black tracking-tight', onDark ? 'text-on-dark' : 'text-ink')}
       >
         Ship<span className={onDark ? 'text-blush' : 'text-crimson'}>East</span>
       </span>
       <span
         className={cn(
-          'mt-0.5 text-[11px] font-semibold',
+          'mt-0.5 text-xs font-semibold',
           onDark ? 'text-on-crimson-muted' : 'text-ink-muted',
         )}
       >

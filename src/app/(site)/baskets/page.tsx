@@ -26,7 +26,7 @@ export default async function BasketsPage() {
 
   return (
     <>
-      <section className="bg-crimson text-white">
+      <section className="bg-crimson text-on-dark">
         <div className="mx-auto grid w-full max-w-page items-center gap-10 gutter section lg:grid-cols-12 lg:gap-16">
           <div className="animate-rise lg:col-span-7">
             <p className="mb-3 eyebrow text-blush">Ready-made baskets</p>
@@ -110,11 +110,11 @@ export default async function BasketsPage() {
             {withSaving.length > 0 && (
               <div className="lg:col-span-7">
                 <div className="overflow-x-auto">
-                  <table className="w-full overflow-hidden rounded-lg border border-line bg-canvas text-left text-small">
+                  <table className="w-full overflow-hidden rounded-lg border border-line bg-page text-left text-small">
                     <caption className="sr-only">
                       Basket prices compared with buying the same items one by one
                     </caption>
-                    <thead className="bg-surface-tint text-ink">
+                    <thead className="bg-surface-muted text-ink">
                       <tr>
                         <th scope="col" className="p-2 font-bold sm:p-4">
                           Basket
@@ -203,7 +203,7 @@ function Reason({
 }) {
   return (
     <>
-      <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson text-white">
+      <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson text-on-dark">
         <Icon className="size-6" aria-hidden />
       </span>
       <span className="flex flex-col gap-1">

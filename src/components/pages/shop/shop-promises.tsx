@@ -53,7 +53,7 @@ export function HowWeShop({ sameDay }: { sameDay: string }) {
           <Stagger className="grid gap-6 sm:grid-cols-3 lg:gap-8">
             {shopPoints(sameDay).map(({ icon: Icon, title, text }) => (
               <StaggerItem key={title} className="flex flex-col gap-3">
-                <span className="grid size-12 place-items-center rounded-full bg-crimson text-white">
+                <span className="grid size-12 place-items-center rounded-full bg-crimson text-on-dark">
                   <Icon className="size-6" aria-hidden />
                 </span>
                 <h3 className="text-h3">{title}</h3>
@@ -63,7 +63,7 @@ export function HowWeShop({ sameDay }: { sameDay: string }) {
           </Stagger>
           <Link
             href="/how-it-works"
-            className="inline-flex min-h-11 items-center gap-2 self-start font-semibold text-blush underline-offset-4 hover:underline"
+            className="inline-flex min-h-control items-center gap-2 self-start font-semibold text-blush underline-offset-4 hover:underline"
           >
             See how an order works
             <ArrowRight className="size-5" aria-hidden />
@@ -95,7 +95,7 @@ export function TrustRow({ sameDay = '', className }: { sameDay?: string; classN
           key={title}
           className="flex gap-4 rounded-lg border border-line bg-surface p-card"
         >
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+          <span className="grid size-control shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
             <Icon className="size-5" aria-hidden />
           </span>
           <span className="flex flex-col gap-1">
@@ -119,9 +119,9 @@ export function requestLink(itemRequests: boolean) {
 export function CantFindBanner({ itemRequests }: { itemRequests: boolean }) {
   const link = requestLink(itemRequests)
   return (
-    <Section tone="tint" size="sm" aria-labelledby="cant-find">
+    <Section tone="muted" size="sm" aria-labelledby="cant-find">
       <div className="flex flex-col items-start gap-6 rounded-2xl border border-line bg-surface p-card-lg sm:flex-row sm:items-center sm:p-10">
-        <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson text-white">
+        <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson text-on-dark">
           <PackagePlus className="size-7" aria-hidden />
         </span>
         <div className="flex flex-1 flex-col gap-2">
@@ -192,9 +192,9 @@ export function HelpStrip({
           <Link
             href={href}
             {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-            className="group flex w-full hover-lift gap-4 rounded-lg border border-line bg-surface p-card hover:border-blush"
+            className="group flex w-full hover-lift gap-4 rounded-lg border border-line bg-surface p-card hover:border-line-hover"
           >
-            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+            <span className="grid size-control shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
               <Icon className="size-5" aria-hidden />
             </span>
             <span className="flex flex-col gap-1">

@@ -25,7 +25,7 @@ export default function AddressEditorPage(props: PageProps<'/account/addresses/[
     <div className="flex max-w-2xl flex-col gap-6">
       <Link
         href="/account/addresses"
-        className="inline-flex min-h-11 items-center gap-1.5 self-start font-semibold text-crimson underline-offset-2 hover:underline"
+        className="inline-flex min-h-control items-center gap-1.5 self-start font-semibold text-crimson underline-offset-2 hover:underline"
       >
         <ArrowLeft className="size-4" aria-hidden />
         Family addresses

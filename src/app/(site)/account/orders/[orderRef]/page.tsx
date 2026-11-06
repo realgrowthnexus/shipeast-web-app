@@ -29,7 +29,7 @@ export default function AccountOrderPage(props: PageProps<'/account/orders/[orde
     <div className="flex flex-col gap-6">
       <Link
         href="/account/orders"
-        className="inline-flex min-h-11 items-center gap-1.5 self-start font-semibold text-crimson underline-offset-2 hover:underline"
+        className="inline-flex min-h-control items-center gap-1.5 self-start font-semibold text-crimson underline-offset-2 hover:underline"
       >
         <ArrowLeft className="size-4" aria-hidden />
         All orders
@@ -165,7 +165,7 @@ async function OrderDetail({ params, searchParams }: PageProps<'/account/orders/
           {order.giftMessage && (
             <section
               aria-labelledby="gift"
-              className="flex gap-3 rounded-xl bg-crimson p-card text-white"
+              className="flex gap-3 rounded-xl bg-crimson p-card text-on-dark"
             >
               <Gift className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
               <div>

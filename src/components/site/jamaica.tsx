@@ -9,7 +9,7 @@ export function JamaicaFlag({ className, label }: { className?: string; label?: 
   return (
     <svg
       viewBox="0 0 12 6"
-      className={cn('inline-block h-auto w-6 shrink-0 rounded-xs', className)}
+      className={cn('inline-block h-auto w-6 shrink-0 rounded-sm', className)}
       role={label ? 'img' : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
@@ -36,7 +36,7 @@ export function FlagBadge({
     <span
       className={cn(
         'inline-flex min-h-9 items-center gap-2.5 rounded-full px-3.5 text-small font-semibold',
-        onDark ? 'bg-crimson-800 text-white' : 'border border-line bg-surface text-ink',
+        onDark ? 'bg-crimson-deep text-on-dark' : 'border border-line bg-surface text-ink',
         className,
       )}
     >

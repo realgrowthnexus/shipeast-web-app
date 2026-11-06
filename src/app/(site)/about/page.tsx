@@ -136,7 +136,7 @@ export default function AboutPage() {
         </PhotoFeature>
       </Section>
 
-      <Section tone="tint" aria-labelledby="care-h">
+      <Section tone="muted" aria-labelledby="care-h">
         <SectionHeader
           eyebrow="Your order and your money"
           id="care-h"
@@ -178,7 +178,7 @@ export default function AboutPage() {
                 <dd>
                   <a
                     href={`mailto:${site.email}`}
-                    className="inline-flex min-h-11 items-center font-semibold break-all text-crimson hover:underline"
+                    className="inline-flex min-h-control items-center font-semibold break-all text-crimson hover:underline"
                   >
                     {site.email}
                   </a>

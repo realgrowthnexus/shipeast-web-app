@@ -30,10 +30,10 @@ export function AccountNavLinks({ active }: { active?: string }) {
             href={href}
             aria-current={current(href) ? 'page' : undefined}
             className={cn(
-              'flex min-h-11 items-center gap-2.5 rounded-md px-3 font-semibold whitespace-nowrap transition-colors',
+              'flex min-h-control items-center gap-2.5 rounded-md px-3 font-semibold whitespace-nowrap transition-colors',
               current(href)
-                ? 'bg-crimson text-white'
-                : 'text-ink hover:bg-surface-tint hover:text-crimson',
+                ? 'bg-crimson text-on-dark'
+                : 'text-ink hover:bg-surface-muted hover:text-crimson',
             )}
           >
             <Icon className="size-5 shrink-0" aria-hidden />

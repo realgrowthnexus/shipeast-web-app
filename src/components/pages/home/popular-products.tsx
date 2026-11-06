@@ -63,7 +63,7 @@ export function PopularProducts({
                   kind="product"
                   id={p.id}
                   name={p.name}
-                  className="group-hover:bg-crimson group-hover:text-white"
+                  className="group-hover:bg-crimson group-hover:text-on-dark"
                 />
               }
             />

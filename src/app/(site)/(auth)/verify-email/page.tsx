@@ -19,7 +19,7 @@ const link = 'font-semibold text-crimson underline-offset-2 hover:underline'
 export default function VerifyEmailPage({ searchParams }: PageProps<'/verify-email'>) {
   return (
     <div className="flex flex-col gap-6">
-      <span className="grid size-14 place-items-center rounded-full bg-surface-tint text-crimson">
+      <span className="grid size-14 place-items-center rounded-full bg-surface-muted text-crimson">
         <MailCheck className="size-7" aria-hidden />
       </span>
       <Suspense fallback={<Skeleton className="h-80" />}>

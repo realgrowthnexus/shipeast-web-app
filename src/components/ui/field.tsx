@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 const control =
-  'w-full rounded-md border-[1.5px] border-line-strong bg-surface px-3.5 text-body text-ink placeholder:text-ink-muted transition-colors hover:border-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-danger disabled:border-line disabled:bg-canvas disabled:text-ink-muted'
+  'w-full rounded-md border-control border-line-strong bg-surface px-3.5 text-body text-ink placeholder:text-ink-muted transition-colors hover:border-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-danger disabled:border-line disabled:bg-page disabled:text-ink-muted'
 
 /**
  * Label, control, help and error in one block. The label is always visible (never a
@@ -98,7 +98,7 @@ export function Checkbox({
   ...props
 }: Omit<ComponentProps<'input'>, 'type'> & { label: ReactNode }) {
   return (
-    <label className={cn('flex min-h-11 cursor-pointer items-start gap-3 py-2', className)}>
+    <label className={cn('flex min-h-control cursor-pointer items-start gap-3 py-2', className)}>
       <input
         type="checkbox"
         className="mt-0.5 size-5 shrink-0 cursor-pointer rounded accent-crimson"
@@ -146,7 +146,7 @@ export function ChoiceGroup({
         {options.map((o) => (
           <label
             key={o.value}
-            className="group relative flex cursor-pointer gap-3 rounded-md border-[1.5px] border-line-strong bg-surface p-4 transition-colors hover:border-ink-muted has-checked:border-crimson has-checked:bg-surface-tint has-checked:ring-1 has-checked:ring-crimson has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
+            className="group relative flex cursor-pointer gap-3 rounded-md border-control border-line-strong bg-surface p-4 transition-colors hover:border-ink-muted has-checked:border-crimson has-checked:bg-surface-selected has-checked:ring-1 has-checked:ring-crimson has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
           >
             <input
               type="radio"

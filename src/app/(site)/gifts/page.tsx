@@ -81,7 +81,7 @@ export default async function GiftsPage() {
                 href="#gift-baskets"
                 variant="ghost"
                 size="lg"
-                className="text-white hover:bg-crimson-700"
+                className="text-on-dark hover:bg-crimson-deep"
               >
                 See gift baskets
               </ButtonLink>
@@ -123,7 +123,7 @@ export default async function GiftsPage() {
             action={
               <Link
                 href="/baskets"
-                className="inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+                className="inline-flex min-h-control items-center font-semibold text-crimson hover:underline"
               >
                 See all baskets
               </Link>
@@ -143,7 +143,7 @@ export default async function GiftsPage() {
         </Section>
       )}
 
-      <Section tone={baskets.length > 0 ? 'canvas' : 'tint'} wide aria-labelledby="message-h">
+      <Section tone={baskets.length > 0 ? 'page' : 'muted'} wide aria-labelledby="message-h">
         <PhotoFeature photo="companyGiftCard" side="end">
           <p className="mb-3 eyebrow text-crimson">Gift message</p>
           <h2 id="message-h" className="text-h2 text-balance text-ink">
@@ -156,7 +156,7 @@ export default async function GiftsPage() {
         </PhotoFeature>
       </Section>
 
-      <Section tone="tint" wide aria-labelledby="taste-h">
+      <Section tone="muted" wide aria-labelledby="taste-h">
         <PhotoFeature photo="jmEasterBun">
           <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
             <JamaicaFlag className="w-7" />A taste of home
@@ -182,11 +182,11 @@ export default async function GiftsPage() {
       <Section tone="oxblood" size="sm" aria-labelledby="christmas-h">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-start gap-5">
-            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson-800 text-blush">
+            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson-deep text-blush">
               <CalendarClock className="size-7" aria-hidden />
             </span>
             <div className="max-w-2xl">
-              <h2 id="christmas-h" className="text-h3 text-white">
+              <h2 id="christmas-h" className="text-h3 text-on-dark">
                 Sending for Christmas? Order early.
               </h2>
               <p className="mt-2 text-on-crimson-muted">

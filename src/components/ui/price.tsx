@@ -25,7 +25,7 @@ export function Price({
   const t = {
     ink: { main: 'text-ink', sub: 'text-ink-muted' },
     crimson: { main: 'text-crimson', sub: 'text-ink-muted' },
-    white: { main: 'text-white', sub: 'text-on-crimson-muted' },
+    white: { main: 'text-on-dark', sub: 'text-on-crimson-muted' },
   }[tone]
   return (
     <span className={cn('inline-flex flex-col leading-tight', className)}>

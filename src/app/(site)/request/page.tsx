@@ -106,14 +106,14 @@ export default async function RequestPage() {
                   Tell us what you need
                 </h2>
               </Reveal>
-              <Card className="mt-8 bg-canvas p-card-lg">
+              <Card className="mt-8 bg-page p-card-lg">
                 <RequestForm zones={zones.map(({ id, parish }) => ({ id, parish }))} />
               </Card>
             </>
           ) : (
             <Reveal>
-              <Card className="flex flex-col items-start gap-4 bg-canvas p-card-lg sm:p-12">
-                <span className="grid size-14 place-items-center rounded-full bg-surface-tint text-crimson">
+              <Card className="flex flex-col items-start gap-4 bg-page p-card-lg sm:p-12">
+                <span className="grid size-14 place-items-center rounded-full bg-surface-muted text-crimson">
                   <MessageSquareText className="size-7" aria-hidden />
                 </span>
                 <h2 id="request-form-h" className="text-h2 text-ink">
@@ -156,7 +156,7 @@ export default async function RequestPage() {
               key={text}
               className="flex items-center gap-4 rounded-lg border border-line bg-surface p-card"
             >
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
                 <Icon className="size-6" aria-hidden />
               </span>
               <span className="font-semibold text-ink">{text}</span>

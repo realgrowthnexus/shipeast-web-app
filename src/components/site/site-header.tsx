@@ -51,7 +51,7 @@ export async function SiteHeader() {
 
           <Link
             href="/account"
-            className="grid size-11 place-items-center rounded-full text-white hover:bg-crimson-700 md:ml-auto"
+            className="grid size-control place-items-center rounded-full text-on-dark hover:bg-crimson-deep md:ml-auto"
           >
             <User className="size-5" aria-hidden />
             <span className="sr-only">Your account</span>
@@ -62,14 +62,14 @@ export async function SiteHeader() {
 
           {/* Phone menu: <details> works before JavaScript loads. */}
           <MenuDetails className="group relative lg:hidden">
-            <summary className="grid size-11 cursor-pointer list-none place-items-center rounded-full text-white hover:bg-crimson-700 [&::-webkit-details-marker]:hidden">
+            <summary className="grid size-control cursor-pointer list-none place-items-center rounded-full text-on-dark hover:bg-crimson-deep [&::-webkit-details-marker]:hidden">
               <Menu className="size-6 group-open:hidden" aria-hidden />
               <X className="hidden size-6 group-open:block" aria-hidden />
               <span className="sr-only">Menu</span>
             </summary>
             <nav
               aria-label="Main"
-              className="absolute top-full right-0 z-50 mt-2 max-h-[75vh] w-72 origin-top-right animate-rise overflow-y-auto rounded-lg border border-line bg-surface p-2 shadow-overlay"
+              className="absolute top-full right-0 z-overlay mt-2 max-h-[75vh] w-72 origin-top-right animate-rise overflow-y-auto rounded-lg border border-line bg-surface p-2 shadow-overlay"
             >
               <p className="px-3 pt-2 pb-1 eyebrow text-ink-muted">Departments</p>
               <ul>
@@ -77,7 +77,7 @@ export async function SiteHeader() {
                   <li key={d.href}>
                     <Link
                       href={d.href}
-                      className="flex min-h-12 items-center gap-3 rounded-md px-3 font-semibold text-ink hover:bg-surface-tint [&_svg]:size-5 [&_svg]:text-crimson"
+                      className="flex min-h-12 items-center gap-3 rounded-md px-3 font-semibold text-ink hover:bg-surface-muted [&_svg]:size-5 [&_svg]:text-crimson"
                     >
                       <CategoryIcon slug={d.slug} />
                       {d.label}
@@ -88,7 +88,7 @@ export async function SiteHeader() {
                   <li key={a.href}>
                     <Link
                       href={a.href}
-                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-tint"
+                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-muted"
                     >
                       {a.label}
                     </Link>
@@ -103,7 +103,7 @@ export async function SiteHeader() {
                   <li key={h.href}>
                     <Link
                       href={h.href}
-                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-tint"
+                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-muted"
                     >
                       {h.label}
                     </Link>
@@ -155,7 +155,7 @@ export async function SiteHeader() {
               <li key={h.href}>
                 <Link
                   href={h.href}
-                  className="flex min-h-11 items-center rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
+                  className="flex min-h-control items-center rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
                 >
                   {h.label}
                 </Link>

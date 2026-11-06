@@ -17,7 +17,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <div className="w-full max-w-md">{children}</div>
         <aside
           aria-labelledby="why-account"
-          className="rounded-xl bg-crimson p-card-lg text-white lg:sticky lg:top-24"
+          className="rounded-xl bg-crimson p-card-lg text-on-dark lg:sticky lg:top-24"
         >
           <p className="mb-3 eyebrow text-blush">Your ShipEast account</p>
           <h2 id="why-account" className="text-h2 text-balance">

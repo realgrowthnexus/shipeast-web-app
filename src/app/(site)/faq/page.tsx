@@ -52,7 +52,7 @@ export default async function FaqPage() {
           <>
             Ordering, paying, out-of-stock items, delivery and refunds, answered plainly. Can’t find
             what you need?{' '}
-            <Link href="/contact" className="font-semibold text-white underline">
+            <Link href="/contact" className="font-semibold text-on-dark underline">
               Contact us
             </Link>{' '}
             and we’ll answer.
@@ -64,14 +64,14 @@ export default async function FaqPage() {
         {present.length > 1 && (
           <nav
             aria-label="Topics"
-            className="sticky top-16 z-30 border-b border-line bg-surface sm:top-18"
+            className="sticky top-16 z-sticky border-b border-line bg-surface sm:top-18"
           >
             <ul className="mx-auto flex w-full max-w-page [scrollbar-width:none] gap-2 overflow-x-auto gutter py-3">
               {present.map((g) => (
                 <li key={g} className="shrink-0">
                   <a
                     href={`#${g.toLowerCase()}`}
-                    className="inline-flex min-h-11 items-center rounded-full border border-line bg-canvas px-4 font-semibold text-ink transition-colors duration-150 hover:border-crimson hover:bg-surface-tint"
+                    className="inline-flex min-h-control items-center rounded-full border border-line bg-page px-4 font-semibold text-ink transition-colors duration-150 hover:border-crimson hover:bg-surface-muted"
                   >
                     {g}
                   </a>
@@ -110,7 +110,7 @@ export default async function FaqPage() {
         </Section>
       </div>
 
-      <Section tone="tint" wide aria-labelledby="help-h">
+      <Section tone="muted" wide aria-labelledby="help-h">
         <Reveal className="grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-12">
           <StockPhoto
             name="contactPhone"
@@ -132,7 +132,7 @@ export default async function FaqPage() {
               {wa && (
                 <a
                   href={`https://wa.me/${wa}`}
-                  className="inline-flex min-h-13 items-center gap-3 rounded-md bg-crimson px-6 font-semibold text-white transition-colors duration-150 hover:bg-crimson-deep"
+                  className="inline-flex min-h-control-lg items-center gap-3 rounded-md bg-crimson px-6 font-semibold text-on-dark transition-colors duration-150 hover:bg-crimson-deep"
                 >
                   <MessageCircle className="size-5 shrink-0" aria-hidden />
                   WhatsApp {settings.whatsapp}
@@ -142,8 +142,8 @@ export default async function FaqPage() {
                 href={`mailto:${site.email}`}
                 className={
                   wa
-                    ? 'inline-flex min-h-13 items-center gap-3 rounded-md border-[1.5px] border-crimson px-6 font-semibold text-crimson transition-colors duration-150 hover:bg-surface-tint'
-                    : 'inline-flex min-h-13 items-center gap-3 rounded-md bg-crimson px-6 font-semibold text-white transition-colors duration-150 hover:bg-crimson-deep'
+                    ? 'inline-flex min-h-control-lg items-center gap-3 rounded-md border-control border-crimson px-6 font-semibold text-crimson transition-colors duration-150 hover:bg-surface-muted'
+                    : 'inline-flex min-h-control-lg items-center gap-3 rounded-md bg-crimson px-6 font-semibold text-on-dark transition-colors duration-150 hover:bg-crimson-deep'
                 }
               >
                 <Mail className="size-5 shrink-0" aria-hidden />
@@ -152,7 +152,7 @@ export default async function FaqPage() {
             </div>
             <Link
               href="/contact"
-              className="inline-flex min-h-11 items-center gap-2 font-semibold text-crimson hover:underline"
+              className="inline-flex min-h-control items-center gap-2 font-semibold text-crimson hover:underline"
             >
               All the ways to reach us
               <ArrowRight className="size-4" aria-hidden />

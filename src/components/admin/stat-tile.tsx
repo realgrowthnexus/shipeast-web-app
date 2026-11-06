@@ -20,7 +20,7 @@ export function StatTile({
     <div
       className={cn(
         'flex flex-col gap-1 rounded-lg border bg-surface p-4',
-        attention ? 'border-signal/40 bg-surface' : 'border-line',
+        attention ? 'border-signal bg-surface' : 'border-line',
       )}
     >
       <div className="flex items-center justify-between gap-2 text-small font-semibold text-ink-muted">

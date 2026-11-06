@@ -70,7 +70,7 @@ async function Photos({ params }: { params: PageProps<'/track/[token]/photos'>['
                 <a
                   href={photo.url}
                   download
-                  className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-semibold text-crimson hover:bg-surface-tint"
+                  className="flex min-h-control items-center gap-1.5 rounded-md px-3 font-semibold text-crimson hover:bg-surface-muted"
                 >
                   <Download className="size-4" aria-hidden /> Download
                 </a>

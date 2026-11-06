@@ -78,7 +78,7 @@ export default async function ContactPage() {
             <StaggerItem>
               <a
                 href={`https://wa.me/${wa}`}
-                className="flex h-full hover-lift items-center gap-5 rounded-xl bg-oxblood p-card-lg text-white"
+                className="flex h-full hover-lift items-center gap-5 rounded-xl bg-oxblood p-card-lg text-on-dark"
               >
                 <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson text-blush">
                   <MessageCircle className="size-7" aria-hidden />
@@ -95,9 +95,9 @@ export default async function ContactPage() {
           <StaggerItem>
             <a
               href={`mailto:${site.email}`}
-              className="flex h-full hover-lift items-center gap-5 rounded-xl border border-line bg-surface p-card-lg hover:border-blush"
+              className="flex h-full hover-lift items-center gap-5 rounded-xl border border-line bg-surface p-card-lg hover:border-line-hover"
             >
-              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
                 <Mail className="size-7" aria-hidden />
               </span>
               <span className="min-w-0">
@@ -107,8 +107,8 @@ export default async function ContactPage() {
             </a>
           </StaggerItem>
           <StaggerItem className={wa ? 'md:col-span-2 lg:col-span-1' : undefined}>
-            <div className="flex h-full items-center gap-5 rounded-xl bg-crimson-50 p-card-lg">
-              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+            <div className="flex h-full items-center gap-5 rounded-xl bg-surface-muted p-card-lg">
+              <span className="grid size-14 shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
                 <Clock3 className="size-7" aria-hidden />
               </span>
               <span className="min-w-0">
@@ -138,7 +138,7 @@ export default async function ContactPage() {
             <p className="mt-3 mb-8 text-lead text-ink-body">
               If it’s about an order, include the order number so we can find it quickly.
             </p>
-            <div className="rounded-lg border border-line bg-canvas p-card-lg">
+            <div className="rounded-lg border border-line bg-page p-card-lg">
               <ContactForm />
             </div>
           </Reveal>
@@ -153,7 +153,7 @@ export default async function ContactPage() {
           action={
             <Link
               href="/faq"
-              className="inline-flex min-h-11 items-center font-semibold text-crimson hover:underline"
+              className="inline-flex min-h-control items-center font-semibold text-crimson hover:underline"
             >
               All questions and answers
             </Link>
@@ -164,9 +164,9 @@ export default async function ContactPage() {
             <StaggerItem key={href}>
               <Link
                 href={href}
-                className="group flex h-full hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-card hover:border-blush"
+                className="group flex h-full hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-card hover:border-line-hover"
               >
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson">
+                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-surface-muted text-crimson">
                   <Icon className="size-6" aria-hidden />
                 </span>
                 <span className="min-w-0 flex-1">

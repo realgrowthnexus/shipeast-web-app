@@ -19,7 +19,7 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center gap-3 rounded-lg border-2 border-dashed border-line px-6 py-12 text-center">
-      <div className="grid size-14 place-items-center rounded-full bg-surface-tint text-crimson [&_svg]:size-7">
+      <div className="grid size-14 place-items-center rounded-full bg-surface-muted text-crimson [&_svg]:size-7">
         {icon}
       </div>
       <h3 className="text-h3 text-ink">{title}</h3>
@@ -30,5 +30,5 @@ export function EmptyState({
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div aria-hidden className={cn('animate-pulse rounded-md bg-surface-tint', className)} />
+  return <div aria-hidden className={cn('skeleton', className)} />
 }

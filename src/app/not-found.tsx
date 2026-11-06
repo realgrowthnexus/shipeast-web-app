@@ -15,7 +15,7 @@ export default async function NotFound() {
     <MotionProvider>
       <SiteHeader />
       <main id="main" className="flex-1">
-        <section className="bg-crimson text-white">
+        <section className="bg-crimson text-on-dark">
           <div className="mx-auto grid w-full max-w-wide items-center gap-10 gutter section lg:grid-cols-12 lg:gap-16">
             <div className="animate-rise lg:col-span-6">
               <p className="mb-4 eyebrow text-blush">Page not found</p>
@@ -46,9 +46,9 @@ export default async function NotFound() {
                 <li key={c.id}>
                   <Link
                     href={`/shop/${c.slug}`}
-                    className="group flex min-h-16 hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-card font-bold text-ink hover:border-blush"
+                    className="group flex min-h-16 hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-card font-bold text-ink hover:border-line-hover"
                   >
-                    <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface-tint text-crimson [&_svg]:size-5">
+                    <span className="grid size-control shrink-0 place-items-center rounded-full bg-surface-muted text-crimson [&_svg]:size-5">
                       <CategoryIcon slug={c.slug} />
                     </span>
                     <span className="flex-1">{c.name}</span>

@@ -45,7 +45,7 @@ export default async function LegalPage({ params }: PageProps<'/legal/[slug]'>) 
                 <Link
                   href={`/legal/${s}`}
                   aria-current={s === slug ? 'page' : undefined}
-                  className="inline-flex min-h-11 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-tint aria-[current=page]:bg-crimson aria-[current=page]:text-white lg:w-full"
+                  className="inline-flex min-h-control items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-muted aria-[current=page]:bg-crimson aria-[current=page]:text-on-dark lg:w-full"
                 >
                   {titles[s]}
                 </Link>
