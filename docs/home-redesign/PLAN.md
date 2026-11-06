@@ -202,7 +202,7 @@ Never hand-set `tracking-*`, `leading-*` or a font size. The wordmark is the one
 
 | Thing | Value |
 |---|---|
-| Section padding | S1 `section-lg` top only + `pb-0` on phones (photo ends the band), `lg:section-lg`; S2–S8 `section`; S9 `section` |
+| Section padding | S1 `section-lg` top + `pb-12` on phones/tablets, `lg:section` (top and bottom) so header + hero fit one screen at 1440; S2–S9 `section`; S7 `section` + `lg:min-h-[640px]` |
 | Content width | `max-w-wide` for the header, S1, S5 and footer; `max-w-page` for S2–S4, S6–S9 |
 | Sides | `gutter` everywhere |
 | Gaps | Inside cards 8 / 12 / 16px (`gap-2/3/4`). Between blocks 24 / 32 / 48px (`gap-6/8/12`). Title-to-content: `mt-8 lg:mt-12`. |
@@ -410,6 +410,17 @@ skip link → wordmark → nav → search → account → basket → menu. Searc
 
 ### 4.1 S1 Hero — the receipt
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Split two-column, 6/6**: text block left, framed photo right; a receipt object straddles the photo's left edge (the seam between the two columns). Not a background-photo hero (reasons in 1B.3). |
+| 2. Background | Solid `crimson`, flat. Photo sits in a `rounded-2xl` frame, no overlay. |
+| 3. Container / height | Full-bleed band, content `max-w-wide`. Auto height; at 1440 ≈ 780px (96 + 584px square photo + 96), so header + hero fit one 900px-tall screen. At 375 ≈ 1,050px. |
+| 4. Columns | 375: 1 column — h1, lead, CTAs, cut-off, then photo, receipt overlapping the photo's foot. 768: 1 column, text `max-w-2xl`, photo 16:9. 1024 and 1440: 2 columns (text col 1–6, photo col 7–12), vertically centred. |
+| 5. Blocks | 1 h1 (2 lines), 1 lead (3–4 lines), 2 CTAs (primary button + secondary text link), 1 cut-off line, 1 photo, 1 receipt (head + ≤ 7 lines + total) with 1 caption. |
+| 6. Why | Phone senders read the promise and see the button before any image. The receipt shows the proof in the first screen, before we explain it; competitors open with a promo banner or a product grid and never show what you get back. |
+
 #### Copy
 
 | Element | Copy |
@@ -459,7 +470,7 @@ skip link → wordmark → nav → search → account → basket → menu. Searc
 │ col 1–6                                 │ col 7–12                           │
 │ Groceries for home.                     │ ┌───────────────────────────────┐  │
 │ Proof for you.                          │ │                               │  │
-│                                         │ │      photo 4:5 rounded-2xl    │  │
+│                                         │ │   photo 1:1 rounded-2xl       │  │
 │ Fill a basket for your family in…       │ │                               │  │
 │                                         │┌┴──────┐                        │  │
 │ [ Start shopping ]  See ready-made…     ││RECEIPT│  receipt w-72, absolute │  │
@@ -467,18 +478,18 @@ skip link → wordmark → nav → search → account → basket → menu. Searc
 │ ⏱ Order by 1:00 PM Jamaica time…        │└╲╱╲╱╲╱┘  -rotate-3              │  │
 │                                         │ └───────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────────────────────┘
-section-lg top and bottom
+`lg:section` top and bottom (96px at 1440)
 ```
 
 | | 375 | 768 | 1024 | 1440 |
 |---|---|---|---|---|
-| Band | `bg-crimson section-lg pb-12` (top 80px) | same | `lg:section-lg` both | same (128px) |
+| Band | `bg-crimson section-lg pb-12` (top 80px) | same | `lg:section` both (≈ 80px) | same (96px) |
 | Container | `max-w-wide gutter` | | `grid grid-cols-12 gap-8 items-center` | `xl:gap-12` |
 | Text block | full | `max-w-2xl` | `col-span-6` | `col-span-6`, `pr-8` |
 | Lead | `mt-5` | | `mt-6` | |
 | Buttons | `mt-8 flex flex-col gap-2`; primary `block` | `sm:flex-row sm:items-center sm:gap-6`, primary not block | | |
 | Cut-off | `mt-6` | | `mt-8` | |
-| Photo | `mt-10 aspect-4/3 rounded-xl` | `aspect-16/9` | `col-span-6 mt-0 aspect-4/5 rounded-2xl` | same, `max-h-[640px]` not needed: width caps at ~600px |
+| Photo | `mt-10 aspect-4/3 rounded-xl` | `aspect-16/9` | `col-span-6 mt-0 aspect-square rounded-2xl` | same; width caps at ~584px, so ~584px tall |
 | Receipt | `relative z-raised -mt-28 ml-auto mr-3 w-60` | `-mt-36 mr-8 w-64` | `absolute -left-16 bottom-12 w-72` (photo wrapper `relative`) | `-left-20 w-80` |
 
 Photo `sizes`: `"(min-width: 1280px) 600px, (min-width: 1024px) 46vw, 100vw"`.
@@ -526,7 +537,7 @@ button → secondary link. Receipt is not focusable.
 #### Photo
 
 `familyPhone` (registry, `src/lib/photos/core.ts`) — see §7 row P1. Crop 4:3 phone, 16:9
-tablet, 4:5 desktop; `object-position: 40% 35%` (add `position: '40% 35%'` to the registry
+tablet, 1:1 desktop; `object-position: 40% 35%` (add `position: '40% 35%'` to the registry
 entry; her face sits left of centre).
 
 ---
@@ -1253,7 +1264,7 @@ Unsplash API (`/photos/:id/download`) before going live, as `docs/PHOTOGRAPHY.md
 
 | # | Slot | Registry key | Unsplash id | URL (no query) | W × H | Photographer (username) | Alt text | Crop / position |
 |---|---|---|---|---|---|---|---|---|
-| P1 | S1 hero | `familyPhone` (existing, `core.ts`) | `FVd0tfV6NDk` | `https://images.unsplash.com/photo-1702648156997-eaa417d98b9e` | 5591 × 3721 | Centre for Ageing Better (`ageing_better`) | An older woman smiling on the phone at home | 4:3 / 16:9 / 4:5; **add** `position: '40% 35%'` |
+| P1 | S1 hero | `familyPhone` (existing, `core.ts`) | `FVd0tfV6NDk` | `https://images.unsplash.com/photo-1702648156997-eaa417d98b9e` | 5591 × 3721 | Centre for Ageing Better (`ageing_better`) | An older woman smiling on the phone at home | 4:3 / 16:9 / 1:1; **add** `position: '40% 35%'` |
 | P2 | S2 step 1 | `homeSenderPhone` (existing, `home.ts`) | `o-iM0avkgNo` | `https://images.unsplash.com/photo-1610473068893-7a63129207d2` | 3936 × 2624 | Brandy Kennedy (`thebrandyk`) | A woman holding her phone beside an open laptop | 1:1 thumb / 4:3; `center` |
 | P3 | S2 step 2 | `stepShop` (existing, `core.ts`) | `mybgdVT2vkw` | `https://images.unsplash.com/photo-1739300293398-468ba82fd418` | 3080 × 2053 | Ninthgrid (`ninthgrid_`) | A shopper pushing a trolley down a supermarket aisle | 1:1 / 4:3; `55% center` (shopper) |
 | P4 | S2 step 3 | `shopCheckout` (existing, `shop.ts`) | `m1c3tRvDjbo` | `https://images.unsplash.com/photo-1774978613949-c29cbfe9f862` | 4000 × 6000 | Adhitya Sibikumar (`adhitya_2505`) | A cashier weighing groceries at a supermarket checkout | 1:1 / 4:3 from portrait; `center 60%` |
