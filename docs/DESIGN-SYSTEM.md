@@ -63,10 +63,57 @@ In `src/components/site/` and `src/components/motion/`:
 - **`SectionHeader`** gives an optional eyebrow, the title, a lead and an optional action link.
 - **`PhotoFeature`** puts a photo beside text, with an optional parallax.
 - **`CtaBand`** is the closing crimson panel with one main action.
+- **`CutoffNote`** says "Order by 1:00 PM Jamaica time for delivery today." from the server
+  and adds the visitor's own time and countdown after mount (`tone`: `light`, `onDark`,
+  `onPhoto`).
 - **`StockPhoto`** shows a photo from the registry (`docs/PHOTOGRAPHY.md`); add `zoom` inside
   card links.
 - **`Reveal`**, **`Stagger`** / **`StaggerItem`** and **`Parallax`** handle motion. The rules
   are in `docs/TOKENS.md` → Motion.
+
+## Header and footer (site-wide, November 6, 2026)
+
+**Header** (`SiteHeader`, `src/components/site/site-header.tsx`). One sticky crimson bar,
+64px on phones and 72px from 768px (`--header-height`). No announcement strip, no department
+bar, no mega menu.
+
+| Width       | Bar, left to right                                                                |
+| ----------- | --------------------------------------------------------------------------------- |
+| < 768px     | Wordmark, account, basket, menu. A search row sits under the bar and scrolls away |
+| 768–1023px  | Wordmark, search (inline), account, basket, menu                                  |
+| 1024–1279px | Wordmark, Shop, Baskets, How it works, search icon, account, basket               |
+| 1280px +    | Wordmark, Shop, Baskets, How it works, Track an order, search, account, basket    |
+
+- Only the bar sticks (`sticky top-0 z-header`). At the top it is flat crimson with a
+  transparent border, so on the home page it reads as one block with the hero; past 8px of
+  scroll it gains a `crimson-deep` border and `shadow-lift` (`HeaderShell`).
+- Nav links (`NavLink`) set `aria-current="page"` on their section (`/shop/*` lights Shop):
+  `crimson-deep` fill plus a 3px `blush` bar under the label.
+- The phone search row (`HeaderSearchRow`) is hidden on `/search`, `/basket` and `/checkout*`.
+- The menu (`MobileMenu`, below 1024px) is a native `<dialog>` sheet from the right
+  (`sheet-end`): search, departments with counts, More links, then account and contact. The
+  browser traps focus and closes it on Escape; the backdrop, any link and a route change also
+  close it, focus returns to the trigger, and the page behind does not scroll.
+- The bar, hero, oxblood bands and closing panels carry `on-dark-focus`, so the focus ring is
+  `blush` on dark (signal fails there).
+- Anchor targets use `scroll-mt-header` so nothing lands under the bar.
+
+**Footer** (`SiteFooter`, `src/components/site/site-footer.tsx`, props `settings`,
+`categories`, `parishList`). Solid `oxblood`, content `max-w-wide`.
+
+- Brand column first: wordmark, one sentence with the live parishes, email, phone (when set)
+  and a "WhatsApp us" button (when set).
+- Three link columns, each a `<nav>` with an `h2`: **Shop** (all departments, each category,
+  baskets, gifts, monthly), **Help** (how it works, delivery, track, questions, contact,
+  account) and **Company** (about, the six policies, photo credits).
+- Phones: Shop and Help side by side, Company across both in two columns. 768px: three
+  columns under the brand. 1024px +: 12 columns, brand 1–4, Shop 6–7, Help 8–9, Company 10–12.
+- Bottom row under a `line-on-dark` rule: how to pay (text only, no logos; bank transfer only
+  when configured) and the flag with "© {year} ShipEast Couriers & Bearer Service Ltd. St.
+  Thomas, Jamaica." The year is a cached server component in Jamaica time. No TRN until a
+  setting holds one.
+- Links are `on-oxblood-muted`, turning `on-dark` and underlined on hover; 44px tall on touch,
+  36px from 1024px.
 
 ## Layout
 

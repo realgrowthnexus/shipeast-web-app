@@ -1,124 +1,60 @@
-import { BestBaskets } from '@/components/pages/home/best-baskets'
-import { DepartmentGrid } from '@/components/pages/home/departments'
-import { FeaturesStrip } from '@/components/pages/home/features-strip'
+import { HomeBaskets } from '@/components/pages/home/baskets'
+import { HomeClosing } from '@/components/pages/home/closing'
+import { HomeCoverage } from '@/components/pages/home/coverage'
+import { HomeDepartments } from '@/components/pages/home/departments'
 import { HomeHero } from '@/components/pages/home/hero'
-import { PopularProducts, popularProducts } from '@/components/pages/home/popular-products'
-import { PromoBanners } from '@/components/pages/home/promo-banners'
-import { ProofBand } from '@/components/pages/home/proof-band'
-import { DeliveryAndQuestions, pickHomeFaqs } from '@/components/pages/home/zones'
+import { HomeProof } from '@/components/pages/home/proof'
+import { HomeQuestions } from '@/components/pages/home/questions'
+import { HomeSteps } from '@/components/pages/home/steps'
+import { HomeWhy } from '@/components/pages/home/why'
 import { getProducts } from '@/lib/data/catalogue'
-import {
-  getActiveZones,
-  getBaskets,
-  getCategories,
-  getFaqs,
-  getSettings,
-  type BasketSummary,
-} from '@/lib/data/site'
-import { formatClockTime, formatDate, formatUsd } from '@/lib/format'
-import type { Product } from '@/lib/types'
+import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
+import { buildReceipt, earliestCutoff, joinParishes, pickHomeFaqs } from '@/lib/home'
 
-/** The most recent shelf-price check across these products, for one small trust line. */
-function lastPriceCheck(products: Product[]) {
-  const latest = products
-    .map((p) => p.priceCheckedAt)
-    .filter(Boolean)
-    .sort()
-    .at(-1)
-  return latest ? `Shelf prices checked ${formatDate(latest)}` : undefined
-}
+/** The basket printed on the hero receipt; the first featured basket if it is gone. */
+const RECEIPT_BASKET = 'family-food-basket'
 
-/** A basket's real saving against buying its items one by one, as a whole percent. */
-function saving({ basket, separateCents }: BasketSummary) {
-  return separateCents > basket.priceCents
-    ? Math.round(((separateCents - basket.priceCents) / separateCents) * 100)
-    : 0
-}
-
+/**
+ * The home page tells one order's story: what we do (with the receipt as proof), how, the
+ * shop, what you and your family receive, why us, where, the doubts, and one last ask.
+ * Every loader is cached, so the body prerenders; the basket count and the visitor's clock are
+ * the only runtime parts, both isolated.
+ */
 export default async function HomePage() {
-  const [settings, zones, categories, baskets, faqs, products] = await Promise.all([
+  const [settings, zones, categories, allBaskets, products, faqs] = await Promise.all([
     getSettings(),
     getActiveZones(),
     getCategories(),
-    getBaskets({ featured: true }),
-    getFaqs(),
+    getBaskets(),
     getProducts(),
+    getFaqs(),
   ])
-  const parishes = zones.map((z) => z.parish).join(' and ')
-  const cutoff = zones[0]?.cutoffTime ?? '13:00'
-  const popular = popularProducts(products, categories)
+  const featured = allBaskets.filter((b) => b.basket.featured)
+  const cutoff = earliestCutoff(zones)
+  const parishList = joinParishes(zones.map((z) => z.parish))
+  const receiptBasket =
+    allBaskets.find((b) => b.basket.slug === RECEIPT_BASKET)?.basket ?? featured[0]?.basket
+  const receipt = receiptBasket ? buildReceipt(receiptBasket, products, settings.jmdPerUsd) : null
+  const homeFaqs = pickHomeFaqs(faqs)
+  const bankTransfer = Boolean(settings.bankTransfer.bankName)
 
-  // The seasonal basket leads the promo row; the everyday ones are the best-value block
-  const hamper = baskets.find((b) => b.basket.occasion === 'christmas')
-  const everyday = baskets.filter((b) => b !== hamper)
-  const hamperSaving = hamper ? saving(hamper) : 0
-
-  // One calm store on a near-white page. Crimson fills only the header, the hero button, the
-  // proof band and the baskets lead tile.
   return (
-    <div className="bg-surface">
-      {/* 1. Promise and the live same-day countdown */}
-      <HomeHero
-        parishes={parishes}
-        cutoff={cutoff}
-        zones={zones.map((z) => ({ id: z.id, parish: z.parish, fee: formatUsd(z.feeCents) }))}
-      />
-
-      {/* 2. Six square aisles */}
-      <DepartmentGrid categories={categories} />
-
-      {/* 3. What to send this season */}
-      <PromoBanners
-        banners={[
-          ...(hamper
-            ? [
-                {
-                  href: `/baskets/${hamper.basket.slug}`,
-                  title: 'Christmas, sent home',
-                  body: `The ${hamper.basket.name}: ${hamper.basket.description.toLowerCase()} ${formatUsd(hamper.basket.priceCents)}, delivered.`,
-                  cta: 'Shop the hamper',
-                  photo: 'basketChristmas' as const,
-                  saving: hamperSaving ? `Save ${hamperSaving}%` : undefined,
-                },
-              ]
-            : []),
-          {
-            href: '/gifts',
-            title: 'A gift for any day',
-            body: 'Birthdays, back to school or a new baby. Add a message at checkout and we print it for them.',
-            cta: 'Shop gifts',
-            photo: 'giftBirthday' as const,
-          },
-        ]}
-      />
-
-      {/* 4. The store's main grid */}
-      {popular.length > 0 && (
-        <PopularProducts
-          products={popular}
-          categories={categories}
-          jmdPerUsd={settings.jmdPerUsd}
-          note={lastPriceCheck(products)}
+    <>
+      <HomeHero parishList={parishList} earliestCutoff={cutoff} receipt={receipt} />
+      <HomeSteps payLine={bankTransfer ? 'PayPal or card, or bank transfer' : 'PayPal or card'} />
+      {categories.length > 0 && <HomeDepartments categories={categories} />}
+      {featured.length > 0 && <HomeBaskets baskets={featured} jmdPerUsd={settings.jmdPerUsd} />}
+      <HomeProof />
+      <HomeWhy bankTransfer={bankTransfer} />
+      <HomeCoverage zones={zones} parishList={parishList} earliestCutoff={cutoff} />
+      {homeFaqs.length >= 3 && (
+        <HomeQuestions
+          faqs={homeFaqs}
+          email={settings.email}
+          whatsapp={settings.whatsapp.replace(/\D/g, '')}
         />
       )}
-
-      {/* 5. How it works and the proof on every order (the one crimson band) */}
-      <ProofBand jmdPerUsd={settings.jmdPerUsd} />
-
-      {/* 6. Best value: ready-made baskets */}
-      {everyday.length > 0 && (
-        <BestBaskets
-          baskets={everyday}
-          jmdPerUsd={settings.jmdPerUsd}
-          bestSaving={Math.max(...everyday.map(saving))}
-        />
-      )}
-
-      {/* 7. Where we deliver, beside the questions a first-time sender asks */}
-      <DeliveryAndQuestions zones={zones} faqs={pickHomeFaqs(faqs)} />
-
-      {/* 8. The four promises behind every order */}
-      <FeaturesStrip cutoffTime={formatClockTime(cutoff)} parishes={parishes} />
-    </div>
+      <HomeClosing parishList={parishList} earliestCutoff={cutoff} />
+    </>
   )
 }

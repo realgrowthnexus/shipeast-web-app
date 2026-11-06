@@ -4,6 +4,37 @@ A dated log of design choices and the feedback behind them, so the reasons aren'
 The rules themselves live in `docs/DESIGN-SYSTEM.md` and `docs/TOKENS.md`. Add new entries
 at the top.
 
+## November 6, 2026: home page redesign, new header and footer
+
+Owner brief: redesign the home page from scratch, structure first, with real stock photos and
+a homely brand feel. Plan: `docs/home-redesign/PLAN.md` (approved with six amendments).
+
+- **One bold element: the printed receipt.** The hero is a split on solid crimson: the
+  promise "Groceries for home. Proof for you." beside a warm photo, with a drawn till receipt
+  for the Family Food Basket (real catalogue lines, J$ at the live rate, labelled "Example
+  receipt") straddling the photo's edge. It prints once on load (`animate-print`). Nothing
+  else on the page moves: no `Reveal`, `Stagger` or `Parallax` on `/`.
+- **Page rhythm:** red mass (header and hero), three light photo rows (steps, departments,
+  baskets), the oxblood proof band (what you get by email, what the family gets by text), a
+  light split (why us, against barrels and cash), the Kingston photo band, questions, and a
+  contained crimson closing panel. Two dark bands never touch.
+- **Flat photo overlays allowed** (owner): a photo may be a section background under one role
+  at one opacity. New role `photo-scrim` (oxblood at 80%, 8.7:1 for `on-dark` text in the worst
+  case). Used once, on the coverage band. See `docs/PHOTOGRAPHY.md`.
+- **No eyebrows, no `→`, no middle dots, no invented numbers** on the page. Step numbers stay
+  only because the four steps are a real sequence.
+- **New header:** one sticky crimson bar with nav, search, account and basket; the old light
+  department bar and the `<details>` menu are gone. Phones get a non-sticky search row and a
+  `<dialog>` menu sheet. **New footer:** solid oxblood with brand and contact first, Shop, Help
+  and Company columns, and a payments and legal line.
+- **New tokens and utilities:** `photo-scrim`, `--header-height`, `scroll-mt-header`,
+  `animate-print`, `on-dark-focus` (blush focus ring on dark, since signal is 1.6:1 on
+  crimson) and `sheet-end`.
+- **New photo:** `homeStepToDoor` (`czTuLlcSAus`, Mathias Reding), download recorded through
+  the Unsplash API.
+- The old home components (promo banners, popular products, features strip, today card and
+  the rest) are deleted.
+
 ## November 6, 2026: token system rebuilt
 
 Feedback: the user was not happy with the design system or `TOKENS.md`.

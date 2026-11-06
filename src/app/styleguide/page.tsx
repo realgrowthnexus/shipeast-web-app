@@ -19,13 +19,15 @@ import { StatTile } from '@/components/admin/stat-tile'
 import { ProofPair } from '@/components/order/proof-pair'
 import { TrackingTimeline } from '@/components/order/tracking-timeline'
 import { BasketCard, CategoryTile, ProductCard } from '@/components/shop/product-card'
+import { HeroReceipt } from '@/components/pages/home/hero-receipt'
 import { DemoBanner } from '@/components/site/demo-banner'
+import { StockPhoto } from '@/components/site/stock-photo'
 import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
 import { Accordion } from '@/components/ui/accordion'
 import { Alert } from '@/components/ui/alert'
 import { Badge, StatusPill } from '@/components/ui/badge'
-import { Button, IconButton } from '@/components/ui/button'
+import { Button, ButtonLink, IconButton } from '@/components/ui/button'
 import { EmptyState, Skeleton } from '@/components/ui/card'
 import {
   Checkbox,
@@ -41,9 +43,10 @@ import { Pagination } from '@/components/ui/pagination'
 import { Price } from '@/components/ui/price'
 import { QuantityStepper } from '@/components/ui/quantity-stepper'
 import { Tabs } from '@/components/ui/tabs'
-import { baskets, categories, faqs, products, settings } from '@/lib/demo'
+import { baskets, categories, faqs, products, settings, zones } from '@/lib/demo'
 import { isDemoMode } from '@/lib/env'
 import { formatDate, formatUsd } from '@/lib/format'
+import { buildReceipt, joinParishes } from '@/lib/home'
 import { ORDER_STATUS } from '@/lib/order-status'
 import type { OrderStatus } from '@/lib/types'
 import { DialogDemo } from './dialog-demo'
@@ -94,6 +97,13 @@ const swatchGroups = [
       ['line-on-dark', '#6E3848', 'bg-line-on-dark', 'Dividers on oxblood'],
     ],
   },
+  {
+    title: 'Overlays',
+    items: [
+      ['scrim', 'oxblood 60%', 'bg-scrim', 'Behind dialogs'],
+      ['photo-scrim', 'oxblood 80%', 'bg-photo-scrim', 'Flat overlay on a background photo'],
+    ],
+  },
 ] as const
 
 /** Primitive ramps. They make no classes: they only feed the roles above. */
@@ -114,6 +124,9 @@ const typeStyles = [
   ['text-small', '14px, 500', 'Prices checked October 20, 2026.'],
   ['eyebrow', '14px, 700, sentence case', 'How it works'],
 ] as const
+
+/** The home hero receipt, from the demo Family Food Basket. */
+const sampleReceipt = buildReceipt(baskets[0], products, settings.jmdPerUsd)
 
 const radii = [
   ['rounded-sm', '4px'],
@@ -188,7 +201,7 @@ function Section({
     <section
       id={id}
       aria-labelledby={`${id}-h`}
-      className="scroll-mt-24 border-t border-line py-12"
+      className="scroll-mt-header border-t border-line py-12"
     >
       <h2 id={`${id}-h`} className="text-h2 text-ink">
         {title}
@@ -321,6 +334,46 @@ export default function StyleguidePage() {
               <p className="text-h3">Feature panel</p>
               <p className="text-small text-on-crimson-muted">crimson, rounded-xl, p-card-lg</p>
             </div>
+          </div>
+        </Section>
+
+        <Section
+          id="overlay-focus-motion"
+          title="Overlays, focus and motion"
+          intro="A photo may sit under one flat overlay (photo-scrim, oxblood at 80%), with on-dark text only. On crimson and oxblood the focus ring turns blush (on-dark-focus): press Tab to see it. Anchors stop below the sticky header (scroll-mt-header, --header-height 64 / 72px). The home receipt prints once on load (animate-print)."
+        >
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="relative isolate overflow-hidden rounded-lg p-card text-on-dark on-dark-focus">
+              <StockPhoto
+                name="jmKingstonHills"
+                alt=""
+                sizes="(min-width: 1024px) 380px, 100vw"
+                className="absolute inset-0 -z-10 rounded-none"
+              />
+              <div aria-hidden className="absolute inset-0 -z-10 bg-photo-scrim" />
+              <p className="text-h3">bg-photo-scrim</p>
+              <p className="mt-2 text-body">On-dark text only: 8.7:1 over a white pixel.</p>
+              <a
+                href="#overlay-focus-motion"
+                className="mt-2 inline-flex min-h-control items-center font-semibold underline underline-offset-4"
+              >
+                A link on the overlay
+              </a>
+            </div>
+            <div className="flex flex-col items-start gap-3 rounded-lg bg-crimson p-card text-on-dark on-dark-focus">
+              <p className="text-h3">on-dark-focus</p>
+              <p className="text-small text-on-crimson-muted">
+                Blush ring on dark; signal is 1.6:1 here.
+              </p>
+              <ButtonLink href="#overlay-focus-motion" variant="onDark">
+                Focus me
+              </ButtonLink>
+            </div>
+            {sampleReceipt && (
+              <div className="rounded-lg bg-crimson p-card">
+                <HeroReceipt receipt={sampleReceipt} className="mx-auto w-60" />
+              </div>
+            )}
           </div>
         </Section>
 
@@ -700,7 +753,11 @@ export default function StyleguidePage() {
           </div>
         </Section>
       </main>
-      <SiteFooter whatsapp={settings.whatsapp} />
+      <SiteFooter
+        settings={settings}
+        categories={categories}
+        parishList={joinParishes(zones.filter((z) => z.active).map((z) => z.parish))}
+      />
     </>
   )
 }

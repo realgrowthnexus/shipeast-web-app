@@ -131,7 +131,8 @@ export const corePhotos = {
     alt: 'A gift hamper beside a Christmas tree',
     photographer: 'Loo Chun Kang',
     username: 'loochunkang',
-    usedOn: 'Baskets, gifts',
+    position: 'center 55%',
+    usedOn: 'Home page, baskets, gifts',
   }),
   whyFamily: photo({
     unsplashId: 'khLLtGplL8I',
@@ -141,6 +142,7 @@ export const corePhotos = {
     alt: 'A grandmother congratulating her granddaughter',
     photographer: 'Imani Manyara',
     username: 'imanimanyara',
+    position: '45% 40%',
     usedOn: 'Home page',
   }),
   kingston: photo({
@@ -161,7 +163,8 @@ export const corePhotos = {
     alt: 'An older woman smiling on the phone at home',
     photographer: 'Centre for Ageing Better',
     username: 'ageing_better',
-    usedOn: 'How it works',
+    position: '40% 35%',
+    usedOn: 'Home page (hero), How it works',
   }),
   kingstonStreet: photo({
     unsplashId: '9R-WAl5UGWI',

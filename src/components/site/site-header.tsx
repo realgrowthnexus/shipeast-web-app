@@ -1,178 +1,124 @@
-import { Menu, User, X } from 'lucide-react'
+import { Search, User } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { SearchBox } from '@/components/shop/search-box'
-import { getCategories } from '@/lib/data/site'
+import { cn } from '@/lib/cn'
+import { getCategories, getSettings } from '@/lib/data/site'
+import { formatJamaicanPhone } from '@/lib/format'
 import { BasketLink, BasketLinkFallback } from './basket-link'
-import { CategoryIcon } from './category-icon'
+import { HeaderSearchRow, HeaderSearchRowFrame } from './header-search-row'
 import { HeaderShell } from './header-shell'
-import { MenuDetails } from './menu-details'
+import { MobileMenu, MobileMenuTrigger } from './mobile-menu'
+import { NavLink, navLinkClass } from './nav-link'
 import { Wordmark } from './wordmark'
 
-/** Store sections beside the departments. */
-const aisles = [
+/** The bar's nav. Track an order shows from 1280px; below that it lives in the menu and footer. */
+const nav = [
+  { href: '/shop', label: 'Shop' },
   { href: '/baskets', label: 'Baskets' },
-  { href: '/gifts', label: 'Gifts' },
-  { href: '/monthly', label: 'Monthly' },
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/track', label: 'Track an order', wideOnly: true },
 ]
 
-/** Help links: right of the department bar, and in the phone menu. */
-const help = [
+/** The menu's "More" list. */
+const menuLinks = [
+  { href: '/baskets', label: 'Ready-made baskets' },
+  { href: '/gifts', label: 'Gifts and occasions' },
+  { href: '/monthly', label: 'Monthly orders' },
   { href: '/how-it-works', label: 'How it works' },
-  { href: '/delivery', label: 'Delivery' },
+  { href: '/delivery', label: 'Delivery areas and fees' },
   { href: '/track', label: 'Track an order' },
+  { href: '/faq', label: 'Questions and answers' },
 ]
+
+const iconLink =
+  'grid size-control shrink-0 place-items-center rounded-full text-on-dark transition-colors duration-150 hover:bg-crimson-deep'
 
 /**
- * A store header: one crimson bar with the logo, search and basket, then a light bar of
- * departments. Only the logo row and search stay pinned while scrolling.
+ * The site header: one sticky crimson bar (logo, nav, search, account, basket, menu). On phones
+ * a second, non-sticky search row sits under it and scrolls away. Returned as a fragment so the
+ * bar is sticky against the whole page, not a short wrapper.
  */
 export async function SiteHeader() {
-  const categories = await getCategories()
+  const [categories, settings] = await Promise.all([getCategories(), getSettings()])
   const departments = categories.map((c) => ({
     href: `/shop/${c.slug}`,
     label: c.name,
     slug: c.slug,
+    count: c.count,
   }))
+  const menu = (
+    <MobileMenu
+      departments={departments}
+      links={menuLinks}
+      email={settings.email}
+      whatsapp={settings.whatsapp.replace(/\D/g, '')}
+      phone={(settings.phone && formatJamaicanPhone(settings.phone)) || ''}
+    />
+  )
 
   return (
     <>
       <HeaderShell>
-        <div className="mx-auto flex h-14 max-w-wide items-center gap-2 gutter sm:h-18 sm:gap-4">
+        <div className="mx-auto flex h-16 max-w-wide items-center gap-1 gutter md:h-18 md:gap-2 xl:gap-3">
           <Link
             href="/"
-            className="mr-auto rounded-sm lg:mr-4"
+            className="mr-auto shrink-0 rounded-sm md:mr-0 lg:mr-6"
             aria-label="ShipEast Shop & Send, home"
           >
             <Wordmark onDark />
           </Link>
 
-          <SearchBox id="header-q" compact className="hidden max-w-2xl flex-1 md:block" />
+          <nav aria-label="Main" className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              {nav.map((n) => (
+                <li key={n.href} className={cn(n.wideOnly && 'hidden xl:block')}>
+                  <Suspense
+                    fallback={
+                      <Link href={n.href} className={navLinkClass}>
+                        {n.label}
+                      </Link>
+                    }
+                  >
+                    <NavLink href={n.href}>{n.label}</NavLink>
+                  </Suspense>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <Link
-            href="/account"
-            className="grid size-control place-items-center rounded-full text-on-dark hover:bg-crimson-deep md:ml-auto"
-          >
-            <User className="size-5" aria-hidden />
+          {/* Inline search: tablets and wide screens. 1024–1279px get the icon instead. */}
+          <SearchBox
+            id="header-q"
+            compact
+            className="mx-4 hidden max-w-md flex-1 md:block lg:hidden xl:mr-0 xl:ml-auto xl:block xl:max-w-sm"
+          />
+          <Link href="/search" className={cn(iconLink, 'ml-auto hidden lg:grid xl:hidden')}>
+            <Search className="size-icon" aria-hidden />
+            <span className="sr-only">Search the shop</span>
+          </Link>
+
+          <Link href="/account" className={cn(iconLink, 'md:ml-auto lg:ml-0')}>
+            <User className="size-icon" aria-hidden />
             <span className="sr-only">Your account</span>
           </Link>
           <Suspense fallback={<BasketLinkFallback />}>
             <BasketLink />
           </Suspense>
-
-          {/* Phone menu: <details> works before JavaScript loads. */}
-          <MenuDetails className="group relative lg:hidden">
-            <summary className="grid size-control cursor-pointer list-none place-items-center rounded-full text-on-dark hover:bg-crimson-deep [&::-webkit-details-marker]:hidden">
-              <Menu className="size-6 group-open:hidden" aria-hidden />
-              <X className="hidden size-6 group-open:block" aria-hidden />
-              <span className="sr-only">Menu</span>
-            </summary>
-            <nav
-              aria-label="Main"
-              className="absolute top-full right-0 z-overlay mt-2 max-h-[75vh] w-72 origin-top-right animate-rise overflow-y-auto rounded-lg border border-line bg-surface p-2 shadow-overlay"
-            >
-              <p className="px-3 pt-2 pb-1 eyebrow text-ink-muted">Departments</p>
-              <ul>
-                {departments.map((d) => (
-                  <li key={d.href}>
-                    <Link
-                      href={d.href}
-                      className="flex min-h-12 items-center gap-3 rounded-md px-3 font-semibold text-ink hover:bg-surface-muted [&_svg]:size-5 [&_svg]:text-crimson"
-                    >
-                      <CategoryIcon slug={d.slug} />
-                      {d.label}
-                    </Link>
-                  </li>
-                ))}
-                {aisles.map((a) => (
-                  <li key={a.href}>
-                    <Link
-                      href={a.href}
-                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-muted"
-                    >
-                      {a.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-2 border-t border-line px-3 pt-3 pb-1 eyebrow text-ink-muted">
-                Help
-              </p>
-              <ul>
-                {help.map((h) => (
-                  <li key={h.href}>
-                    <Link
-                      href={h.href}
-                      className="flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:bg-surface-muted"
-                    >
-                      {h.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </MenuDetails>
-        </div>
-
-        {/* Phones: search sits under the logo row */}
-        <div className="gutter pb-3 md:hidden">
-          <SearchBox id="header-q-sm" compact />
+          <Suspense fallback={<MobileMenuTrigger />}>{menu}</Suspense>
         </div>
       </HeaderShell>
-
-      {/* The department bar: wide screens only (phones use the menu) */}
-      <nav
-        aria-label="Departments"
-        className="hidden border-b border-line bg-surface text-ink lg:block print:hidden"
+      <Suspense
+        fallback={
+          <HeaderSearchRowFrame>
+            <SearchBox id="header-q-sm" compact />
+          </HeaderSearchRowFrame>
+        }
       >
-        <div className="mx-auto flex max-w-wide items-center gap-1 gutter">
-          <ul className="flex items-center gap-1">
-            {departments.map((d) => (
-              <li key={d.href}>
-                <Link
-                  href={d.href}
-                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:text-crimson"
-                >
-                  {d.label}
-                  <Underline />
-                </Link>
-              </li>
-            ))}
-            {aisles.map((a) => (
-              <li key={a.href}>
-                <Link
-                  href={a.href}
-                  className="group relative flex min-h-12 items-center rounded-md px-3 font-semibold text-ink hover:text-crimson"
-                >
-                  {a.label}
-                  <Underline />
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <ul className="ml-auto flex items-center gap-1 text-small">
-            {help.map((h) => (
-              <li key={h.href}>
-                <Link
-                  href={h.href}
-                  className="flex min-h-control items-center rounded-md px-3 font-semibold text-ink-muted hover:text-crimson"
-                >
-                  {h.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+        <HeaderSearchRow>
+          <SearchBox id="header-q-sm" compact />
+        </HeaderSearchRow>
+      </Suspense>
     </>
-  )
-}
-
-function Underline() {
-  return (
-    <span
-      className="absolute inset-x-3 bottom-1.5 h-0.5 origin-left scale-x-0 rounded-full bg-crimson transition-transform duration-300 ease-out-soft group-hover:scale-x-100"
-      aria-hidden
-    />
   )
 }

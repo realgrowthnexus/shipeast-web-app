@@ -133,9 +133,14 @@ There are no see-through text colours (`text-ink/70` and the like). Use the role
 
 ### Overlay
 
-| Role    | Value          | Job                                  |
-| ------- | -------------- | ------------------------------------ |
-| `scrim` | oxblood at 60% | Behind dialogs (`backdrop:bg-scrim`) |
+| Role          | Value                                  | Job                                                                                                |
+| ------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `scrim`       | oxblood at 60%                         | Behind dialogs (`backdrop:bg-scrim`)                                                               |
+| `photo-scrim` | oxblood at 80% (`rgb(74 11 28 / 0.8)`) | The flat overlay on a background photo (home coverage band). Only `on-dark` text on it (see below) |
+
+The two are kept apart so either can change alone. `design-tokens.test.ts` checks
+`on-dark` over `photo-scrim` blended on a pure white pixel (the worst case: 8.7:1) and the
+`blush` focus ring over it blended on black (3:1 or more).
 
 ### Status
 
@@ -176,6 +181,7 @@ Checked on every test run. Text needs 4.5:1, control borders and the focus ring 
 | `crimson`, `crimson-deep`, `oxblood`                   | `on-dark`, `blush`, `on-crimson-muted`                    |
 | `oxblood`                                              | also `on-oxblood-muted`                                   |
 | `ink`, `danger`                                        | `on-dark`                                                 |
+| `photo-scrim` over a photo                             | `on-dark` only                                            |
 | status `-tint`                                         | its own status colour                                     |
 | `jm-gold`                                              | `ink`, `crimson-deep`                                     |
 
@@ -231,6 +237,8 @@ inside components, and 16, 24, 32 or 48px between blocks.
 | `size-icon`                  | 20px       | Icons in buttons, nav and lists                                      |
 | `size-icon-lg`               | 24px       | Icons in icon discs                                                  |
 | `border-control`             | 1.5px      | Form controls and outline buttons                                    |
+| `--header-height`            | 64 / 72px  | The sticky header bar (72px from 768px). Sticky columns offset by it |
+| `scroll-mt-header`           | bar + 16px | Every `id` target, so anchors and focus stop below the sticky bar    |
 
 ### Widths and breakpoints
 
@@ -285,16 +293,20 @@ Don't use `z-*` numbers directly.
 
 ## Motion
 
-| Token              | Value                            | Use                                |
-| ------------------ | -------------------------------- | ---------------------------------- |
-| `duration-fast`    | 150ms                            | Presses, colour changes            |
-| `duration-base`    | 250ms                            | Hovers, card lift                  |
-| `duration-slow`    | 450ms                            | Menus, the header change           |
-| `duration-reveal`  | 700ms                            | The page-load rise, scroll reveals |
-| `ease-out-soft`    | `cubic-bezier(0.22, 1, 0.36, 1)` | Almost everything                  |
-| `ease-in-out-soft` | `cubic-bezier(0.65, 0, 0.35, 1)` | Loops (the skeleton pulse)         |
-| `--motion-rise`    | 16px                             | How far a block rises on reveal    |
-| `staggerStep` (JS) | 80ms                             | Gap between items in a group       |
+| Token               | Value                            | Use                                |
+| ------------------- | -------------------------------- | ---------------------------------- |
+| `--duration-fast`   | 150ms                            | Presses, colour changes            |
+| `--duration-base`   | 250ms                            | Hovers, card lift                  |
+| `--duration-slow`   | 450ms                            | Menus, the header change           |
+| `--duration-reveal` | 700ms                            | The page-load rise, scroll reveals |
+| `ease-out-soft`     | `cubic-bezier(0.22, 1, 0.36, 1)` | Almost everything                  |
+| `ease-in-out-soft`  | `cubic-bezier(0.65, 0, 0.35, 1)` | Loops (the skeleton pulse)         |
+| `--motion-rise`     | 16px                             | How far a block rises on reveal    |
+| `staggerStep` (JS)  | 80ms                             | Gap between items in a group       |
+
+The durations are CSS variables, not Tailwind theme keys, so `duration-slow` makes no class:
+write `duration-(--duration-slow)` (or `duration-150` for the fast step). The utilities below
+read the variables directly.
 
 **Rules.**
 
@@ -306,13 +318,15 @@ Don't use `z-*` numbers directly.
 - The hero headline and photo use the CSS `animate-rise`, never `<Reveal>`, so the largest
   paint never waits for JavaScript.
 
-| Piece                         | What it does                                                   |
-| ----------------------------- | -------------------------------------------------------------- |
-| `animate-rise`                | CSS page-load entrance for above-the-fold text                 |
-| `<Reveal>`                    | Fade and rise as a block scrolls into view. Never on headings  |
-| `<Stagger>` / `<StaggerItem>` | A list whose items appear one after another                    |
-| `<Parallax>`                  | A large photo that drifts slightly on scroll (one per page)    |
-| `skeleton`                    | Loading placeholder: a flat `surface-muted` fill that breathes |
+| Piece                         | What it does                                                                                                                            |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `animate-rise`                | CSS page-load entrance for above-the-fold text                                                                                          |
+| `<Reveal>`                    | Fade and rise as a block scrolls into view. Never on headings                                                                           |
+| `<Stagger>` / `<StaggerItem>` | A list whose items appear one after another                                                                                             |
+| `<Parallax>`                  | A large photo that drifts slightly on scroll (one per page)                                                                             |
+| `skeleton`                    | Loading placeholder: a flat `surface-muted` fill that breathes                                                                          |
+| `animate-print`               | The home hero receipt prints once: unclips top to bottom and slides 16px down, 700ms after a 300ms delay. Put any rotation on a wrapper |
+| `sheet-end`                   | A native `<dialog>` that slides in from the right (the phone menu): opens over 450ms, closes over 250ms                                 |
 
 All motion components use the `motion` package through `LazyMotion`.
 
@@ -320,19 +334,20 @@ All motion components use the `motion` package through `LazyMotion`.
 
 ## States
 
-| Element            | Rest                                 | Hover                                                        | Pressed / chosen                             |
-| ------------------ | ------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- |
-| Primary button     | `crimson`, `on-dark` text            | `crimson-deep`                                               | moves down 1px                               |
-| Secondary button   | `surface-muted`, `crimson-deep` text | `surface-strong`                                             | moves down 1px                               |
-| Outline button     | `border-control` crimson             | `surface-selected` fill                                      | moves down 1px                               |
-| Ghost button       | `ink` text                           | `surface-muted` fill                                         | moves down 1px                               |
-| Dark button        | `ink`, `on-dark` text                | `ink-body`                                                   | moves down 1px                               |
-| On-dark button     | `surface`, `crimson-deep` text       | `surface-muted`                                              | moves down 1px                               |
-| Destructive button | `danger`, `on-dark` text             | `danger-deep`                                                | moves down 1px                               |
-| Card link          | `line` border, flat                  | `line-hover` border, rises 2px, `shadow-lift` (`hover-lift`) |                                              |
-| Photo in a card    | 100%                                 | zooms to 104% over 700ms                                     |                                              |
-| Row, nav item      | transparent                          | `surface-muted`                                              | `surface-selected` or `crimson` when current |
-| Choice card        | `surface`, `line-strong` border      | `ink-muted` border                                           | `surface-selected`, crimson border and ring  |
-| Text link          | `crimson`                            | underline                                                    |                                              |
-| Disabled           | 50% opacity, no pointer              |                                                              |                                              |
-| Focus (everything) | 3px `signal` ring, 2px offset        |                                                              |                                              |
+| Element            | Rest                                                                                                 | Hover                                                        | Pressed / chosen                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
+| Primary button     | `crimson`, `on-dark` text                                                                            | `crimson-deep`                                               | moves down 1px                               |
+| Secondary button   | `surface-muted`, `crimson-deep` text                                                                 | `surface-strong`                                             | moves down 1px                               |
+| Outline button     | `border-control` crimson                                                                             | `surface-selected` fill                                      | moves down 1px                               |
+| Ghost button       | `ink` text                                                                                           | `surface-muted` fill                                         | moves down 1px                               |
+| Dark button        | `ink`, `on-dark` text                                                                                | `ink-body`                                                   | moves down 1px                               |
+| On-dark button     | `surface`, `crimson-deep` text                                                                       | `surface-muted`                                              | moves down 1px                               |
+| Destructive button | `danger`, `on-dark` text                                                                             | `danger-deep`                                                | moves down 1px                               |
+| Card link          | `line` border, flat                                                                                  | `line-hover` border, rises 2px, `shadow-lift` (`hover-lift`) |                                              |
+| Photo in a card    | 100%                                                                                                 | zooms to 104% over 700ms                                     |                                              |
+| Row, nav item      | transparent                                                                                          | `surface-muted`                                              | `surface-selected` or `crimson` when current |
+| Choice card        | `surface`, `line-strong` border                                                                      | `ink-muted` border                                           | `surface-selected`, crimson border and ring  |
+| Text link          | `crimson`                                                                                            | underline                                                    |                                              |
+| Disabled           | 50% opacity, no pointer                                                                              |                                                              |                                              |
+| Focus (everything) | 3px `signal` ring, 2px offset                                                                        |                                                              |                                              |
+| Focus on dark      | 3px `blush` ring (add `on-dark-focus` to a crimson or oxblood container; signal is only 1.6:1 there) |                                                              |                                              |

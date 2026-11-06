@@ -90,6 +90,9 @@
 
   /* Overlay */
   --color-scrim: rgb(74 11 28 / 0.6); /* behind dialogs */
+  /* Flat oxblood at 80% over a full-bleed photo (home S7). Only on-dark text sits on it:
+     8.7:1 even over a pure white pixel. Kept apart from scrim so either can change alone. */
+  --color-photo-scrim: rgb(74 11 28 / 0.8);
 
   /* Status: alerts, pills and form feedback only, never decoration. */
   --color-ok: #16794a;
@@ -193,6 +196,14 @@
 /* How far a block rises on reveal. Mirrored as `rise` in src/lib/motion.ts. */
 :root {
   --motion-rise: 16px;
+  /* The sticky header bar: 64px on phones, 72px from 768px. Anchors and sticky columns
+     offset by it (scroll-mt-header). */
+  --header-height: 4rem;
+}
+@media (min-width: 768px) {
+  :root {
+    --header-height: 4.5rem;
+  }
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -285,11 +296,24 @@
   z-index: 50; /* menus, the cookie banner, the skip link */
 }
 
+/* Anchor targets stop below the sticky header, so focus is never hidden under it (WCAG 2.4.11). */
+@utility scroll-mt-header {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+/* Focus ring on crimson and oxblood: signal is only 1.6:1 there, blush passes 3:1. Put it on
+   the dark container; every focusable inside gets the blush ring. */
+@utility on-dark-focus {
+  & :focus-visible {
+    outline-color: var(--color-blush);
+  }
+}
+
 @utility text-balance {
   text-wrap: balance;
 }
 
-/* Torn-paper bottom edge for the receipt in the proof pair (a mask, not a visible gradient). */
+/* Torn-paper bottom edge for the receipt (home hero, proof pair) (a mask, not a visible gradient). */
 @utility receipt-edge {
   --tooth: 10px;
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% /
@@ -342,5 +366,42 @@
   from {
     opacity: 0;
     transform: translateY(var(--motion-rise));
+  }
+}
+
+/*
+ * The home hero receipt prints once on load: it slides out of an invisible slot and unrolls top
+ * to bottom. Put the rotation on a wrapper so it does not animate. Reduced motion shows it in
+ * place (global rule).
+ */
+@utility animate-print {
+  animation: print var(--duration-reveal) var(--ease-out-soft) 300ms both;
+}
+
+@keyframes print {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(calc(var(--motion-rise) * -1));
+  }
+}
+
+/*
+ * A native <dialog> that slides in from the right edge (the phone menu). Opens over
+ * duration-slow, closes over duration-base; reduced motion makes both instant (global rule).
+ */
+@utility sheet-end {
+  translate: 100% 0;
+  transition:
+    translate var(--duration-base) var(--ease-out-soft),
+    overlay var(--duration-base) allow-discrete,
+    display var(--duration-base) allow-discrete;
+  &[open] {
+    translate: 0 0;
+    transition-duration: var(--duration-slow);
+  }
+  @starting-style {
+    &[open] {
+      translate: 100% 0;
+    }
   }
 }

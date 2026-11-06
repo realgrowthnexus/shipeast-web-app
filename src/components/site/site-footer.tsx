@@ -1,118 +1,170 @@
-import { ChevronDown, MessageCircle } from 'lucide-react'
+import { Mail, MessageCircle, Phone } from 'lucide-react'
+import { cacheLife } from 'next/cache'
 import Link from 'next/link'
+import { ButtonLink } from '@/components/ui/button'
+import { cn } from '@/lib/cn'
+import { formatJamaicanPhone } from '@/lib/format'
 import { site } from '@/lib/site'
+import type { SiteSettings } from '@/lib/types'
 import { JamaicaFlag } from './jamaica'
 import { Wordmark } from './wordmark'
 
-const columns = [
-  {
-    title: 'Shop',
-    links: [
-      { href: '/shop', label: 'All categories' },
-      { href: '/baskets', label: 'Ready-made baskets' },
-      { href: '/gifts', label: 'Gifts and occasions' },
-      { href: '/monthly', label: 'Monthly orders' },
-    ],
-  },
-  {
-    title: 'Help',
-    links: [
-      { href: '/how-it-works', label: 'How it works' },
-      { href: '/delivery', label: 'Delivery areas and fees' },
-      { href: '/faq', label: 'Questions and answers' },
-      { href: '/track', label: 'Track an order' },
-      { href: '/contact', label: 'Contact us' },
-    ],
-  },
-  {
-    title: 'Policies',
-    links: [
-      { href: '/legal/terms', label: 'Terms of service' },
-      { href: '/legal/privacy', label: 'Privacy' },
-      { href: '/legal/refunds', label: 'Refunds and cancellations' },
-      { href: '/legal/substitutions', label: 'Substitutions' },
-      { href: '/legal/delivery', label: 'Delivery policy' },
-      { href: '/legal/cookies', label: 'Cookies' },
-      { href: '/photo-credits', label: 'Photo credits' },
-    ],
-  },
+type FooterLink = { href: string; label: string }
+
+const help: FooterLink[] = [
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/delivery', label: 'Delivery areas and fees' },
+  { href: '/track', label: 'Track an order' },
+  { href: '/faq', label: 'Questions and answers' },
+  { href: '/contact', label: 'Contact us' },
+  { href: '/account', label: 'Your account' },
 ]
 
-export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string }) {
-  const waDigits = whatsapp?.replace(/\D/g, '')
+const company: FooterLink[] = [
+  { href: '/about', label: 'About ShipEast' },
+  { href: '/legal/terms', label: 'Terms of service' },
+  { href: '/legal/privacy', label: 'Privacy' },
+  { href: '/legal/refunds', label: 'Refunds and cancellations' },
+  { href: '/legal/substitutions', label: 'Substitutions' },
+  { href: '/legal/delivery', label: 'Delivery policy' },
+  { href: '/legal/cookies', label: 'Cookies' },
+  { href: '/photo-credits', label: 'Photo credits' },
+]
+
+/** This year in Jamaica. Cached for a day: Cache Components forbids an uncached `new Date()`. */
+async function CopyrightYear() {
+  'use cache'
+  cacheLife('days')
   return (
-    <footer className="border-t border-line bg-page text-ink print:hidden">
-      <div className="mx-auto grid max-w-wide grid-cols-2 gap-x-6 gap-y-8 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)] md:gap-10">
-        <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
-          <Wordmark />
-          <p className="max-w-xs text-small text-ink-body">
-            We shop in Jamaica for your family and deliver the same day, with a photo of the receipt
-            and a photo at the door.
-          </p>
-          <p className="flex items-center gap-3 text-small font-semibold">
-            <JamaicaFlag className="w-8" />
-            Based in St. Thomas, Jamaica
-          </p>
-          {waDigits && (
-            <a
-              href={`https://wa.me/${waDigits}`}
-              className="inline-flex min-h-control w-fit items-center gap-2 rounded-md border border-line-strong bg-surface px-4 font-semibold hover:border-crimson hover:text-crimson"
-            >
-              <MessageCircle className="size-5" aria-hidden />
-              WhatsApp us
-            </a>
-          )}
-        </div>
-        {columns.map((col) => {
-          const list = (
-            <ul className="flex flex-col">
-              {col.links.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="inline-flex min-h-control items-center text-small text-ink-body hover:text-crimson"
+    <>
+      {new Intl.DateTimeFormat('en-US', { timeZone: 'America/Jamaica', year: 'numeric' }).format(
+        new Date(),
+      )}
+    </>
+  )
+}
+
+const linkClass =
+  'inline-flex min-h-control items-center text-small text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline lg:min-h-9'
+
+function Column({
+  title,
+  links,
+  className,
+  listClassName,
+}: {
+  title: string
+  links: FooterLink[]
+  className?: string
+  listClassName?: string
+}) {
+  return (
+    <nav aria-label={title} className={className}>
+      <h2 className="text-small font-bold text-on-dark">{title}</h2>
+      <ul className={cn('mt-3', listClassName)}>
+        {links.map((l) => (
+          <li key={l.href}>
+            <Link href={l.href} className={linkClass}>
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+/**
+ * The site footer on oxblood: the company and its contact up front, then Shop, Help and Company
+ * links, then how to pay and the legal line.
+ */
+export function SiteFooter({
+  settings,
+  categories,
+  parishList,
+}: {
+  settings: SiteSettings
+  categories: { slug: string; name: string }[]
+  /** `St. Thomas and Kingston`, or empty with no active zones. */
+  parishList: string
+}) {
+  const waDigits = settings.whatsapp.replace(/\D/g, '')
+  const phone = settings.phone ? formatJamaicanPhone(settings.phone) : null
+  const bank = Boolean(settings.bankTransfer.bankName)
+  const shop: FooterLink[] = [
+    { href: '/shop', label: 'All departments' },
+    ...categories.map((c) => ({ href: `/shop/${c.slug}`, label: c.name })),
+    { href: '/baskets', label: 'Ready-made baskets' },
+    { href: '/gifts', label: 'Gifts and occasions' },
+    { href: '/monthly', label: 'Monthly orders' },
+  ]
+
+  return (
+    <footer className="bg-oxblood text-on-dark on-dark-focus print:hidden">
+      <div className="mx-auto max-w-wide gutter pt-16 pb-8 lg:pt-20">
+        <div className="grid gap-y-12 md:grid-cols-3 md:gap-x-8 lg:grid-cols-12">
+          <div className="flex flex-col items-start gap-4 md:col-span-3 lg:col-span-4">
+            <Link href="/" className="rounded-sm" aria-label="ShipEast Shop & Send, home">
+              <Wordmark onDark />
+            </Link>
+            <p className="max-w-sm text-small text-on-oxblood-muted">
+              Groceries and everyday essentials, bought in Jamaica and delivered to your
+              family&apos;s door in {parishList || 'Jamaica'}.
+            </p>
+            <ul>
+              <li>
+                <a
+                  href={`mailto:${settings.email}`}
+                  className={cn(linkClass, 'gap-2 text-on-dark')}
+                >
+                  <Mail className="size-icon text-blush" aria-hidden />
+                  {settings.email}
+                </a>
+              </li>
+              {phone && (
+                <li>
+                  <a
+                    href={`tel:+${phone.replace(/\D/g, '')}`}
+                    className={cn(linkClass, 'gap-2 text-on-dark tabular-nums')}
                   >
-                    {l.label}
-                  </Link>
+                    <Phone className="size-icon text-blush" aria-hidden />
+                    {phone}
+                  </a>
                 </li>
-              ))}
+              )}
             </ul>
-          )
-          // Policies fold away on phones; Shop and Help sit side by side
-          return col.title === 'Policies' ? (
-            <nav key={col.title} aria-label={col.title} className="col-span-2 md:col-span-1">
-              <details className="group md:hidden">
-                <summary className="flex min-h-control cursor-pointer list-none items-center justify-between font-bold text-ink [&::-webkit-details-marker]:hidden">
-                  {col.title}
-                  <ChevronDown
-                    className="size-5 transition-transform group-open:rotate-180"
-                    aria-hidden
-                  />
-                </summary>
-                {list}
-              </details>
-              <div className="hidden md:block">
-                <h2 className="mb-2 font-bold text-ink">{col.title}</h2>
-                {list}
-              </div>
-            </nav>
-          ) : (
-            <nav key={col.title} aria-label={col.title}>
-              <h2 className="mb-2 font-bold text-ink">{col.title}</h2>
-              {list}
-            </nav>
-          )
-        })}
-      </div>
-      <div className="border-t border-line">
-        <div className="mx-auto flex max-w-wide flex-col gap-1 gutter py-6 text-small text-ink-muted sm:flex-row sm:justify-between">
+            {waDigits && (
+              <ButtonLink href={`https://wa.me/${waDigits}`} variant="onDark" size="sm">
+                <MessageCircle aria-hidden />
+                WhatsApp us
+              </ButtonLink>
+            )}
+          </div>
+
+          {/* Phones: Shop and Help side by side, Company across both. */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:col-span-3 md:grid-cols-3 md:gap-x-8 lg:col-span-8 lg:grid-cols-8">
+            <Column title="Shop" links={shop} className="lg:col-span-2 lg:col-start-2" />
+            <Column title="Help" links={help} className="lg:col-span-2" />
+            <Column
+              title="Company"
+              links={company}
+              className="col-span-2 md:col-span-1 lg:col-span-3"
+              listClassName="grid grid-cols-2 gap-x-6 md:block"
+            />
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-4 border-t border-line-on-dark pt-8 text-small text-on-oxblood-muted lg:flex-row lg:items-center lg:justify-between">
           <p>
-            {site.company}
-            {trn && <>, TRN {trn}</>}
+            Prices in US dollars. Pay with PayPal or a debit or credit card through PayPal
+            {bank ? ', or by bank transfer' : ''}.
           </p>
-          <a href={`mailto:${site.email}`} className="hover:text-crimson">
-            {site.email}
-          </a>
+          <p className="flex items-start gap-3">
+            <JamaicaFlag className="mt-1 w-6" />
+            <span>
+              © <CopyrightYear /> {site.company}. St. Thomas, Jamaica.
+            </span>
+          </p>
         </div>
       </div>
     </footer>
