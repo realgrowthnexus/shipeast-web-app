@@ -1,0 +1,1319 @@
+# Home page redesign — build plan
+
+Owner: design agent · For: development agent · Scope: `/` from the header bar to the last line of
+the footer. The new header and footer replace the shared ones on every `(site)` page.
+
+Read with: `CLAUDE.md`, `docs/BRIEF.md`, `docs/TOKENS.md`, `docs/DESIGN-SYSTEM.md`,
+`docs/PHOTOGRAPHY.md`. Where this plan and those files disagree on a brand rule, those files win
+and the dev agent flags it to the manager.
+
+Build exactly what is written. Anything not specified here: use the existing component or token,
+never invent a value. Every class named below exists today unless it is listed in
+[§2.6 New tokens and utilities](#26-new-tokens-and-utilities).
+
+---
+
+## Contents
+
+1. [Concept](#1-concept)
+1B. [Structure blueprint](#1b-structure-blueprint) — **read this first**: the page skeleton and every section's structure
+2. [Design-system decisions](#2-design-system-decisions)
+3. [Page map](#3-page-map)
+4. [Sections](#4-sections) — header, S1–S8, footer
+5. [Header scroll, mobile menu, inner pages](#5-header-scroll-mobile-menu-inner-pages)
+6. [Performance and rendering](#6-performance-and-rendering)
+7. [Photo register](#7-photo-register)
+8. [Self-review](#8-self-review)
+9. [Acceptance checklist](#9-acceptance-checklist)
+10. [Open questions](#10-open-questions)
+
+---
+
+## 1. Concept
+
+**One line.** *Groceries for home. Proof for you.* The page sells the receipt as much as the
+groceries: the sender sees what was bought, what it cost, and that it reached the door.
+
+| | |
+|---|---|
+| Audience | Jamaicans abroad (New York, Toronto, London…) buying for family in St. Thomas and Kingston. Three moods: the monthly supporter, the occasion sender, the emergency. Mostly on a phone, often in the evening their time. |
+| Primary job | Get a first-time sender to start a basket (`/shop`) with enough trust to pay a company they have never used. |
+| Secondary jobs | Returning sender: search, track an order. Occasion sender: ready-made basket. Doubter: coverage, cut-off, FAQ. |
+| The ONE bold element | **The printed receipt in the hero.** A drawn till receipt for a real basket from our catalogue (Family Food Basket lines, priced in J$ at the live rate) sits over the edge of a large crimson hero and a warm photo of an older woman laughing on the phone at home. On load it *prints*: it slides out of an invisible slot and unrolls top to bottom, once. Everything else on the page is quiet. |
+| Tone | Warm, homely, plain. Real people at home, a Jamaican country road, Kingston's hills. Big solid crimson, heavy Figtree, no decoration. |
+
+### How we beat each competitor (what the page must make obvious)
+
+| Competitor | What they offer | Our answer on this page | Where |
+|---|---|---|---|
+| grocerylistjamaica.com | PriceSmart resale for overseas buyers, plus a service fee | Proof: the till receipt photo and the door photo, on every order. Same-day in St. Thomas and Kingston with a stated cut-off. Your substitution rule. | Hero receipt, S1 step 3, S4, S6 |
+| revvcouriers.com | St. Thomas courier, new site, generic delivery | We shop *and* deliver; you choose the items, pay in USD; the family installs nothing. | Hero lead, S1, S4 |
+| PriceSmart Jamaica | Membership store; you need to be in Jamaica or have a member there | No membership for you or your family; we go to the store for you. (Never name PriceSmart on this page; FAQ answer may.) | S1 step 2, S6 |
+| Remittances / gift sites | Send cash or vouchers; you don't know what it is spent on, family must collect | You choose exactly what arrives, at the door, with photos. Nothing for anyone to collect. | S6 title and lead |
+
+We never name a competitor on the page and never claim a price comparison we cannot prove.
+
+---
+
+## 2. Design-system decisions
+
+### 2.1 Skill recommendations accepted and rejected
+
+`ui-ux-pro-max --design-system "diaspora grocery delivery service premium warm"` returned:
+
+| Recommendation | Verdict | Why |
+|---|---|---|
+| Style: Liquid Glass (translucency, blur, refraction) | **Rejected** | Brand rule: flat colour, no gloss, no gradients. Blur is only for dismissing a background. |
+| Colours: black `#1C1917` + gold `#A16207` accent, `#FAFAF9` background | **Rejected** | Not the client's palette. Gold is reserved for savings tags (`jm-gold`). Off-white page is the "cream" AI tell. |
+| Type: Cormorant + Montserrat | **Rejected** | Figtree only (client PDFs). A serif display would be the cream+serif tell. |
+| Pattern: scroll-triggered storytelling, chapter CTAs | **Partly accepted** | The page reads as one order's story (hero → steps → proof → coverage), but with **no** scroll-scrub, no parallax, no per-section reveal. |
+| Landing: Trust & Authority + Conversion (proof before CTA) | **Accepted, adapted** | Our proof is the receipt and door photo, not logos, badges or testimonials (we have none and won't invent them). |
+| UX: sticky nav must not cover content; reserve image space; lazy-load below fold; `priority`/`preload` only on the LCP image; Suspense for runtime data | **Accepted** | Applied in §5 and §6. |
+| UX: one primary CTA per view; 44px targets; visible focus; reduced motion; 4.5:1 text | **Accepted** | Applied throughout; see §8 checklist. |
+| GSAP stagger presets | **Rejected** | No GSAP. One CSS animation (the receipt) and existing `motion` only for user feedback. |
+
+### 2.2 Colour roles and page rhythm
+
+No new colour roles. Red stands out as **three solid blocks** — the header+hero mass at the top,
+the oxblood proof band in the middle, the crimson closing panel at the end — with neutral bands
+between. Never two red bands touching.
+
+```
+ ┌───────────────────────────────┐
+ │ demo bar (ink, demo mode only)│
+ ├───────────────────────────────┤
+ │ header bar        crimson     │ ┐
+ │ S1 hero           crimson     │ ┘ one red mass: the bar and hero read as one block
+ │ S2 how it works   page        │
+ │ S3 departments    surface     │
+ │ S4 baskets        page        │
+ │ S5 what you get   oxblood     │ ← middle red block
+ │ S6 coverage       page        │
+ │ S7 why ShipEast   surface     │
+ │ S8 questions      page        │
+ │ S9 closing        page band + crimson panel (rounded-2xl, contained) │
+ │ footer            oxblood     │ ← separated from the crimson panel by the page band's bottom padding
+ └───────────────────────────────┘
+```
+
+| Where | Background | Headings | Body | Secondary text | Lines | Links | Focus ring |
+|---|---|---|---|---|---|---|---|
+| Header, S1, S9 panel | `crimson` | `on-dark` | `on-dark` | `on-crimson-muted` | `crimson-deep` | `on-dark`, underline on hover | **`blush`** (see 2.6) |
+| S5, footer | `oxblood` | `on-dark` | `on-dark` | `on-oxblood-muted` | `line-on-dark` | `on-oxblood-muted` → `on-dark` | **`blush`** |
+| S2, S4, S6, S8 | `page` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
+| S3, S7 | `surface` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
+| Cards on page | `surface` + `border-line` | `ink` | `ink-body` | `ink-muted` | `line` | | `signal` |
+
+`signal` on crimson is about 1.6:1 and fails WCAG 1.4.11, hence the blush ring on dark areas.
+
+### 2.3 Type
+
+| Element | Class | Weight (from token) | Notes |
+|---|---|---|---|
+| Hero headline (only `h1`) | `text-display text-balance` | 900 | Two short lines. Not animated. |
+| Section titles (`h2`) | `text-h2 text-balance` | 800 | Every section has one. |
+| Card / step / zone titles (`h3`) | `text-h3` | 700 | |
+| Leads | `text-lead` | 400 | `max-w-2xl` (~75 characters). |
+| Running text | `text-body` | 400 | |
+| Meta, captions, receipt lines, footer links | `text-small` | 500 | |
+| Pills and counters | `text-xs` | set by pill | Only in pills/badges. |
+| Eyebrow | **not used on this page** | | Titles say enough on their own. |
+| Numbers | add `tabular-nums` to every price, fee, time and count | | |
+
+Never hand-set `tracking-*`, `leading-*` or a font size. The wordmark is the one exception
+(it already is).
+
+### 2.4 Spacing, width, radius, elevation
+
+| Thing | Value |
+|---|---|
+| Section padding | S1 `section-lg` top only + `pb-0` on phones (photo ends the band), `lg:section-lg`; S2–S8 `section`; S9 `section` |
+| Content width | `max-w-wide` for the header, S1, S5 and footer; `max-w-page` for S2–S4, S6–S9 |
+| Sides | `gutter` everywhere |
+| Gaps | Inside cards 8 / 12 / 16px (`gap-2/3/4`). Between blocks 24 / 32 / 48px (`gap-6/8/12`). Title-to-content: `mt-8 lg:mt-12`. |
+| Radius | Photos `rounded-lg` (12px) in grids; hero photo `rounded-2xl` (24px); basket cards `rounded-xl`; S9 panel `rounded-2xl`; buttons/inputs `rounded-md`; pills `rounded-full`; receipt `rounded-sm` top corners only (torn bottom) |
+| Elevation | Cards flat (`border border-line`). `shadow-float` on the hero receipt only. `shadow-lift` on basket-card hover and the scrolled header. `shadow-overlay` on the mobile menu. |
+| Layers | Header `z-header`; hero receipt `z-raised`; mobile menu (dialog top layer) needs none; skip link `z-overlay` |
+
+### 2.5 Motion budget
+
+| Motion | Trigger | Spec | Reduced motion |
+|---|---|---|---|
+| **Receipt prints** (the one orchestrated moment) | Page load, CSS only | `animate-print`: 700ms `ease-out-soft`, 300ms delay; from `clip-path: inset(0 0 100% 0)` + `translateY(-16px)` to `inset(0)` + `translateY(0)`; the rotation (-3deg) is on a wrapper so it does not animate | Shown in final state (global reduce rule) |
+| Button press | `:active` | `translate-y-px`, 150ms (existing) | kept (no motion: transition 0.01ms) |
+| Card hover | pointer | `hover-lift` 250ms (existing) | no rise |
+| Photo zoom in link tiles | pointer | `scale(1.04)` 700ms `ease-out-soft` (existing `zoom`) | none |
+| Header shadow on scroll | scroll > 8px | 450ms `duration-slow` box-shadow + border colour | instant |
+| Mobile menu | open/close | slide from right `translateX(100%)→0` 450ms `ease-out-soft`; close 250ms | fades 0ms (instant) |
+| Accordion icon | open/close | `Plus` rotates 45°, 200ms (existing) | instant |
+| Add to basket | click | existing `AddToBasket` feedback | as existing |
+
+Nothing else moves. **No `<Reveal>`, `<Stagger>` or `<Parallax>` on this page.** The hero
+headline, lead and buttons are static so the largest paint is never held back.
+
+### 2.6 New tokens and utilities
+
+Add to `src/app/globals.css`, list in `docs/TOKENS.md`, show on `/styleguide`. No new colours.
+
+| Name | Kind | Value | Used by |
+|---|---|---|---|
+| `--header-height` | `:root` var | `4rem` (64px); `4.5rem` (72px) at `min-width: 768px` | sticky offset |
+| `scroll-mt-header` | `@utility` | `scroll-margin-top: calc(var(--header-height) + 1rem)` | every section with an `id`, the FAQ items (WCAG 2.4.11: focus not hidden under the sticky bar) |
+| `animate-print` | `@utility` + `@keyframes print` | `animation: print var(--duration-reveal) var(--ease-out-soft) 300ms both;` `@keyframes print { from { clip-path: inset(0 0 100% 0); transform: translateY(calc(var(--motion-rise) * -1)); } }` | `HeroReceipt` |
+| `on-dark-focus` | `@utility` | `& :focus-visible { outline-color: var(--color-blush); }` | header bar, S1, S5, S9 panel, footer, mobile-menu trigger |
+
+Tests: `design-tokens.test.ts` needs no new colour pairs. Add `blush` ring on `crimson`/`oxblood`
+to the 3:1 non-text checks if the test has a list for focus rings.
+
+---
+
+## 3. Page map
+
+| # | Section | Background | Purpose | The single action it drives |
+|---|---|---|---|---|
+| — | Demo bar (demo mode only) | `ink` | Says orders can't be placed yet | none |
+| H | Header | `crimson`, sticky | Find, search, basket | Search / open basket |
+| S1 | Hero: *Groceries for home. Proof for you.* | `crimson` | Say what we do, show the proof, show today's cut-off | **Start shopping** → `/shop` |
+| S2 | From your phone to their door | `page` | The four steps of one order | See the full journey → `/how-it-works` |
+| S3 | Shop by department | `surface` | Jump straight into a department | Open a department → `/shop/{slug}` |
+| S4 | Ready-made baskets | `page` | One-tap baskets for the usual needs | Add a basket (or open it) |
+| S5 | You see it bought. You see it delivered. | `oxblood` | What the sender and the family receive | See the full journey → `/how-it-works#proof` |
+| S6 | No barrel. No cash. You choose what arrives. | `page` | Why us over barrels, cash and vouchers | none (reassurance); link to `/about` |
+| S7 | Delivering in St. Thomas and Kingston | `surface` | Live fees, cut-offs, minimums per parish | Delivery areas and fees → `/delivery` |
+| S8 | Questions senders ask first | `page` | Clear the last doubts | All questions → `/faq` |
+| S9 | Start a basket for home | `page` + crimson panel | Close | **Start shopping** → `/shop` |
+| F | Footer | `oxblood` | Every link, contact, legal | Contact / any link |
+
+> Order change from the first pass: **why (S6) now comes before coverage (S7)** so the page goes
+> what → how → shop → proof → why → where → doubts → close. The oxblood band (S5) sits between two
+> page bands, never touching another red block.
+
+`h1` = S1 only. `h2` = one per section. `h3` = cards/steps/zones/promises.
+
+---
+
+## 4. Sections
+
+Breakpoints: phone 375, tablet 768 (`md`), laptop 1024 (`lg`), desktop 1440 (`xl` and up; the
+column caps at `max-w-wide`/`max-w-page`). All wireframes show content inside `gutter`.
+
+### 4.0 Data used by the page
+
+`src/app/(site)/page.tsx` (server, no `'use client'`) loads in parallel:
+
+```ts
+const [settings, zones, categories, baskets, products, faqs] = await Promise.all([
+  getSettings(), getActiveZones(), getCategories(), getBaskets({ featured: true }),
+  getProducts(), getFaqs(),
+])
+```
+
+All six loaders are `'use cache'` with `cacheLife('hours')` in `src/lib/data/source.ts`, so the
+page body prerenders; nothing here reads cookies, headers or `searchParams`. Runtime pieces
+(basket count, the visitor's clock) are isolated as listed in §6.
+
+Derived values (compute in `page.tsx`, pass down as props):
+
+| Name | How | Fallback |
+|---|---|---|
+| `earliestCutoff` | `min(zones.map(z => z.cutoffTime))` (string compare `HH:MM`) | no zones → hide every cut-off line |
+| `parishList` | `zones.map(z => z.parish)` joined `"A and B"` / `"A, B and C"` | no zones → "Jamaica" in titles, S7 empty state |
+| `receiptBasket` | the basket with slug `family-food-basket` from `getBaskets()`; else the first featured basket | none → `HeroReceipt` hidden, photo stands alone |
+| `receiptLines` | its `items` → `{ qty, name, jmd: usdCentsToJmd(product.priceCents * qty, settings.jmdPerUsd) }`, max 7 lines | |
+| `faqItems` | `faqs` with ids `faq-1, faq-8, faq-9, faq-6, faq-4` in that order; any missing → fill from the lowest `sort` | fewer than 3 → hide S8 |
+
+---
+
+### 4.H Header (shared, all `(site)` pages)
+
+Replaces `src/components/site/site-header.tsx`, `header-shell.tsx`; `basket-link.tsx` and
+`search-box.tsx` are reused.
+
+#### Structure and copy
+
+| Item | Copy / content | Data |
+|---|---|---|
+| Wordmark | existing `<Wordmark onDark />`, link to `/`, `aria-label="ShipEast Shop & Send, home"` | — |
+| Nav (lg+) | **Shop** `/shop` · **Baskets** `/baskets` · **How it works** `/how-it-works` · **Track an order** `/track` (xl+ only; below xl it lives in the menu and footer) | static |
+| Search | existing `SearchBox`, placeholder "Rice, diapers, detergent…", label "Search the shop" | — |
+| Search icon (lg only, < xl) | `IconButton` link to `/search`, label "Search the shop" | — |
+| Account | `User` icon link to `/account`, sr-only "Your account" | — |
+| Basket | existing `BasketLink` (white pill, "Basket" text from `sm`, count badge) in `<Suspense fallback={<BasketLinkFallback/>}>` | basket cookie |
+| Menu (< lg) | `Menu` icon button, sr-only "Menu", opens `MobileMenu` | categories (counts), settings |
+
+(The "·" separators above are documentation only; nothing on the page uses middle dots.)
+
+#### Layout
+
+```
+375 ─ sticky bar h-16 (64px)                      then NOT sticky: search row
+┌───────────────────────────────────────────┐
+│ ShipEast            [👤] [🧺 3] [≡]        │  bar: crimson
+│ Shop & Send                                │
+├───────────────────────────────────────────┤
+│ [🔍 Rice, diapers, detergent…          ]   │  search row: crimson, pb-3, scrolls away
+└───────────────────────────────────────────┘
+
+768 ─ sticky bar h-18 (72px), no second row
+┌──────────────────────────────────────────────────────────────┐
+│ ShipEast   [🔍 Rice, diapers, detergent…        ] [👤][🧺 Basket 3][≡] │
+└──────────────────────────────────────────────────────────────┘
+
+1024 ─ h-18
+┌────────────────────────────────────────────────────────────────────────┐
+│ ShipEast   Shop  Baskets  How it works              [🔍] [👤] [🧺 Basket 3] │
+└────────────────────────────────────────────────────────────────────────┘
+
+1440 ─ h-18, inside max-w-wide (1280)
+┌──────────────────────────────────────────────────────────────────────────────────────┐
+│ ShipEast  Shop  Baskets  How it works  Track an order  [🔍 Rice, diapers…   ] [👤] [🧺 Basket 3] │
+└──────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+| Breakpoint | Bar | Order (left → right) | Gaps |
+|---|---|---|---|
+| < md | `h-16` | wordmark `mr-auto`, account, basket, menu | `gap-1` |
+| md – < lg | `h-18` | wordmark, search `flex-1 max-w-md mx-4`, account `ml-auto`, basket, menu | `gap-2` |
+| lg – < xl | `h-18` | wordmark `mr-6`, nav, search icon `ml-auto`, account, basket | `gap-2`, nav items `gap-1` |
+| xl + | `h-18` | wordmark `mr-6`, nav (4), search `flex-1 max-w-sm ml-auto`, account, basket | `gap-3` |
+
+Container: `mx-auto flex max-w-wide items-center gutter`. Mobile search row:
+`mx-auto max-w-wide gutter pb-3 md:hidden`.
+
+#### Colours and type
+
+| Element | Rest | Hover | Current page | Focus |
+|---|---|---|---|---|
+| Bar | `bg-crimson`, `border-b border-transparent` | — | — | — |
+| Bar, scrolled | `border-crimson-deep shadow-lift` | | | |
+| Nav link | `text-on-dark font-semibold text-body min-h-control px-3 rounded-md inline-flex items-center` | `bg-crimson-deep`, 150ms | `aria-current="page"`, `bg-crimson-deep` + 3px `blush` bar under the label (`after:` pseudo, `inset-x-3 bottom-1.5 h-[3px] rounded-full bg-blush`) | blush ring (`on-dark-focus`) |
+| Icon buttons | `size-control rounded-full text-on-dark` | `bg-crimson-deep` | | blush ring |
+| Basket pill | existing (`bg-surface text-crimson-deep`) | `bg-surface-muted` | | signal ring (on white pill) — keep |
+| Search field | existing compact white pill | | | existing |
+
+#### Components
+
+| Component | File | Props | Server / client |
+|---|---|---|---|
+| `SiteHeader` | `src/components/site/site-header.tsx` (rewrite) | none; loads `getCategories()`, `getSettings()` | server; returns a **fragment**: `<HeaderShell>…</HeaderShell><HeaderSearchRow/>` so the bar is sticky against the page, not against a short wrapper |
+| `HeaderShell` | `header-shell.tsx` (keep, small edit) | `children` | client: scroll shadow. Change `duration-300` → `duration-slow`; add `on-dark-focus`. |
+| `NavLink` | `src/components/site/nav-link.tsx` (new) | `href`, `children`, `exact?: boolean` | client: `usePathname()` → `aria-current`. Why client: needs the current path. |
+| `HeaderSearchRow` | `src/components/site/header-search-row.tsx` (new) | none | client wrapper: `usePathname()`, renders nothing on `/search`, `/basket`, `/checkout*` (they have their own box or must stay focused). Children = server `SearchBox id="header-q-sm"`. |
+| `MobileMenu` | `src/components/site/mobile-menu.tsx` (new) | `departments: {href,label,slug,count}[]`, `links: {href,label}[]`, `email`, `whatsapp`, `phone` | client: native `<dialog>` + `showModal()`. See §5. |
+| `BasketLink`, `SearchBox`, `Wordmark`, `IconButton` | existing | | |
+
+#### States
+
+| State | Treatment |
+|---|---|
+| Basket loading | `BasketLinkFallback` (pill with empty badge, same size, no layout shift) |
+| Basket empty | badge shows `0` (existing) |
+| No categories | menu hides the department list |
+| Demo mode | existing `DemoBanner` above the header, not sticky |
+
+#### Accessibility
+
+`<header>` landmark (from `HeaderShell`). Nav is `<nav aria-label="Main">`. Tab order:
+skip link → wordmark → nav → search → account → basket → menu. Search form has
+`role="search"` (existing). Sticky bar height is reserved by its own box (it's `sticky`, not
+`fixed`), so nothing hides beneath it on load; anchors use `scroll-mt-header`.
+
+---
+
+### 4.1 S1 Hero — the receipt
+
+#### Copy
+
+| Element | Copy |
+|---|---|
+| `h1` | **Groceries for home. Proof for you.** |
+| Lead | Fill a basket for your family in {parishList} and pay in US dollars. Our driver buys everything in Jamaica, delivers it the same day, and sends you a photo of the till receipt and a photo at the door. |
+| Primary button | **Start shopping** → `/shop` |
+| Secondary link | See ready-made baskets → `/baskets` |
+| Cut-off line (server text) | Order by **1:00 PM** Jamaica time for delivery today. *(time = `formatClockTime(earliestCutoff)`)* |
+| Cut-off line (client addition, after mount) | before cut-off: ` That's 2:00 PM where you are, 3h 12m from now.` · after cut-off: ` Today's orders have closed; orders placed now go out on the next delivery day.` (uses `cutoffInLocalTime`, `minutesToCutoff`, `formatDuration` from `src/lib/cutoff.ts`; local part omitted when the visitor is on Jamaica time) |
+| Receipt pill | Example receipt |
+| Receipt head | Family Food Basket *(basket name)* / Kingston, Jamaica |
+| Receipt lines | `2 x Corned Beef ……… J$1,490` (qty prefix only when > 1); from `receiptLines` |
+| Receipt total | Total ……… J$X *(sum of the lines)* |
+| Caption under receipt | `Camera` icon + "You get a photo of the real one" |
+
+#### Layout
+
+```
+375
+┌──────────────────────────────┐ crimson
+│ Groceries for                │ text-display on-dark
+│ home. Proof                  │
+│ for you.                     │
+│                              │
+│ Fill a basket for your fam…  │ text-lead on-crimson-muted
+│                              │
+│ [ Start shopping          ]  │ onDark lg, block (full width)
+│   See ready-made baskets     │ text link, h-control
+│                              │
+│ ⏱ Order by 1:00 PM Jamaica…  │ text-small
+│                              │
+│ ┌──────────────────────────┐ │ photo 4:3 rounded-xl
+│ │      (woman on phone)    │ │
+│ │                ┌───────┐ │ │
+│ │                │RECEIPT│ │ │ receipt w-60, -mt-28, ml-auto mr-3, -rotate-3
+│ └────────────────│       │─┘ │
+│                  │       │   │
+│                  └╲╱╲╱╲╱─┘   │
+│        📷 You get a photo…   │
+└──────────────────────────────┘ band ends 48px below caption (pb-12)
+
+768  same stack; text block max-w-2xl; photo 16:9; receipt w-64, -mt-36, mr-8
+
+1024 / 1440   grid-cols-12 gap-8 (lg) / gap-12 (xl), items-center, max-w-wide
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ col 1–6                                 │ col 7–12                           │
+│ Groceries for home.                     │ ┌───────────────────────────────┐  │
+│ Proof for you.                          │ │                               │  │
+│                                         │ │      photo 4:5 rounded-2xl    │  │
+│ Fill a basket for your family in…       │ │                               │  │
+│                                         │┌┴──────┐                        │  │
+│ [ Start shopping ]  See ready-made…     ││RECEIPT│  receipt w-72, absolute │  │
+│                                         ││       │  -left-16 bottom-12     │  │
+│ ⏱ Order by 1:00 PM Jamaica time…        │└╲╱╲╱╲╱┘  -rotate-3              │  │
+│                                         │ └───────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────────────┘
+section-lg top and bottom
+```
+
+| | 375 | 768 | 1024 | 1440 |
+|---|---|---|---|---|
+| Band | `bg-crimson section-lg pb-12` (top 80px) | same | `lg:section-lg` both | same (128px) |
+| Container | `max-w-wide gutter` | | `grid grid-cols-12 gap-8 items-center` | `xl:gap-12` |
+| Text block | full | `max-w-2xl` | `col-span-6` | `col-span-6`, `pr-8` |
+| Lead | `mt-5` | | `mt-6` | |
+| Buttons | `mt-8 flex flex-col gap-2`; primary `block` | `sm:flex-row sm:items-center sm:gap-6`, primary not block | | |
+| Cut-off | `mt-6` | | `mt-8` | |
+| Photo | `mt-10 aspect-4/3 rounded-xl` | `aspect-16/9` | `col-span-6 mt-0 aspect-4/5 rounded-2xl` | same, `max-h-[640px]` not needed: width caps at ~600px |
+| Receipt | `relative z-raised -mt-28 ml-auto mr-3 w-60` | `-mt-36 mr-8 w-64` | `absolute -left-16 bottom-12 w-72` (photo wrapper `relative`) | `-left-20 w-80` |
+
+Photo `sizes`: `"(min-width: 1280px) 600px, (min-width: 1024px) 46vw, 100vw"`.
+
+#### Colours
+
+Band `crimson`; `h1` `text-on-dark`; lead `text-on-crimson-muted`; primary `ButtonLink
+variant="onDark" size="lg"`; secondary link `text-on-dark font-semibold underline
+decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark`; cut-off icon
+`Clock` `size-icon text-blush`, text `text-small text-on-dark`, the time `font-bold
+tabular-nums`. Receipt paper `bg-surface text-ink`, rules `border-dashed border-line-strong`,
+pill `bg-surface-muted text-ink-muted text-xs rounded-full px-2 py-0.5`; caption `text-small
+text-on-crimson-muted`, icon `text-blush`. Container gets `on-dark-focus`.
+
+#### Components
+
+| Component | File | Props | Notes |
+|---|---|---|---|
+| `HomeHero` | `src/components/pages/home/hero.tsx` (new file; delete the old home components once the page no longer imports them) | `parishList`, `earliestCutoff: string \| null`, `receipt: { basketName, lines: {qty,name,jmd}[] } \| null` | server |
+| `HeroReceipt` | `src/components/pages/home/hero-receipt.tsx` | `basketName`, `lines`, `className` | server. Paper: `bg-surface px-4 pt-4 pb-7 shadow-float receipt-edge rounded-t-sm`. Outer wrapper carries `-rotate-3`; inner carries `animate-print`. Lines `text-small tabular-nums`, name `truncate`, `flex justify-between gap-3`. Head centred (`text-center`, name `font-bold`). Total row `mt-2 pt-2 border-t border-dashed border-line-strong font-bold`. Wrapper is a `<figure>` with the caption as `<figcaption>`; `aria-label="Example receipt for the Family Food Basket, total J$X"` on the paper `div role="img"`, and the line list `aria-hidden` (the label carries the total). |
+| `CutoffNote` | `src/components/site/cutoff-note.tsx` (new, reused by S7 and S9) | `cutoff: string` (`HH:MM`), `tone: 'onDark' \| 'light'` | **Server part** renders the sentence. **Client child** `CutoffCountdown` (`'use client'`) renders `null` until mounted, then the local-time sentence; refreshes every 60s with `setInterval`, cleared on unmount; `aria-live="off"` (it ticks; no announcements). |
+| `ButtonLink`, `StockPhoto` | existing | `StockPhoto name="familyPhone" preload sizes=… className="aspect-… rounded-…"` | `preload` here only |
+
+#### States
+
+| State | Treatment |
+|---|---|
+| No active zones | lead says "for your family in Jamaica"; cut-off line hidden |
+| No receipt basket / no products | receipt hidden; photo alone (no empty frame) |
+| Receipt with > 7 items | first 7 lines + a line "and 3 more items" `text-ink-muted` |
+| Long product name | `truncate`, full name stays in the `aria-label` total sentence? No: names are decorative in the image; the label gives basket and total |
+| Button hover / press / focus | existing `onDark` styles; press `translate-y-px`; blush focus ring |
+| Countdown before mount | server sentence only (no blank flash, no layout shift: the client sentence is inline text appended after) |
+
+#### Motion
+
+`HeroReceipt` inner → `animate-print`. Nothing else in the hero animates.
+
+#### Accessibility
+
+`<section aria-labelledby="hero-title">`; `h1#hero-title`. The photo has its registry alt.
+The receipt is one `role="img"` with a label; its caption is real text. Focus order: primary
+button → secondary link. Receipt is not focusable.
+
+#### Photo
+
+`familyPhone` (registry, `src/lib/photos/core.ts`) — see §7 row P1. Crop 4:3 phone, 16:9
+tablet, 4:5 desktop; `object-position: 40% 35%` (add `position: '40% 35%'` to the registry
+entry; her face sits left of centre).
+
+---
+
+### 4.2 S2 From your phone to their door (steps)
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **From your phone to their door** |
+| Lead | Four steps, and you see each one happen. |
+| Link (right of title on lg, under steps on phones) | See the full journey → `/how-it-works` |
+
+| # | `h3` | Body | Photo |
+|---|---|---|---|
+| 1 | You fill the basket | Choose groceries, household, pharmacy or baby items, or a ready-made basket. Pay in US dollars by PayPal or card. | P2 `homeSenderPhone` |
+| 2 | We shop in Jamaica | A ShipEast driver buys your list at a store in Jamaica. If something is out of stock, we follow the rule you chose. | P3 `stepShop` |
+| 3 | You get the receipt | The driver photographs the till receipt and we email it to you, so you see what was bought and what it cost. | P4 `shopCheckout` |
+| 4 | They get it at the door | Your family gets a text when the driver is on the way. At the door we take a photo and email it to you. | P5 `homeStepToDoor` (new) |
+
+"by PayPal or card": if `settings.bankTransfer.bankName` is set, append "or bank transfer".
+
+#### Layout
+
+```
+375 — ordered list, rows
+┌──────────────────────────────┐ page
+│ From your phone to their door│ h2
+│ Four steps, and you see…     │ lead
+│                              │
+│ ┌──────┐ ① You fill the basket│ thumb 96×96 (aspect-square) rounded-md
+│ │photo │   Choose groceries…  │ text-small ink-body
+│ └──────┘                      │
+│ ┌──────┐ ② We shop in Jamaica │  gap-6 between rows
+│ ...                           │
+│ See the full journey          │ link
+└──────────────────────────────┘
+
+768 — grid-cols-2 gap-x-6 gap-y-10, photo on top 4:3
+
+1024 / 1440 — grid-cols-4 gap-6 (lg) / gap-8 (xl), photo on top 4:3
+┌──────────────────────────────────────────────────────────────┐
+│ From your phone to their door              See the full journey│
+│ Four steps, and you see each one happen.                       │
+│ ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐                │
+│ │ photo  │  │ photo  │  │ photo  │  │ photo  │  4:3 rounded-lg │
+│ └────────┘  └────────┘  └────────┘  └────────┘                │
+│ ① You fill… ② We shop…  ③ You get…  ④ They get…               │
+│ body        body        body        body                       │
+└──────────────────────────────────────────────────────────────┘
+```
+
+Section `section bg-page`, container `max-w-page gutter`. Header via `SectionHeader`
+(`title`, `lead`, `action` = link; `id="steps-title"`). List: `<ol>` `mt-8 lg:mt-12`.
+Phone row: `grid grid-cols-[6rem_1fr] gap-4 items-start`. md+: `flex flex-col gap-4`.
+
+Step marker: `span` `grid size-8 place-items-center rounded-full bg-crimson text-small
+font-bold text-on-dark tabular-nums` before the `h3`, `inline-flex gap-3 items-center`.
+Small and quiet on purpose — this *is* a sequence, so numbers are honest, but they are not
+the page's loud element.
+
+Photo `sizes`: `"(min-width: 1024px) 270px, (min-width: 768px) 45vw, 96px"`.
+
+#### Colours / type
+
+`h3` `text-h3 text-ink`; body `text-body text-ink-body` (phone `text-small`); link
+`text-crimson font-semibold underline-offset-4 hover:underline`, `min-h-control inline-flex
+items-center`.
+
+#### Components
+
+`HomeSteps` (`src/components/pages/home/steps.tsx`, server; props `payLine: string`).
+Reuse `Section`, `SectionHeader`, `StockPhoto`.
+
+#### States
+
+Static content; no empty state. Not links (the whole card is not clickable), so no hover.
+
+#### Motion
+
+None.
+
+#### Accessibility
+
+`<ol>` (it's a sequence); the number span is `aria-hidden` (the list gives the order). Photo alt
+from registry.
+
+---
+
+### 4.3 S3 Shop by department
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **Shop by department** |
+| Lead | Prices are in US dollars, with the Jamaican dollar amount alongside. |
+| Action | All departments → `/shop` |
+| Tile | `{category.name}` + `{count} items` (`1 item` singular) |
+
+#### Data
+
+`getCategories()` (sorted). Photo by `categoryPhotos[slug]`; no entry → tile shows a
+`bg-crimson` block with the `CategoryIcon` (`src/components/site/category-icon.tsx`) in
+`text-blush size-12`.
+
+#### Layout
+
+```
+375  grid-cols-2 gap-4          768+  grid-cols-4 gap-6
+┌────────────┐┌────────────┐    ┌──────┐┌──────┐┌──────┐┌──────┐
+│ photo 1:1  ││ photo 1:1  │    │ 4:5  ││ 4:5  ││ 4:5  ││ 4:5  │
+└────────────┘└────────────┘    └──────┘└──────┘└──────┘└──────┘
+Groceries     Household          Groceries Household Pharmacy Baby & Child
+24 items      18 items           24 items  …
+┌────────────┐┌────────────┐
+│            ││            │
+```
+
+Section `section bg-surface`; `max-w-page gutter`; grid `mt-8 lg:mt-12`.
+Tile: `<a class="group flex flex-col gap-3 rounded-lg">`; photo `aspect-square md:aspect-4/5
+rounded-lg` with `zoom`; name `text-h3 text-ink group-hover:underline decoration-2
+underline-offset-4`; count `text-small text-ink-muted tabular-nums`.
+Photo `sizes`: `"(min-width: 1024px) 270px, (min-width: 768px) 23vw, 45vw"`.
+
+#### States
+
+| State | Treatment |
+|---|---|
+| Hover | photo zooms to 104% over 700ms `ease-out-soft`; name underlines. No lift, no shadow. |
+| Focus | signal ring around the whole tile (`rounded-lg`, offset 2) |
+| Press | none beyond the browser's (it navigates) |
+| Count 0 | hide the count line; tile still links |
+| No categories | hide S3 entirely |
+
+#### Components
+
+`HomeDepartments` (`src/components/pages/home/departments.tsx`, server, props
+`categories`).
+
+#### Accessibility
+
+`<ul>` of links; each link's name = category name + count (both visible text). Photo alt is
+replaced with `""` (decorative: the visible name says it) — pass `alt=""` via `StockImage`.
+
+---
+
+### 4.4 S4 Ready-made baskets
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **Ready-made baskets** |
+| Lead | Put together for the usual needs: the weekly shop, a new baby, Christmas. Add one in a tap. |
+| Action | All baskets → `/baskets` |
+| Card | name (`h3`), description, `{itemCount} items`, price, saving tag, button |
+| Saving tag | `Save USD$X` — only when `separateCents > basket.priceCents`, X = difference via `formatUsd` |
+| Button | existing `AddToBasket kind="basket" variant="compact"` (its own label) |
+
+The lead names the three featured occasions; if the featured set changes, the lead is built
+from occasions present: everyday → "the weekly shop", baby → "a new baby", christmas →
+"Christmas", pharmacy → "the medicine cabinet", school → "back to school".
+
+#### Data
+
+`getBaskets({ featured: true })` → `BasketSummary[]`; photo `basketPhotos[slug]`.
+
+#### Layout
+
+```
+375 stacked, gap-6            768 grid-cols-2 gap-6 (3rd card spans 2? no: 3rd card on row 2, left)
+┌──────────────────────────┐  1024+ grid-cols-3 gap-6 xl:gap-8
+│ photo 16:9               │  ┌────────┐┌────────┐┌────────┐
+├──────────────────────────┤  │ photo  ││ photo  ││ photo  │
+│ Family Food Basket   h3  │  ├────────┤├────────┤├────────┤
+│ A week of pantry…        │  │ name   ││ name   ││ name   │
+│ 7 items                  │  │ desc   ││ desc   ││ desc   │
+│ USD$69   [Save USD$8]    │  │ price  ││ price  ││ price  │
+│ about J$10,830           │  │ [Add]  ││ [Add]  ││ [Add]  │
+│ [ + Add to basket ]      │  └────────┘└────────┘└────────┘
+└──────────────────────────┘
+```
+
+At 768 with 3 cards: `md:grid-cols-2`, and the 3rd card `md:col-span-2 md:grid
+md:grid-cols-2` (photo left, body right) so no orphan half-row. At 1024 back to 3 equal.
+With 2 cards: `lg:grid-cols-2`. With 4: `lg:grid-cols-4` is too narrow → `lg:grid-cols-2
+xl:grid-cols-4`.
+
+Card: `group relative flex flex-col overflow-hidden rounded-xl border border-line bg-surface
+hover-lift`. The name is a link to `/baskets/{slug}` with `after:absolute after:inset-0`
+(whole card clickable); `AddToBasket` sits `relative z-raised`. Body `p-card flex flex-col
+gap-2 flex-1`; price row `mt-auto pt-4 flex items-end justify-between gap-3`.
+Photo `aspect-16/9`, `zoom`, `sizes="(min-width: 1024px) 370px, (min-width: 768px) 45vw,
+100vw"`.
+
+Price: existing `<Price cents={basket.priceCents} jmdPerUsd={settings.jmdPerUsd} size="lg">`.
+Saving tag: `rounded-sm bg-jm-gold px-2 py-0.5 text-xs font-bold text-ink` (gold's one job).
+
+#### States
+
+| State | Treatment |
+|---|---|
+| Hover card | rises 2px, `shadow-lift`, border `line-hover`, 250ms; photo zooms 104% |
+| Focus | name link shows signal ring (the overlay `after:` follows the link; ring on the card via `has-[:focus-visible]:outline …` — use `focus-within` styling: `has-[a:focus-visible]:ring-3 ring-signal ring-offset-2`) |
+| Add pressed / added | existing `AddToBasket` states (pending spinner, "Added" with check, disabled while pending) |
+| No saving | no tag |
+| No photo | `bg-crimson` 16:9 block with `ShoppingBasket` icon `text-blush size-12` |
+| No featured baskets | hide S4 |
+| Demo mode | `AddToBasket` behaves as it does elsewhere in demo |
+
+#### Components
+
+`HomeBaskets` (`src/components/pages/home/baskets.tsx`, server; props `baskets`,
+`jmdPerUsd`). `HomeBasketCard` (same folder, server). Reuse `Price`, `AddToBasket` (client),
+`StockPhoto`.
+
+#### Accessibility
+
+`<ul>`; card name is the link (`h3 > a`). Saving tag text is visible ("Save USD$8"), not
+colour-only. Add button keeps its own accessible name from `AddToBasket` (`name` prop =
+basket name).
+
+---
+
+### 4.5 S5 You see it bought. You see it delivered. (oxblood)
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **You see it bought. You see it delivered.** |
+| Lead | Every order sends you two photos, and your family a text. Nobody in Jamaica needs an app, an account or a smartphone. |
+| Left column title (`h3`) | What you get by email |
+| Right column title (`h3`) | What your family gets by text |
+| Footnote | Examples. Your messages show your own order, names and times. |
+| Link | See the full journey → `/how-it-works#proof` |
+
+Left list (a true sequence, `<ol>`), each: icon + `font-bold` title + `text-small` line:
+
+| Icon (lucide) | Title | Line |
+|---|---|---|
+| `ReceiptText` | Order confirmed | Your receipt for what you paid, in US dollars. |
+| `Camera` | Shopped | A photo of the till receipt from the store. |
+| `Truck` | On the way | The driver has left the store. |
+| `DoorOpen` | Delivered | A photo at the door, and who received it. |
+
+Right: an SMS panel with two bubbles (sender label "ShipEast"):
+
+1. "ShipEast: Your groceries from Marcia are on the way. The driver will deliver today."
+2. "ShipEast: Delivered. Your groceries from Marcia were dropped off at 2:41 PM."
+
+(Names and time are illustrative and the panel is labelled "Examples"; the wording must be
+updated to match the real SMS templates once they exist — see §10.)
+
+#### Layout
+
+```
+375
+┌──────────────────────────────┐ oxblood
+│ You see it bought. You see   │ h2 on-dark
+│ it delivered.                │
+│ Every order sends you two…   │ lead on-oxblood-muted
+│                              │
+│ What you get by email        │ h3
+│ (🧾) Order confirmed          │ icon disc 40px crimson-deep, blush icon
+│      Your receipt for what…  │
+│ (📷) Shopped                  │   connector: 2px line-on-dark between discs
+│ (🚚) On the way               │
+│ (🚪) Delivered                │
+│                              │
+│ What your family gets by text│ h3
+│ ┌──────────────────────────┐ │ panel: surface rounded-xl p-card
+│ │ ShipEast                 │ │ text-small ink-muted
+│ │ ┌──────────────────────┐ │ │ bubble surface-muted rounded-lg rounded-bl-sm
+│ │ │ ShipEast: Your groc… │ │ │
+│ │ └──────────────────────┘ │ │
+│ │ ┌──────────────────────┐ │ │
+│ │ │ ShipEast: Delivered… │ │ │
+│ │ └──────────────────────┘ │ │
+│ └──────────────────────────┘ │
+│ Examples. Your messages…     │ text-small on-oxblood-muted
+│ See the full journey         │
+└──────────────────────────────┘
+
+768   same stack, panel max-w-md
+1024+ title block full width; below: grid-cols-12 gap-8
+      col 1–6: email list     col 8–12: "What your family gets" + SMS panel
+```
+
+Section `section bg-oxblood text-on-dark on-dark-focus`, `max-w-wide gutter` with inner
+`max-w-page mx-auto`. Lists start `mt-10 lg:mt-14`.
+Icon disc: `grid size-10 place-items-center rounded-full bg-crimson-deep`, icon `size-icon
+text-blush`. Connector: each `li` except last has `before:` 2px `bg-line-on-dark` from disc
+bottom to next disc (`absolute left-5 top-10 bottom-0 w-0.5`). Row `relative grid
+grid-cols-[2.5rem_1fr] gap-4 pb-6`.
+
+#### States
+
+Static. No hover (nothing is clickable except the link: `text-on-dark underline
+decoration-blush hover:decoration-on-dark`).
+
+#### Components
+
+`HomeProof` (`src/components/pages/home/proof.tsx`, server). `SmsPreview`
+(`src/components/order/sms-preview.tsx`, server, props `messages: string[]`, `label`) — reusable
+on `/how-it-works`.
+
+#### Accessibility
+
+`<section aria-labelledby="proof-title" id="proof" class="scroll-mt-header">`. Email list is
+`<ol>`; icons `aria-hidden`. SMS panel is a `<figure>` with `<figcaption>` "Examples of the
+text messages your family gets"; bubbles are `<p>`s.
+
+#### Photo
+
+None. The hero carries the receipt; here the messages carry the proof. (Adding the door
+photo again would repeat the bold element.)
+
+---
+
+### 4.6 S6 No barrel. No cash. You choose what arrives.
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **No barrel. No cash. You choose what arrives.** |
+| Lead | A barrel means packing, shipping and customs. Cash can be spent on anything. With ShipEast you pick each item and see it reach the door. |
+
+Four promises (ruled list, not cards). Icon inline before the `h3`:
+
+| Icon | `h3` | Body |
+|---|---|---|
+| `ReceiptText` | Proof on every order | A photo of the till receipt and a photo at the door, emailed to you and kept with your order. |
+| `Replace` | You decide on swaps | If an item is out of stock we use the rule you chose: a similar item, ask you first, or leave it out and refund it. |
+| `MessageSquareText` | Nothing for them to install | Your family gets a text on any phone. No app, no account, no password. |
+| `DollarSign` | Pay in US dollars | PayPal, or a debit or credit card through PayPal{, or bank transfer}. You see the Jamaican dollar amount too. |
+
+Small link under the list: About ShipEast Couriers & Bearer Service Ltd → `/about`.
+
+#### Layout
+
+```
+375
+┌──────────────────────────────┐ page
+│ No barrel. No cash. You      │
+│ choose what arrives.         │
+│ A barrel means packing…      │
+│ ┌──────────────────────────┐ │ photo 4:5 rounded-xl (P7)
+│ │                          │ │
+│ └──────────────────────────┘ │
+│ ─────────────────────────────│ border-t line
+│ 🧾 Proof on every order       │
+│    A photo of the till…      │
+│ ─────────────────────────────│
+│ ⇄ You decide on swaps        │
+│ …                            │
+└──────────────────────────────┘
+
+768  photo 16:9 above the list; list grid-cols-2 gap-x-8 (rules on each item top)
+
+1024 / 1440   grid-cols-12 gap-8 lg / gap-12 xl, items-start
+┌────────────────────────┬──────────────────────────────────────┐
+│ col 1–5                │ col 7–12                             │
+│ ┌────────────────────┐ │ No barrel. No cash. You choose what  │
+│ │                    │ │ arrives.                             │
+│ │  photo 4:5         │ │ A barrel means packing…              │
+│ │  rounded-xl        │ │ ──────────────────────────────────── │
+│ │  sticky top-24     │ │ 🧾 Proof on every order              │
+│ │                    │ │ ──────────────────────────────────── │
+│ └────────────────────┘ │ ⇄ You decide on swaps                │
+│                        │ … (4 rows)                           │
+└────────────────────────┴──────────────────────────────────────┘
+```
+
+On lg+ the photo column is `lg:sticky lg:top-[calc(var(--header-height)+2rem)]` so it stays
+beside the list (pure CSS; no motion token involved). Title block sits in the right column on
+lg+, above the photo on phones.
+
+Rows: `border-t border-line py-6`; `h3` `text-h3 text-ink flex items-center gap-3`, icon
+`size-icon text-crimson`; body `mt-2 text-body text-ink-body max-w-prose`.
+Photo `sizes`: `"(min-width: 1024px) 460px, 100vw"`.
+
+#### States / motion
+
+Static. No hover. No motion.
+
+#### Components
+
+`HomeWhy` (`src/components/pages/home/why.tsx`, server; prop `bankTransfer: boolean`).
+
+#### Accessibility
+
+`<ul>` of promises; icons `aria-hidden`.
+
+#### Photo
+
+P7 `whyFamily`: crop 4:5 desktop/phone, 16:9 tablet; `object-position: 45% 40%` (both faces).
+
+---
+
+### 4.7 S7 Delivering in St. Thomas and Kingston (coverage)
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **Delivering in {parishList}** |
+| Lead | Same-day delivery when you order before the cut-off. More parishes are coming. |
+| Zone card `h3` | `{zone.parish}` |
+| Zone rows (`<dl>`) | Delivery fee — `formatUsd(feeCents)` · Same-day cut-off — `formatClockTime(cutoffTime)` Jamaica time · Minimum order — `formatUsd(minOrderCents)` |
+| Speed pill (top of card body) | `same_day` → "Same day" · `next_day` → "Next day" · `scheduled` → "Scheduled" |
+| Under the cards | `CutoffNote tone="light" cutoff={earliestCutoff}` |
+| Links | Delivery areas and fees → `/delivery` · Family somewhere else in Jamaica? Tell us where → `/contact` |
+
+#### Data
+
+`getActiveZones()`; photo by a new map `zonePhotos` in `src/lib/stock-photos.ts`:
+`{ 'Kingston': 'jmKingstonHills', 'St. Thomas': 'homeStThomasRoad' }` (keyed by parish
+name). No entry → `bg-crimson` 16:9 block with `MapPin` `size-12 text-blush`.
+
+#### Layout
+
+```
+375 stacked gap-6                    768+ grid-cols-2 gap-6 (1 zone: max-w-xl)
+┌──────────────────────────┐        ┌───────────────┐┌───────────────┐
+│ photo 16:9               │        │ photo 16:9    ││ photo 16:9    │
+├──────────────────────────┤        ├───────────────┤├───────────────┤
+│ (Same day)               │        │ St. Thomas    ││ Kingston      │
+│ St. Thomas          h3   │        │ fee      $8   ││ fee     $10   │
+│ Delivery fee   USD$8     │        │ cut-off 1:00PM││ …             │
+│ Same-day cut-off 1:00 PM │        │ minimum  $25  ││               │
+│ Minimum order  USD$25    │        └───────────────┘└───────────────┘
+└──────────────────────────┘        ⏱ Order by 1:00 PM Jamaica time… (CutoffNote)
+                                     Delivery areas and fees   Family somewhere else…
+1024/1440: same 2 columns inside max-w-page; 3+ zones → lg:grid-cols-3
+```
+
+Section `section bg-surface`. Card `rounded-xl border border-line bg-page overflow-hidden`
+(page-coloured card on a surface band, flat). Body `p-card`. `<dl>` rows `flex
+justify-between gap-4 py-2 border-b border-line last:border-0`; `dt` `text-small
+text-ink-muted`; `dd` `text-body font-semibold text-ink tabular-nums`. Pill `inline-flex
+rounded-full bg-ok-tint text-ok text-xs font-bold px-2 py-0.5` with `Zap` `size-icon-sm`
+for same day; `bg-surface-muted text-ink-muted` for others.
+Photo `sizes="(min-width: 768px) 560px, 100vw"`.
+
+#### States
+
+| State | Treatment |
+|---|---|
+| No active zones | replace cards with an `EmptyState`-style block: `MapPin`, "We're not taking orders right now", "Leave your email on the contact page and we'll tell you when we deliver to your family's parish." + link "Contact us". Title becomes "Delivering in Jamaica". |
+| Zone without photo | crimson block |
+| Hover | none (cards are not links) |
+
+#### Components
+
+`HomeCoverage` (`src/components/pages/home/coverage.tsx`, server; props `zones`,
+`earliestCutoff`). Reuse `CutoffNote`, `StockPhoto`.
+
+#### Accessibility
+
+Each zone is an `<article aria-labelledby>`; the `<dl>` reads "Delivery fee, USD$8".
+Status pill text is visible (not colour only).
+
+#### Photos
+
+P8 `jmKingstonHills` (Kingston), P9 `homeStThomasRoad` (new key for the existing photo
+`companyCountryRoad` — reuse the same entry; just map `zonePhotos['St. Thomas'] =
+'companyCountryRoad'`; no new registry entry needed).
+
+---
+
+### 4.8 S8 Questions senders ask first
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **Questions senders ask first** |
+| Lead | Can't find yours? Read every answer, or write to us. |
+| Links (left column, stacked) | All questions and answers → `/faq` · Email `info@shipeastja.com` (mailto, from `settings.email`) · WhatsApp us (only if `settings.whatsapp`) |
+| Items | `faqItems` (5): question = summary, answer = body |
+
+#### Layout
+
+```
+375 / 768                         1024 / 1440   grid-cols-12 gap-8
+┌──────────────────────────┐      ┌──────────────┬─────────────────────────────┐
+│ Questions senders ask    │      │ col 1–4      │ col 5–12                    │
+│ first                    │      │ Questions    │ ┌─────────────────────────┐ │
+│ Can't find yours?…       │      │ senders ask  │ │ Does anything get       │ │
+│ All questions and answers│      │ first        │ │ shipped from overseas? +│ │
+│ info@shipeastja.com      │      │ Can't find…  │ ├─────────────────────────┤ │
+│ ┌──────────────────────┐ │      │ All questions│ │ How will I know it…   + │ │
+│ │ Does anything get… + │ │      │ info@…       │ │ …                       │ │
+│ ├──────────────────────┤ │      │ (sticky)     │ └─────────────────────────┘ │
+│ │ …                    │ │      └──────────────┴─────────────────────────────┘
+└──────────────────────────┘
+```
+
+Section `section bg-page`, `max-w-page gutter`. Left column `lg:sticky
+lg:top-[calc(var(--header-height)+2rem)]`. Links `flex flex-col gap-1 mt-6`, each
+`min-h-control inline-flex items-center gap-2 text-crimson font-semibold hover:underline`
+(`Mail`, `MessageCircle` icons `size-icon`). Accordion `mt-8 lg:mt-0`.
+
+#### States
+
+| State | Treatment |
+|---|---|
+| Summary hover | `bg-surface-muted` (add to existing `Accordion` summary: `transition-colors duration-150 hover:bg-surface-muted`) |
+| Open | `Plus` rotated 45°; answer `text-body text-ink-body` (change existing `text-ink-muted` → `text-ink-body` for reading contrast) |
+| Focus | signal ring on summary |
+| < 3 FAQs | hide S8 |
+| No WhatsApp | hide that link |
+
+#### Components
+
+`HomeQuestions` (`src/components/pages/home/questions.tsx`, server). Reuse `Accordion`
+(native `<details>`, no JS). Each `<details>` gets `id="faq-{id}"` + `scroll-mt-header`.
+
+#### Accessibility
+
+`<details>/<summary>` gives expand/collapse semantics natively. Questions are in reading
+order; no heading inside summary (summary text is the question).
+
+---
+
+### 4.9 S9 Start a basket for home (closing panel)
+
+#### Copy
+
+| | |
+|---|---|
+| `h2` | **Start a basket for home** |
+| Line | Same-day delivery in {parishList} when you order by {cutoff} Jamaica time. |
+| Primary | **Start shopping** → `/shop` |
+| Secondary | Track an order → `/track` |
+
+#### Layout
+
+```
+375                                   1024 / 1440
+┌──────────────────────────────┐      ┌────────────────────────────────────────────────┐
+│ page band                    │      │ ┌────────────────────────────────────────────┐ │
+│ ┌──────────────────────────┐ │      │ │ Start a basket for home     [Start shopping]│ │
+│ │ crimson rounded-2xl      │ │      │ │ Same-day delivery in …      Track an order  │ │
+│ │ Start a basket for home  │ │      │ └────────────────────────────────────────────┘ │
+│ │ Same-day delivery in…    │ │      └────────────────────────────────────────────────┘
+│ │ [ Start shopping       ] │ │
+│ │   Track an order         │ │
+│ └──────────────────────────┘ │
+└──────────────────────────────┘
+```
+
+Section `section bg-page`, `max-w-page gutter`. Panel `rounded-2xl bg-crimson p-card-lg
+md:p-12 lg:px-16 lg:py-14 text-on-dark on-dark-focus`; inside `flex flex-col gap-6
+lg:flex-row lg:items-center lg:justify-between`. Text left-aligned. Buttons column `flex
+flex-col gap-2 sm:flex-row sm:items-center sm:gap-6`. Primary `ButtonLink variant="onDark"
+size="lg"` (block on phones). Secondary link styled like the hero's.
+
+#### States
+
+Buttons: existing onDark hover/press; blush focus. No zones → line reads "Delivery in
+Jamaica, with a photo of the receipt and a photo at the door."
+
+#### Components
+
+Reuse `CtaBand` only if its markup matches this panel; otherwise new `HomeClosing`
+(`src/components/pages/home/closing.tsx`, server). Do **not** make it a full-bleed band: it
+would touch the oxblood footer.
+
+#### Accessibility
+
+`<section aria-labelledby="closing-title">`.
+
+---
+
+### 4.F Footer (shared, all `(site)` pages)
+
+Replaces `src/components/site/site-footer.tsx`. Props change from `{ whatsapp }` to
+`{ settings: SiteSettings, categories: {slug,name}[] }` (layout passes them; both are cached).
+
+#### Copy and data
+
+| Block | Content |
+|---|---|
+| Brand | `<Wordmark onDark />` (scale: wrap in `text-[1.25em]`? No — keep the logo as is.) Then: "Groceries and everyday essentials, bought in Jamaica and delivered to your family's door in {parishList}." |
+| Contact | `Mail` + `settings.email` (mailto) · `Phone` + `formatJamaicanPhone(settings.phone)` (tel:, only if set) · `ButtonLink` "WhatsApp us" (`MessageCircle`, only if `settings.whatsapp`; `variant="onDark" size="sm"`) |
+| Column "Shop" | All departments `/shop`; one link per category `/shop/{slug}`; Ready-made baskets `/baskets`; Gifts and occasions `/gifts`; Monthly orders `/monthly` |
+| Column "Help" | How it works `/how-it-works`; Delivery areas and fees `/delivery`; Track an order `/track`; Questions and answers `/faq`; Contact us `/contact`; Your account `/account` |
+| Column "Company" | About ShipEast `/about`; Terms of service `/legal/terms`; Privacy `/legal/privacy`; Refunds and cancellations `/legal/refunds`; Substitutions `/legal/substitutions`; Delivery policy `/legal/delivery`; Cookies `/legal/cookies`; Photo credits `/photo-credits` |
+| Payments line | "Prices in US dollars. Pay with PayPal or a debit or credit card through PayPal{, or by bank transfer}." (bank clause only if `settings.bankTransfer.bankName`) — text only, no payment logos |
+| Legal line | `JamaicaFlag` (`w-6`, decorative) + "© {year} ShipEast Couriers & Bearer Service Ltd. St. Thomas, Jamaica." + TRN ("TRN 000-000-000") **only** once a `trn` setting exists — hidden today |
+
+`{year}`: `CopyrightYear` server component with `'use cache'` + `cacheLife('days')` returning
+the Jamaica-time year (Cache Components forbids an uncached `new Date()` here).
+
+#### Layout
+
+```
+375
+┌──────────────────────────────┐ oxblood, pt-16 pb-8
+│ ShipEast                     │
+│ Shop & Send                  │
+│ Groceries and everyday…      │ text-small on-oxblood-muted, max-w-sm
+│ ✉ info@shipeastja.com        │ min-h-control rows
+│ [ WhatsApp us ]  (if set)    │
+│ ──────────────────────────── │ line-on-dark
+│ Shop            Help         │ grid-cols-2 gap-x-6 gap-y-10
+│ All departments How it works │
+│ Groceries       Delivery…    │
+│ …               …            │
+│ Company (spans 2)            │
+│ About ShipEast  Terms …      │ grid-cols-2 inside
+│ ──────────────────────────── │
+│ Prices in US dollars. Pay…   │ text-small on-oxblood-muted
+│ ▣ © 2026 ShipEast Couriers & │ text-small
+│   Bearer Service Ltd. St.…   │
+└──────────────────────────────┘
+
+768   brand block full width; columns grid-cols-3
+1024 / 1440   max-w-wide, grid-cols-12 gap-8
+┌────────────────────────────────────────────────────────────────────────────┐
+│ col 1–4 brand + contact │ col 6–7 Shop │ col 8–9 Help │ col 10–12 Company   │
+├────────────────────────────────────────────────────────────────────────────┤ line-on-dark
+│ Prices in US dollars. Pay with…              ▣ © 2026 ShipEast Couriers & … │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+| Element | Classes |
+|---|---|
+| `<footer>` | `bg-oxblood text-on-dark on-dark-focus print:hidden` |
+| Container | `mx-auto max-w-wide gutter pt-16 pb-8 lg:pt-20` |
+| Column title | `h2` `text-small font-bold text-on-dark` (sentence case, no eyebrow styling) |
+| Links | `text-small text-on-oxblood-muted hover:text-on-dark hover:underline underline-offset-4 transition-colors duration-150`; each `li > a` `inline-flex min-h-control items-center lg:min-h-9` (36px on fine pointers still ≥ 24px WCAG 2.5.8; 44px on touch) |
+| Dividers | `border-t border-line-on-dark` with `mt-12 pt-8` |
+| Bottom row | `flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between text-small text-on-oxblood-muted` |
+
+#### States
+
+| State | Treatment |
+|---|---|
+| Link hover | colour to `on-dark` + underline, 150ms |
+| Focus | blush ring |
+| No phone / WhatsApp | hide those rows |
+| No categories | Shop column shows only the fixed links |
+| Monthly flag off | keep the `/monthly` link (that page explains one-tap reorder when the add-on is off) |
+
+#### Accessibility
+
+`<footer>` landmark; each column is `<nav aria-label="Shop" | "Help" | "Company">` with an
+`h2` (footer headings are `h2` so the outline stays valid after the page's last `h2`).
+Email/phone/WhatsApp links have visible text.
+
+---
+
+## 5. Header scroll, mobile menu, inner pages
+
+### 5.1 Sticky and scroll
+
+| | |
+|---|---|
+| What sticks | only the bar (`sticky top-0 z-header`). The phone search row, the demo bar and the cookie banner do not. |
+| At rest (top) | `bg-crimson`, `border-transparent`, no shadow — merges into the crimson hero on `/` |
+| Scrolled > 8px | `border-crimson-deep shadow-lift`, transition 450ms `ease-out-soft` (`HeaderShell`) |
+| Hide on scroll down? | **No.** The basket must stay one tap away; the bar is only 64/72px. |
+| Anchor offset | `scroll-mt-header` on every `id` target |
+| Print | `print:hidden` (existing) |
+
+### 5.2 Mobile menu (< lg)
+
+| Aspect | Spec |
+|---|---|
+| Element | `<dialog class="m-0 ml-auto h-dvh max-h-dvh w-[min(22.5rem,calc(100vw-3rem))] bg-surface text-ink shadow-overlay backdrop:bg-scrim">` opened with `showModal()` (gives focus trap, `Esc`, inert page) |
+| Open motion | `translateX(100%) → 0`, 450ms `ease-out-soft` via `[&[open]]:animate-…` or `@starting-style`; close 250ms; reduced motion: instant |
+| Scroll lock | `document.documentElement.style.overflow = 'hidden'` while open; restore on close |
+| Header row | `<Wordmark />` (light) + close `IconButton` label "Close menu" (`X`); `h-16 px-4 border-b border-line` |
+| Body (`overflow-y-auto p-4`) | 1. `SearchBox id="menu-q"` · 2. `h2` "Shop by department" (`text-small font-bold text-ink-muted`) + list: `CategoryIcon` + name + count (`text-small text-ink-muted tabular-nums`, right) · 3. `h2` "More" + Ready-made baskets, Gifts and occasions, Monthly orders, How it works, Delivery areas and fees, Track an order, Questions and answers · 4. bottom block `border-t border-line pt-4`: Your account; email; WhatsApp (if set) |
+| Rows | `flex min-h-12 items-center gap-3 rounded-md px-3 font-semibold text-ink hover:bg-surface-muted`; current page `bg-surface-selected text-crimson-deep` + `aria-current="page"` |
+| Focus | first focus = close button; on close focus returns to the menu button; menu closes on route change (`usePathname` effect) and on backdrop click |
+| Trigger | `aria-haspopup="dialog"`, `aria-expanded` mirrors state, `aria-controls="site-menu"` |
+| No JS | the trigger does nothing; every destination is still in the footer and the phone search row is visible. Acceptable. |
+
+### 5.3 Inner pages
+
+| Page type | Header | Footer |
+|---|---|---|
+| Marketing / shop / legal | Same bar. Under it the page's own `PageIntro` on `page` (not crimson), so the bar's scrolled border and shadow separate it. | Same |
+| `/search` | Phone search row hidden (`HeaderSearchRow`); page has its own box | Same |
+| `/basket`, `/checkout/*` | Phone search row hidden. Nav stays (lets people continue shopping). | Same |
+| `/track`, `/order/*` | Same | Same |
+| `/driver`, `/admin` | Not affected (own layouts) | Not affected |
+
+Current-page state: `NavLink` sets `aria-current="page"` for `/shop*`, `/baskets*`,
+`/how-it-works`, `/track*` (prefix match except `/`).
+
+---
+
+## 6. Performance and rendering
+
+| Topic | Decision |
+|---|---|
+| LCP element | Desktop: the hero photo (`familyPhone`). Phone: the `h1` text (photo sits below the fold at 375×667). |
+| Hero photo loading | `StockPhoto preload` → `next/image` `preload` (only image on the site with it). `sizes="(min-width: 1280px) 600px, (min-width: 1024px) 46vw, 100vw"`. Not animated (no opacity start). |
+| Other images | default lazy; every one has a real `sizes` (listed per section) and a fixed aspect box (no CLS). Unsplash loader serves AVIF/WebP at the requested width. |
+| Font | Figtree via `next/font` (existing, `display: swap`). |
+| Hero text | Static, server-rendered, not animated, so LCP is not held by `animate-rise`. |
+| Cache Components | All page data comes from `'use cache'` loaders → the page body is prerendered. Runtime reads are isolated: `BasketLink` (cookie) in `<Suspense>` with `BasketLinkFallback`; the countdown is client-only after mount; `CopyrightYear` is `'use cache'` + `cacheLife('days')`. No `searchParams`, `cookies()` or `headers()` in `page.tsx`. |
+| Revalidation | Existing cache tags (`settings`, `zones`, `catalogue`, `faqs`) refresh the page when admin edits fees, cut-offs, baskets or FAQs. |
+| Client components (and why) | `HeaderShell` (scroll listener) · `NavLink` (`usePathname` for `aria-current`) · `HeaderSearchRow` (`usePathname` to hide on 3 routes) · `MobileMenu` (dialog open/close, focus return) · `CutoffCountdown` (visitor's clock, ticks each minute) · `AddToBasket` (existing; form action state) · `CookieBanner` (existing). Everything else is a server component. |
+| JS removed | No `motion` components used on `/` (no `Reveal`/`Stagger`/`Parallax`), so `MotionProvider`'s lazy features are never requested by this page. |
+| Budget | Lighthouse mobile: LCP < 2.5s, CLS < 0.05, TBT < 200ms on the Vercel preview. |
+
+---
+
+## 7. Photo register
+
+All free Unsplash License (none are Unsplash+; `premium: false` in the API). URLs checked
+with `curl ?w=200` → `200` on November 6, 2026. Hotlink `images.unsplash.com`; the existing
+loader adds `?w=&auto=format`. **New entries must be registered as a download through the
+Unsplash API (`/photos/:id/download`) before going live, as `docs/PHOTOGRAPHY.md` asks.**
+
+| # | Slot | Registry key | Unsplash id | URL (no query) | W × H | Photographer (username) | Alt text | Crop / position |
+|---|---|---|---|---|---|---|---|---|
+| P1 | S1 hero | `familyPhone` (existing, `core.ts`) | `FVd0tfV6NDk` | `https://images.unsplash.com/photo-1702648156997-eaa417d98b9e` | 5591 × 3721 | Centre for Ageing Better (`ageing_better`) | An older woman smiling on the phone at home | 4:3 / 16:9 / 4:5; **add** `position: '40% 35%'` |
+| P2 | S2 step 1 | `homeSenderPhone` (existing, `home.ts`) | `o-iM0avkgNo` | `https://images.unsplash.com/photo-1610473068893-7a63129207d2` | 3936 × 2624 | Brandy Kennedy (`thebrandyk`) | A woman holding her phone beside an open laptop | 1:1 thumb / 4:3; `center` |
+| P3 | S2 step 2 | `stepShop` (existing, `core.ts`) | `mybgdVT2vkw` | `https://images.unsplash.com/photo-1739300293398-468ba82fd418` | 3080 × 2053 | Ninthgrid (`ninthgrid_`) | A shopper pushing a trolley down a supermarket aisle | 1:1 / 4:3; `55% center` (shopper) |
+| P4 | S2 step 3 | `shopCheckout` (existing, `shop.ts`) | `m1c3tRvDjbo` | `https://images.unsplash.com/photo-1774978613949-c29cbfe9f862` | 4000 × 6000 | Adhitya Sibikumar (`adhitya_2505`) | A cashier weighing groceries at a supermarket checkout | 1:1 / 4:3 from portrait; `center 60%` |
+| P5 | S2 step 4 | **`homeStepToDoor` (new, add to `home.ts`)** | `czTuLlcSAus` | `https://images.unsplash.com/photo-1643960988237-a9c07e084aed` | 6240 × 4160 | Mathias Reding (`matreding`) | A man carrying a paper bag of shopping up the steps to a front door | 1:1 / 4:3; `60% center` (bag and hand) |
+| P6 | S3 tiles | `categoryPhotos` map: `pantry`, `catHousehold`, `catPharmacy`, `catBaby` (existing) | `yLor6GEU2yw`, `DJcVOQUZxF0`, `HTttz00wkzU`, `QCVrp1uxCXs` | see `core.ts` | — | see registry | `alt=""` (decorative; tile text names it) | 1:1 / 4:5; existing positions |
+| P6b | S4 cards | `basketPhotos` map: `basketFood`, `basketBaby`, `basketChristmas` (+ `basketPharmacy`) (existing) | `-9TeWHMASzs`, `Jqhwp4mcuUM`, `SrnCpsp9sGY`, `FDvArkoGyvI` | see `core.ts` | — | see registry | registry alt | 16:9; `basketBaby` keeps `center 40%`; `basketChristmas` add `center 55%` |
+| P7 | S6 | `whyFamily` (existing, `core.ts`) | `khLLtGplL8I` | `https://images.unsplash.com/photo-1640117743090-93ce4f4450dd` | 6000 × 4000 | Imani Manyara (`imanimanyara`) | A grandmother congratulating her granddaughter | 4:5 / 16:9; `45% 40%` |
+| P8 | S7 Kingston | `jmKingstonHills` (existing, `jamaica.ts`) | `0uBGE5y9RZ8` | `https://images.unsplash.com/photo-1584238556966-2c407cc4fd56` | 6000 × 4000 | andrzj brown (`andrzjbrown`) | Kingston from above, with the hills behind the city | 16:9; `center 60%` |
+| P9 | S7 St. Thomas | `companyCountryRoad` (existing, `company.ts`) via new `zonePhotos` map | `cqE9f81PSY8` | `https://images.unsplash.com/photo-1780332534975-6318b3d734d7` | 5194 × 3456 | Kern Morris (`kernsway`) | A two-lane country road in Jamaica, lined with palms and trees | 16:9; `center` |
+
+**Backups (1–2 per slot)**
+
+| Slot | Backup 1 | Backup 2 |
+|---|---|---|
+| P1 hero | `whyFamily` `khLLtGplL8I` | `contactPhone` `aWY55S07SZg` (Vitaly Gariev, `silverkblack`; "A woman smiling on a phone call at home") |
+| P2 | `stepOrder` `Gzk7Pf9uSJg` | `homeSenderPhone` stays if `stepOrder` used elsewhere |
+| P3 | `guideProduce` `pbtBb5Y1C_Y` | `shopProduce` `pGOkewTZy78` |
+| P4 | `shopReceipt` `recgFWxDO1Y` (weak: a work slip, not a till receipt) | — |
+| P5 | **new** `Rmb8xyYHr68` — `https://images.unsplash.com/photo-1734416561439-ca0f663344f9`, 2252 × 4000, Nico Smit (`nicosmit99`), "A man walking along a pavement carrying two bags of shopping", 1:1/4:3 `center 45%` | `stepDoor` `Kd27X69pYyo` |
+| P7 | `companyFamilyMeal` `gorbBYbo6KM` | `jmAckee` `W4vDQETfroY` (only if the copy turns to food) |
+| P8 | `kingston` `xoGK4R6bp4I` | `kingstonStreet` `9R-WAl5UGWI` |
+| P9 | `companyCoast` `lzecv_xfTgo` | **new** `VJ6dY5R6b5E` — `https://images.unsplash.com/photo-1691955448236-e62d76e2753f`, 3024 × 4032, Shanika Willis (`shanika4241`), "A papaya tree against a blue sky in Jamaica", 16:9 `center 30%` |
+
+Considered and rejected: `xBUDLmcyrVQ` (courier company logo on jacket), `eOUYC6UNl2k`
+(Colombian doorway, reads Moroccan), `stepDoor`/`homeDoorWelcome` as first choice (not
+Caribbean), any receipt close-up (none found that is a real till receipt without a store name;
+the drawn receipt is more honest).
+
+New registry entries to add (`src/lib/photos/home.ts`): `homeStepToDoor` (P5) — `usedOn:
+'Home: how it works, step 4'`. Backups are not added unless used.
+
+---
+
+## 8. Self-review
+
+### 8.1 First pass vs revised
+
+| First pass (what I drew first) | Why it read as generic / wrong | Revised |
+|---|---|---|
+| Oxblood announcement strip above a crimson header ("Same-day in St. Thomas and Kingston") | Template chrome; three red bars stacked at the top; repeats the hero line | **Removed.** Coverage lives in the hero lead and the cut-off line. One accessory fewer. |
+| Hero: proof pair (receipt card + door-photo card) fanned on crimson | The fanned two-card collage is the existing, card-kit look; two objects split attention | **One object:** the printed receipt over a single warm human photo. The door photo is explained in S5 in words. |
+| Big `text-numeral` signal "01 02 03 04" over the steps | 01/02/03 chrome; two loud elements on one page | Small 32px crimson step dots. Numbers kept only because the steps really are a sequence. |
+| Eyebrow above every `h2` ("How it works", "Shop", "Why us"…) | Labels that repeat the title | **No eyebrows on the page.** |
+| `<Reveal>` fade-up on every section, `Parallax` on the coverage photo | The commonest AI tell; also costs JS | **No scroll motion at all.** One CSS moment: the receipt prints. |
+| "Why ShipEast" as four identical cards with icon discs | SaaS card kit | Ruled list (top borders), inline icons, one tall human photo. |
+| Full-bleed crimson CTA band directly above the oxblood footer | Two red bands touching (breaks DESIGN-SYSTEM) | Contained crimson panel inside a page band. |
+| "→" after every text link; "A · B · C" meta lines | Template chrome | Plain underlined text links; no middle dots anywhere in the UI. |
+| Headline "Send groceries, not money" | Says what we're not; "send" implies shipping | "Groceries for home. Proof for you." — what you get, in five words. |
+| A testimonial strip "What senders say" | We have none; would be invented | Not built. |
+| Coverage before "why" | Ends the story on logistics before the reason to choose us | Why (S6) before where (S7). |
+
+The boldness is spent in one place: the receipt. Every other section is neutral, flat and
+typographic.
+
+### 8.2 Against ui-ux-pro-max pre-delivery checklist
+
+| Check | Status in this plan |
+|---|---|
+| No emoji icons; one icon set | lucide-react only; icon names listed per section |
+| `cursor-pointer` on clickables | links/buttons/summary (Tailwind v4 preflight leaves buttons `default` — add `cursor-pointer` to `summary` and icon buttons) |
+| Hover transitions 150–300ms | 150 (colour), 250 (lift); photo zoom 700 by system choice |
+| Text contrast ≥ 4.5:1 | only allowed pairs from TOKENS.md used; `ok` on `ok-tint` for the pill |
+| Focus visible everywhere | signal on light, **blush on crimson/oxblood** (new `on-dark-focus`) |
+| `prefers-reduced-motion` | global rule + receipt shows final state + menu instant |
+| Responsive 375/768/1024/1440 | wireframes per section; no horizontal scroll (receipt offsets stay inside the gutter) |
+| Touch targets ≥ 44px, ≥ 8px apart | `h-control` / `size-control` on all controls; footer links 44px on touch |
+| Images reserve space | every image in an aspect box |
+| Lazy below fold, preload LCP only | yes |
+| One primary CTA per view | hero and closing panel only (different views) |
+| Headings sequential | h1 (S1) → h2 per section → h3 inside; footer column titles h2 |
+| Skip link, landmarks | existing skip link; header/nav/main/footer; sections `aria-labelledby` |
+| Focus not obscured by sticky header | `scroll-mt-header` |
+
+### 8.3 Risks
+
+| Risk | Mitigation |
+|---|---|
+| The receipt overlapping the photo edge could be read as "something on top of a photo" (PHOTOGRAPHY.md: no overlays) | It covers ≤ 15% of the photo, at an edge, never the face, and is an object, not text on the image. If the manager rules it out: move the receipt fully onto the crimson (desktop `-left-28`, photo `ml-auto w-[85%]`), and on phones place it above the photo with no overlap. |
+| A drawn "example receipt" could look like a fake real receipt | Always labelled "Example receipt"; lines come from the real catalogue at the live rate; no store name, no date, no fake time on it. |
+| SMS bubbles show copy that may not match the real templates | Labelled "Examples"; §10 asks for the template wording; update when Twilio templates land. |
+| Same-day promise near cut-off / Sundays | Countdown copy after cut-off says "next delivery day", not "tomorrow"; awaiting Derion's delivery days (§10). |
+| `familyPhone` is from a UK charity's library (not Jamaica) | Alt text doesn't claim Jamaica; the copy beside it doesn't either. Replace with a ShipEast photo of a real customer (with consent) when available. |
+| Featured baskets change in admin (count, occasion) | Grid rules cover 2/3/4 cards; lead is built from occasions. |
+| `clip-path` animation is not transform/opacity | Small element, runs once, 700ms; acceptable. Fallback: replace with `translateY` + opacity if Lighthouse flags it. |
+| `HeaderSearchRow` hides on routes via `usePathname` → tiny client boundary in the header | Server `SearchBox` is passed as `children`, so the client part is only the wrapper. |
+
+---
+
+## 9. Acceptance checklist
+
+Verify at **375, 768, 1024, 1440** in light mode, with Playwright screenshots, plus
+`npm run typecheck && npm run lint && npm test && npm run build`.
+
+### Global
+
+- [ ] Only role colour classes; `design-tokens.test.ts` passes; no gradient, raw hex, `tracking-*`, hand-set font size, text < 12px.
+- [ ] Figtree only; type classes exactly as in §2.3; no eyebrows on `/`.
+- [ ] No horizontal scroll at any width (check 375 with the receipt offset).
+- [ ] Every interactive element ≥ 44×44 on touch; focus ring visible on every one (signal on light, blush on crimson/oxblood).
+- [ ] `prefers-reduced-motion: reduce` → receipt appears in place, menu opens instantly, nothing else moves.
+- [ ] One `h1`; `h2` per section in order; landmarks: header, nav (Main), main, footer.
+- [ ] All money via `formatUsd`/`formatJmd`; times via `formatClockTime`; phone via `formatJamaicanPhone`; company name exactly "ShipEast Couriers & Bearer Service Ltd".
+- [ ] No invented numbers, testimonials, ratings, logos; no "PriceSmart" on `/`; no emoji; no `→` in link text; no middle-dot strings.
+- [ ] Lighthouse mobile on the preview: LCP < 2.5s, CLS < 0.05, a11y 100.
+
+### Header
+
+- [ ] 375: bar 64px (wordmark, account, basket, menu); search row below scrolls away; bar stays.
+- [ ] 768: bar 72px with inline search; no second row.
+- [ ] 1024: nav Shop / Baskets / How it works; search icon; no menu button.
+- [ ] 1440: nav includes Track an order; inline search.
+- [ ] At top of `/` the bar and hero read as one crimson block; after 8px scroll the bar gains the deep border and lift shadow.
+- [ ] `aria-current` on the current nav item (check `/shop`, `/baskets`).
+- [ ] Mobile menu: opens as a right sheet, focus on Close, `Esc` and backdrop close it, focus returns to the trigger, page does not scroll behind it, closes on navigation.
+- [ ] Basket count streams without layout shift.
+
+### S1 Hero
+
+- [ ] Headline "Groceries for home. Proof for you." in `text-display`, on-dark; lead lists live parishes.
+- [ ] Start shopping (onDark, lg) → `/shop`; See ready-made baskets → `/baskets`.
+- [ ] Cut-off shows the earliest active zone's cut-off; after mount, the local time and countdown appear without layout shift; hidden with no zones.
+- [ ] Receipt: "Example receipt" pill, basket name, ≤ 7 real lines in J$ at the live rate, total = sum; rotated -3°; prints once on load.
+- [ ] Photo is `familyPhone`, preloaded, correct crop per breakpoint, face not covered by the receipt.
+
+### S2–S9
+
+- [ ] S2: four steps in an `<ol>`; rows with 96px thumbs at 375; 2×2 at 768; 4 across at 1024+.
+- [ ] S3: tiles from `getCategories()` with real counts; photo zoom on hover only; 2×2 at 375, 4 across at 768+.
+- [ ] S4: featured baskets; saving tag only when real; card hover lift; Add to basket works and shows its added state; no orphan half-row at 768.
+- [ ] S5: oxblood band; email sequence with connector; SMS panel labelled as examples.
+- [ ] S6: ruled promise list; photo sticky beside it at 1024+; bank-transfer wording only when configured.
+- [ ] S7: one card per active zone with fee, cut-off and minimum from data; empty state when no zones.
+- [ ] S8: 5 FAQs in native `<details>`; email link uses `settings.email`; WhatsApp link only if set.
+- [ ] S9: contained crimson panel, not touching the footer.
+
+### Footer
+
+- [ ] Oxblood; brand + contact; Shop / Help / Company columns; payments line; flag + © year + company name; no TRN until configured.
+- [ ] 375: two-column link grid, Company spans; 1440: 12-column layout as drawn.
+- [ ] Same header and footer on `/shop`, `/how-it-works`, `/faq`, `/basket` (phone search row hidden on `/basket`, `/checkout`, `/search`).
+
+---
+
+## 10. Open questions
+
+1. **SMS wording.** What exactly do the two Twilio texts say (sender name, delivery time)? S5 shows labelled examples until then.
+2. **Delivery days.** Does ShipEast deliver on Sundays and public holidays? Affects the after-cut-off line ("next delivery day").
+3. **Hero photo.** Can Derion supply a real photo (with consent) of a customer's family at home or at the door? It would replace `familyPhone` and strengthen the "real" feel more than any stock.
+4. **TRN and registered address** for the footer legal line (hidden until provided).
+5. **Receipt overlap.** Manager to confirm the receipt may overlap the hero photo's edge (risk in §8.3), or choose the no-overlap fallback.
+6. **Store name on the example receipt.** Kept off deliberately. Confirm ShipEast doesn't want a store named there.
