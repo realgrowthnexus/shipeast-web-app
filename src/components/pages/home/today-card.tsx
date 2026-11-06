@@ -70,7 +70,7 @@ export function TodayCard({ cutoff, zones }: { cutoff: string; zones: Zone[] }) 
       </ol>
       <Link
         href="/track"
-        className="group mt-auto hidden min-h-11 items-center gap-1.5 pt-4 text-small font-semibold text-ink-body hover:text-crimson lg:inline-flex"
+        className="group mt-auto hidden min-h-control items-center gap-1.5 pt-4 text-small font-semibold text-ink-body hover:text-crimson lg:inline-flex"
       >
         Track an order
         <ArrowRight

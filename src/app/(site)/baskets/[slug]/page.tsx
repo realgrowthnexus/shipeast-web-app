@@ -137,13 +137,13 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
             </section>
           </div>
 
-          <aside className="flex flex-col gap-5 self-start rounded-xl bg-crimson p-card text-white lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <aside className="flex flex-col gap-5 self-start rounded-xl bg-crimson p-card text-on-dark lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <Price
               cents={basket.priceCents}
               jmdPerUsd={settings.jmdPerUsd}
               was={separateCents}
               size="lg"
-              className="[&_*]:text-white [&_s]:text-on-crimson-muted [&>span:last-child]:text-blush"
+              className="[&_*]:text-on-dark [&_s]:text-on-crimson-muted [&>span:last-child]:text-blush"
             />
             {saving > 0 && (
               <p className="text-small text-blush">
@@ -180,7 +180,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
                   Want this every month?{' '}
                   <Link
                     href="/monthly"
-                    className="font-semibold text-white underline underline-offset-2"
+                    className="font-semibold text-on-dark underline underline-offset-2"
                   >
                     Set up a monthly order
                   </Link>
@@ -209,7 +209,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
                         {formatUsd(basket.priceCents)}
                       </dd>
                     </div>
-                    <div className="flex flex-col gap-1 border-l border-line bg-surface-tint p-4">
+                    <div className="flex flex-col gap-1 border-l border-line bg-surface-muted p-4">
                       <dt className="text-small text-ink-muted">You save</dt>
                       <dd className="text-body font-extrabold text-crimson tabular-nums sm:text-lead">
                         {formatUsd(saving)}
@@ -250,7 +250,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
             action={
               <Link
                 href="/baskets"
-                className="inline-flex min-h-11 items-center font-semibold text-crimson underline-offset-4 hover:underline"
+                className="inline-flex min-h-control items-center font-semibold text-crimson underline-offset-4 hover:underline"
               >
                 All baskets
               </Link>

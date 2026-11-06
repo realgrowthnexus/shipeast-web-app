@@ -47,7 +47,7 @@ export function ProductCard({
       <div className="flex flex-col gap-2.5 px-0.5 xl:flex-row xl:items-end xl:justify-between">
         <Price cents={product.priceCents} jmdPerUsd={jmdPerUsd} size="sm" />
         {action && !outOfStock && (
-          <div className="relative z-10 [&_button]:w-full xl:[&_button]:w-auto">{action}</div>
+          <div className="relative z-raised [&_button]:w-full xl:[&_button]:w-auto">{action}</div>
         )}
       </div>
     </article>
@@ -98,7 +98,7 @@ export function BasketCard({
           </span>
         )}
       </div>
-      {action && <div className="relative z-10 px-5 pb-5 [&_button]:w-full">{action}</div>}
+      {action && <div className="relative z-raised px-5 pb-5 [&_button]:w-full">{action}</div>}
     </article>
   )
 }
@@ -122,7 +122,7 @@ export function CategoryTile({
   return (
     <Link
       href={href}
-      className="group flex hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-4 hover:border-blush"
+      className="group flex hover-lift items-center gap-4 rounded-lg border border-line bg-surface p-4 hover:border-line-hover"
     >
       {photo ? (
         <StockPhoto
@@ -132,7 +132,7 @@ export function CategoryTile({
           zoom
         />
       ) : (
-        <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-white [&_svg]:size-7">
+        <span className="grid size-14 shrink-0 place-items-center rounded-md bg-crimson text-on-dark [&_svg]:size-7">
           {icon}
         </span>
       )}

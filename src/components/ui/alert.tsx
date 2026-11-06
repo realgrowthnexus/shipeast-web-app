@@ -3,10 +3,10 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 const styles = {
-  info: { box: 'border-info/25 bg-info-tint text-info', Icon: Info },
-  ok: { box: 'border-ok/25 bg-ok-tint text-ok', Icon: CircleCheck },
-  warn: { box: 'border-warn/25 bg-warn-tint text-warn', Icon: TriangleAlert },
-  danger: { box: 'border-danger/25 bg-danger-tint text-danger', Icon: CircleAlert },
+  info: { box: 'border-info-line bg-info-tint text-info', Icon: Info },
+  ok: { box: 'border-ok-line bg-ok-tint text-ok', Icon: CircleCheck },
+  warn: { box: 'border-warn-line bg-warn-tint text-warn', Icon: TriangleAlert },
+  danger: { box: 'border-danger-line bg-danger-tint text-danger', Icon: CircleAlert },
 }
 
 export function Alert({

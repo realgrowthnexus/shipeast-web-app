@@ -60,7 +60,7 @@ export function StockImage({
   alt?: string
 }) {
   return (
-    <div className={cn('relative overflow-hidden rounded-lg bg-canvas', className)}>
+    <div className={cn('relative overflow-hidden rounded-lg bg-page', className)}>
       <Image
         loader={unsplashLoader}
         src={p.src}

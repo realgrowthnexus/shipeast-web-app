@@ -41,7 +41,7 @@ const columns = [
 export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string }) {
   const waDigits = whatsapp?.replace(/\D/g, '')
   return (
-    <footer className="border-t border-line bg-canvas text-ink print:hidden">
+    <footer className="border-t border-line bg-page text-ink print:hidden">
       <div className="mx-auto grid max-w-wide grid-cols-2 gap-x-6 gap-y-8 gutter section-sm md:grid-cols-[1.3fr_repeat(3,1fr)] md:gap-10">
         <div className="col-span-2 flex flex-col gap-4 md:col-span-1">
           <Wordmark />
@@ -56,7 +56,7 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
           {waDigits && (
             <a
               href={`https://wa.me/${waDigits}`}
-              className="inline-flex min-h-11 w-fit items-center gap-2 rounded-md border border-line-strong bg-surface px-4 font-semibold hover:border-crimson hover:text-crimson"
+              className="inline-flex min-h-control w-fit items-center gap-2 rounded-md border border-line-strong bg-surface px-4 font-semibold hover:border-crimson hover:text-crimson"
             >
               <MessageCircle className="size-5" aria-hidden />
               WhatsApp us
@@ -70,7 +70,7 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="inline-flex min-h-11 items-center text-small text-ink-body hover:text-crimson"
+                    className="inline-flex min-h-control items-center text-small text-ink-body hover:text-crimson"
                   >
                     {l.label}
                   </Link>
@@ -82,7 +82,7 @@ export function SiteFooter({ whatsapp, trn }: { whatsapp?: string; trn?: string 
           return col.title === 'Policies' ? (
             <nav key={col.title} aria-label={col.title} className="col-span-2 md:col-span-1">
               <details className="group md:hidden">
-                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-bold text-ink [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-control cursor-pointer list-none items-center justify-between font-bold text-ink [&::-webkit-details-marker]:hidden">
                   {col.title}
                   <ChevronDown
                     className="size-5 transition-transform group-open:rotate-180"

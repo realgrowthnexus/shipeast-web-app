@@ -28,7 +28,7 @@ export function BestBaskets({
       link={{ href: '/baskets', label: 'See all baskets', short: 'See all' }}
     >
       <div className="grid gap-4 lg:grid-cols-4 lg:gap-4">
-        <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-crimson p-6 text-white sm:p-8">
+        <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-crimson p-6 text-on-dark sm:p-8">
           <div>
             {bestSaving > 0 && <p className="text-h1 text-blush">Save up to {bestSaving}%</p>}
             <p className="mt-3 text-lead font-bold">A whole week of food in one tap.</p>
@@ -57,7 +57,7 @@ export function BestBaskets({
                     kind="basket"
                     id={basket.id}
                     name={basket.name}
-                    className="group-hover:bg-crimson group-hover:text-white"
+                    className="group-hover:bg-crimson group-hover:text-on-dark"
                   />
                 }
               />

@@ -45,7 +45,7 @@ async function Receipt({ params }: PageProps<'/account/orders/[orderRef]/receipt
       <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
         <Link
           href={`/account/orders/${order.orderNo}`}
-          className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-crimson underline-offset-2 hover:underline"
+          className="inline-flex min-h-control items-center gap-1.5 font-semibold text-crimson underline-offset-2 hover:underline"
         >
           <ArrowLeft className="size-4" aria-hidden />
           Back to order
@@ -71,7 +71,7 @@ async function Receipt({ params }: PageProps<'/account/orders/[orderRef]/receipt
         </header>
 
         {order.preview && (
-          <p className="rounded-md bg-surface-tint p-3 text-small text-ink">
+          <p className="rounded-md bg-surface-muted p-3 text-small text-ink">
             Sample receipt on the preview site. No payment was taken.
           </p>
         )}

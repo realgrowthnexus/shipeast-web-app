@@ -102,7 +102,7 @@ export default async function MonthlyPage() {
               href="/signup"
               variant="ghost"
               size="lg"
-              className="text-white hover:bg-crimson-700"
+              className="text-on-dark hover:bg-crimson-deep"
             >
               Create a free account
             </ButtonLink>

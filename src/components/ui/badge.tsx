@@ -4,9 +4,9 @@ import { ORDER_STATUS, type StatusTone } from '@/lib/order-status'
 import type { OrderStatus } from '@/lib/types'
 
 const tones: Record<StatusTone, string> = {
-  neutral: 'bg-surface-tint text-ink',
+  neutral: 'bg-surface-muted text-ink',
   info: 'bg-info-tint text-info',
-  progress: 'bg-blush text-crimson-deep',
+  progress: 'bg-surface-selected text-crimson-deep',
   ok: 'bg-ok-tint text-ok',
   warn: 'bg-warn-tint text-warn',
   danger: 'bg-danger-tint text-danger',

@@ -44,7 +44,7 @@ export function AddToBasket({
           size="sm"
           variant={added ? 'primary' : 'outline'}
           loading={pending}
-          className={cn('min-h-11', !added && className)}
+          className={cn('min-h-control', !added && className)}
         >
           {!pending && (added ? <Check aria-hidden /> : <Plus aria-hidden />)}
           {added ? 'Added' : 'Add'}

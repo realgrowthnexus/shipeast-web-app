@@ -53,10 +53,10 @@ export function ProofPair({
             />
           </div>
         ) : (
-          <div className="bg-surface px-3 pt-4 pb-6 text-[11px] leading-relaxed text-ink shadow-float receipt-edge sm:px-4 sm:text-xs">
-            <p className="text-center font-bold tracking-wide">{receipt.store}</p>
+          <div className="bg-surface px-3 pt-4 pb-6 text-xs leading-relaxed text-ink shadow-float receipt-edge sm:px-4">
+            <p className="text-center font-bold">{receipt.store}</p>
             <p className="mb-2 text-center text-ink-muted">Kingston, Jamaica</p>
-            <ul className="border-y border-dashed border-ink/25 py-2">
+            <ul className="border-y border-dashed border-line-strong py-2">
               {receipt.lines.map((l) => (
                 <li key={l.name} className="flex justify-between gap-2">
                   <span className="truncate">{l.name}</span>
@@ -84,7 +84,7 @@ export function ProofPair({
         <div
           className={cn(
             'relative aspect-[3/4] overflow-hidden rounded-md shadow-float',
-            onDark ? 'border border-white/15 bg-oxblood' : 'bg-crimson',
+            onDark ? 'border border-line-on-dark bg-oxblood' : 'bg-crimson',
           )}
         >
           {door.photo ? (
@@ -96,9 +96,9 @@ export function ProofPair({
               className="object-cover"
             />
           ) : (
-            <div className="absolute inset-0 flex flex-col justify-between p-3 text-white sm:p-4">
+            <div className="absolute inset-0 flex flex-col justify-between p-3 text-on-dark sm:p-4">
               <DoorOpen
-                className="size-10 text-blush/80 sm:size-12"
+                className="size-10 text-blush sm:size-12"
                 strokeWidth={1.5}
                 aria-hidden
               />

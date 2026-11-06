@@ -63,7 +63,7 @@ export function DeliveryAndQuestions({ zones, faqs }: { zones: DeliveryZone[]; f
           </ul>
           <Link
             href="/delivery"
-            className="mt-3 inline-flex min-h-11 items-center text-small font-semibold text-crimson hover:underline"
+            className="mt-3 inline-flex min-h-control items-center text-small font-semibold text-crimson hover:underline"
           >
             Delivery areas and fees
           </Link>
@@ -77,7 +77,7 @@ export function DeliveryAndQuestions({ zones, faqs }: { zones: DeliveryZone[]; f
           </div>
           <Link
             href="/faq"
-            className="mt-3 inline-flex min-h-11 items-center text-small font-semibold text-crimson hover:underline"
+            className="mt-3 inline-flex min-h-control items-center text-small font-semibold text-crimson hover:underline"
           >
             All questions and answers
           </Link>

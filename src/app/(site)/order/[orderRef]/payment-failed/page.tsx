@@ -74,7 +74,7 @@ async function Failed({ params, searchParams }: PageProps<'/order/[orderRef]/pay
                 type="submit"
                 name="method"
                 value={m}
-                className="min-h-12 rounded-md border-[1.5px] border-crimson font-semibold text-crimson hover:bg-surface-tint"
+                className="min-h-12 rounded-md border-control border-crimson font-semibold text-crimson hover:bg-surface-selected"
               >
                 {label[m]} instead
               </button>

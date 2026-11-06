@@ -59,7 +59,7 @@ export default async function CategoryPage({
 
   return (
     <>
-      <section className="bg-crimson text-white">
+      <section className="bg-crimson text-on-dark">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-8 gutter section-sm md:grid-cols-12 lg:gap-12">
           <div className="flex animate-rise flex-col gap-4 md:col-span-7">
             <nav aria-label="Breadcrumb" className="text-small">
@@ -67,19 +67,19 @@ export default async function CategoryPage({
                 <li>
                   <Link
                     href="/shop"
-                    className="underline-offset-2 hover:text-white hover:underline"
+                    className="underline-offset-2 hover:text-on-dark hover:underline"
                   >
                     Shop
                   </Link>
                 </li>
                 <li aria-hidden>/</li>
-                <li aria-current="page" className="font-semibold text-white">
+                <li aria-current="page" className="font-semibold text-on-dark">
                   {category.name}
                 </li>
               </ol>
             </nav>
             <div className="flex items-center gap-4">
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson-800 text-blush [&_svg]:size-6">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-crimson-deep text-blush [&_svg]:size-6">
                 <CategoryIcon slug={category.slug} />
               </span>
               <h1 className="text-h1 text-balance">{category.name}</h1>
@@ -165,7 +165,7 @@ async function Results({
             ))}
           </Select>
         </label>
-        <label className="flex min-h-11 items-center gap-2 font-semibold text-ink">
+        <label className="flex min-h-control items-center gap-2 font-semibold text-ink">
           <input
             type="checkbox"
             name="stock"

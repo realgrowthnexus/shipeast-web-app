@@ -17,7 +17,7 @@ export const duration = {
 } as const
 
 /** How far a revealed block rises, in px. */
-export const rise = 24
+export const rise = 16
 
 /** Gap between items in a staggered group, in seconds. */
 export const staggerStep = 0.08

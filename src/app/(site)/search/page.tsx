@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function SearchPage({ searchParams }: PageProps<'/search'>) {
   return (
     <>
-      <div className="bg-crimson-50">
+      <div className="bg-surface-muted">
         <Container className="pt-10 sm:pt-14">
           <p className="mb-3 animate-rise eyebrow text-crimson">The shop</p>
           <h1 className="animate-rise text-h1 text-ink">Search the shop</h1>
@@ -50,7 +50,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
 
   return (
     <>
-      <div className="border-b border-line bg-crimson-50">
+      <div className="border-b border-line bg-surface-muted">
         <Container className="flex flex-col gap-4 pt-6 pb-10 sm:pb-14">
           <SearchBox defaultValue={q} autoFocus={!q} className="max-w-2xl" />
           <CategoryChips categories={categories} />
@@ -75,9 +75,9 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                 hit.kind === 'basket' ? (
                   <li
                     key={hit.basket.id}
-                    className="flex flex-wrap items-center gap-4 p-3 transition-colors duration-150 hover:bg-surface-tint sm:flex-nowrap sm:p-4"
+                    className="flex flex-wrap items-center gap-4 p-3 transition-colors duration-150 hover:bg-surface-muted sm:flex-nowrap sm:p-4"
                   >
-                    <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center rounded-md bg-crimson text-xs font-bold text-white">
+                    <div className="grid aspect-[4/3] w-20 shrink-0 place-items-center rounded-md bg-crimson text-xs font-bold text-on-dark">
                       Basket
                     </div>
                     <div className="flex min-w-0 flex-1 basis-[calc(100%-6rem)] flex-col sm:basis-0">
@@ -99,7 +99,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                       href={`/baskets/${hit.basket.slug}`}
                       variant="secondary"
                       size="sm"
-                      className="ml-auto min-h-11 sm:ml-0"
+                      className="ml-auto min-h-control sm:ml-0"
                     >
                       View
                     </ButtonLink>
@@ -107,7 +107,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                 ) : (
                   <li
                     key={hit.product.id}
-                    className="flex flex-wrap items-center gap-4 p-3 transition-colors duration-150 hover:bg-surface-tint sm:flex-nowrap sm:p-4"
+                    className="flex flex-wrap items-center gap-4 p-3 transition-colors duration-150 hover:bg-surface-muted sm:flex-nowrap sm:p-4"
                   >
                     <ProductImage
                       src={hit.product.imagePath}
@@ -166,8 +166,8 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
               Check the spelling or try a shorter word, like “rice” instead of “brown rice 5 lb”.
               You can also browse a category above.
             </EmptyState>
-            <div className="flex flex-col items-start gap-4 rounded-xl bg-crimson p-card-lg text-white">
-              <span className="grid size-12 place-items-center rounded-full bg-crimson-800 text-blush">
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-crimson p-card-lg text-on-dark">
+              <span className="grid size-12 place-items-center rounded-full bg-crimson-deep text-blush">
                 <PackagePlus className="size-6" aria-hidden />
               </span>
               <h3 className="text-h3">We don’t list it? Ask us.</h3>
@@ -183,7 +183,7 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
                 <ButtonLink
                   href="/shop"
                   variant="ghost"
-                  className="text-white hover:bg-crimson-700"
+                  className="text-on-dark hover:bg-crimson-deep"
                 >
                   Browse the shop
                 </ButtonLink>
@@ -199,10 +199,10 @@ async function Results({ searchParams }: { searchParams: PageProps<'/search'>['s
 function SearchSkeleton() {
   return (
     <div aria-hidden>
-      <div className="bg-crimson-50">
+      <div className="bg-surface-muted">
         <Container className="flex flex-col gap-4 pt-6 pb-10 sm:pb-14">
           <Skeleton className="h-13 max-w-2xl" />
-          <Skeleton className="h-11 max-w-md" />
+          <Skeleton className="h-control max-w-md" />
         </Container>
       </div>
       <Container className="section-sm">

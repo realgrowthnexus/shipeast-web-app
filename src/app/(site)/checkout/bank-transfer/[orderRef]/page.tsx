@@ -111,7 +111,7 @@ async function BankTransfer({
         </section>
 
         <div className="flex flex-col gap-4">
-          <div className="flex gap-3 rounded-xl bg-crimson p-card text-white">
+          <div className="flex gap-3 rounded-xl bg-crimson p-card text-on-dark">
             <Clock className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
             <p>
               Please pay by <strong>{formatDateTime(deadline)}</strong>, Jamaica time. After that

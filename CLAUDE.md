@@ -45,28 +45,35 @@ The family in Jamaica installs nothing — they get SMS. The sender gets email +
 
 ## Brand & design system (from the client PDFs — do not invent new brand colours)
 
-Tokens live in `src/app/globals.css` (`@theme`); the full system is in `docs/DESIGN-SYSTEM.md`
-and live at `/styleguide`. Use tokens, never raw hex in components.
+Tokens live in `src/app/globals.css`; every value is listed in `docs/TOKENS.md`, how to use
+them in `docs/DESIGN-SYSTEM.md`, and they are live at `/styleguide`. Three layers: primitive
+ramps (make no classes) → **roles** (the only colour classes; Tailwind's default palette,
+white and black included, is off) → components. Use roles, never raw hex.
+`src/lib/design-tokens.test.ts` fails on any colour class that isn't a role.
 
-| Token                      | Hex                               | Use                                                                   |
-| -------------------------- | --------------------------------- | --------------------------------------------------------------------- |
-| crimson                    | `#AE0E31`                         | primary brand surface, primary buttons, hero blocks                   |
-| crimson-deep               | `#7A0A23`                         | hover/pressed                                                         |
-| oxblood                    | `#4A0B1C`                         | "red mixed with black": footer, deep surfaces                         |
-| signal                     | `#E30D3B`                         | accents only: step numbers, live dot, big numerals (never small text) |
-| blush                      | `#FFC6D3`                         | "East" in wordmark, text/accents on crimson                           |
-| canvas                     | `#F8ECF0`                         | page background                                                       |
-| surface                    | `#FFF8FA`                         | cards, inputs, panels (never `bg-white`)                              |
-| surface-tint               | `#FFE8EE`                         | highlighted card / selected state                                     |
-| line / line-strong         | `#F1D9E0` / `#9C7F89`             | dividers / form control borders (3:1)                                 |
-| ink / ink-body / ink-muted | `#2B2326` / `#4A3F43` / `#6B5C63` | headings / paragraphs / help text                                     |
-| on-crimson-muted           | `#F3DBE0`                         | secondary text on crimson (no `text-white/70`)                        |
+| Role                            | Hex                               | Use                                                        |
+| ------------------------------- | --------------------------------- | ---------------------------------------------------------- |
+| crimson                         | `#AE0E31`                         | primary action, header bar, brand blocks, links            |
+| crimson-deep                    | `#7A0A23`                         | hover/pressed, panels inside a crimson band                |
+| oxblood                         | `#4A0B1C`                         | "red mixed with black": dark panels and bands              |
+| signal                          | `#E30D3B`                         | focus ring, live dot, big numerals (never text under 24px) |
+| blush                           | `#FFC6D3`                         | "East" in wordmark, text/icons on crimson (never on light) |
+| page                            | `#F7F7F7`                         | page background (pure neutral grey-white)                  |
+| surface                         | `#FFFFFF`                         | cards, inputs, panels, menus                               |
+| surface-muted / surface-strong  | `#F0F0F0` / `#E5E5E5`             | quiet fills, hover, placeholders / hover on a muted fill   |
+| surface-selected                | `#FFE8EE`                         | chosen option, current item, search marks                  |
+| line / line-hover / line-strong | `#E5E5E5` / `#D1D1D1` / `#858585` | dividers / card hover border / form control borders (3:1)  |
+| ink / ink-body / ink-muted      | `#2B2326` / `#474747` / `#666666` | headings / paragraphs / help text                          |
+| on-dark / on-crimson-muted      | `#FFFFFF` / `#F3DBE0`             | text on crimson/oxblood/ink / secondary text on crimson    |
 
-- Type: use the named scale only (`text-display`, `text-h1`, `text-h2`, `text-h3`, `text-lead`,
-  `text-body`, `text-small`, `eyebrow`). Never set `tracking-*` by hand.
-- Spacing: sections use `section-sm` / `section` / `section-lg`, cards `p-card` / `p-card-lg`,
-  page sides `gutter`. Corners: 4 / 8 / 12 / 16px. Cards are flat; only floating layers get
-  `shadow-float`.
+- Type: use the named scale only (`text-display`, `text-numeral`, `text-h1`, `text-h2`,
+  `text-title`, `text-h3`, `text-lead`, `text-body`, `text-small`, `text-xs` for pills,
+  `eyebrow`). One modular scale (1.2 → 1.3). Never set `tracking-*` by hand. The eyebrow is
+  sentence case, never uppercase.
+- Spacing: 4px grid. Sections use `section-sm` / `section` / `section-lg`, cards `p-card` /
+  `p-card-lg`, page sides `gutter`. Touch targets `h-control` / `size-control` (44px),
+  icons `size-icon`. Layers `z-raised` / `z-sticky` / `z-header` / `z-overlay`.
+  Corners: 4 / 8 / 12 / 16 / 24px. Cards are flat; only floating layers get a shadow.
 - Typeface: **Figtree** (the PDFs' font) via `next/font/google`, weights 400–900.
   Headlines 800–900 with tight tracking; body 400/500.
 - **No gradients of any kind** (user rule): flat brand colours only, no gloss. Red feels

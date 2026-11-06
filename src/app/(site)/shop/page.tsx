@@ -35,7 +35,7 @@ export default async function ShopPage() {
 
   return (
     <>
-      <section className="bg-crimson text-white">
+      <section className="bg-crimson text-on-dark">
         <div className="mx-auto grid w-full max-w-page items-center gap-10 gutter section lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-6 lg:col-span-7">
             <div className="animate-rise">
@@ -92,7 +92,7 @@ export default async function ShopPage() {
             action={
               <Link
                 href="/baskets"
-                className="inline-flex min-h-11 items-center font-semibold text-crimson underline-offset-4 hover:underline"
+                className="inline-flex min-h-control items-center font-semibold text-crimson underline-offset-4 hover:underline"
               >
                 All baskets
               </Link>

@@ -26,7 +26,7 @@ export function GuideHero({
   children?: ReactNode
 }) {
   return (
-    <section className="bg-crimson text-white">
+    <section className="bg-crimson text-on-dark">
       <div
         className={cn(
           'mx-auto grid w-full max-w-wide items-center gap-10 gutter section lg:gap-16',
@@ -44,7 +44,7 @@ export function GuideHero({
             <StockPhoto
               name={photo}
               sizes="(min-width: 1280px) 500px, (min-width: 1024px) 40vw, 100vw"
-              className={cn('rounded-2xl bg-crimson-700', aspect)}
+              className={cn('rounded-2xl bg-crimson-deep', aspect)}
             />
           </div>
         )}

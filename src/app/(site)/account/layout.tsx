@@ -25,7 +25,7 @@ export default function AccountLayout({ children }: LayoutProps<'/account'>) {
           <form action={signOutAction} className="hidden border-t border-line pt-4 lg:block">
             <button
               type="submit"
-              className="flex min-h-11 w-full items-center gap-2.5 rounded-md px-3 font-semibold text-ink-muted transition-colors hover:bg-surface-tint hover:text-ink"
+              className="flex min-h-control w-full items-center gap-2.5 rounded-md px-3 font-semibold text-ink-muted transition-colors hover:bg-surface-muted hover:text-ink"
             >
               <LogOut className="size-5" aria-hidden />
               Sign out
@@ -40,7 +40,7 @@ export default function AccountLayout({ children }: LayoutProps<'/account'>) {
           >
             <button
               type="submit"
-              className="flex min-h-11 items-center gap-2.5 rounded-md font-semibold text-ink-muted hover:text-ink"
+              className="flex min-h-control items-center gap-2.5 rounded-md font-semibold text-ink-muted hover:text-ink"
             >
               <LogOut className="size-5" aria-hidden />
               Sign out

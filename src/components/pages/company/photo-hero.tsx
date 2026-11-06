@@ -25,7 +25,7 @@ export function PhotoHero({
   aspect?: string
 }) {
   return (
-    <section className="bg-crimson text-white">
+    <section className="bg-crimson text-on-dark">
       <div
         className={cn(
           'mx-auto grid w-full max-w-wide items-center gap-10 gutter section lg:gap-16',

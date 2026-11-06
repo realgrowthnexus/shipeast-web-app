@@ -60,7 +60,7 @@ export function ProofBand({ jmdPerUsd }: { jmdPerUsd: number }) {
           </ol>
         </div>
         <figure className="mx-auto w-full max-w-md lg:col-span-6 lg:max-w-lg">
-          <div className="rounded-2xl bg-crimson-800 px-5 pt-5 pb-8 sm:px-10 sm:pt-8 sm:pb-12">
+          <div className="rounded-2xl bg-crimson-deep px-5 pt-5 pb-8 sm:px-10 sm:pt-8 sm:pb-12">
             <p className="mb-5 inline-flex rounded-sm bg-blush px-2 py-0.5 text-xs font-bold text-crimson-deep">
               Example order
             </p>

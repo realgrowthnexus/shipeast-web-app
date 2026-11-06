@@ -24,7 +24,7 @@ export function StageTimeline({
       {/* The track sits behind the numbered dots: 22px is the middle of a 44px dot. */}
       <span
         aria-hidden
-        className="absolute top-5 bottom-5 left-[21px] w-0.5 rounded-full bg-crimson-100"
+        className="absolute top-5 bottom-5 left-[21px] w-0.5 rounded-full bg-line"
       />
       <m.span
         aria-hidden
@@ -33,7 +33,7 @@ export function StageTimeline({
       />
       {stages.map((stage, i) => (
         <li key={stage.key} className="relative flex gap-5 sm:gap-6">
-          <span className="relative grid size-11 shrink-0 place-items-center rounded-full border-2 border-crimson bg-surface font-extrabold text-crimson tabular-nums">
+          <span className="relative grid size-control shrink-0 place-items-center rounded-full border-2 border-crimson bg-surface font-extrabold text-crimson tabular-nums">
             {i + 1}
           </span>
           <div className="pt-2">

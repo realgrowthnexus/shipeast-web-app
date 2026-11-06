@@ -13,11 +13,11 @@ export function Pagination({
 }) {
   if (pages <= 1) return null
   const item =
-    'grid min-h-11 min-w-11 place-items-center rounded-md px-3 font-semibold tabular-nums transition-colors'
+    'grid min-h-control min-w-11 place-items-center rounded-md px-3 font-semibold tabular-nums transition-colors'
   return (
     <nav aria-label="Pages" className="flex items-center justify-center gap-1">
       {page > 1 ? (
-        <Link href={href(page - 1)} className={cn(item, 'text-crimson hover:bg-surface-tint')}>
+        <Link href={href(page - 1)} className={cn(item, 'text-crimson hover:bg-surface-muted')}>
           <ChevronLeft className="size-5" aria-hidden />
           <span className="sr-only">Previous page</span>
         </Link>
@@ -33,14 +33,14 @@ export function Pagination({
           aria-current={n === page ? 'page' : undefined}
           className={cn(
             item,
-            n === page ? 'bg-crimson text-white' : 'text-ink hover:bg-surface-tint',
+            n === page ? 'bg-crimson text-on-dark' : 'text-ink hover:bg-surface-muted',
           )}
         >
           {n}
         </Link>
       ))}
       {page < pages ? (
-        <Link href={href(page + 1)} className={cn(item, 'text-crimson hover:bg-surface-tint')}>
+        <Link href={href(page + 1)} className={cn(item, 'text-crimson hover:bg-surface-muted')}>
           <ChevronRight className="size-5" aria-hidden />
           <span className="sr-only">Next page</span>
         </Link>

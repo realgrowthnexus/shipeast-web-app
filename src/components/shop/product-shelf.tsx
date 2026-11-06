@@ -82,7 +82,7 @@ export function ProductShelf({
           </div>
           <Link
             href={href}
-            className="group inline-flex min-h-11 shrink-0 items-center gap-1.5 font-semibold text-crimson hover:underline"
+            className="group inline-flex min-h-control shrink-0 items-center gap-1.5 font-semibold text-crimson hover:underline"
           >
             <span className="sm:hidden">See all</span>
             <span className="hidden sm:inline">{seeAll}</span>
@@ -109,7 +109,7 @@ export function ProductShelf({
             <li className="hidden snap-start lg:flex">
               <Link
                 href={href}
-                className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line-strong p-3 text-center font-semibold text-crimson hover:bg-canvas"
+                className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line-strong p-3 text-center font-semibold text-crimson hover:bg-page"
               >
                 <ArrowRight className="size-5" aria-hidden />
                 {seeAll}

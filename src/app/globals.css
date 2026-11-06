@@ -1,152 +1,203 @@
 @import 'tailwindcss';
 
 /*
- * ShipEast Shop & Send design tokens.
- * Colours are sampled from the client's Shop & Send proposal, scope and quote PDFs.
- * Use the Tailwind utilities these generate (bg-crimson, text-ink, border-line…),
- * never raw hex values in components.
+ * ShipEast Shop & Send design tokens. Full reference: docs/TOKENS.md.
+ *
+ * Three layers:
+ *   1. Primitives (:root below): raw colour ramps. They generate NO Tailwind classes, so a
+ *      component cannot reach for `crimson-800` or a grey step by accident.
+ *   2. Roles (@theme): what a colour is FOR. These are the only colour classes that exist
+ *      (bg-surface, text-ink-muted, border-line-strong…). Tailwind's default palette,
+ *      including white and black, is switched off.
+ *   3. Components (src/components/ui): buttons, fields, pills and cards built from roles.
+ *
+ * Rule zero: no gradients of any kind. Flat colour only.
  */
-@theme {
-  /* Brand (from the client PDFs). Flat colours only: never a gradient. */
-  --color-crimson: #ae0e31;
-  --color-crimson-deep: #7a0a23;
-  --color-oxblood: #4a0b1c;
-  --color-signal: #e30d3b; /* numerals, live dot, focus ring. Never text under 24px. */
-  --color-blush: #ffc6d3;
 
-  /*
-   * Brand shades. The named brand colours above are the anchors (blush = 200, signal = 500,
-   * crimson = 600, crimson-deep = 700, oxblood = 900); the steps between are for hovers,
-   * tints and dark panels. See docs/TOKENS.md for which shade goes where.
-   */
-  --color-crimson-50: #fff5f7;
-  --color-crimson-100: #ffe8ee;
-  --color-crimson-200: #ffc6d3;
-  --color-crimson-300: #f994ab;
-  --color-crimson-400: #ee5679;
-  --color-crimson-500: #e30d3b;
-  --color-crimson-600: #ae0e31;
-  --color-crimson-700: #7a0a23;
-  --color-crimson-800: #62091f;
-  --color-crimson-900: #4a0b1c;
-  --color-crimson-950: #1a050b;
+/* ------------------------------------------------------------------------------------------
+ * 1. Primitives
+ * ------------------------------------------------------------------------------------------ */
+:root {
+  /* Crimson ramp. Anchored on the client's PDF colours: 200 blush, 500 red, 600 crimson,
+     900 oxblood ("red mixed with black"). Every other step sits between them. */
+  --crimson-50: #fff5f7;
+  --crimson-100: #ffe8ee;
+  --crimson-200: #ffc6d3;
+  --crimson-300: #f994ab;
+  --crimson-400: #ee5679;
+  --crimson-500: #e30d3b;
+  --crimson-600: #ae0e31;
+  --crimson-700: #7a0a23;
+  --crimson-800: #62091f;
+  --crimson-900: #4a0b1c;
+  --crimson-950: #1a050b;
 
-  /* Warm neutrals, from the page background down to the heading ink. */
-  --color-neutral-0: #fff8fa;
-  --color-neutral-50: #f8ecf0;
-  --color-neutral-100: #f1d9e0;
-  --color-neutral-200: #e2c9d1;
-  --color-neutral-300: #c3babd;
-  --color-neutral-400: #9c7f89;
-  --color-neutral-500: #6b5c63;
-  --color-neutral-700: #4a3f43;
-  --color-neutral-900: #2b2326;
+  /* Grey ramp: pure neutral, no tint, so the crimson carries all of the brand. */
+  --grey-0: #ffffff;
+  --grey-50: #f7f7f7;
+  --grey-100: #f0f0f0;
+  --grey-200: #e5e5e5;
+  --grey-300: #d1d1d1;
+  --grey-400: #a3a3a3;
+  --grey-500: #858585;
+  --grey-600: #666666;
+  --grey-700: #474747;
+  --grey-800: #333333;
+  --grey-900: #242424;
 
-  /* Surfaces and lines */
-  --color-canvas: #f8ecf0; /* page background */
-  --color-surface: #fff8fa; /* cards, inputs, panels (the PDF card fill) */
-  --color-surface-tint: #ffe8ee; /* selected, hover, image placeholders */
-  --color-line: #f1d9e0; /* decorative borders and dividers */
-  --color-line-strong: #9c7f89; /* form control borders: 3.5:1 on surface */
+  /* The client's ink (PDF heading colour). Kept as-is: it is one of the five brand colours. */
+  --ink-900: #2b2326;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * 2. Roles
+ * ------------------------------------------------------------------------------------------ */
+@theme inline {
+  /* Only the roles below exist as colour classes. */
+  --color-*: initial;
+
+  /* Backgrounds */
+  --color-page: var(--grey-50); /* the page behind everything */
+  --color-surface: var(--grey-0); /* cards, inputs, panels, menus */
+  --color-surface-muted: var(--grey-100); /* quiet fills: wells, placeholders, icon discs, hover */
+  --color-surface-strong: var(--grey-200); /* hover on a muted fill, table header */
+  /* the chosen option, the current item, search marks */
+  --color-surface-selected: var(--crimson-100);
+
+  /* Brand fills (also usable as text and borders) */
+  --color-crimson: var(--crimson-600); /* primary action, header bar, brand blocks, links */
+  /* hover/pressed on crimson; panels inside a crimson band */
+  --color-crimson-deep: var(--crimson-700);
+  --color-oxblood: var(--crimson-900); /* dark panels, deep bands */
+  /* focus ring, live dot, big numerals. Never text under 24px */
+  --color-signal: var(--crimson-500);
+  --color-blush: var(--crimson-200); /* text and icons on crimson, "East" in the wordmark */
 
   /* Text */
-  --color-ink: #2b2326; /* headings, prices, labels */
-  --color-ink-body: #4a3f43; /* paragraphs (the PDF body colour) */
-  --color-ink-muted: #6b5c63; /* help text, captions, placeholders: 5.5:1 on canvas */
-  --color-ink-disabled: #94878d; /* disabled and decorative only: 3:1, never text */
-  --color-on-crimson-muted: #f3dbe0; /* secondary text on crimson: 5.5:1 */
-  --color-on-oxblood-muted: #c3babd; /* secondary text on oxblood: 9.6:1 */
+  --color-ink: var(--ink-900); /* headings, prices, labels */
+  --color-ink-body: var(--grey-700); /* paragraphs */
+  --color-ink-muted: var(--grey-600); /* help text, captions, meta */
+  --color-ink-disabled: var(--grey-400); /* disabled controls and decorative icons. Never text */
+  --color-on-dark: var(--grey-0); /* text and icons on crimson, oxblood, ink */
+  --color-on-crimson-muted: #f3dbe0; /* secondary text on crimson */
+  --color-on-oxblood-muted: #c3babd; /* secondary text on oxblood */
 
-  /* Status colours. Text colours pass 4.5:1 on their tint. */
+  /* Lines */
+  --color-line: var(--grey-200); /* card borders, dividers */
+  --color-line-hover: var(--grey-300); /* card border on hover */
+  --color-line-strong: var(--grey-500); /* form control borders (3:1) */
+  --color-line-on-dark: #6e3848; /* dividers on oxblood */
+
+  /* Overlay */
+  --color-scrim: rgb(74 11 28 / 0.6); /* behind dialogs */
+
+  /* Status: alerts, pills and form feedback only, never decoration. */
   --color-ok: #16794a;
   --color-ok-tint: #e3f4ea;
+  --color-ok-line: #b5dcc6;
   --color-info: #1d5fa8;
   --color-info-tint: #e4eefa;
+  --color-info-line: #b8cfec;
   --color-warn: #8a5300;
   --color-warn-tint: #fdf0d8;
+  --color-warn-line: #ecd2a3;
   --color-danger: #b42318;
-  --color-danger-tint: #fde8e6;
   --color-danger-deep: #93190f;
+  --color-danger-tint: #fde8e6;
+  --color-danger-line: #f1bdb8;
 
-  /*
-   * Jamaican flag colours, at the user's request, so visitors see at a glance that this is a
-   * Jamaican service. Accents only: the flag mark, gold icons, deal tiles and basket price strips.
-   * Never body text, never a full band, never mixed into a gradient. Ink or black text may sit on
-   * gold, black text on green, white text on black.
-   */
+  /* Jamaican flag: accents with one job each (see docs/TOKENS.md). */
   --color-jm-green: #009b3a;
   --color-jm-gold: #fed100;
   --color-jm-black: #000000;
 
+  /* Typeface: Figtree only (the client PDFs' font), weights 400–900. */
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 
   /*
-   * Type scale. Sizes grow smoothly from a 375px phone to a 1024px screen, so one class
-   * covers every width. Letter spacing and weight belong to the style: never set them by hand.
+   * Type scale. One modular scale on a 16px body: ratio 1.2 on a 375px phone, growing to 1.3
+   * at 1280px and up, so headings gain drama on large screens without crowding small ones.
+   * Each step carries its own line height, weight and tracking: never set them by hand.
    */
-  --text-display: clamp(3rem, 2.134rem + 3.698vw, 4rem);
-  --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.03em;
-  --text-display--font-weight: 900;
-  --text-numeral: clamp(3rem, 2.567rem + 1.849vw, 3.75rem);
-  --text-numeral--line-height: 1;
-  --text-numeral--letter-spacing: -0.02em;
-  --text-numeral--font-weight: 900;
-  --text-h1: clamp(2.25rem, 1.817rem + 1.849vw, 3rem);
-  --text-h1--line-height: 1.05;
-  --text-h1--letter-spacing: -0.025em;
-  --text-h1--font-weight: 800;
-  --text-h2: clamp(1.75rem, 1.461rem + 1.233vw, 2.25rem);
-  --text-h2--line-height: 1.1;
-  --text-h2--letter-spacing: -0.02em;
-  --text-h2--font-weight: 800;
-  --text-title: 1.5rem; /* store shelf titles: quieter than a section h2 */
-  --text-title--line-height: 1.2;
-  --text-title--letter-spacing: -0.015em;
-  --text-title--font-weight: 800;
-  --text-h3: 1.25rem;
+  --text-xs: 0.75rem; /* 12px: pills and counters only */
+  --text-xs--line-height: 1.35;
+  --text-small: 0.875rem; /* 14px: captions, meta, table cells */
+  --text-small--line-height: 1.5;
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.6;
+  --text-lead: clamp(1.125rem, 1.073rem + 0.221vw, 1.25rem); /* 18 → 20px */
+  --text-lead--line-height: 1.55;
+  --text-h3: clamp(1.1875rem, 1.135rem + 0.221vw, 1.3125rem); /* 19 → 21px */
   --text-h3--line-height: 1.25;
   --text-h3--letter-spacing: -0.01em;
   --text-h3--font-weight: 700;
-  --text-lead: clamp(1.125rem, 1.053rem + 0.308vw, 1.25rem);
-  --text-lead--line-height: 1.55;
-  --text-body: 1rem;
-  --text-body--line-height: 1.6;
-  --text-small: 0.875rem;
-  --text-small--line-height: 1.5;
-  --text-eyebrow: 0.75rem;
-  --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.12em;
-  --text-eyebrow--font-weight: 800;
-
-  /* Corners: crisp, like the PDFs. */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-
-  --radius-2xl: 1.5rem; /* photo frames in hero and feature sections only */
+  --text-title: clamp(1.4375rem, 1.334rem + 0.442vw, 1.6875rem); /* 23 → 27px */
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.015em;
+  --text-title--font-weight: 800;
+  --text-h2: clamp(1.75rem, 1.569rem + 0.773vw, 2.1875rem); /* 28 → 35px */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 800;
+  --text-h1: clamp(2.0625rem, 1.726rem + 1.436vw, 2.875rem); /* 33 → 46px */
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 800;
+  --text-numeral: clamp(2.5rem, 2.008rem + 2.099vw, 3.6875rem); /* 40 → 59px */
+  --text-numeral--line-height: 1;
+  --text-numeral--letter-spacing: -0.03em;
+  --text-numeral--font-weight: 900;
+  --text-display: clamp(3rem, 2.249rem + 3.204vw, 4.8125rem); /* 48 → 77px */
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 900;
 
   /*
-   * Elevation. Cards rest flat with a 1px line; they lift on hover. Only floating layers
-   * (menus, dialogs, the cookie banner, hero proof photos) rest on a shadow.
+   * Sizes. The 4px spacing grid is Tailwind's own (`p-4` = 16px). These name the sizes that
+   * have a rule behind them.
    */
-  --shadow-lift: 0 1px 2px rgb(43 35 38 / 0.05), 0 12px 28px -14px rgb(122 10 35 / 0.28);
-  --shadow-float: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(122 10 35 / 0.32);
-  --shadow-overlay: 0 4px 8px rgb(43 35 38 / 0.08), 0 32px 64px -24px rgb(42 10 18 / 0.45);
+  --spacing-control: 2.75rem; /* 44px: the smallest touch target (h-control, size-control) */
+  --spacing-control-lg: 3.25rem; /* 52px: large buttons, the hero action */
+  --spacing-icon-sm: 1rem; /* 16px: icons inside small text and pills */
+  --spacing-icon: 1.25rem; /* 20px: icons in buttons, nav and lists */
+  --spacing-icon-lg: 1.5rem; /* 24px: icons in icon discs */
 
-  /* Motion. JS animations use the same values from src/lib/motion.ts. */
+  /* Corners. Bigger surfaces get bigger corners. */
+  --radius-sm: 0.25rem; /* 4px: tags, marks, checkboxes */
+  --radius-md: 0.5rem; /* 8px: buttons, inputs, thumbnails */
+  --radius-lg: 0.75rem; /* 12px: cards, panels, menus, dialogs */
+  --radius-xl: 1rem; /* 16px: feature panels, brand blocks */
+  --radius-2xl: 1.5rem; /* 24px: hero frames, full-width bands */
+
+  /*
+   * Elevation. Cards rest flat on a 1px line. Shadows mean "this floats above the page".
+   * The shadow colour is the ink at low strength, so it reads neutral on grey.
+   */
+  --shadow-lift: 0 1px 2px rgb(43 35 38 / 0.06), 0 10px 24px -12px rgb(43 35 38 / 0.22);
+  --shadow-float: 0 2px 4px rgb(43 35 38 / 0.06), 0 18px 40px -16px rgb(43 35 38 / 0.28);
+  --shadow-overlay: 0 4px 8px rgb(43 35 38 / 0.08), 0 32px 64px -24px rgb(43 35 38 / 0.4);
+
+  /* Motion. JavaScript animations read the same values from src/lib/motion.ts. */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
-  --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --duration-slow: 450ms;
+  --duration-fast: 150ms; /* presses, colour changes */
+  --duration-base: 250ms; /* hovers, card lift */
+  --duration-slow: 450ms; /* menus, header change */
+  --duration-reveal: 700ms; /* the one page-load rise, scroll reveals */
 
   /* Page widths. */
   --container-page: 72rem; /* max-w-page: the normal page column */
-  --container-wide: 80rem; /* max-w-wide: full-bleed bands, hero and footer */
+  --container-wide: 80rem; /* max-w-wide: header, footer, full-width bands */
 }
 
+/* How far a block rises on reveal. Mirrored as `rise` in src/lib/motion.ts. */
+:root {
+  --motion-rise: 16px;
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------------------------ */
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -154,7 +205,7 @@
   }
 
   body {
-    background: var(--color-canvas);
+    background: var(--color-page);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: 'ss01';
@@ -183,41 +234,62 @@
   }
 }
 
-/* Spacing scale for page rhythm (see docs/DESIGN-SYSTEM.md). */
+/* ------------------------------------------------------------------------------------------
+ * Utilities
+ * ------------------------------------------------------------------------------------------ */
+
+/* Page rhythm. */
 @utility section-sm {
-  padding-block: clamp(3rem, 2.423rem + 2.465vw, 4rem);
+  padding-block: clamp(3rem, 2.423rem + 2.465vw, 4rem); /* 48 → 64px */
 }
 @utility section {
-  padding-block: clamp(4rem, 2.844rem + 4.931vw, 6rem);
+  padding-block: clamp(4rem, 2.844rem + 4.931vw, 6rem); /* 64 → 96px */
 }
 @utility section-lg {
-  padding-block: clamp(5rem, 3.267rem + 7.396vw, 8rem);
+  padding-block: clamp(5rem, 3.267rem + 7.396vw, 8rem); /* 80 → 128px, heroes only */
 }
 @utility p-card {
-  padding: clamp(1.25rem, 1.106rem + 0.616vw, 1.5rem);
+  padding: clamp(1.25rem, 1.106rem + 0.616vw, 1.5rem); /* 20 → 24px */
 }
 @utility p-card-lg {
-  padding: clamp(1.5rem, 1.211rem + 1.233vw, 2rem);
+  padding: clamp(1.5rem, 1.211rem + 1.233vw, 2rem); /* 24 → 32px */
 }
 @utility gutter {
-  padding-inline: clamp(1rem, 0.422rem + 2.465vw, 2rem);
+  padding-inline: clamp(1rem, 0.422rem + 2.465vw, 2rem); /* 16 → 32px */
 }
 
-/* The small uppercase label above a title, as on every page of the client PDFs. Pair it with
-   text-crimson (text-blush on crimson). */
+/* The short label above a title. Sentence case and bold, never uppercase tracking. Pair it
+   with text-crimson on light, text-blush on crimson. Use one only when it adds information. */
 @utility eyebrow {
-  font-size: var(--text-eyebrow);
-  line-height: var(--text-eyebrow--line-height);
-  letter-spacing: var(--text-eyebrow--letter-spacing);
-  font-weight: var(--text-eyebrow--font-weight);
-  text-transform: uppercase;
+  font-size: var(--text-small);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+/* Form controls and outline buttons share one border weight. */
+@utility border-control {
+  border-width: 1.5px;
+}
+
+/* Stacking layers, lowest to highest. */
+@utility z-raised {
+  z-index: 10; /* a link or button above a card's full-size link */
+}
+@utility z-sticky {
+  z-index: 30; /* sticky bars inside a page */
+}
+@utility z-header {
+  z-index: 40; /* the site header */
+}
+@utility z-overlay {
+  z-index: 50; /* menus, the cookie banner, the skip link */
 }
 
 @utility text-balance {
   text-wrap: balance;
 }
 
-/* Torn-paper bottom edge for the receipt in the proof pair. */
+/* Torn-paper bottom edge for the receipt in the proof pair (a mask, not a visible gradient). */
 @utility receipt-edge {
   --tooth: 10px;
   mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% /
@@ -225,8 +297,8 @@
 }
 
 /*
- * Hover lift for cards that are links: rises 2px and gains the lift shadow. Pair it with
- * `group` and `group-hover:scale-[1.04]` on a photo inside for the zoom.
+ * Hover lift for cards that are links: rises 2px, gains the lift shadow and a firmer border.
+ * Pair it with `group` and `group-hover:scale-[1.04]` on a photo inside for the zoom.
  */
 @utility hover-lift {
   transition:
@@ -236,6 +308,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lift);
+    border-color: var(--color-line-hover);
   }
   @media (prefers-reduced-motion: reduce) {
     &:hover {
@@ -244,9 +317,9 @@
   }
 }
 
-/* Loading placeholder: a flat tint that breathes. No shimmer gradient. */
+/* Loading placeholder: a flat fill that breathes. No shimmer gradient. */
 @utility skeleton {
-  background: var(--color-surface-tint);
+  background: var(--color-surface-muted);
   border-radius: var(--radius-md);
   animation: skeleton-pulse 1.4s var(--ease-in-out-soft) infinite;
 }
@@ -262,13 +335,12 @@
  * before hydration and never holds back the largest paint. Stagger with `[animation-delay:…]`.
  */
 @utility animate-rise {
-  animation: rise var(--duration-slow) var(--ease-out-soft) both;
-  animation-duration: 700ms;
+  animation: rise var(--duration-reveal) var(--ease-out-soft) both;
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(var(--motion-rise));
   }
 }

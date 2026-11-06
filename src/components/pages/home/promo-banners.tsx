@@ -23,7 +23,7 @@ export function PromoBanners({ banners }: { banners: Banner[] }) {
         {banners.map((b) => (
           <article
             key={b.href}
-            className="group grid overflow-hidden rounded-xl bg-canvas sm:grid-cols-[1fr_38%]"
+            className="group grid overflow-hidden rounded-xl bg-page sm:grid-cols-[1fr_38%]"
           >
             <div className="flex flex-col items-start p-5 sm:p-8">
               {b.saving && (

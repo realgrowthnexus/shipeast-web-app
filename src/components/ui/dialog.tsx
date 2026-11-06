@@ -40,7 +40,7 @@ export function Dialog({
       onClick={(e) => e.target === ref.current && onClose()}
       aria-labelledby="dialog-title"
       className={cn(
-        'm-auto max-h-[90dvh] w-[min(32rem,calc(100%-2rem))] overflow-hidden rounded-lg bg-surface p-0 text-ink shadow-float backdrop:bg-oxblood/60 backdrop:backdrop-blur-[2px]',
+        'm-auto max-h-[90dvh] w-[min(32rem,calc(100%-2rem))] overflow-hidden rounded-lg bg-surface p-0 text-ink shadow-float backdrop:bg-scrim backdrop:backdrop-blur-[2px]',
         variant === 'sheet' &&
           'mb-0 w-full max-w-none rounded-b-none sm:mb-auto sm:w-[min(32rem,calc(100%-2rem))] sm:rounded-lg',
       )}

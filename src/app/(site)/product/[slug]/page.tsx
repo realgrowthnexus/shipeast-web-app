@@ -169,7 +169,7 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
               category && (
                 <Link
                   href={`/shop/${category.slug}`}
-                  className="inline-flex min-h-11 items-center font-semibold text-crimson underline-offset-4 hover:underline"
+                  className="inline-flex min-h-control items-center font-semibold text-crimson underline-offset-4 hover:underline"
                 >
                   See all {category.name}
                 </Link>

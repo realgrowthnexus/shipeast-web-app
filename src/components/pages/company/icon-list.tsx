@@ -30,18 +30,18 @@ export function IconList({
           key={title}
           className={cn(
             'flex flex-col gap-3 rounded-lg p-card-lg',
-            onDark ? 'bg-crimson-800' : 'border border-line bg-surface',
+            onDark ? 'bg-crimson-deep' : 'border border-line bg-surface',
           )}
         >
           <span
             className={cn(
               'grid size-12 place-items-center rounded-full',
-              onDark ? 'bg-crimson text-blush' : 'bg-surface-tint text-crimson',
+              onDark ? 'bg-crimson text-blush' : 'bg-surface-muted text-crimson',
             )}
           >
             <Icon className="size-6" aria-hidden />
           </span>
-          <h3 className={cn('text-h3', onDark ? 'text-white' : 'text-ink')}>{title}</h3>
+          <h3 className={cn('text-h3', onDark ? 'text-on-dark' : 'text-ink')}>{title}</h3>
           <p className={onDark ? 'text-on-crimson-muted' : 'text-ink-body'}>{body}</p>
         </StaggerItem>
       ))}

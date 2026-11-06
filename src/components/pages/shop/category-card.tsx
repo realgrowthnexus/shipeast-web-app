@@ -13,7 +13,7 @@ export function CategoryPhotoCard({ category }: { category: CategoryLink }) {
   return (
     <Link
       href={`/shop/${category.slug}`}
-      className="group flex h-full hover-lift flex-col overflow-hidden rounded-xl border border-line bg-surface hover:border-blush"
+      className="group flex h-full hover-lift flex-col overflow-hidden rounded-xl border border-line bg-surface hover:border-line-hover"
     >
       {photo ? (
         <StockPhoto
@@ -23,7 +23,7 @@ export function CategoryPhotoCard({ category }: { category: CategoryLink }) {
           zoom
         />
       ) : (
-        <span className="grid aspect-4/3 place-items-center bg-crimson text-white [&_svg]:size-12">
+        <span className="grid aspect-4/3 place-items-center bg-crimson text-on-dark [&_svg]:size-12">
           <CategoryIcon slug={category.slug} />
         </span>
       )}
@@ -62,10 +62,10 @@ export function CategoryChips({
           <Link
             href={`/shop/${c.slug}`}
             className={cn(
-              'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-small font-semibold transition-colors duration-150 [&_svg]:size-4',
+              'inline-flex min-h-control items-center gap-2 rounded-full px-4 text-small font-semibold transition-colors duration-150 [&_svg]:size-4',
               onDark
-                ? 'bg-crimson-800 text-white hover:bg-oxblood'
-                : 'border border-line bg-surface text-ink hover:border-blush hover:bg-surface-tint',
+                ? 'bg-crimson-deep text-on-dark hover:bg-oxblood'
+                : 'border border-line bg-surface text-ink hover:border-line-hover hover:bg-surface-muted',
             )}
           >
             <span className={onDark ? 'text-blush' : 'text-crimson'}>

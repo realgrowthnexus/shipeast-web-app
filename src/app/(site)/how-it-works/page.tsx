@@ -101,7 +101,7 @@ export default async function HowItWorksPage() {
         lead="One order, from a laptop in Brooklyn to a door in Morant Bay. You pay online in US dollars, our driver buys everything locally, and you get a photo of the receipt and a photo at the door."
         photo="guideProduce"
       >
-        <ul className="flex flex-col gap-3 text-white sm:flex-row sm:flex-wrap sm:gap-x-8">
+        <ul className="flex flex-col gap-3 text-on-dark sm:flex-row sm:flex-wrap sm:gap-x-8">
           <li className="flex items-center gap-2 font-semibold">
             <Clock3 className="size-5 shrink-0 text-blush" aria-hidden />
             Same day if paid by {cutoff}
@@ -229,7 +229,7 @@ export default async function HowItWorksPage() {
                 key={r.value}
                 className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-card-lg"
               >
-                <span className="grid size-12 place-items-center rounded-full bg-surface-tint">
+                <span className="grid size-12 place-items-center rounded-full bg-surface-muted">
                   <Icon className="size-6 text-crimson" aria-hidden />
                 </span>
                 <h3 className="text-h3 text-ink">{r.title}</h3>
@@ -240,7 +240,7 @@ export default async function HowItWorksPage() {
         </Stagger>
       </Section>
 
-      <Section tone="tint" wide aria-labelledby="family-h">
+      <Section tone="muted" wide aria-labelledby="family-h">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-5" y={0}>
             <StockPhoto
@@ -292,8 +292,8 @@ export default async function HowItWorksPage() {
           lead="Prices are in US dollars, with the Jamaican dollar amount shown for reference. You pay before we shop, so the driver never asks your family for money."
         />
         <Stagger className={`mt-10 grid gap-4 ${bankTransfer ? 'md:grid-cols-2' : 'max-w-xl'}`}>
-          <StaggerItem className="flex flex-col gap-4 rounded-lg border border-line bg-canvas p-card-lg">
-            <span className="grid size-12 place-items-center rounded-full bg-surface-tint">
+          <StaggerItem className="flex flex-col gap-4 rounded-lg border border-line bg-page p-card-lg">
+            <span className="grid size-12 place-items-center rounded-full bg-surface-muted">
               <CreditCard className="size-6 text-crimson" aria-hidden />
             </span>
             <h3 className="text-h3 text-ink">PayPal, or a card through PayPal</h3>
@@ -303,8 +303,8 @@ export default async function HowItWorksPage() {
             </p>
           </StaggerItem>
           {bankTransfer && (
-            <StaggerItem className="flex flex-col gap-4 rounded-lg border border-line bg-canvas p-card-lg">
-              <span className="grid size-12 place-items-center rounded-full bg-surface-tint">
+            <StaggerItem className="flex flex-col gap-4 rounded-lg border border-line bg-page p-card-lg">
+              <span className="grid size-12 place-items-center rounded-full bg-surface-muted">
                 <Landmark className="size-6 text-crimson" aria-hidden />
               </span>
               <h3 className="text-h3 text-ink">Bank transfer</h3>
@@ -326,7 +326,7 @@ export default async function HowItWorksPage() {
               <Reveal className="mt-6" delay={0.1}>
                 <Link
                   href="/faq"
-                  className="inline-flex min-h-11 items-center gap-2 font-semibold text-crimson hover:underline"
+                  className="inline-flex min-h-control items-center gap-2 font-semibold text-crimson hover:underline"
                 >
                   See all questions
                   <ArrowRight className="size-4" aria-hidden />

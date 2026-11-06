@@ -53,34 +53,66 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const swatches = [
-  ['crimson', '#AE0E31', 'bg-crimson', 'Buttons, hero and callout blocks, links'],
-  ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover and pressed'],
-  ['oxblood', '#4A0B1C', 'bg-oxblood', 'Dark panels'],
-  ['signal', '#E30D3B', 'bg-signal', 'Numerals, live dot, focus. Never small text'],
-  ['blush', '#FFC6D3', 'bg-blush', 'Accent text on crimson'],
-  ['canvas', '#F8ECF0', 'bg-canvas', 'Page background'],
-  ['surface', '#FFF8FA', 'bg-surface', 'Cards, inputs, panels'],
-  ['surface-tint', '#FFE8EE', 'bg-surface-tint', 'Selected, hover, placeholders'],
-  ['line', '#F1D9E0', 'bg-line', 'Card borders and dividers'],
-  ['line-strong', '#9C7F89', 'bg-line-strong', 'Form control borders (3:1)'],
-  ['ink', '#2B2326', 'bg-ink', 'Headings, prices, labels'],
-  ['ink-body', '#4A3F43', 'bg-ink-body', 'Paragraphs'],
-  ['ink-muted', '#6B5C63', 'bg-ink-muted', 'Help text and captions'],
-  ['ink-disabled', '#94878D', 'bg-ink-disabled', 'Disabled and decorative only'],
-  ['on-crimson-muted', '#F3DBE0', 'bg-on-crimson-muted', 'Secondary text on crimson'],
+/** Role colours, grouped by job. Components use only these (see docs/TOKENS.md). */
+const swatchGroups = [
+  {
+    title: 'Backgrounds',
+    items: [
+      ['page', '#F7F7F7', 'bg-page', 'The page behind everything'],
+      ['surface', '#FFFFFF', 'bg-surface', 'Cards, inputs, panels, menus'],
+      ['surface-muted', '#F0F0F0', 'bg-surface-muted', 'Wells, placeholders, icon discs, hover'],
+      ['surface-strong', '#E5E5E5', 'bg-surface-strong', 'Hover on a muted fill'],
+      ['surface-selected', '#FFE8EE', 'bg-surface-selected', 'The chosen option, search marks'],
+    ],
+  },
+  {
+    title: 'Brand',
+    items: [
+      ['crimson', '#AE0E31', 'bg-crimson', 'Primary action, header, brand blocks, links'],
+      ['crimson-deep', '#7A0A23', 'bg-crimson-deep', 'Hover and pressed, panels on crimson'],
+      ['oxblood', '#4A0B1C', 'bg-oxblood', 'Dark panels and bands'],
+      ['signal', '#E30D3B', 'bg-signal', 'Focus ring, live dot, big numerals'],
+      ['blush', '#FFC6D3', 'bg-blush', 'Text and icons on crimson'],
+    ],
+  },
+  {
+    title: 'Text',
+    items: [
+      ['ink', '#2B2326', 'bg-ink', 'Headings, prices, labels'],
+      ['ink-body', '#474747', 'bg-ink-body', 'Paragraphs'],
+      ['ink-muted', '#666666', 'bg-ink-muted', 'Help text, captions, meta'],
+      ['ink-disabled', '#A3A3A3', 'bg-ink-disabled', 'Disabled and decorative only'],
+      ['on-crimson-muted', '#F3DBE0', 'bg-on-crimson-muted', 'Secondary text on crimson'],
+    ],
+  },
+  {
+    title: 'Lines',
+    items: [
+      ['line', '#E5E5E5', 'bg-line', 'Card borders, dividers'],
+      ['line-hover', '#D1D1D1', 'bg-line-hover', 'Card border on hover'],
+      ['line-strong', '#858585', 'bg-line-strong', 'Form control borders (3:1)'],
+      ['line-on-dark', '#6E3848', 'bg-line-on-dark', 'Dividers on oxblood'],
+    ],
+  },
+] as const
+
+/** Primitive ramps. They make no classes: they only feed the roles above. */
+const ramps = [
+  ['crimson', ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950']],
+  ['grey', ['0', '50', '100', '200', '300', '400', '500', '600', '700', '800', '900']],
 ] as const
 
 const typeStyles = [
-  ['text-display', '48 to 72px, 900', 'Send groceries, not money'],
-  ['text-numeral', '48 to 60px, 900', '1 2 3 4'],
-  ['text-h1', '36 to 48px, 800', 'Delivery areas and fees'],
-  ['text-h2', '28 to 36px, 800', 'Ready-made baskets'],
-  ['text-h3', '20px, 800', 'Who is receiving it?'],
+  ['text-display', '48 to 77px, 900', 'Send groceries, not money'],
+  ['text-numeral', '40 to 59px, 900', '1 2 3 4'],
+  ['text-h1', '33 to 46px, 800', 'Delivery areas and fees'],
+  ['text-h2', '28 to 35px, 800', 'Ready-made baskets'],
+  ['text-title', '23 to 27px, 800', 'Popular this week'],
+  ['text-h3', '19 to 21px, 700', 'Who is receiving it?'],
   ['text-lead', '18 to 20px, 400', 'We buy it in Jamaica and deliver the same day.'],
   ['text-body', '16px, 400', 'Your driver buys everything and photographs the receipt.'],
   ['text-small', '14px, 500', 'Prices checked October 20, 2026.'],
-  ['eyebrow', '12px, 800, uppercase', 'How it works'],
+  ['eyebrow', '14px, 700, sentence case', 'How it works'],
 ] as const
 
 const radii = [
@@ -88,6 +120,7 @@ const radii = [
   ['rounded-md', '8px'],
   ['rounded-lg', '12px'],
   ['rounded-xl', '16px'],
+  ['rounded-2xl', '24px'],
   ['rounded-full', 'Pill'],
 ] as const
 
@@ -189,19 +222,50 @@ export default function StyleguidePage() {
           title="Colour"
           intro="Taken from ShipEast's proposal and scope documents. Flat colours only, never a gradient. Red feels premium through large solid crimson and oxblood blocks."
         >
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-            {swatches.map(([name, hex, cls, use]) => (
-              <div key={name} className="overflow-hidden rounded-md border border-line bg-surface">
-                <div className={`h-16 ${cls}`} />
-                <div className="p-2.5 text-small">
-                  <p className="font-semibold text-ink">{name}</p>
-                  <p className="text-ink-muted tabular-nums">{hex}</p>
-                  <p className="mt-1 text-xs text-ink-muted">{use}</p>
+          <div className="flex flex-col gap-8">
+            {swatchGroups.map((group) => (
+              <div key={group.title}>
+                <h3 className="text-h3 text-ink">{group.title}</h3>
+                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-5">
+                  {group.items.map(([name, hex, cls, use]) => (
+                    <div
+                      key={name}
+                      className="overflow-hidden rounded-md border border-line bg-surface"
+                    >
+                      <div className={`h-16 border-b border-line ${cls}`} />
+                      <div className="p-2.5 text-small">
+                        <p className="font-semibold text-ink">{name}</p>
+                        <p className="text-ink-muted tabular-nums">{hex}</p>
+                        <p className="mt-1 text-xs text-ink-muted">{use}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
+            <div>
+              <h3 className="text-h3 text-ink">Primitive ramps</h3>
+              <p className="mt-1 max-w-2xl text-small text-ink-muted">
+                Raw steps that feed the roles. They make no classes, so components cannot use them.
+              </p>
+              {ramps.map(([name, steps]) => (
+                <div
+                  key={name}
+                  className="mt-3 grid grid-cols-11 overflow-hidden rounded-md border border-line"
+                >
+                  {steps.map((step) => (
+                    <div key={step} className="flex flex-col">
+                      <div className="h-12" style={{ background: `var(--${name}-${step})` }} />
+                      <p className="bg-surface py-1 text-center text-xs text-ink-muted tabular-nums">
+                        {step}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-crimson text-h3 text-white">
+          <div className="mt-4 grid h-28 place-items-center rounded-lg bg-crimson text-h3 text-on-dark">
             Solid crimson surface
           </div>
         </Section>
@@ -236,9 +300,9 @@ export default function StyleguidePage() {
         <Section
           id="shape"
           title="Spacing and shape"
-          intro="A 4px grid. Sections use section-sm, section or section-lg; cards use p-card or p-card-lg. Cards are flat with a 1px line; only floating layers get a shadow."
+          intro="A 4px grid. Touch targets are at least h-control (44px). Sections use section-sm, section or section-lg; cards use p-card or p-card-lg. Bigger surfaces get bigger corners. Cards are flat with a 1px line; only floating layers get a shadow."
         >
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-6">
             {radii.map(([cls, size]) => (
               <div key={cls} className="flex flex-col gap-2">
                 <div className={`h-16 border border-line bg-surface ${cls}`} />
@@ -253,7 +317,7 @@ export default function StyleguidePage() {
               <p className="text-h3 text-ink">Card</p>
               <p className="text-small text-ink-muted">surface, 1px line, rounded-lg, p-card</p>
             </div>
-            <div className="rounded-xl bg-crimson p-card-lg text-white">
+            <div className="rounded-xl bg-crimson p-card-lg text-on-dark">
               <p className="text-h3">Feature panel</p>
               <p className="text-small text-on-crimson-muted">crimson, rounded-xl, p-card-lg</p>
             </div>
@@ -463,7 +527,7 @@ export default function StyleguidePage() {
           intro="The signature element: the store receipt and the photo at the door. It is the product's promise, so it gets the boldest treatment and everything around it stays quiet."
         >
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="rounded-lg bg-surface-tint p-6 sm:p-10">
+            <div className="rounded-lg bg-surface-muted p-6 sm:p-10">
               <ProofPair
                 tilt
                 receipt={{

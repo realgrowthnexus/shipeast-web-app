@@ -38,7 +38,7 @@ export default function PaymentMethodsPage() {
             key={title}
             className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-card"
           >
-            <span className="grid size-11 place-items-center rounded-md bg-surface-tint text-crimson">
+            <span className="grid size-control place-items-center rounded-md bg-surface-muted text-crimson">
               <Icon className="size-6" aria-hidden />
             </span>
             <h2 className="text-h3 text-ink">{title}</h2>

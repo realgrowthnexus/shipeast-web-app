@@ -64,7 +64,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<'/account'>[
           On the way
         </h2>
         {current ? (
-          <div className="flex flex-col gap-5 rounded-xl bg-crimson p-card-lg text-white">
+          <div className="flex flex-col gap-5 rounded-xl bg-crimson p-card-lg text-on-dark">
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-h2">{current.orderNo}</span>
               <StatusPill status={current.status} />
@@ -82,7 +82,7 @@ async function Overview({ searchParams }: { searchParams: PageProps<'/account'>[
               </ButtonLink>
               <Link
                 href={`/account/orders/${current.orderNo}`}
-                className="inline-flex min-h-11 items-center gap-1 font-semibold text-blush underline-offset-2 hover:underline"
+                className="inline-flex min-h-control items-center gap-1 font-semibold text-blush underline-offset-2 hover:underline"
               >
                 Order details <ArrowRight className="size-4" aria-hidden />
               </Link>

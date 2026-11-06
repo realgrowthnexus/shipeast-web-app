@@ -49,7 +49,7 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
       className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-card-lg"
     >
       <h2 id={`step-${n}`} className="flex items-center gap-3 text-h3 text-ink">
-        <span className="grid size-8 place-items-center rounded-full bg-crimson text-body text-white">
+        <span className="grid size-8 place-items-center rounded-full bg-crimson text-body text-on-dark">
           {n}
         </span>
         {title}
@@ -214,7 +214,7 @@ export function CheckoutForm({
           </Field>
           <div className="flex flex-col gap-1.5">
             <span className="text-small font-semibold text-ink">Parish</span>
-            <p className="flex min-h-12 items-center justify-between gap-3 rounded-md border-2 border-line bg-canvas px-4 text-ink">
+            <p className="flex min-h-12 items-center justify-between gap-3 rounded-md border-2 border-line bg-page px-4 text-ink">
               {parish}
               <Link
                 href="/basket"

@@ -172,14 +172,14 @@ async function Tracking({ params }: { params: PageProps<'/track/[token]'>['param
           {order.giftMessage && (
             <section
               aria-labelledby="gift"
-              className="flex gap-3 rounded-xl bg-crimson p-card text-white"
+              className="flex gap-3 rounded-xl bg-crimson p-card text-on-dark"
             >
               <Gift className="mt-0.5 size-5 shrink-0 text-blush" aria-hidden />
               <div>
                 <h2 id="gift" className="font-bold">
                   Gift message
                 </h2>
-                <p className="mt-1 text-white">{order.giftMessage}</p>
+                <p className="mt-1 text-on-dark">{order.giftMessage}</p>
               </div>
             </section>
           )}

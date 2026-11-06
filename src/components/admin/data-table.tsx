@@ -59,7 +59,7 @@ export function DataTable<T>({
             </tr>
           ) : (
             rows.map((row) => (
-              <tr key={rowKey(row)} className="hover:bg-canvas">
+              <tr key={rowKey(row)} className="hover:bg-page">
                 {columns.map((c) => (
                   <td
                     key={c.key}

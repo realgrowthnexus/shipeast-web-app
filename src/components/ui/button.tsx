@@ -9,18 +9,18 @@ export const buttonStyles = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-crimson text-white hover:bg-crimson-deep',
-        secondary: 'bg-surface-tint text-crimson-deep hover:bg-blush',
-        outline: 'border-[1.5px] border-crimson bg-transparent text-crimson hover:bg-surface-tint',
-        ghost: 'text-ink hover:bg-surface-tint',
-        dark: 'bg-ink text-white hover:bg-ink-body',
-        onDark: 'bg-white text-crimson-deep hover:bg-surface',
-        destructive: 'bg-danger text-white hover:bg-danger-deep',
+        primary: 'bg-crimson text-on-dark hover:bg-crimson-deep',
+        secondary: 'bg-surface-muted text-crimson-deep hover:bg-surface-strong',
+        outline: 'border-control border-crimson bg-transparent text-crimson hover:bg-surface-selected',
+        ghost: 'text-ink hover:bg-surface-muted',
+        dark: 'bg-ink text-on-dark hover:bg-ink-body',
+        onDark: 'bg-surface text-crimson-deep hover:bg-surface-muted',
+        destructive: 'bg-danger text-on-dark hover:bg-danger-deep',
       },
       size: {
-        sm: 'min-h-11 px-4 text-small',
-        md: 'min-h-11 px-5 text-body',
-        lg: 'min-h-13 px-7 text-lead',
+        sm: 'min-h-control px-4 text-small',
+        md: 'min-h-control px-5 text-body',
+        lg: 'min-h-control-lg px-7 text-lead',
       },
       block: { true: 'w-full' },
     },
@@ -75,7 +75,7 @@ export function IconButton({
     <button
       aria-label={label}
       title={label}
-      className={cn(buttonStyles({ variant, size: 'md' }), 'size-11 px-0', className)}
+      className={cn(buttonStyles({ variant, size: 'md' }), 'size-control px-0', className)}
       {...props}
     >
       {children}

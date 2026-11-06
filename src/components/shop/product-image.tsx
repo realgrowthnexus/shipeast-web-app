@@ -49,7 +49,7 @@ export function ProductImage({
       />
     )
   return (
-    <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-canvas', className)}>
+    <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-page', className)}>
       {src ? (
         <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
       ) : (

@@ -116,7 +116,7 @@ async function Pay({ params, searchParams }: PageProps<'/checkout/pay/[orderRef]
               type="submit"
               name="method"
               value={other}
-              className="min-h-11 font-semibold text-crimson underline underline-offset-2"
+              className="min-h-control font-semibold text-crimson underline underline-offset-2"
             >
               {other === 'card' ? 'Pay by card instead' : 'Pay with PayPal instead'}
             </button>
@@ -126,7 +126,7 @@ async function Pay({ params, searchParams }: PageProps<'/checkout/pay/[orderRef]
               type="submit"
               name="method"
               value="bank_transfer"
-              className="min-h-11 font-semibold text-crimson underline underline-offset-2"
+              className="min-h-control font-semibold text-crimson underline underline-offset-2"
             >
               Pay by bank transfer instead
             </button>

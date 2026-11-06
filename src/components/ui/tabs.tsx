@@ -44,7 +44,7 @@ export function Tabs({
             tabIndex={i === active ? 0 : -1}
             onClick={() => setActive(i)}
             className={cn(
-              '-mb-0.5 flex min-h-11 items-center gap-2 border-b-2 px-4 font-semibold whitespace-nowrap transition-colors',
+              '-mb-0.5 flex min-h-control items-center gap-2 border-b-2 px-4 font-semibold whitespace-nowrap transition-colors',
               i === active
                 ? 'border-crimson text-crimson'
                 : 'border-transparent text-ink-muted hover:text-ink',
@@ -55,7 +55,7 @@ export function Tabs({
               <span
                 className={cn(
                   'rounded-full px-2 py-0.5 text-xs tabular-nums',
-                  i === active ? 'bg-crimson text-white' : 'bg-surface-tint text-ink',
+                  i === active ? 'bg-crimson text-on-dark' : 'bg-surface-muted text-ink',
                 )}
               >
                 {t.count}

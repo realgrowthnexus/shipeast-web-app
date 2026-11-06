@@ -23,8 +23,8 @@ export function HomeHero({
   return (
     <section aria-labelledby="hero-h" className="pt-4 pb-4 sm:pt-6">
       <div className="mx-auto grid w-full max-w-wide gap-4 gutter lg:grid-cols-12 lg:gap-6">
-        <div className="relative overflow-hidden rounded-xl bg-canvas lg:col-span-8">
-          <div className="relative z-10 flex animate-rise flex-col items-start p-6 sm:p-10 lg:w-[60%] lg:py-12">
+        <div className="relative overflow-hidden rounded-xl bg-page lg:col-span-8">
+          <div className="relative z-raised flex animate-rise flex-col items-start p-6 sm:p-10 lg:w-[60%] lg:py-12">
             <FlagBadge>Shop &amp; Send to {parishes}</FlagBadge>
             <h1
               id="hero-h"
@@ -43,7 +43,7 @@ export function HomeHero({
               </ButtonLink>
               <Link
                 href="/how-it-works"
-                className="inline-flex min-h-11 items-center font-semibold text-ink-body hover:text-crimson"
+                className="inline-flex min-h-control items-center font-semibold text-ink-body hover:text-crimson"
               >
                 How it works
               </Link>
