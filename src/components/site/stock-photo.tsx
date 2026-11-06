@@ -14,7 +14,8 @@ const unsplashLoader: ImageLoader = ({ src, width, quality }) =>
 /**
  * A stock photo from the registry, cropped to the box it sits in. Give it an aspect class
  * (`aspect-4/3`) or a sized parent, and always pass `sizes` so phones download a phone-sized file.
- * No overlays or text on top: flat brand colours sit beside photos, never over them.
+ * Text goes on a photo only under one flat role overlay (see docs/PHOTOGRAPHY.md); otherwise
+ * flat brand colours sit beside photos, not over them.
  */
 export function StockPhoto({
   name,
@@ -22,6 +23,8 @@ export function StockPhoto({
   className,
   preload = false,
   zoom = false,
+  alt,
+  position,
 }: {
   name: StockPhotoKey
   sizes: string
@@ -30,14 +33,20 @@ export function StockPhoto({
   preload?: boolean
   /** Zoom in slightly when a parent with `group` is hovered (cards that are links). */
   zoom?: boolean
+  /** Overrides the registry alt, e.g. `""` when visible text already names the photo. */
+  alt?: string
+  /** Overrides the registry crop for one slot (CSS object-position). */
+  position?: string
 }) {
+  const photo = stockPhotos[name]
   return (
     <StockImage
-      photo={stockPhotos[name]}
+      photo={position ? { ...photo, position } : photo}
       sizes={sizes}
       className={className}
       preload={preload}
       zoom={zoom}
+      alt={alt}
     />
   )
 }

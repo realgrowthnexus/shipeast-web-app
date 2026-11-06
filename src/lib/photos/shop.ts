@@ -20,7 +20,7 @@ export const shopPhotos = {
     alt: 'A cashier weighing groceries at a supermarket checkout',
     photographer: 'Adhitya Sibikumar',
     username: 'adhitya_2505',
-    usedOn: 'Shop, Baskets',
+    usedOn: 'Home page, Shop, Baskets',
   }),
   shopReceipt: photo({
     unsplashId: 'recgFWxDO1Y',

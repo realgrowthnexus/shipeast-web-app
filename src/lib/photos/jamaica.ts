@@ -40,6 +40,6 @@ export const jamaicaPhotos = {
     alt: 'Kingston from above, with the hills behind the city',
     photographer: 'andrzj brown',
     username: 'andrzjbrown',
-    usedOn: 'Delivery',
+    usedOn: 'Home page (delivery areas), Delivery',
   }),
 } satisfies Record<string, StockPhoto>

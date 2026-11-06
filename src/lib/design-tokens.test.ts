@@ -93,20 +93,53 @@ const pairs: [string, string, number][] = [
   ...lightSurfaces.slice(0, 3).map((bg) => ['line-strong', bg, 3] as [string, string, number]),
   ...lightSurfaces.map((bg) => ['signal', bg, 3] as [string, string, number]),
   ['blush', 'crimson', 3],
+  ['blush', 'crimson-deep', 3],
+  ['blush', 'oxblood', 3],
 ]
+
+/** Translucent roles (`rgb(r g b / a)`): overlays, checked by what shows through them. */
+function rgba(role: string) {
+  const m = resolve(`color-${role}`).match(/^rgb\((\d+)\s+(\d+)\s+(\d+)\s*\/\s*([\d.]+)\)$/)
+  if (!m) throw new Error(`--color-${role} is not an rgb() colour with alpha`)
+  return { rgb: [m[1], m[2], m[3]].map(Number), alpha: Number(m[4]) }
+}
+
+/** The flat colour you see where an overlay sits on top of `under` (a hex). */
+function blend(role: string, under: string) {
+  const { rgb, alpha } = rgba(role)
+  const base = [1, 3, 5].map((i) => parseInt(under.slice(i, i + 2), 16))
+  return (
+    '#' +
+    rgb
+      .map((c, i) => Math.round(c * alpha + base[i] * (1 - alpha)))
+      .map((c) => c.toString(16).padStart(2, '0'))
+      .join('')
+  )
+}
 
 describe('tokens resolve', () => {
   it('switches off the default palette', () => {
     expect(declarations['color-*']).toBe('initial')
   })
-  it.each(roles.filter((r) => r !== 'scrim'))('--color-%s resolves to a hex colour', (role) => {
-    expect(color(role)).toMatch(/^#[0-9a-f]{6}$/i)
-  })
+  it.each(roles.filter((r) => !['scrim', 'photo-scrim'].includes(r)))(
+    '--color-%s resolves to a hex colour',
+    (role) => {
+      expect(color(role)).toMatch(/^#[0-9a-f]{6}$/i)
+    },
+  )
 })
 
 describe('contrast', () => {
   it.each(pairs)('%s on %s is at least %d:1', (fg, bg, min) => {
     expect(contrast(color(fg), color(bg))).toBeGreaterThanOrEqual(min)
+  })
+
+  // The photo overlay (home S7): the worst case is a pure white pixel in the photo.
+  it('on-dark on photo-scrim over white is at least 4.5:1', () => {
+    expect(contrast(color('on-dark'), blend('photo-scrim', '#ffffff'))).toBeGreaterThanOrEqual(4.5)
+  })
+  it('the blush focus ring on photo-scrim over black is at least 3:1', () => {
+    expect(contrast(color('blush'), blend('photo-scrim', '#000000'))).toBeGreaterThanOrEqual(3)
   })
 })
 

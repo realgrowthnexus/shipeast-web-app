@@ -3,12 +3,17 @@ import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
 import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
-import { getActiveZones, getSettings } from '@/lib/data/site'
+import { getActiveZones, getCategories, getSettings } from '@/lib/data/site'
+import { joinParishes } from '@/lib/home'
 import { isDemoMode } from '@/lib/env'
 import { site } from '@/lib/site'
 
 export default async function SiteLayout({ children }: LayoutProps<'/'>) {
-  const [settings, zones] = await Promise.all([getSettings(), getActiveZones()])
+  const [settings, zones, categories] = await Promise.all([
+    getSettings(),
+    getActiveZones(),
+    getCategories(),
+  ])
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -38,7 +43,11 @@ export default async function SiteLayout({ children }: LayoutProps<'/'>) {
         <main id="main" className="flex-1">
           {children}
         </main>
-        <SiteFooter whatsapp={settings.whatsapp} />
+        <SiteFooter
+          settings={settings}
+          categories={categories.map((c) => ({ slug: c.slug, name: c.name }))}
+          parishList={joinParishes(zones.map((z) => z.parish))}
+        />
         <CookieBanner />
       </MotionProvider>
     </>

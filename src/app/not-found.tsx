@@ -7,10 +7,15 @@ import { SiteFooter } from '@/components/site/site-footer'
 import { SiteHeader } from '@/components/site/site-header'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
-import { getCategories, getSettings } from '@/lib/data/site'
+import { getActiveZones, getCategories, getSettings } from '@/lib/data/site'
+import { joinParishes } from '@/lib/home'
 
 export default async function NotFound() {
-  const [categories, settings] = await Promise.all([getCategories(), getSettings()])
+  const [categories, settings, zones] = await Promise.all([
+    getCategories(),
+    getSettings(),
+    getActiveZones(),
+  ])
   return (
     <MotionProvider>
       <SiteHeader />
@@ -71,7 +76,11 @@ export default async function NotFound() {
           </div>
         </section>
       </main>
-      <SiteFooter whatsapp={settings.whatsapp} />
+      <SiteFooter
+        settings={settings}
+        categories={categories}
+        parishList={joinParishes(zones.map((z) => z.parish))}
+      />
     </MotionProvider>
   )
 }

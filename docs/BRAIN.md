@@ -148,15 +148,35 @@ Update this section whenever a step finishes, so a new session can continue inst
 
 **Current task (started November 6, 2026): total home page redesign, header to footer.**
 
-| Step                                                                                 | Status                         | Where                        |
-| ------------------------------------------------------------------------------------ | ------------------------------ | ---------------------------- |
-| Skills refreshed from GitHub (ui-ux-pro-max v2.15.0; frontend-design already latest) | Done                           | `.claude/skills/`            |
-| Unsplash allowed in the `shipeast-web-app` environment                               | Done                           |                              |
-| "Before" screenshots of the old home page                                            | Done (session scratchpad only) |                              |
-| Design agent writes the detailed plan                                                | In progress                    | `docs/home-redesign/PLAN.md` |
-| Manager verifies and approves the plan                                               | Not started                    |                              |
-| Development agent builds the home page, new header and footer (site-wide)            | Not started                    |                              |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, draft PR                    | Not started                    |                              |
+| Step                                                                                 | Status                                             | Where                                        |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------- | -------------------------------------------- |
+| Skills refreshed from GitHub (ui-ux-pro-max v2.15.0; frontend-design already latest) | Done                                               | `.claude/skills/`                            |
+| Unsplash allowed in the `shipeast-web-app` environment                               | Done                                               |                                              |
+| "Before" screenshots of the old home page                                            | Done (session scratchpad only)                     |                                              |
+| Design agent writes the detailed plan (structure-first)                              | Done                                               | `docs/home-redesign/PLAN.md`                 |
+| Manager verifies and approves the plan                                               | Done: approved with 6 amendments (top of the plan) | `docs/home-redesign/PLAN.md`                 |
+| Development agent builds the home page, new header and footer (site-wide)            | Done                                               | branch `claude/great-maxwell-qejgto`, PR #23 |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, draft PR                    | Done; waiting for the owner's review of PR #23     | PR #23                                       |
+
+**Next task (started November 6, 2026): redesign four more pages**, chosen by the manager:
+`/shop`, `/baskets`, `/how-it-works` and `/about`. They must match the home page's design
+language. Same branch and PR as the home redesign (#23).
+
+| Step                                                                          | Status                         | Where                           |
+| ----------------------------------------------------------------------------- | ------------------------------ | ------------------------------- |
+| "Before" screenshots of the four pages                                        | Done (session scratchpad only) |                                 |
+| Four design agents write structure-first plans (in parallel)                  | In progress                    | `docs/pages-redesign/<page>.md` |
+| Manager verifies and approves the four plans                                  | Not started                    |                                 |
+| One development agent builds all four pages                                   | Not started                    |                                 |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #23 updated | Not started                    |                                 |
+
+**Follow-ups after the redesign** (not blocking):
+
+- Groceries department tile photo (`pantry`) is not Caribbean: swap for a Jamaican kitchen or market shot.
+- The compact header search button is 36px tall: raise it to 44px.
+- Run Lighthouse mobile on the Vercel preview (LCP, CLS, accessibility).
+- Content from Derion: real SMS wording, Sunday and holiday delivery, a consented customer photo,
+  TRN and registered address.
 
 **How to resume:**
 

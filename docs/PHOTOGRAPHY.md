@@ -9,7 +9,15 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
   photo that only adds "mood" is left out.
 - Warm, everyday, Caribbean where we can find it: family, groceries, the door, Kingston and St.
   Thomas. No studio shots of models staring at the camera.
-- No overlays, tints, gradients or text on top of a photo. Crimson blocks sit beside photos.
+- **Overlay rule (owner, November 6, 2026).** A photo may be a section background with a
+  **flat overlay**: one colour role at one opacity, never a gradient, blur or tint ramp. Use the
+  `photo-scrim` role (oxblood at 80%, `bg-photo-scrim` on an `aria-hidden` layer above the
+  photo). Only `on-dark` text sits on it: 8.7:1 even over a pure white pixel. Keep
+  secondary text off it too (`blush` and `on-oxblood-muted` lose contrast over bright photo areas), so secondary text, data and icons go inside white cards on
+  top. Never go below 65% (5.3:1); the home page uses 80%. The photo is decorative (`alt=""`) because the heading
+  names the place. Today it is used once: the home page coverage band (Kingston's hills).
+  Everywhere else crimson blocks sit beside photos, and no text goes on a photo without the
+  overlay.
 - No PriceSmart photos and no store or delivery-company logos.
 - Product photos live in `src/lib/photos/products.ts`, keyed by product slug. Each one must
   show that exact item, with no brand visible. When no photo truly matches, the product keeps
@@ -29,13 +37,17 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
   `/photo-credits` is built from it, so a photo cannot be on the site without a credit.
 - `<StockPhoto name="…" sizes="…" className="aspect-4/3" />` draws one. Unsplash's CDN does the
   resizing (`?w=…&auto=format`), so files arrive as WebP or AVIF at the size the layout needs.
-  Always pass a real `sizes`. Only the home hero uses `preload`.
+  Always pass a real `sizes`. Only the home hero uses `preload`. Pass `alt=""` when visible
+  text already names the photo (department tiles, the coverage background) and `position` to
+  re-crop one slot without changing the registry entry.
 - Category tiles and basket cards look up their photo by slug (`categoryPhotos`, `basketPhotos`).
   A new category or basket without an entry keeps its icon or plain crimson card.
 
 ## Swapping a photo
 
 1. Find a free (not Unsplash+) photo on unsplash.com that fits the rules.
-2. Record the download through the Unsplash API (`/photos/:id/download`), as the API terms ask.
+2. Record the download through the Unsplash API (`/photos/:id/download`, or the Unsplash MCP
+   `download_asset` tool), as the API terms ask. `homeStepToDoor` (`czTuLlcSAus`) was recorded
+   this way on November 6, 2026.
 3. Replace the entry in `stock-photos.ts`: id, `images.unsplash.com/photo-…` URL without the query
    string, width, height, honest alt text, photographer and username.
