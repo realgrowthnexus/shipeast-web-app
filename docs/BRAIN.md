@@ -61,7 +61,19 @@ Steps, in order:
 
 1. **Brief.** The manager writes a precise brief for the design agent: goal, audience,
    competitors, brand rules, data available, photo rules, required plan contents.
-2. **Plan.** The design agent produces a detailed plan. It covers every section with:
+2. **Plan.** The design agent produces a detailed plan. **MUST be structure-first** (the
+   owner's main concern; styling comes after). The plan opens with a **structure blueprint**:
+   a whole-page skeleton at 1440 and 375px, then for every section from header to footer:
+   - the layout pattern, named plainly (full-bleed photo background with a flat overlay,
+     split two-column 7/5, three-card row, four-up strip, bento, scroll rail, zig-zag rows…)
+   - the background treatment (solid role, photo background, framed photo; overlay colour
+     and opacity)
+   - the container (full-bleed or `max-w-page` / `max-w-wide`) and the section height
+   - columns and stacking order at 375, 768, 1024 and 1440
+   - the inner blocks and their counts (e.g. "3 cards = photo 4:3 + h3 + body + link")
+   - why this structure serves the sender better than the competitors' pages
+
+   Only then the styling detail for every section:
    - copy and data source
    - wireframes at 375, 768 and 1440px
    - sizes, colour roles and type classes
@@ -71,6 +83,7 @@ Steps, in order:
    - accessibility notes
    - a self-review against generic defaults
    - an acceptance checklist
+
 3. **Verify.** The manager re-checks the plan against the brief, `CLAUDE.md`, the real data and
    both skills. Send it back with specific fixes until it is right, then **approve** it.
 4. **Build.** Assign the approved plan to the development agent.
@@ -92,6 +105,12 @@ Steps, in order:
 - **Think from scratch when asked to redesign.** Do not be boxed in by the current design.
   When the owner says "redesign", set the existing layout aside and design creatively from
   zero. Only the non-negotiables below stay.
+- **Structure before styling.** First decide what each section _is_: its layout pattern,
+  background, columns and blocks. Then colours, type, hover and motion.
+- **Flat photo overlays are allowed** (owner, November 6, 2026): for example a hero photo
+  background under a solid oxblood or ink overlay at 55–70%, with text that passes WCAG AA.
+  This overrides the older "no overlays on photos" note in `docs/PHOTOGRAPHY.md`. Gradient
+  overlays stay banned.
 - **Expert detail.** Every section needs exact sizes, colour shades, spacing, hover and motion
   decisions, never vague.
 
