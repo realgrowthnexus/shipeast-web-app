@@ -55,6 +55,78 @@ We never name a competitor on the page and never claim a price comparison we can
 
 ---
 
+## 1B. Structure blueprint
+
+Structure comes first; styling (§2 onwards) dresses it. Each section entry in §4 opens with a
+**Structure** block using the same six points as the table below.
+
+### 1B.1 Whole-page skeleton
+
+Heights are approximate, from the token paddings and the stated aspect ratios. `▓` = red
+(crimson/oxblood), `▒` = photo as background, `░` = neutral (`page`/`surface`). "Full" =
+full-bleed background; "wide"/"page" = content capped at `max-w-wide` (1280) / `max-w-page`
+(1152).
+
+```
+1440 × ~8,100px                                               375 × ~12,600px
+                                                              
+┌▓▓▓ HEADER  sticky bar, full, content wide        72 ┐       ┌▓ HEADER bar 64 + search row 56   120┐
+├▓▓▓ S1 HERO  split 6/6: text | framed photo        │       ├▓ S1 HERO  single column: text,      │
+│▓▓▓        + receipt object over the seam      ~780 │       │▓  then photo, receipt overlapping  │
+│▓▓▓        full crimson band, content wide         │       │▓  the photo foot                ~1050│
+├░░░ S2 STEPS  four-up row, photo on top        ~700 │ photo │░ S2 STEPS  4 rows: thumb | text ~830│
+├░░░ S3 DEPARTMENTS  four-up tile row            ~750 │ photo │░ S3 DEPTS  2×2 tiles            ~740│
+├░░░ S4 BASKETS  three-card row                  ~820 │ photo │░ S4 BASKETS  3 stacked cards   ~1700│
+├▓▓▓ S5 PROOF  full oxblood band; split 6/5:          │ text  │▓ S5 PROOF  stacked: list, SMS  ~1100│
+│▓▓▓        timeline list | SMS panel           ~780 │       │                                     │
+├░░░ S6 WHY  split 5/6: framed tall photo | ruled     │ photo │░ S6 WHY  photo, then list       ~1300│
+│░░░        list of 4 promises                 ~800 │       │                                     │
+├▒▒▒ S7 COVERAGE  full-bleed photo + flat oxblood     │ photo │▒ S7 COVERAGE  photo bg, title,      │
+│▒▒▒        70% overlay; 2 white zone cards on top~720│ (bg)  │▒  2 stacked cards             ~1000│
+├░░░ S8 QUESTIONS  split 4/8: intro | accordion ~560 │ text  │░ S8 QUESTIONS  intro, then list ~800│
+├░░░ S9 CLOSING  contained crimson panel        ~410 │ text  │░ S9 CLOSING  stacked panel      ~480│
+├▓▓▓ FOOTER  full oxblood, 4 columns (4/2/2/3)   ~520 ┘       └▓ FOOTER  brand, 2-col links    ~1000┘
+```
+
+Rhythm, top to bottom: **red mass → three light photo-led rows → red text-led band → light
+photo-led split → photo band → light text-led split → contained red panel → red footer.**
+Full-bleed blocks (hero, S5, S7, footer) alternate with contained light sections so the page
+never has two dark bands touching, and photo-led (S2–S4, S6, S7) alternates with text-led (S5,
+S8, S9) so the eye gets a rest after every image run.
+
+### 1B.2 Section structures at a glance
+
+| Section | 1. Pattern | 2. Background | 3. Container / height | 4. Columns 375 → 768 → 1024 → 1440 (what comes first on phones) | 5. Building blocks (counts) | 6. Why this structure, for the sender |
+|---|---|---|---|---|---|---|
+| Header | Single sticky bar; phone search row below | Solid `crimson` | Full-bleed, content `max-w-wide`; 64 / 72px | 1 row (logo, icons) + search row → 1 row with search → 1 row + nav (3) → 1 row + nav (4) + search | logo, 3–4 nav links, search, account, basket, menu | Search and basket always one tap away; a shop-like bar says "you can buy here", unlike courier sites that open with a contact form. |
+| S1 Hero | **Split two-column, 6/6**: text left, framed photo right, receipt object straddling the photo's left edge | Solid `crimson` (photo in a frame, not a background) | Full-bleed band, content `max-w-wide`; auto height, ≈ one viewport at 1440 (~780px) | 1 (text, photo, receipt) → 1 → 2 → 2 | h1, lead, 2 CTAs (primary + text link), cut-off line, 1 photo, 1 receipt | Text first on phones = the promise and the button before any scrolling; the receipt shows the proof before it's explained. Competitors open with a generic banner or a product grid and no proof. |
+| S2 Steps | **Four-up row** (sequence) | none (`page`) | Contained `max-w-page`; auto | 1 (4 rows: thumb left, text right) → 2×2 → 4 → 4 | header (h2, lead, link) + 4 steps, each = photo + number dot + h3 + 2-line body | Answers "how does this work from abroad?" in one glance; the four photos show real people at each step. |
+| S3 Departments | **Four-up tile row** | Solid `surface` | Contained `max-w-page`; auto | 2×2 → 4 → 4 → 4 | header + 4 tiles, each = photo + name + item count | One tap into a department; real counts show a real shop. |
+| S4 Baskets | **Three-card row** | none (`page`) | Contained `max-w-page`; auto | 1 → 2 (3rd card spans 2, side-by-side inside) → 3 → 3 | header + 3 cards, each = photo 16:9 + h3 + 1-line body + item count + price + saving tag + Add button | Fastest path to checkout for occasion senders; prices and real savings visible without opening anything. |
+| S5 Proof | **Full-width band, split 6/5**: timeline list left, SMS panel right | Solid `oxblood` | Full-bleed band, content `max-w-page`; auto | 1 (list, then panel) → 1 → 2 → 2 | h2, lead, 4-step email timeline, 1 SMS panel with 2 bubbles, footnote, link | Our edge, stated as what lands in *your* inbox and *their* phone. Text-led on purpose: a break after three photo rows. |
+| S6 Why | **Split two-column, 5/6** (1 column gap): framed tall photo left (sticky), title + ruled list right | none (`page`) | Contained `max-w-page`; auto | 1 (title, photo, list) → 1 (title, photo 16:9, list 2-col) → 2 → 2 | 1 photo 4:5, h2, lead, 4 promises (icon + h3 + body), 1 link | Puts us against barrels and cash, the senders' real alternatives, with a warm family photo beside the reasons. |
+| S7 Coverage | **Full-bleed background photo with a flat overlay**, two cards on top | Photo `jmKingstonHills` + **`photo-scrim` (oxblood at 70%)**, flat | Full-bleed; `min-h-[640px]` at lg, auto below | 1 (title, cards stacked) → 2 cards → 2 → 2 (3+ zones: 3) | h2, lead, 1 card per active zone (pill + h3 + 3 data rows), cut-off note, 2 links | A place, not a table: Kingston's hills behind the live fees and cut-offs. Answers "do you deliver to my family?" with real data. |
+| S8 Questions | **Split two-column, 4/8**: intro + links left (sticky), accordion right | Solid `surface` | Contained `max-w-page`; auto | 1 (intro, then list) → 1 → 2 → 2 | h2, lead, 2–3 links, 5 accordion items | Clears doubts without leaving the page; contact is right there. |
+| S9 Closing | **Single contained panel**, text left / buttons right inside | `page` band + solid `crimson` panel | Contained `max-w-page`; auto | 1 → 1 → 2 (text / buttons) → 2 | h2, 1 line, 2 CTAs (primary + text link) | One last, calm ask after the doubts are answered; contained so it never touches the red footer. |
+| Footer | **Four-column footer**: brand/contact + 3 link columns, legal row | Solid `oxblood` | Full-bleed, content `max-w-wide`; auto | 1 (brand, then 2-col links) → brand + 3 cols → 4/2/2/3 of 12 → same | brand + contact (2–3 rows), 3 link columns, payments line, legal line with flag | Everything findable; company name and contact up front read as an established local business. |
+
+### 1B.3 Overlay rule (owner decision, November 6, 2026)
+
+A photo may be a section background **with a flat overlay** (one colour role at one opacity, no
+gradient) when that is the best structure. This overrides the "no overlays" line in
+`docs/PHOTOGRAPHY.md`; update that file in the same PR. On this page it is used **once**, in
+S7. The hero stays a split because the receipt needs a solid crimson ground to read, text over
+a photo on a 375px phone would cover the face, and a split keeps the `h1` (not a darkened
+photo) as the phone LCP.
+
+Contrast check for S7 (`photo-scrim` = oxblood `#4A0B1C` at 70%), worst case = a pure white
+pixel underneath: blended colour `#805460`, relative luminance 0.118 →
+**`on-dark` (#FFFFFF) = 6.2:1** (passes AA for all text). At 65% it would be 5.3:1; we use
+70%. `blush` would be 4.1:1 and `on-oxblood-muted` 2.7:1, so **only `on-dark` text sits on the
+overlay**; everything else is inside the white cards.
+
+---
+
 ## 2. Design-system decisions
 
 ### 2.1 Skill recommendations accepted and rejected
@@ -74,9 +146,10 @@ We never name a competitor on the page and never claim a price comparison we can
 
 ### 2.2 Colour roles and page rhythm
 
-No new colour roles. Red stands out as **three solid blocks** — the header+hero mass at the top,
-the oxblood proof band in the middle, the crimson closing panel at the end — with neutral bands
-between. Never two red bands touching.
+One new colour role (`photo-scrim`, §2.6). Red stands out as **three solid blocks** — the
+header+hero mass at the top, the oxblood proof band in the middle, the crimson closing panel at
+the end — plus the oxblood-tinted Kingston photo band (S7), with neutral bands between. Never two
+dark bands touching (S5 and S7 are separated by S6).
 
 ```
  ┌───────────────────────────────┐
@@ -88,9 +161,9 @@ between. Never two red bands touching.
  │ S3 departments    surface     │
  │ S4 baskets        page        │
  │ S5 what you get   oxblood     │ ← middle red block
- │ S6 coverage       page        │
- │ S7 why ShipEast   surface     │
- │ S8 questions      page        │
+ │ S6 why ShipEast   page        │
+ │ S7 coverage       photo + oxblood 70% overlay, full-bleed │ ← photo band (not a solid red band)
+ │ S8 questions      surface     │
  │ S9 closing        page band + crimson panel (rounded-2xl, contained) │
  │ footer            oxblood     │ ← separated from the crimson panel by the page band's bottom padding
  └───────────────────────────────┘
@@ -100,8 +173,10 @@ between. Never two red bands touching.
 |---|---|---|---|---|---|---|---|
 | Header, S1, S9 panel | `crimson` | `on-dark` | `on-dark` | `on-crimson-muted` | `crimson-deep` | `on-dark`, underline on hover | **`blush`** (see 2.6) |
 | S5, footer | `oxblood` | `on-dark` | `on-dark` | `on-oxblood-muted` | `line-on-dark` | `on-oxblood-muted` → `on-dark` | **`blush`** |
-| S2, S4, S6, S8 | `page` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
-| S3, S7 | `surface` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
+| S7 band (on the overlay) | photo + `photo-scrim` | `on-dark` | `on-dark` | `on-dark` only (see 1B.3) | — | `on-dark`, underline | **`blush`** (ring is non-text: blush on the darkest overlay ≥ 3:1) |
+| S7 zone cards | `surface` | `ink` | `ink-body` | `ink-muted` | `line` | | `signal` |
+| S2, S4, S6, S9 band | `page` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
+| S3, S8 | `surface` | `ink` | `ink-body` | `ink-muted` | `line` | `crimson` | `signal` |
 | Cards on page | `surface` + `border-line` | `ink` | `ink-body` | `ink-muted` | `line` | | `signal` |
 
 `signal` on crimson is about 1.6:1 and fails WCAG 1.4.11, hence the blush ring on dark areas.
@@ -153,10 +228,12 @@ headline, lead and buttons are static so the largest paint is never held back.
 
 ### 2.6 New tokens and utilities
 
-Add to `src/app/globals.css`, list in `docs/TOKENS.md`, show on `/styleguide`. No new colours.
+Add to `src/app/globals.css`, list in `docs/TOKENS.md`, show on `/styleguide`. One new colour
+role, built from an existing primitive.
 
 | Name | Kind | Value | Used by |
 |---|---|---|---|
+| `photo-scrim` | colour role (`@theme inline`: `--color-photo-scrim: rgb(74 11 28 / 0.7)`, i.e. `--crimson-900` at 70%) | oxblood at 70%, flat | S7 overlay only. Add its worst-case pair (`on-dark` over `photo-scrim` on white = 6.2:1) to `design-tokens.test.ts`. Kept separate from `scrim` (60%, dialogs) so either can change alone. |
 | `--header-height` | `:root` var | `4rem` (64px); `4.5rem` (72px) at `min-width: 768px` | sticky offset |
 | `scroll-mt-header` | `@utility` | `scroll-margin-top: calc(var(--header-height) + 1rem)` | every section with an `id`, the FAQ items (WCAG 2.4.11: focus not hidden under the sticky bar) |
 | `animate-print` | `@utility` + `@keyframes print` | `animation: print var(--duration-reveal) var(--ease-out-soft) 300ms both;` `@keyframes print { from { clip-path: inset(0 0 100% 0); transform: translateY(calc(var(--motion-rise) * -1)); } }` | `HeroReceipt` |
@@ -179,8 +256,8 @@ to the 3:1 non-text checks if the test has a list for focus rings.
 | S4 | Ready-made baskets | `page` | One-tap baskets for the usual needs | Add a basket (or open it) |
 | S5 | You see it bought. You see it delivered. | `oxblood` | What the sender and the family receive | See the full journey → `/how-it-works#proof` |
 | S6 | No barrel. No cash. You choose what arrives. | `page` | Why us over barrels, cash and vouchers | none (reassurance); link to `/about` |
-| S7 | Delivering in St. Thomas and Kingston | `surface` | Live fees, cut-offs, minimums per parish | Delivery areas and fees → `/delivery` |
-| S8 | Questions senders ask first | `page` | Clear the last doubts | All questions → `/faq` |
+| S7 | Delivering in St. Thomas and Kingston | photo + `photo-scrim` | Live fees, cut-offs, minimums per parish | Delivery areas and fees → `/delivery` |
+| S8 | Questions senders ask first | `surface` | Clear the last doubts | All questions → `/faq` |
 | S9 | Start a basket for home | `page` + crimson panel | Close | **Start shopping** → `/shop` |
 | F | Footer | `oxblood` | Every link, contact, legal | Contact / any link |
 
@@ -228,6 +305,17 @@ Derived values (compute in `page.tsx`, pass down as props):
 
 Replaces `src/components/site/site-header.tsx`, `header-shell.tsx`; `basket-link.tsx` and
 `search-box.tsx` are reused.
+
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | One sticky horizontal bar (logo · nav · search · account · basket), plus on phones a second, non-sticky search row under it. No announcement strip, no mega menu. |
+| 2. Background | Solid `crimson`, flat. |
+| 3. Container / height | Full-bleed bar, content `max-w-wide gutter`. Bar 64px (< md), 72px (md+). Phone search row 56px. |
+| 4. Columns | 375: one row [logo ··· account, basket, menu] + search row. 768: one row [logo, search (flex), account, basket, menu]. 1024: [logo, 3 nav links ··· search icon, account, basket]. 1440: [logo, 4 nav links, search field ··· account, basket]. |
+| 5. Blocks | 1 wordmark, 3–4 nav links, 1 search, 1 account icon, 1 basket pill, 1 menu button (< lg). |
+| 6. Why | A shop's header (search + basket) tells a first-time sender this is a store they can buy from now, not a courier asking them to call. Search on the first screen of a phone serves the returning monthly sender who knows what they want. |
 
 #### Structure and copy
 
