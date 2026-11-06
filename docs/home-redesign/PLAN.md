@@ -1089,8 +1089,7 @@ visible (not colour only). Background photo and overlay are decorative (`alt=""`
 #### Photo
 
 P8 `jmKingstonHills` as the background; full-bleed, `object-position: center 60%` (keeps the
-hills and the city in the band at 375, where the band is tall and narrow). Backups P8
-`kingston`, `blueMountains`.
+hills and the city in the band at 375, where the band is tall and narrow). Backups: `companyCountryRoad`, `kingston` (see §7).
 
 ---
 
@@ -1133,7 +1132,7 @@ hills and the city in the band at 375, where the band is tall and narrow). Backu
 └──────────────────────────┘
 ```
 
-Section `section bg-page`, `max-w-page gutter`. Left column `lg:sticky
+Section `section bg-surface`, `max-w-page gutter`. Left column `lg:sticky
 lg:top-[calc(var(--header-height)+2rem)]`. Links `flex flex-col gap-1 mt-6`, each
 `min-h-control inline-flex items-center gap-2 text-crimson font-semibold hover:underline`
 (`Mail`, `MessageCircle` icons `size-icon`). Accordion `mt-8 lg:mt-0`.
@@ -1359,7 +1358,7 @@ Current-page state: `NavLink` sets `aria-current="page"` for `/shop*`, `/baskets
 |---|---|
 | LCP element | Desktop: the hero photo (`familyPhone`). Phone: the `h1` text (photo sits below the fold at 375×667). |
 | Hero photo loading | `StockPhoto preload` → `next/image` `preload` (only image on the site with it). `sizes="(min-width: 1280px) 600px, (min-width: 1024px) 46vw, 100vw"`. Not animated (no opacity start). |
-| Other images | default lazy; every one has a real `sizes` (listed per section) and a fixed aspect box (no CLS). Unsplash loader serves AVIF/WebP at the requested width. |
+| Other images | default lazy (including the S7 full-bleed background, `sizes="100vw"`); every one has a real `sizes` (listed per section) and a fixed aspect box (no CLS). Unsplash loader serves AVIF/WebP at the requested width. |
 | Font | Figtree via `next/font` (existing, `display: swap`). |
 | Hero text | Static, server-rendered, not animated, so LCP is not held by `animate-rise`. |
 | Cache Components | All page data comes from `'use cache'` loaders → the page body is prerendered. Runtime reads are isolated: `BasketLink` (cookie) in `<Suspense>` with `BasketLinkFallback`; the countdown is client-only after mount; `CopyrightYear` is `'use cache'` + `cacheLife('days')`. No `searchParams`, `cookies()` or `headers()` in `page.tsx`. |
@@ -1387,8 +1386,8 @@ Unsplash API (`/photos/:id/download`) before going live, as `docs/PHOTOGRAPHY.md
 | P6 | S3 tiles | `categoryPhotos` map: `pantry`, `catHousehold`, `catPharmacy`, `catBaby` (existing) | `yLor6GEU2yw`, `DJcVOQUZxF0`, `HTttz00wkzU`, `QCVrp1uxCXs` | see `core.ts` | — | see registry | `alt=""` (decorative; tile text names it) | 1:1 / 4:5; existing positions |
 | P6b | S4 cards | `basketPhotos` map: `basketFood`, `basketBaby`, `basketChristmas` (+ `basketPharmacy`) (existing) | `-9TeWHMASzs`, `Jqhwp4mcuUM`, `SrnCpsp9sGY`, `FDvArkoGyvI` | see `core.ts` | — | see registry | registry alt | 16:9; `basketBaby` keeps `center 40%`; `basketChristmas` add `center 55%` |
 | P7 | S6 | `whyFamily` (existing, `core.ts`) | `khLLtGplL8I` | `https://images.unsplash.com/photo-1640117743090-93ce4f4450dd` | 6000 × 4000 | Imani Manyara (`imanimanyara`) | A grandmother congratulating her granddaughter | 4:5 / 16:9; `45% 40%` |
-| P8 | S7 Kingston | `jmKingstonHills` (existing, `jamaica.ts`) | `0uBGE5y9RZ8` | `https://images.unsplash.com/photo-1584238556966-2c407cc4fd56` | 6000 × 4000 | andrzj brown (`andrzjbrown`) | Kingston from above, with the hills behind the city | 16:9; `center 60%` |
-| P9 | S7 St. Thomas | `companyCountryRoad` (existing, `company.ts`) via new `zonePhotos` map | `cqE9f81PSY8` | `https://images.unsplash.com/photo-1780332534975-6318b3d734d7` | 5194 × 3456 | Kern Morris (`kernsway`) | A two-lane country road in Jamaica, lined with palms and trees | 16:9; `center` |
+| P8 | S7 background (full-bleed, under `photo-scrim`) | `jmKingstonHills` (existing, `jamaica.ts`) | `0uBGE5y9RZ8` | `https://images.unsplash.com/photo-1584238556966-2c407cc4fd56` | 6000 × 4000 | andrzj brown (`andrzjbrown`) | `alt=""` on this page (decorative background; the h2 names the place). Registry alt stays: Kingston from above, with the hills behind the city | full-bleed `object-cover`; `center 60%`; `sizes="100vw"`, lazy |
+| P9 | (spare) St. Thomas | `companyCountryRoad` (existing, `company.ts`) — **not used now** that S7 is one photo band; first backup for P8 and for a future St. Thomas zone image on `/delivery` | `cqE9f81PSY8` | `https://images.unsplash.com/photo-1780332534975-6318b3d734d7` | 5194 × 3456 | Kern Morris (`kernsway`) | A two-lane country road in Jamaica, lined with palms and trees | 16:9; `center` |
 
 **Backups (1–2 per slot)**
 
@@ -1400,7 +1399,7 @@ Unsplash API (`/photos/:id/download`) before going live, as `docs/PHOTOGRAPHY.md
 | P4 | `shopReceipt` `recgFWxDO1Y` (weak: a work slip, not a till receipt) | — |
 | P5 | **new** `Rmb8xyYHr68` — `https://images.unsplash.com/photo-1734416561439-ca0f663344f9`, 2252 × 4000, Nico Smit (`nicosmit99`), "A man walking along a pavement carrying two bags of shopping", 1:1/4:3 `center 45%` | `stepDoor` `Kd27X69pYyo` |
 | P7 | `companyFamilyMeal` `gorbBYbo6KM` | `jmAckee` `W4vDQETfroY` (only if the copy turns to food) |
-| P8 | `kingston` `xoGK4R6bp4I` | `kingstonStreet` `9R-WAl5UGWI` |
+| P8 | `companyCountryRoad` `cqE9f81PSY8` (country road, then the title stays "Delivering in …") | `kingston` `xoGK4R6bp4I` (portrait; crop `center 70%`) |
 | P9 | `companyCoast` `lzecv_xfTgo` | **new** `VJ6dY5R6b5E` — `https://images.unsplash.com/photo-1691955448236-e62d76e2753f`, 3024 × 4032, Shanika Willis (`shanika4241`), "A papaya tree against a blue sky in Jamaica", 16:9 `center 30%` |
 
 Considered and rejected: `xBUDLmcyrVQ` (courier company logo on jacket), `eOUYC6UNl2k`
@@ -1430,9 +1429,10 @@ New registry entries to add (`src/lib/photos/home.ts`): `homeStepToDoor` (P5) �
 | Headline "Send groceries, not money" | Says what we're not; "send" implies shipping | "Groceries for home. Proof for you." — what you get, in five words. |
 | A testimonial strip "What senders say" | We have none; would be invented | Not built. |
 | Coverage before "why" | Ends the story on logistics before the reason to choose us | Why (S6) before where (S7). |
+| (owner update) Styling-first plan | The owner asked for structure first | Added §1B: a whole-page skeleton and a six-point structure block leading every section. S7 changed from "two photo cards on surface" to a full-bleed Kingston photo band with a flat 70% oxblood overlay, giving the page one place-led full-bleed moment between contained sections. Hero kept as a split (reasons in 1B.3) but its photo is now square at desktop so header + hero fit one screen. |
 
-The boldness is spent in one place: the receipt. Every other section is neutral, flat and
-typographic.
+The boldness is spent in one place: the receipt. Every other section is neutral and flat; the
+S7 photo band is a change of pace, not a second loud element (no motion, no type tricks).
 
 ### 8.2 Against ui-ux-pro-max pre-delivery checklist
 
@@ -1457,7 +1457,7 @@ typographic.
 
 | Risk | Mitigation |
 |---|---|
-| The receipt overlapping the photo edge could be read as "something on top of a photo" (PHOTOGRAPHY.md: no overlays) | It covers ≤ 15% of the photo, at an edge, never the face, and is an object, not text on the image. If the manager rules it out: move the receipt fully onto the crimson (desktop `-left-28`, photo `ml-auto w-[85%]`), and on phones place it above the photo with no overlap. |
+| The receipt overlaps the hero photo's edge | Allowed by the owner's overlay decision (1B.3). It covers ≤ 15% of the photo, at an edge, never the face. Fallback if it crowds at 768: receipt fully on the crimson beside the photo. |
 | A drawn "example receipt" could look like a fake real receipt | Always labelled "Example receipt"; lines come from the real catalogue at the live rate; no store name, no date, no fake time on it. |
 | SMS bubbles show copy that may not match the real templates | Labelled "Examples"; §10 asks for the template wording; update when Twilio templates land. |
 | Same-day promise near cut-off / Sundays | Countdown copy after cut-off says "next delivery day", not "tomorrow"; awaiting Derion's delivery days (§10). |
@@ -1511,7 +1511,7 @@ Verify at **375, 768, 1024, 1440** in light mode, with Playwright screenshots, p
 - [ ] S4: featured baskets; saving tag only when real; card hover lift; Add to basket works and shows its added state; no orphan half-row at 768.
 - [ ] S5: oxblood band; email sequence with connector; SMS panel labelled as examples.
 - [ ] S6: ruled promise list; photo sticky beside it at 1024+; bank-transfer wording only when configured.
-- [ ] S7: one card per active zone with fee, cut-off and minimum from data; empty state when no zones.
+- [ ] S7: full-bleed Kingston photo with a flat oxblood 70% overlay (no gradient); all text on the overlay is `on-dark`; white zone cards with fee, cut-off and minimum from data; empty state when no zones; photo lazy-loaded.
 - [ ] S8: 5 FAQs in native `<details>`; email link uses `settings.email`; WhatsApp link only if set.
 - [ ] S9: contained crimson panel, not touching the footer.
 
@@ -1529,5 +1529,5 @@ Verify at **375, 768, 1024, 1440** in light mode, with Playwright screenshots, p
 2. **Delivery days.** Does ShipEast deliver on Sundays and public holidays? Affects the after-cut-off line ("next delivery day").
 3. **Hero photo.** Can Derion supply a real photo (with consent) of a customer's family at home or at the door? It would replace `familyPhone` and strengthen the "real" feel more than any stock.
 4. **TRN and registered address** for the footer legal line (hidden until provided).
-5. **Receipt overlap.** Manager to confirm the receipt may overlap the hero photo's edge (risk in §8.3), or choose the no-overlap fallback.
+5. **Overlay in S7.** Confirm oxblood at 70% (computed 6.2:1 worst case) reads well on the real photo; if the photo looks muddy, the fallback is 65% (5.3:1) — never lower.
 6. **Store name on the example receipt.** Kept off deliberately. Confirm ShipEast doesn't want a store named there.
