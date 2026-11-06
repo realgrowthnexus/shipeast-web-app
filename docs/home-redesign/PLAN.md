@@ -544,6 +544,17 @@ entry; her face sits left of centre).
 
 ### 4.2 S2 From your phone to their door (steps)
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Four-up row** of steps (a true sequence), section header above with the link at its right. |
+| 2. Background | None: `page`, flat. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 700px at 1440, ≈ 830px at 375. |
+| 4. Columns | 375: 1 column of 4 rows, each row = 96px square thumb left + text right (header first, link last). 768: 2×2 grid, photo on top. 1024 / 1440: 4 columns, photo on top. |
+| 5. Blocks | Header (h2 + 1-line lead + 1 text link) + 4 steps, each = photo 4:3 (thumb 1:1 on phones) + number dot + h3 + 2-line body. |
+| 6. Why | Answers the first question from abroad ("how can you buy for me over there?") in one glance, in order. Rows with thumbs keep four steps under one phone-and-a-half of scroll instead of four full-width photos. Competitors bury this on a separate page. |
+
 #### Copy
 
 | | |
@@ -630,6 +641,17 @@ from registry.
 
 ### 4.3 S3 Shop by department
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Four-up tile row** (photo tile + caption), header above. |
+| 2. Background | Solid `surface`, flat. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 750px at 1440, ≈ 740px at 375. |
+| 4. Columns | 375: 2×2 grid (square photos). 768 / 1024 / 1440: 4 columns (4:5 photos). Header first. |
+| 5. Blocks | Header (h2 + 1-line lead + 1 text link) + 4 tiles, each = photo + name + item count. Tile count follows the data (4 today). |
+| 6. Why | One tap into the right aisle; 2×2 on a phone keeps all four departments on one screen. Real item counts make it read as a stocked shop, not a brochure. |
+
 #### Copy
 
 | | |
@@ -687,6 +709,17 @@ replaced with `""` (decorative: the visible name says it) — pass `alt=""` via 
 ---
 
 ### 4.4 S4 Ready-made baskets
+
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Three-card row** (product cards with an action), header above. |
+| 2. Background | None: `page`, flat. Cards are `surface` with a `line` border. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 820px at 1440, ≈ 1,700px at 375 (three stacked cards). |
+| 4. Columns | 375: 1 column, cards stacked. 768: 2 columns, third card spans both columns as a horizontal card (photo left, body right). 1024 / 1440: 3 columns. |
+| 5. Blocks | Header (h2 + 2-line lead + 1 text link) + 3 cards, each = photo 16:9 + h3 + 1-line description + item count + price (USD + J$) + saving tag (when real) + Add to basket button. |
+| 6. Why | The fastest route to checkout for the occasion sender: price, saving and Add are on the card, no page to open. Grocery-list sites show long product grids; three finished baskets are easier to choose from on a phone. |
 
 #### Copy
 
@@ -765,6 +798,17 @@ basket name).
 ---
 
 ### 4.5 S5 You see it bought. You see it delivered. (oxblood)
+
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Full-width band, split two-column 6/5** (one empty column between): vertical timeline list left, SMS panel right; title block full width above. |
+| 2. Background | Solid `oxblood`, flat. No photo (text-led by design). |
+| 3. Container / height | Full-bleed band, content `max-w-page`. Auto; ≈ 780px at 1440, ≈ 1,100px at 375. |
+| 4. Columns | 375 / 768: 1 column — title, lead, email timeline, then SMS panel, footnote, link. 1024 / 1440: title row, then 2 columns (timeline col 1–6, SMS panel col 8–12). |
+| 5. Blocks | h2, lead, 1 timeline of 4 steps (icon disc + title + 1-line text, connected by a line), 1 SMS panel with 2 bubbles, 1 footnote, 1 text link. |
+| 6. Why | Splits what *you* get (email, photos) from what *they* get (a text on any phone), which is exactly the sender's worry. A dark text-led band after three photo rows changes pace and marks the most important message. No competitor shows its notifications. |
 
 #### Copy
 
@@ -861,6 +905,17 @@ photo again would repeat the bold element.)
 ---
 
 ### 4.6 S6 No barrel. No cash. You choose what arrives.
+
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Split two-column, 5/6** (one empty column between): framed tall photo left (sticky while the list scrolls), title + ruled list right. |
+| 2. Background | None: `page`, flat. Photo in a `rounded-xl` frame, no overlay. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 800px at 1440, ≈ 1,300px at 375. |
+| 4. Columns | 375: 1 column — title, lead, photo 4:5, list. 768: 1 column — title, lead, photo 16:9, list in 2 columns. 1024 / 1440: photo col 1–5, text col 7–12. |
+| 5. Blocks | 1 photo, h2, lead, 4 promises (icon + h3 + 1–2-line body, separated by top rules), 1 text link. |
+| 6. Why | Compares us with what senders actually do today (barrels, cash, vouchers) without naming anyone. A ruled list reads faster than four cards, and the family photo keeps it human. |
 
 #### Copy
 
@@ -1014,6 +1069,17 @@ P8 `jmKingstonHills` (Kingston), P9 `homeStThomasRoad` (new key for the existing
 
 ### 4.8 S8 Questions senders ask first
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Split two-column, 4/8**: intro and contact links left (sticky), accordion right. |
+| 2. Background | Solid `surface`, flat. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 560px at 1440 (items closed), ≈ 800px at 375. |
+| 4. Columns | 375 / 768: 1 column — h2, lead, links, then accordion. 1024 / 1440: intro col 1–4, accordion col 5–12. |
+| 5. Blocks | h2, 1-line lead, 2–3 links (all FAQs, email, WhatsApp if set), 5 accordion items. |
+| 6. Why | Doubts answered in place, with a human contact right beside them; one tap to open, nothing to load. |
+
 #### Copy
 
 | | |
@@ -1069,6 +1135,17 @@ order; no heading inside summary (summary text is the question).
 
 ### 4.9 S9 Start a basket for home (closing panel)
 
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Single contained panel**: text left, buttons right inside (stacked on phones). |
+| 2. Background | `page` band; panel solid `crimson`, `rounded-2xl`, flat. |
+| 3. Container / height | Contained `max-w-page`. Auto; ≈ 410px at 1440 including band padding, ≈ 480px at 375. |
+| 4. Columns | 375 / 768: 1 column — h2, line, primary button (full width on 375), link. 1024 / 1440: 2 columns inside the panel (text left, buttons right, vertically centred). |
+| 5. Blocks | h2, 1 line (parishes + cut-off), 2 CTAs (primary + text link). |
+| 6. Why | A calm last ask after the doubts are cleared; contained so it never touches the red footer and still reads as a final, separate moment. |
+
 #### Copy
 
 | | |
@@ -1118,6 +1195,17 @@ would touch the oxblood footer.
 ---
 
 ### 4.F Footer (shared, all `(site)` pages)
+
+#### Structure
+
+| | |
+|---|---|
+| 1. Pattern | **Four-column footer**: brand + contact column, then three link columns; payments line and legal line below a rule. |
+| 2. Background | Solid `oxblood`, flat. |
+| 3. Container / height | Full-bleed, content `max-w-wide`. Auto; ≈ 520px at 1440, ≈ 1,000px at 375. |
+| 4. Columns | 375: brand + contact first, then links in a 2-column grid (Shop, Help; Company spans both), then payments, then legal. 768: brand full width, then 3 link columns. 1024 / 1440: 12-col grid — brand col 1–4, Shop col 6–7, Help col 8–9, Company col 10–12; bottom row payments left, legal right. |
+| 5. Blocks | 1 wordmark + 1 sentence, 1–3 contact rows (email, phone, WhatsApp when set), 3 link columns (8, 6 and 8 links), 1 payments line, 1 legal line with flag. |
+| 6. Why | The company name, a Jamaican address line and real contact up front read as an established local business; every page is two taps from anywhere. |
 
 Replaces `src/components/site/site-footer.tsx`. Props change from `{ whatsapp }` to
 `{ settings: SiteSettings, categories: {slug,name}[] }` (layout passes them; both are cached).
