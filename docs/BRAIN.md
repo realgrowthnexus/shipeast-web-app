@@ -111,6 +111,13 @@ Steps, in order:
   background under a solid oxblood or ink overlay at 55–70%, with text that passes WCAG AA.
   This overrides the older "no overlays on photos" note in `docs/PHOTOGRAPHY.md`. Gradient
   overlays stay banned.
+- **Light header** (owner, November 7, 2026): the site header is a light shade, not a solid
+  crimson bar. Crimson stays for actions, the logo and the basket.
+- **Every hero has its own structure** (owner, November 7, 2026). Pages must not all open with
+  the same two-column split. Mix the patterns across the site: a full-bleed photo background
+  under a flat overlay, a centred statement, a full-width photo band with text below, an
+  editorial layout, and so on. Pick per page what serves its job, and never repeat the
+  neighbouring page's pattern.
 - **Expert detail.** Every section needs exact sizes, colour shades, spacing, hover and motion
   decisions, never vague.
 
@@ -168,7 +175,34 @@ language. The home redesign (PR #23) is merged; this work is in PR #24.
 | Four design agents write structure-first plans (in parallel)                                                        | Done (three were cut off by the usage limit after writing; files are complete) | `docs/pages-redesign/<page>.md`   |
 | Manager verifies and approves the four plans                                                                        | Done: approved with 7 amendments                                               | `docs/pages-redesign/APPROVAL.md` |
 | One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | Done                                                                           | PR #24                            |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; waiting for the owner's review of PR #24                                 | PR #24                            |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; PR #24 merged                                                            | PR #24                            |
+
+**Next task (started November 7, 2026): rebuild `/shop` as a big-mart product listing.**
+The owner said the shop feels like a corporate business site, but the main focus is products. It
+must become a big supermarket listing: a large product grid, a filter sidebar (a drawer on
+phones), sort, a result count, active filter chips and paging. It is researched against real
+mart UIs online. The same layout serves `/shop` (all products) and `/shop/[category]` (one
+department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
+migration. PR #24 (the four pages) is merged; this work goes in a new PR.
+
+| Step                                                              | Status      | Where                       |
+| ----------------------------------------------------------------- | ----------- | --------------------------- |
+| Design agent: research real mart UIs, then a structure-first plan | In progress | `docs/shop-listing/PLAN.md` |
+| Manager verifies and approves the plan                            | Not started |                             |
+| Development agent builds it                                       | Not started |                             |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push     | Not started | new PR                      |
+
+**Next task (started November 7, 2026, runs alongside the shop listing): light header and
+varied heroes.** The owner wants the header in a light shade, and the hero of every redesigned
+page (home, `/baskets`, `/how-it-works`, `/about`) restructured so the heroes differ from each
+other, some with a photo background under an overlay. Same PR as the shop listing.
+
+| Step                                                      | Status      | Where                 |
+| --------------------------------------------------------- | ----------- | --------------------- |
+| Design agent: light header and four hero structures       | In progress | `docs/heroes/PLAN.md` |
+| Manager verifies and approves                             | Not started |                       |
+| Development agent builds (together with the shop listing) | Not started |                       |
+| Manager QA, fixes, `npm run check`, push                  | Not started | new PR                |
 
 **Follow-ups after the redesign** (not blocking):
 
