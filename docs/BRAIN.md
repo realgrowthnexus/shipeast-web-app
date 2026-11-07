@@ -156,19 +156,19 @@ Update this section whenever a step finishes, so a new session can continue inst
 | Design agent writes the detailed plan (structure-first)                              | Done                                               | `docs/home-redesign/PLAN.md`                 |
 | Manager verifies and approves the plan                                               | Done: approved with 6 amendments (top of the plan) | `docs/home-redesign/PLAN.md`                 |
 | Development agent builds the home page, new header and footer (site-wide)            | Done                                               | branch `claude/great-maxwell-qejgto`, PR #23 |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, draft PR                    | Done; waiting for the owner's review of PR #23     | PR #23                                       |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, draft PR                    | Done; PR #23 merged                                | PR #23                                       |
 
 **Next task (started November 6, 2026): redesign four more pages**, chosen by the manager:
 `/shop`, `/baskets`, `/how-it-works` and `/about`. They must match the home page's design
-language. Same branch and PR as the home redesign (#23).
+language. The home redesign (PR #23) is merged; this work is in PR #24.
 
-| Step                                                                          | Status                         | Where                           |
-| ----------------------------------------------------------------------------- | ------------------------------ | ------------------------------- |
-| "Before" screenshots of the four pages                                        | Done (session scratchpad only) |                                 |
-| Four design agents write structure-first plans (in parallel)                  | In progress                    | `docs/pages-redesign/<page>.md` |
-| Manager verifies and approves the four plans                                  | Not started                    |                                 |
-| One development agent builds all four pages                                   | Not started                    |                                 |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #23 updated | Not started                    |                                 |
+| Step                                                                                                                | Status                                                                         | Where                             |
+| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------- |
+| "Before" screenshots of the four pages                                                                              | Done (session scratchpad only)                                                 |                                   |
+| Four design agents write structure-first plans (in parallel)                                                        | Done (three were cut off by the usage limit after writing; files are complete) | `docs/pages-redesign/<page>.md`   |
+| Manager verifies and approves the four plans                                                                        | Done: approved with 7 amendments                                               | `docs/pages-redesign/APPROVAL.md` |
+| One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | In progress                                                                    | PR #24                            |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Not started                                                                    |                                   |
 
 **Follow-ups after the redesign** (not blocking):
 
