@@ -168,7 +168,7 @@ language. The home redesign (PR #23) is merged; this work is in PR #24.
 | Four design agents write structure-first plans (in parallel)                                                        | Done (three were cut off by the usage limit after writing; files are complete) | `docs/pages-redesign/<page>.md`   |
 | Manager verifies and approves the four plans                                                                        | Done: approved with 7 amendments                                               | `docs/pages-redesign/APPROVAL.md` |
 | One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | Done                                                                           | PR #24                            |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; waiting for the owner's review of PR #24                                 | PR #24                            |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; PR #24 merged                                                            | PR #24                            |
 
 **Next task (started November 7, 2026): rebuild `/shop` as a big-mart product listing.**
 The owner said the shop feels like a corporate business site, but the main focus is products. It
@@ -176,7 +176,7 @@ must become a big supermarket listing: a large product grid, a filter sidebar (a
 phones), sort, a result count, active filter chips and paging. It is researched against real
 mart UIs online. The same layout serves `/shop` (all products) and `/shop/[category]` (one
 department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
-migration. This work goes in PR #24.
+migration. PR #24 (the four pages) is merged; this work goes in a new PR.
 
 | Step                                                              | Status      | Where                       |
 | ----------------------------------------------------------------- | ----------- | --------------------------- |
