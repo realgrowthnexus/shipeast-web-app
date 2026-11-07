@@ -142,7 +142,8 @@ From `CLAUDE.md` and the client, Derion:
   (`npm run check`), plus screenshots reviewed.
 - **Git:** work on the session's designated branch. If its PR is already merged, restart the
   branch from `origin/main` and open a new PR. Never force-push. Never commit
-  `__pycache__` or secrets.
+  `__pycache__` or secrets. The owner merges ready PRs quickly, so **never push half-built
+  code to a PR**: push only when `npm run check` is green.
 - **Network:** the cloud environment `shipeast-web-app` allows `images.unsplash.com` and
   `api.unsplash.com` so screenshots show the real photos. If photos fail to load, check that
   the session runs on that environment.
@@ -151,85 +152,45 @@ From `CLAUDE.md` and the client, Derion:
 
 ## 7. Resume here (keep this section up to date)
 
-Update this section whenever a step finishes, so a new session can continue instantly.
+Update this section whenever a step finishes, so a new session can continue instantly. The
+full handoff (what exists, what's waiting, known limits, how to run and check) is
+**`docs/HANDOFF.md`**. Read it next.
 
-**Current task (started November 6, 2026): total home page redesign, header to footer.**
+**Status (November 7, 2026): nothing is in progress.** All work is merged to `main`, up to
+PR #28. Wait for the owner's next request, then run the §4 workflow.
 
-| Step                                                                                 | Status                                             | Where                                        |
-| ------------------------------------------------------------------------------------ | -------------------------------------------------- | -------------------------------------------- |
-| Skills refreshed from GitHub (ui-ux-pro-max v2.15.0; frontend-design already latest) | Done                                               | `.claude/skills/`                            |
-| Unsplash allowed in the `shipeast-web-app` environment                               | Done                                               |                                              |
-| "Before" screenshots of the old home page                                            | Done (session scratchpad only)                     |                                              |
-| Design agent writes the detailed plan (structure-first)                              | Done                                               | `docs/home-redesign/PLAN.md`                 |
-| Manager verifies and approves the plan                                               | Done: approved with 6 amendments (top of the plan) | `docs/home-redesign/PLAN.md`                 |
-| Development agent builds the home page, new header and footer (site-wide)            | Done                                               | branch `claude/great-maxwell-qejgto`, PR #23 |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, draft PR                    | Done; PR #23 merged                                | PR #23                                       |
+**Done so far** (details in `docs/HANDOFF.md` and `docs/DESIGN-DECISIONS.md`):
 
-**Next task (started November 6, 2026): redesign four more pages**, chosen by the manager:
-`/shop`, `/baskets`, `/how-it-works` and `/about`. They must match the home page's design
-language. The home redesign (PR #23) is merged; this work is in PR #24.
+| Work                                                                                        | PR       |
+| ------------------------------------------------------------------------------------------- | -------- |
+| Design system rebuilt: role tokens, pure neutral base, token guard test                     | #20      |
+| Brain file and skills refreshed (ui-ux-pro-max v2.15.0, frontend-design)                    | #21, #22 |
+| Home page redesign, new header and footer                                                   | #23      |
+| `/shop`, `/baskets`, `/how-it-works`, `/about` redesigned                                   | #24      |
+| Light header, a different hero structure on each page, big-mart `/shop` listing with aisles | #25–#27  |
 
-| Step                                                                                                                | Status                                                                         | Where                             |
-| ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------- |
-| "Before" screenshots of the four pages                                                                              | Done (session scratchpad only)                                                 |                                   |
-| Four design agents write structure-first plans (in parallel)                                                        | Done (three were cut off by the usage limit after writing; files are complete) | `docs/pages-redesign/<page>.md`   |
-| Manager verifies and approves the four plans                                                                        | Done: approved with 7 amendments                                               | `docs/pages-redesign/APPROVAL.md` |
-| One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | Done                                                                           | PR #24                            |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; PR #24 merged                                                            | PR #24                            |
+**Waiting on the owner or Derion:**
 
-**Next task (started November 7, 2026): rebuild `/shop` as a big-mart product listing.**
-The owner said the shop feels like a corporate business site, but the main focus is products. It
-must become a big supermarket listing: a large product grid, a filter sidebar (a drawer on
-phones), sort, a result count, active filter chips and paging. It is researched against real
-mart UIs online. The same layout serves `/shop` (all products) and `/shop/[category]` (one
-department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
-migration. Shipped in PR #27 (merged).
+- Run migration `0013_product_aisles.sql`.
+- Fix GitHub Actions: CI gets no runner, an account setting. Until it's fixed, run
+  `npm run check` locally and post the result on the PR.
+- Derion to provide:
+  - confirmation of the aisle names
+  - real product photos
+  - a consented driver or vehicle photo
+  - the real SMS wording
+  - Sunday and holiday delivery rules
+  - the TRN and registered address
 
-| Step                                                                                        | Status                          | Where                       |
-| ------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------- |
-| Design agent: research real mart UIs, then a structure-first plan                           | Done                            | `docs/shop-listing/PLAN.md` |
-| Manager verifies and approves the plan                                                      | Done: approved with 8 decisions | `docs/shop-listing/PLAN.md` |
-| Development agent builds it (with the header and heroes: header, then heroes, then listing) | Done                            | PR #27                      |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push                               | Done; PR #27 merged             | PR #27                      |
+**Likely next work:**
 
-**Next task (started November 7, 2026, runs alongside the shop listing): light header and
-varied heroes.** The owner wants the header in a light shade, and the hero of every redesigned
-page (home, `/baskets`, `/how-it-works`, `/about`) restructured so the heroes differ from each
-other, some with a photo background under an overlay. Shipped with the shop listing in PR #27
-(merged).
-
-| Step                                                      | Status                                            | Where                 |
-| --------------------------------------------------------- | ------------------------------------------------- | --------------------- |
-| Design agent: light header and four hero structures       | Done                                              | `docs/heroes/PLAN.md` |
-| Manager verifies and approves                             | Done: approved with 5 decisions (top of the plan) | `docs/heroes/PLAN.md` |
-| Development agent builds (together with the shop listing) | Done                                              | PR #27                |
-| Manager QA, fixes, `npm run check`, push                  | Done; PR #27 merged                               | PR #27                |
-
-**Follow-ups after the redesign** (not blocking):
-
-- Groceries department tile photo (`pantry`) is not Caribbean: swap for a Jamaican kitchen or market shot.
-- Product photos: several items (detergent, paper towels, baby products) still show icon placeholders. Real product photos from ShipEast would make the shop much stronger.
-- Run Lighthouse mobile on the Vercel preview (LCP, CLS, accessibility).
-- Content from Derion: real SMS wording, Sunday and holiday delivery, a consented customer photo,
-  TRN and registered address.
-
-**Decisions made during the shop listing build:**
-
-- The listing streams inside Suspense (Cache Components), so with JavaScript off a visitor sees
-  the skeleton and a note linking to `/baskets`. Accepted: senders use modern browsers, and
-  search engines render JavaScript.
-- Owner to run `supabase/migrations/0013_product_aisles.sql` (see `docs/SQL-RUNBOOK.md`).
-  Until then the aisle filter simply hides itself. Derion to confirm the 14 aisle names.
-
-**Status (November 7, 2026):** every task above is done and merged. No task is in progress.
-Wait for the owner's next request.
+- Redesign the remaining older pages, listed in `docs/HANDOFF.md` §1.
+- Phase 6, the driver PWA.
+- Phase 7, the admin panel.
 
 **How to resume:**
 
-1. Read this file, `CLAUDE.md` and `docs/home-redesign/PLAN.md` if it exists.
-2. If the plan is missing or incomplete, re-run the design agent with the brief in §4 step 1
-   and the rules in §5–§6.
-3. Then continue from the first step that is not "Done".
-
-The previous design system rebuild (role tokens, pure neutral base) is merged:
-see `docs/TOKENS.md` and `docs/DESIGN-DECISIONS.md`.
+1. Read this file, `docs/HANDOFF.md` and `CLAUDE.md`.
+2. If a task table here shows a step not "Done", continue from it. Check the files on disk
+   first: agents may have finished writing before a session ended.
+3. Otherwise wait for the owner's request.
