@@ -197,12 +197,12 @@ varied heroes.** The owner wants the header in a light shade, and the hero of ev
 page (home, `/baskets`, `/how-it-works`, `/about`) restructured so the heroes differ from each
 other, some with a photo background under an overlay. Same PR as the shop listing.
 
-| Step                                                      | Status      | Where                 |
-| --------------------------------------------------------- | ----------- | --------------------- |
-| Design agent: light header and four hero structures       | In progress | `docs/heroes/PLAN.md` |
-| Manager verifies and approves                             | Not started |                       |
-| Development agent builds (together with the shop listing) | Not started |                       |
-| Manager QA, fixes, `npm run check`, push                  | Not started | new PR                |
+| Step                                                      | Status                                            | Where                 |
+| --------------------------------------------------------- | ------------------------------------------------- | --------------------- |
+| Design agent: light header and four hero structures       | Done                                              | `docs/heroes/PLAN.md` |
+| Manager verifies and approves                             | Done: approved with 5 decisions (top of the plan) | `docs/heroes/PLAN.md` |
+| Development agent builds (together with the shop listing) | Not started                                       |                       |
+| Manager QA, fixes, `npm run check`, push                  | Not started                                       | new PR                |
 
 **Follow-ups after the redesign** (not blocking):
 
