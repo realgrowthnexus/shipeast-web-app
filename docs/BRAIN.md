@@ -185,12 +185,12 @@ mart UIs online. The same layout serves `/shop` (all products) and `/shop/[categ
 department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
 migration. PR #24 (the four pages) is merged; this work goes in a new PR.
 
-| Step                                                              | Status      | Where                       |
-| ----------------------------------------------------------------- | ----------- | --------------------------- |
-| Design agent: research real mart UIs, then a structure-first plan | In progress | `docs/shop-listing/PLAN.md` |
-| Manager verifies and approves the plan                            | Not started |                             |
-| Development agent builds it                                       | Not started |                             |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push     | Not started | new PR                      |
+| Step                                                                                        | Status                          | Where                       |
+| ------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------- |
+| Design agent: research real mart UIs, then a structure-first plan                           | Done                            | `docs/shop-listing/PLAN.md` |
+| Manager verifies and approves the plan                                                      | Done: approved with 8 decisions | `docs/shop-listing/PLAN.md` |
+| Development agent builds it (with the header and heroes: header, then heroes, then listing) | In progress                     | PR #26                      |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push                               | Not started                     | PR #26                      |
 
 **Next task (started November 7, 2026, runs alongside the shop listing): light header and
 varied heroes.** The owner wants the header in a light shade, and the hero of every redesigned
@@ -201,7 +201,7 @@ other, some with a photo background under an overlay. Same PR as the shop listin
 | --------------------------------------------------------- | ------------------------------------------------- | --------------------- |
 | Design agent: light header and four hero structures       | Done                                              | `docs/heroes/PLAN.md` |
 | Manager verifies and approves                             | Done: approved with 5 decisions (top of the plan) | `docs/heroes/PLAN.md` |
-| Development agent builds (together with the shop listing) | Not started                                       |                       |
+| Development agent builds (together with the shop listing) | In progress                                       | PR #26                |
 | Manager QA, fixes, `npm run check`, push                  | Not started                                       | new PR                |
 
 **Follow-ups after the redesign** (not blocking):

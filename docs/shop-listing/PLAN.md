@@ -1,5 +1,30 @@
 # `/shop` big-mart listing: build plan
 
+## Manager approval (November 7, 2026)
+
+**APPROVED for build**, with these decisions on the open questions. They override the plan
+where they differ.
+
+1. **Header contract:** accepted. The header (see `docs/heroes/PLAN.md`) keeps
+   `--header-height` accurate, hides the phone search row on every `/shop` and `/shop/*`
+   page, and has a visible bottom edge (a `line` border, plus `shadow-lift` once scrolled).
+2. **"In a ready-made basket" filter or badge:** not now (agreed).
+3. **The new product card:** `/shop` and `/shop/[category]` only for now. Using it site-wide
+   is a follow-up.
+4. **Aisle names:** use the plan's 14 starting aisles. They are marked "needs Derion" for
+   confirmation, and `docs/SQL-RUNBOOK.md` gets a row for `0013`.
+5. **Unit prices:** show each product's own US unit (per lb, per oz, per fl oz, per count)
+   exactly as its size is written, with no metric conversion. Show none when the size doesn't
+   parse cleanly.
+6. **Research check against the full Baymard articles:** not needed. The plan's patterns
+   match current best practice.
+7. **Security:** the new `setProductQuantity` server action validates every input with zod
+   on the server: product id exists and is orderable, quantity is an integer from 0 to 99.
+   It never trusts the client for prices.
+8. **Build order with the header and heroes plan:**
+   - header first, then the four heroes, then this listing
+   - `npm run check` after each part
+
 Owner: design agent. For: the manager, then the development agent.
 Scope: `/shop` and `/shop/[category]`, from the first pixel under the shared header to the last
 pixel above the shared footer, plus the data and URL work behind them (aisles, filters, unit
@@ -63,31 +88,31 @@ copy into the UI.
 
 ### 1.2 Sources
 
-| #   | Source                                                                                                                        | Used for                                                                    |
-| --- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| S1  | Baymard, Online grocery UX research: https://baymard.com/research/online-grocery                                              | Grocery sites rate "poor" or "mediocre"; product lists and filtering matter |
-| S2  | Baymard, Grocery add-to-cart buttons: https://baymard.com/blog/grocery-add-to-cart-buttons                                    | Add button turns into a quantity picker once added                          |
-| S3  | Baymard, Price per unit: https://baymard.com/blog/price-per-unit                                                              | 86% of sites miss unit price; show it next to the pack price                |
-| S4  | Baymard, Ecommerce filter UI: https://baymard.com/blog/ecommerce-filter-ui                                                    | Sidebar on desktop; drawer with a "Show X results" button on mobile         |
-| S5  | Baymard, Horizontal filtering toolbar: https://baymard.com/blog/horizontal-filtering-sorting-design                           | Toolbar only works with 6 to 8 filter types or fewer; 2024 guidance: sidebar |
-| S6  | Baymard, Product finding 2024 update: https://baymard.com/blog/product-finding-2024-launch                                    | "Be cautious with horizontal toolbars, consider sidebar filtering"          |
-| S7  | Baymard, How to design applied filters: https://baymard.com/blog/how-to-design-applied-filters                                | An overview of applied filters above results; removable                     |
-| S8  | Baymard, Apply buttons in mobile filtering: https://baymard.com/guidelines/1125-apply-buttons-in-mobile-filtering-interfaces | Deliberate apply step on mobile                                             |
-| S9  | Baymard, Load more vs pagination vs infinite scroll: https://baymard.com/blog/external-load-more-vs-pagination-vs-infinite-scrolling | "Load more" performs best; pagination makes people browse less       |
-| S10 | Smashing Magazine (Baymard study): https://smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons        | Detail of S9: show 10–30, then "Load more"                                  |
-| S11 | Smart Interface Design Patterns, Filtering UX: https://smart-interface-design-patterns.com/articles/filtering-ux/             | Apply button plus live count works best; count in the button; sticky       |
-| S12 | NN/g, Mobile faceted search: https://www.nngroup.com/articles/mobile-faceted-search/                                          | Overlay filters on the same screen as results (Amazon, eBay)               |
-| S13 | Algolia, Faceted search overview (cites NN/g): https://www.algolia.com/de/blog/ux/faceted-search-an-overview                  | Batch facet choices on mobile; most general filter at the top               |
-| S14 | NN/g, Filter categories vs values: https://www.nngroup.com/articles/filter-categories-values/                                 | Group naming and order                                                       |
-| S15 | Which?, Supermarket unit pricing: https://www.which.co.uk/news/article/can-you-spot-the-cheapest-supermarket-prices-asvVe1C5iZMO | Tesco, Sainsbury's, Ocado all show unit prices; default sort "favourites"  |
-| S16 | Econsultancy, Ocado vs Sainsbury's: https://www.econsultancy.com/ocado-vs-sainsbury-s-customer-journey-comparison/            | Ocado filters: brand, dietary; Sainsbury's filters across the top           |
-| S17 | Baymard, Ocado filtering example: https://baymard.com/ecommerce-design-examples/filtering-options/7557-ocado                  | Grocery sidebar filter example                                              |
-| S18 | Baymard, Walmart search results and mobile filtering: https://baymard.com/ecommerce-design-examples/filtering-options/17788-walmart | Mobile filter overlay, sticky Filters button                          |
-| S19 | Baymard, Kroger product list (desktop and mobile): https://baymard.com/ecommerce-design-examples/37-product-list-category/15979-kroger | Grocery product list with add-to-cart in the list                   |
-| S20 | Pratt IxD critiques of Instacart: https://ixd.prattsi.org/2023/09/design-critique-instacart-ios-app/ and https://ixd.prattsi.org/2024/09/design-critique-instacart-mobile-app/ | "+" on tiles, cart count always visible, aisles mapped to store sections |
-| S21 | Instacart storefront item tile docs: https://docs.instacart.com/storefront/learn_about_your_storefront/shopping/catalog/item_tile | Tile anatomy: image, price, add button; image opens details           |
-| S22 | eBay Playbook, Filtering patterns: https://playbook.ebay.com/design-system/patterns/filtering-patterns                        | Filter trigger with count badge; fixed Clear and Apply in the sheet         |
-| S23 | GroceryList Jamaica coverage: https://caribbeantoday.com/sections/food/grocerylist-connecting-the-diaspora-with-shopping-in-jamaica and App Store listing https://apps.apple.com/app/id1632973482 | The main competitor: 150 stores, 14 parishes, rated 2.7 of 5 |
+| #   | Source                                                                                                                                                                                            | Used for                                                                     |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| S1  | Baymard, Online grocery UX research: https://baymard.com/research/online-grocery                                                                                                                  | Grocery sites rate "poor" or "mediocre"; product lists and filtering matter  |
+| S2  | Baymard, Grocery add-to-cart buttons: https://baymard.com/blog/grocery-add-to-cart-buttons                                                                                                        | Add button turns into a quantity picker once added                           |
+| S3  | Baymard, Price per unit: https://baymard.com/blog/price-per-unit                                                                                                                                  | 86% of sites miss unit price; show it next to the pack price                 |
+| S4  | Baymard, Ecommerce filter UI: https://baymard.com/blog/ecommerce-filter-ui                                                                                                                        | Sidebar on desktop; drawer with a "Show X results" button on mobile          |
+| S5  | Baymard, Horizontal filtering toolbar: https://baymard.com/blog/horizontal-filtering-sorting-design                                                                                               | Toolbar only works with 6 to 8 filter types or fewer; 2024 guidance: sidebar |
+| S6  | Baymard, Product finding 2024 update: https://baymard.com/blog/product-finding-2024-launch                                                                                                        | "Be cautious with horizontal toolbars, consider sidebar filtering"           |
+| S7  | Baymard, How to design applied filters: https://baymard.com/blog/how-to-design-applied-filters                                                                                                    | An overview of applied filters above results; removable                      |
+| S8  | Baymard, Apply buttons in mobile filtering: https://baymard.com/guidelines/1125-apply-buttons-in-mobile-filtering-interfaces                                                                      | Deliberate apply step on mobile                                              |
+| S9  | Baymard, Load more vs pagination vs infinite scroll: https://baymard.com/blog/external-load-more-vs-pagination-vs-infinite-scrolling                                                              | "Load more" performs best; pagination makes people browse less               |
+| S10 | Smashing Magazine (Baymard study): https://smashingmagazine.com/2016/03/pagination-infinite-scrolling-load-more-buttons                                                                           | Detail of S9: show 10–30, then "Load more"                                   |
+| S11 | Smart Interface Design Patterns, Filtering UX: https://smart-interface-design-patterns.com/articles/filtering-ux/                                                                                 | Apply button plus live count works best; count in the button; sticky         |
+| S12 | NN/g, Mobile faceted search: https://www.nngroup.com/articles/mobile-faceted-search/                                                                                                              | Overlay filters on the same screen as results (Amazon, eBay)                 |
+| S13 | Algolia, Faceted search overview (cites NN/g): https://www.algolia.com/de/blog/ux/faceted-search-an-overview                                                                                      | Batch facet choices on mobile; most general filter at the top                |
+| S14 | NN/g, Filter categories vs values: https://www.nngroup.com/articles/filter-categories-values/                                                                                                     | Group naming and order                                                       |
+| S15 | Which?, Supermarket unit pricing: https://www.which.co.uk/news/article/can-you-spot-the-cheapest-supermarket-prices-asvVe1C5iZMO                                                                  | Tesco, Sainsbury's, Ocado all show unit prices; default sort "favourites"    |
+| S16 | Econsultancy, Ocado vs Sainsbury's: https://www.econsultancy.com/ocado-vs-sainsbury-s-customer-journey-comparison/                                                                                | Ocado filters: brand, dietary; Sainsbury's filters across the top            |
+| S17 | Baymard, Ocado filtering example: https://baymard.com/ecommerce-design-examples/filtering-options/7557-ocado                                                                                      | Grocery sidebar filter example                                               |
+| S18 | Baymard, Walmart search results and mobile filtering: https://baymard.com/ecommerce-design-examples/filtering-options/17788-walmart                                                               | Mobile filter overlay, sticky Filters button                                 |
+| S19 | Baymard, Kroger product list (desktop and mobile): https://baymard.com/ecommerce-design-examples/37-product-list-category/15979-kroger                                                            | Grocery product list with add-to-cart in the list                            |
+| S20 | Pratt IxD critiques of Instacart: https://ixd.prattsi.org/2023/09/design-critique-instacart-ios-app/ and https://ixd.prattsi.org/2024/09/design-critique-instacart-mobile-app/                    | "+" on tiles, cart count always visible, aisles mapped to store sections     |
+| S21 | Instacart storefront item tile docs: https://docs.instacart.com/storefront/learn_about_your_storefront/shopping/catalog/item_tile                                                                 | Tile anatomy: image, price, add button; image opens details                  |
+| S22 | eBay Playbook, Filtering patterns: https://playbook.ebay.com/design-system/patterns/filtering-patterns                                                                                            | Filter trigger with count badge; fixed Clear and Apply in the sheet          |
+| S23 | GroceryList Jamaica coverage: https://caribbeantoday.com/sections/food/grocerylist-connecting-the-diaspora-with-shopping-in-jamaica and App Store listing https://apps.apple.com/app/id1632973482 | The main competitor: 150 stores, 14 parishes, rated 2.7 of 5                 |
 
 Stores whose listing patterns are summarised from the sources above and from the shared
 conventions of big grocery sites: Walmart Grocery (S18), Kroger (S19), Instacart (S20, S21),
@@ -95,28 +120,28 @@ Tesco, Sainsbury's and Ocado (S15, S16, S17), Amazon and eBay (S12, S22).
 
 ### 1.3 What big grocery listings do, and what we take
 
-| Pattern                         | What the big sites do                                                                                                   | Our call                                                                                                                                                                                                    |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Header and search               | Global search in the header; listing pages add filters, not a second big search bar                                     | **Adopt.** Header search stays global (`/search`). The listing has a small, labelled "Find in Groceries" field that filters this list only (§4 R4). No second big bar.                                    |
-| Department navigation           | A department row or tree; Instacart maps aisles to real store sections (S20)                                             | **Adopt, our way.** A crimson department band with tabs (R1). Aisles under the department in the sidebar (R4).                                                                                              |
-| Filter placement (desktop)      | Left sidebar. Baymard's 2024 guidance favours a sidebar over a horizontal toolbar unless there are very few filter types (S5, S6) | **Adopt** the sidebar. We have 4 to 5 filter groups today and will grow (aisles), so a sidebar scales; a toolbar would not.                                                                       |
-| Filter order                    | Most general first (S13): category, then sub-category, then price, then attributes                                       | **Adopt:** Find in list, Department, Aisle, Price, Availability.                                                                                                                                             |
-| Apply behaviour                 | Desktop: instant. Mobile: batch choices, then a "Show N results" button (S4, S8, S11, S13)                              | **Adopt both.** Desktop applies on change. Phone sheet batches and shows a live count in the button.                                                                                                        |
-| Mobile filter pattern           | Sticky "Filters" button with a count badge opens an overlay or bottom sheet (S12, S18, S22)                             | **Adopt:** sticky toolbar with "Filters (2)" and Sort; bottom sheet built on the existing native `<dialog>`.                                                                                                |
-| Applied filters                 | Removable chips above results, plus "Clear all" (S7)                                                                    | **Adopt.** Chips are links, so they work without JavaScript.                                                                                                                                                 |
-| Facet counts                    | Option counts next to each value                                                                                        | **Adopt.** Counts are computed from real data; options with 0 are shown disabled (unless checked) so the list does not jump.                                                                               |
-| Card anatomy                    | Photo, **price first**, name, size, unit price, Add (S19, S21)                                                         | **Adopt** price above name (the grocery convention: people scan price, then name). USD with J$ under it (our edge).                                                                                         |
-| Unit price                      | UK grocers show it on every tile (S15); Baymard: 86% of sites miss it (S3)                                             | **Adopt, honestly.** Computed only when `size` parses cleanly (§5.4); otherwise omitted. Never guessed.                                                                                                      |
-| Add button                      | Turns into a quantity stepper once added (S2); Instacart "+" (S20)                                                     | **Adopt.** Outline "Add" becomes a solid crimson stepper showing how many are in the basket. Red then marks what is already in your basket.                                                                  |
-| Badges                          | Deals, "new", brand badges, dietary icons                                                                               | **Reject** all of these: no such data. Only "Out of stock". (Why we also reject "In a basket": §2.4.)                                                                                                       |
-| Brand, rating, dietary filters  | Common on Tesco, Ocado (S16)                                                                                            | **Reject.** We have no brand, rating or dietary data and never fake it.                                                                                                                                     |
-| Sort                            | Relevance or "favourites" default (S15), price, name; some sort by unit price                                           | **Adopt** our four. **Rename** the default from "Popular first" to "Our picks first": we do not track popularity, the sort is the team's `featured` flag. Unit-price sort rejected while many items have no unit price. |
-| Grid density                    | 2 columns on phones, 3 to 5 on desktop with a sidebar                                                                   | **Adopt** 2 / 3 / 3 + sidebar / 4 + sidebar (§3.2).                                                                                                                                                        |
-| Paging                          | Baymard: "Load more" beats pagination; show 10 to 30, then load more (S9, S10)                                          | **Adopt** "Show 24 more" (a real link to `?page=2`, so it is shareable and works without JS). Pagination numbers removed.                                                                                    |
-| In-grid promo tiles             | Supermarkets drop offer tiles into the grid                                                                             | **Adopt once, honestly:** one ready-made-basket tile, only on an unfiltered first batch, with real basket data. No ads.                                                                                     |
-| Sticky elements                 | Header, plus a sticky filter/sort bar on mobile; sticky sidebar on desktop                                              | **Adopt.** Phone/tablet toolbar sticks under the header; the desktop sidebar sticks with its own scroll.                                                                                                     |
-| Empty states                    | "No results" with suggestions                                                                                           | **Adopt** with the active chips, "Clear all", "Search the whole shop" and "Request an item".                                                                                                                 |
-| Infinite scroll, carousels, hover-only quick view | Common                                                                                                | **Reject.** Infinite scroll breaks the footer and Back; carousels hide products; hover-only actions fail on touch.                                                                                          |
+| Pattern                                           | What the big sites do                                                                                                             | Our call                                                                                                                                                                                                                |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Header and search                                 | Global search in the header; listing pages add filters, not a second big search bar                                               | **Adopt.** Header search stays global (`/search`). The listing has a small, labelled "Find in Groceries" field that filters this list only (§4 R4). No second big bar.                                                  |
+| Department navigation                             | A department row or tree; Instacart maps aisles to real store sections (S20)                                                      | **Adopt, our way.** A crimson department band with tabs (R1). Aisles under the department in the sidebar (R4).                                                                                                          |
+| Filter placement (desktop)                        | Left sidebar. Baymard's 2024 guidance favours a sidebar over a horizontal toolbar unless there are very few filter types (S5, S6) | **Adopt** the sidebar. We have 4 to 5 filter groups today and will grow (aisles), so a sidebar scales; a toolbar would not.                                                                                             |
+| Filter order                                      | Most general first (S13): category, then sub-category, then price, then attributes                                                | **Adopt:** Find in list, Department, Aisle, Price, Availability.                                                                                                                                                        |
+| Apply behaviour                                   | Desktop: instant. Mobile: batch choices, then a "Show N results" button (S4, S8, S11, S13)                                        | **Adopt both.** Desktop applies on change. Phone sheet batches and shows a live count in the button.                                                                                                                    |
+| Mobile filter pattern                             | Sticky "Filters" button with a count badge opens an overlay or bottom sheet (S12, S18, S22)                                       | **Adopt:** sticky toolbar with "Filters (2)" and Sort; bottom sheet built on the existing native `<dialog>`.                                                                                                            |
+| Applied filters                                   | Removable chips above results, plus "Clear all" (S7)                                                                              | **Adopt.** Chips are links, so they work without JavaScript.                                                                                                                                                            |
+| Facet counts                                      | Option counts next to each value                                                                                                  | **Adopt.** Counts are computed from real data; options with 0 are shown disabled (unless checked) so the list does not jump.                                                                                            |
+| Card anatomy                                      | Photo, **price first**, name, size, unit price, Add (S19, S21)                                                                    | **Adopt** price above name (the grocery convention: people scan price, then name). USD with J$ under it (our edge).                                                                                                     |
+| Unit price                                        | UK grocers show it on every tile (S15); Baymard: 86% of sites miss it (S3)                                                        | **Adopt, honestly.** Computed only when `size` parses cleanly (§5.4); otherwise omitted. Never guessed.                                                                                                                 |
+| Add button                                        | Turns into a quantity stepper once added (S2); Instacart "+" (S20)                                                                | **Adopt.** Outline "Add" becomes a solid crimson stepper showing how many are in the basket. Red then marks what is already in your basket.                                                                             |
+| Badges                                            | Deals, "new", brand badges, dietary icons                                                                                         | **Reject** all of these: no such data. Only "Out of stock". (Why we also reject "In a basket": §2.4.)                                                                                                                   |
+| Brand, rating, dietary filters                    | Common on Tesco, Ocado (S16)                                                                                                      | **Reject.** We have no brand, rating or dietary data and never fake it.                                                                                                                                                 |
+| Sort                                              | Relevance or "favourites" default (S15), price, name; some sort by unit price                                                     | **Adopt** our four. **Rename** the default from "Popular first" to "Our picks first": we do not track popularity, the sort is the team's `featured` flag. Unit-price sort rejected while many items have no unit price. |
+| Grid density                                      | 2 columns on phones, 3 to 5 on desktop with a sidebar                                                                             | **Adopt** 2 / 3 / 3 + sidebar / 4 + sidebar (§3.2).                                                                                                                                                                     |
+| Paging                                            | Baymard: "Load more" beats pagination; show 10 to 30, then load more (S9, S10)                                                    | **Adopt** "Show 24 more" (a real link to `?page=2`, so it is shareable and works without JS). Pagination numbers removed.                                                                                               |
+| In-grid promo tiles                               | Supermarkets drop offer tiles into the grid                                                                                       | **Adopt once, honestly:** one ready-made-basket tile, only on an unfiltered first batch, with real basket data. No ads.                                                                                                 |
+| Sticky elements                                   | Header, plus a sticky filter/sort bar on mobile; sticky sidebar on desktop                                                        | **Adopt.** Phone/tablet toolbar sticks under the header; the desktop sidebar sticks with its own scroll.                                                                                                                |
+| Empty states                                      | "No results" with suggestions                                                                                                     | **Adopt** with the active chips, "Clear all", "Search the whole shop" and "Request an item".                                                                                                                            |
+| Infinite scroll, carousels, hover-only quick view | Common                                                                                                                            | **Reject.** Infinite scroll breaks the footer and Back; carousels hide products; hover-only actions fail on touch.                                                                                                      |
 
 ### 1.4 ui-ux-pro-max output, and what was rejected
 
@@ -149,12 +174,12 @@ the price in USD and J$ and the same-day cut-off in sight, on a phone.
 
 ### 2.2 Audience
 
-| Who                          | Arrives from                                   | Wants                                                                       | What the page gives them                                                       |
-| ---------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Sender abroad on a phone     | Home "Start shopping", header Shop, a WhatsApp link from family | See products now, add a few, check out before the cut-off              | Products in the first screen, one-tap Add, cut-off line under the band         |
-| Monthly supporter            | Bookmark of `/shop/groceries?aisle=…`          | The same items as last month, fast                                          | Shareable URLs for every filter, steppers that show what is already in the basket |
-| Occasion sender              | Home baskets, Christmas                        | A ready-made basket instead of picking                                      | One basket tile in the grid, linking to the basket                             |
-| Family member in Jamaica     | A link from the sender                         | To point at what they need                                                  | J$ under every price, plain names, shareable filtered links                    |
+| Who                      | Arrives from                                                    | Wants                                                     | What the page gives them                                                          |
+| ------------------------ | --------------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Sender abroad on a phone | Home "Start shopping", header Shop, a WhatsApp link from family | See products now, add a few, check out before the cut-off | Products in the first screen, one-tap Add, cut-off line under the band            |
+| Monthly supporter        | Bookmark of `/shop/groceries?aisle=…`                           | The same items as last month, fast                        | Shareable URLs for every filter, steppers that show what is already in the basket |
+| Occasion sender          | Home baskets, Christmas                                         | A ready-made basket instead of picking                    | One basket tile in the grid, linking to the basket                                |
+| Family member in Jamaica | A link from the sender                                          | To point at what they need                                | J$ under every price, plain names, shareable filtered links                       |
 
 Mostly phones, in the evening their time, often on mobile data.
 
@@ -197,13 +222,13 @@ Why this and nothing else:
 GroceryList Jamaica sells from about 150 stores across 14 parishes (S23); its App Store rating
 is 2.7 of 5. We do not name them on the site and never compare prices.
 
-| Their listing (as reported)                       | Ours                                                                                                       |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Store first, then products; many stores to pick   | One shop, products in the first screen, departments as tabs                                                |
-| Prices in one currency                            | USD on every card with J$ underneath, at the admin-set rate                                                 |
-| Timing and proof explained elsewhere              | Same-day cut-off with a live countdown and "a photo of the till receipt with every order" right under the band |
-| Add, then check the cart                          | Add becomes a stepper on the card showing how many are already in the basket                               |
-| Filters lists                                     | Aisles, price, stock and "find in this list", all in the URL so family can share a link                    |
+| Their listing (as reported)                     | Ours                                                                                                           |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Store first, then products; many stores to pick | One shop, products in the first screen, departments as tabs                                                    |
+| Prices in one currency                          | USD on every card with J$ underneath, at the admin-set rate                                                    |
+| Timing and proof explained elsewhere            | Same-day cut-off with a live countdown and "a photo of the till receipt with every order" right under the band |
+| Add, then check the cart                        | Add becomes a stepper on the card showing how many are already in the basket                                   |
+| Filters lists                                   | Aisles, price, stock and "find in this list", all in the URL so family can share a link                        |
 
 ---
 
@@ -277,12 +302,12 @@ R11 FILTER SHEET: native <dialog>, bottom sheet, opened by "Filters".
 
 ### 3.2 Grid density and card size
 
-| Width               | Sidebar | Grid columns | Gap (x / y) | Approx. card width | Cards in the first screen (header + band + strip + toolbar) |
-| ------------------- | ------- | ------------ | ----------- | ------------------ | ------------------------------------------------------------ |
-| 375                 | none    | 2            | 12 / 12     | 165px              | 2 full + tops of 2 more (cards start at ~400px of 812)       |
-| 768                 | none    | 3            | 16 / 16     | 224px              | 3 full + tops of 3 more (cards start at ~360px of 1024)      |
-| 1024                | 240px   | 3            | 16 / 24     | 218px              | 3 full (cards start at ~330px of 768)                        |
-| 1280 to 1440        | 256px   | 4            | 16 / 24     | 220px              | 4 full + tops of 4 more (cards start at ~330px of 900)       |
+| Width        | Sidebar | Grid columns | Gap (x / y) | Approx. card width | Cards in the first screen (header + band + strip + toolbar) |
+| ------------ | ------- | ------------ | ----------- | ------------------ | ----------------------------------------------------------- |
+| 375          | none    | 2            | 12 / 12     | 165px              | 2 full + tops of 2 more (cards start at ~400px of 812)      |
+| 768          | none    | 3            | 16 / 16     | 224px              | 3 full + tops of 3 more (cards start at ~360px of 1024)     |
+| 1024         | 240px   | 3            | 16 / 24     | 218px              | 3 full (cards start at ~330px of 768)                       |
+| 1280 to 1440 | 256px   | 4            | 16 / 24     | 220px              | 4 full + tops of 4 more (cards start at ~330px of 900)      |
 
 - `PAGE_SIZE = 24` (divides by 2, 3 and 4, so full rows). With 22 products everything shows
   at once and no "load more" appears. With hundreds, 24 show, then "Show 24 more".
@@ -433,10 +458,10 @@ listed in §4.13 (new utilities).
 
 **Copy and data**
 
-| Route                 | Breadcrumb                  | h1                        | Count (static)                       |
-| --------------------- | --------------------------- | ------------------------- | ------------------------------------ |
-| `/shop`               | none                        | `Everything in the shop`  | `22 items` (sum of department counts) |
-| `/shop/groceries`     | `Shop` / `Groceries`        | `Groceries`               | `9 items` (`getCategories()` count)  |
+| Route             | Breadcrumb           | h1                       | Count (static)                        |
+| ----------------- | -------------------- | ------------------------ | ------------------------------------- |
+| `/shop`           | none                 | `Everything in the shop` | `22 items` (sum of department counts) |
+| `/shop/groceries` | `Shop` / `Groceries` | `Groceries`              | `9 items` (`getCategories()` count)   |
 
 Count text: `{n} item` / `{n} items`. Tabs: `All`, then each category name in `sort` order
 (`Groceries`, `Household`, `Pharmacy`, `Baby & Child`). Tab icons: `CategoryIcon` for
@@ -477,18 +502,18 @@ department links do carry them, §4.4).
 - Inner: `mx-auto max-w-wide gutter pt-5 md:pt-8`.
 - Breadcrumb: reuse `src/components/shop/breadcrumb.tsx` if it supports an on-dark tone;
   otherwise the current category page markup: `<nav aria-label="Breadcrumb"
-  class="text-small">`, links `text-on-crimson-muted hover:text-on-dark hover:underline
-  underline-offset-2`, current `font-semibold text-on-dark aria-current="page"`, separator
+class="text-small">`, links `text-on-crimson-muted hover:text-on-dark hover:underline
+underline-offset-2`, current `font-semibold text-on-dark aria-current="page"`, separator
   `ChevronRight size-icon-sm` `aria-hidden`.
 - Title row: `mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1`. h1
   `id="listing-title" class="text-h1 text-balance"`. Count `text-small font-semibold
-  text-blush tabular-nums` (blush on crimson 4.9:1, passes AA).
+text-blush tabular-nums` (blush on crimson 4.9:1, passes AA).
 - Tab rail: `<nav aria-label="Departments" class="mt-4 md:mt-6 -mx-[gutter]">` →
   `<ul class="flex gap-1 overflow-x-auto px-[gutter] [scrollbar-width:none]">`. (Use the
   gutter values through a wrapper with `gutter` and negative margins, or put the rail in its
   own `gutter` container; the dev picks one, the result must align the first tab with the h1.)
 - Tab link: `flex h-12 shrink-0 items-center gap-2 rounded-t-lg px-4 text-small font-semibold
-  whitespace-nowrap transition-colors duration-150`. Icon `size-icon`.
+whitespace-nowrap transition-colors duration-150`. Icon `size-icon`.
   - Inactive: `text-on-dark hover:bg-crimson-deep`.
   - Active (`aria-current="page"`): `bg-surface text-crimson font-bold` and the icon
     `text-crimson`.
@@ -514,12 +539,12 @@ crimson 7.2:1; crimson on surface 7.2:1.
 
 **Copy and data**
 
-| Item                | Icon        | Text                                                                                                              | Source                                   | Shown        |
-| ------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------ |
-| Cut-off             | (CutoffNote's Clock) | `Same-day delivery when you order by 1:00 PM Jamaica time.` + live countdown                              | `earliestCutoff(getActiveZones())`       | all widths (hidden if no active zone) |
-| Proof               | `Receipt`   | `A photo of the till receipt with every order`                                                                    | fixed copy                               | 768+         |
-| USD                 | `DollarSign`| `Pay in US dollars. J$ shown for your family.`                                                                    | fixed copy                               | 1024+        |
-| Price check         | `CalendarCheck` | `Prices checked in store on October 20, 2026.`                                                                | `priceCheckLine(priceCheckRange(products in scope))` | 1024+, only when a date exists |
+| Item        | Icon                 | Text                                                                         | Source                                               | Shown                                 |
+| ----------- | -------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------- |
+| Cut-off     | (CutoffNote's Clock) | `Same-day delivery when you order by 1:00 PM Jamaica time.` + live countdown | `earliestCutoff(getActiveZones())`                   | all widths (hidden if no active zone) |
+| Proof       | `Receipt`            | `A photo of the till receipt with every order`                               | fixed copy                                           | 768+                                  |
+| USD         | `DollarSign`         | `Pay in US dollars. J$ shown for your family.`                               | fixed copy                                           | 1024+                                 |
+| Price check | `CalendarCheck`      | `Prices checked in store on October 20, 2026.`                               | `priceCheckLine(priceCheckRange(products in scope))` | 1024+, only when a date exists        |
 
 **Wireframe (1440)**
 
@@ -567,13 +592,13 @@ both.
 
 **Group order and copy**
 
-| #   | Group        | Control                                   | Options and copy                                                                                         | Param       | Shown when                                    |
-| --- | ------------ | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------- |
-| 1   | Find         | text input + submit icon button           | Label `Find in Groceries` / `Find in the shop`; placeholder `Rice, oats, bleach…`; button label `Find`    | `q`         | sidebar only (phones: R4a)                    |
-| 2   | Department   | list of links (not inputs)                | `All items`, then each department with its count                                                         | path        | always                                        |
-| 3   | Aisle        | checkboxes                                 | Each aisle in `sort` order with its facet count                                                          | `aisle` (repeated) | department routes, when at least one aisle in scope has a listed product |
-| 4   | Price        | radios                                     | `Any price`, `Under USD$10`, `USD$10 to USD$25`, `Over USD$25` with counts (none on Any)                 | `price`     | always                                        |
-| 5   | Availability | one checkbox                               | `In stock only` with count                                                                               | `stock=1`   | when at least one product in scope is out of stock |
+| #   | Group        | Control                         | Options and copy                                                                                       | Param              | Shown when                                                               |
+| --- | ------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------ |
+| 1   | Find         | text input + submit icon button | Label `Find in Groceries` / `Find in the shop`; placeholder `Rice, oats, bleach…`; button label `Find` | `q`                | sidebar only (phones: R4a)                                               |
+| 2   | Department   | list of links (not inputs)      | `All items`, then each department with its count                                                       | path               | always                                                                   |
+| 3   | Aisle        | checkboxes                      | Each aisle in `sort` order with its facet count                                                        | `aisle` (repeated) | department routes, when at least one aisle in scope has a listed product |
+| 4   | Price        | radios                          | `Any price`, `Under USD$10`, `USD$10 to USD$25`, `Over USD$25` with counts (none on Any)               | `price`            | always                                                                   |
+| 5   | Availability | one checkbox                    | `In stock only` with count                                                                             | `stock=1`          | when at least one product in scope is out of stock                       |
 
 Rule for 5: **hide the Availability group when no product in scope is out of stock** (an
 option that cannot change anything is noise). Today Groceries has one out-of-stock item, so
@@ -631,28 +656,28 @@ were chosen, with every **other** active filter applied (disjunctive counts, §5
 
 - `<aside id="filters" aria-label="Filters" class="hidden target:block lg:block">`. Inner
   wrapper: `lg:sticky lg:top-[calc(var(--header-height)+1.5rem)]
-  lg:max-h-[calc(100dvh-var(--header-height)-3rem)] lg:overflow-y-auto lg:pr-2
-  lg:[scrollbar-gutter:stable]`. Below 1024, when shown by `:target` (no JS), it is an in-flow
+lg:max-h-[calc(100dvh-var(--header-height)-3rem)] lg:overflow-y-auto lg:pr-2
+lg:[scrollbar-gutter:stable]`. Below 1024, when shown by `:target` (no JS), it is an in-flow
   panel: `rounded-lg border border-line bg-surface p-card mb-6` (applied with
   `max-lg:` variants).
 - Group: `flex flex-col gap-1 border-t border-line pt-5 mt-5 first:border-t-0 first:pt-0
-  first:mt-0`.
+first:mt-0`.
 - Group heading: `<h3 class="text-small font-bold text-ink mb-1">` for Department; for input
   groups a `<fieldset>` with `<legend class="text-small font-bold text-ink mb-1">`.
 - Department link row: `flex min-h-control lg:min-h-9 items-center justify-between gap-3
-  rounded-md px-3 text-small text-ink-body transition-colors duration-150
-  hover:bg-surface-muted`. Count `text-xs text-ink-muted tabular-nums`.
+rounded-md px-3 text-small text-ink-body transition-colors duration-150
+hover:bg-surface-muted`. Count `text-xs text-ink-muted tabular-nums`.
   - Current (`aria-current="page"`): `bg-surface-selected font-bold text-crimson-deep
-    shadow-[inset_3px_0_0_var(--color-crimson)]`. (An inset box-shadow used as a flat 3px bar,
+shadow-[inset_3px_0_0_var(--color-crimson)]`. (An inset box-shadow used as a flat 3px bar,
     not a shadow effect; if the reviewer prefers, use `border-l-3 border-crimson` with `pl-[9px]`.)
 - Checkbox / radio row: `<label class="flex min-h-control lg:min-h-9 cursor-pointer
-  items-center gap-3 rounded-md px-3 text-small text-ink-body hover:bg-surface-muted
-  has-checked:font-semibold has-checked:text-ink has-disabled:cursor-default
-  has-disabled:text-ink-muted has-disabled:hover:bg-transparent
-  has-focus-visible:outline-3 has-focus-visible:outline-offset-1
-  has-focus-visible:outline-signal">`. Input `size-5 shrink-0 accent-crimson
-  focus-visible:outline-none`. Label text `flex-1`. Count `text-xs text-ink-muted
-  tabular-nums`.
+items-center gap-3 rounded-md px-3 text-small text-ink-body hover:bg-surface-muted
+has-checked:font-semibold has-checked:text-ink has-disabled:cursor-default
+has-disabled:text-ink-muted has-disabled:hover:bg-transparent
+has-focus-visible:outline-3 has-focus-visible:outline-offset-1
+has-focus-visible:outline-signal">`. Input `size-5 shrink-0 accent-crimson
+focus-visible:outline-none`. Label text `flex-1`. Count `text-xs text-ink-muted
+tabular-nums`.
 - 44px rows on touch widths, 36px from 1024 (the footer's existing precedent: "44px tall on
   touch, 36px from 1024px"). Touch tablets in landscape ≥1024 get 36px rows; WCAG 2.2 AA
   target size (24px) is still met.
@@ -661,9 +686,9 @@ were chosen, with every **other** active filter applied (disjunctive counts, §5
   (server): `<form method="get" action={basePath} role="search">` with hidden inputs for the
   other active params (aisles, price, stock, sort), `<label for="{prefix}-q">` **visible**
   (above the input, `text-small font-semibold text-ink`), input `name="q" maxLength={80}
-  enterKeyHint="search"`. Not the header's `SearchBox` (that one posts to `/search`).
+enterKeyHint="search"`. Not the header's `SearchBox` (that one posts to `/search`).
 - No-JS apply button: `<Button type="submit" variant="secondary" block
-  class="mt-6 group-data-[enhanced]/filters:hidden">Apply filters</Button>`. The form has
+class="mt-6 group-data-[enhanced]/filters:hidden">Apply filters</Button>`. The form has
   `class="group/filters"`; `FilterForm` sets `data-enhanced` after mount.
 
 **Component tree**
@@ -698,14 +723,14 @@ onChange={…} onSubmit={…} key={queryString}>`.
 
 **States**
 
-| State                  | Look                                                                                         |
-| ---------------------- | -------------------------------------------------------------------------------------------- |
-| Hover row              | `bg-surface-muted`                                                                            |
-| Checked                | crimson checkbox/radio (`accent-crimson`), label `font-semibold text-ink`                     |
-| Focus                  | 3px `signal` outline around the whole row (`has-focus-visible`)                               |
-| Disabled (count 0)     | `text-ink-muted`, native disabled input, no hover                                             |
-| Current department     | `bg-surface-selected text-crimson-deep font-bold` + 3px crimson bar                           |
-| Pending (after change) | inputs stay enabled; the results column dims (§4.12); `aria-busy` on the results region       |
+| State                  | Look                                                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| Hover row              | `bg-surface-muted`                                                                      |
+| Checked                | crimson checkbox/radio (`accent-crimson`), label `font-semibold text-ink`               |
+| Focus                  | 3px `signal` outline around the whole row (`has-focus-visible`)                         |
+| Disabled (count 0)     | `text-ink-muted`, native disabled input, no hover                                       |
+| Current department     | `bg-surface-selected text-crimson-deep font-bold` + 3px crimson bar                     |
+| Pending (after change) | inputs stay enabled; the results column dims (§4.12); `aria-busy` on the results region |
 
 **Motion:** colour transitions 150ms only.
 
@@ -718,7 +743,7 @@ scroll keeps focused rows visible (browser default).
 ### 4.5 R4a Find field on phones and tablets
 
 - 375: `FindInList idPrefix="top"` in its own row, `mb-3`, full width. The label `Find in
-  Groceries` sits visibly above the field (`text-small font-semibold text-ink`). Field 44px.
+Groceries` sits visibly above the field (`text-small font-semibold text-ink`). Field 44px.
   Row height ~72px.
 - 768: the same field moves into the sticky toolbar (R5) as its first column with an
   `sr-only` label **plus** a visible placeholder `Find in Groceries`. Exception justified: the
@@ -759,8 +784,8 @@ unique id prefix (`top`, `bar`, `side`).
 **Classes**
 
 - Sticky wrapper (below 1024): `sticky top-(--header-height) z-sticky -mx-[gutter]
-  border-b border-line bg-surface px-[gutter] py-2 lg:static lg:mx-0 lg:border-0
-  lg:bg-transparent lg:p-0 data-[stuck]:shadow-lift lg:data-[stuck]:shadow-none`.
+border-b border-line bg-surface px-[gutter] py-2 lg:static lg:mx-0 lg:border-0
+lg:bg-transparent lg:p-0 data-[stuck]:shadow-lift lg:data-[stuck]:shadow-none`.
   (Gutter breakout: wrap the toolbar in a full-bleed element instead if the dev prefers; it
   must touch both screen edges below 1024 so it reads as a bar, not a floating card.)
 - The light header is `surface` too, so the toolbar has its own `border-b border-line` and,
@@ -773,7 +798,7 @@ unique id prefix (`top`, `bar`, `side`).
   `getComputedStyle(document.documentElement).getPropertyValue('--header-height')`).
 - Filters button: `Button variant="outline" size="md" block` with `SlidersHorizontal` icon,
   label `Filters`, badge `grid min-w-6 place-items-center rounded-full bg-crimson px-1.5
-  text-xs font-bold text-on-dark tabular-nums` (`aria-hidden`; the button's accessible name
+text-xs font-bold text-on-dark tabular-nums` (`aria-hidden`; the button's accessible name
   is "Filters, 2 applied").
 - Sort: the existing `Select` (`min-h-12`, override to `min-h-control` here) inside
   `SortSelect` (client).
@@ -819,16 +844,16 @@ lg:gap-y-6 xl:grid-cols-4" role="list">`. Each `<li class="flex">`.
 
 **Tile anatomy (top to bottom)**
 
-| #   | Part           | Content and data                                                                                             | Classes                                                                                       |
-| --- | -------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| 1   | Photo          | `ProductImage` 1:1: upload → stock photo by slug → branded placeholder (§4.9)                                 | `aspect-square rounded-md`; out of stock: `opacity-60`                                        |
-| 1a  | Badge          | Only `Out of stock` (real status)                                                                            | `Badge` neutral, `absolute top-2 left-2`                                                      |
-| 2   | Price          | `Price` component, `size="md"`, `tone="ink"`: `USD$14.50` then `about J$2,280`                                | `mt-3`                                                                                        |
-| 3   | Label          | Aisle name on department pages (`Rice & grains`); department name on `/shop` (`Groceries`); omitted if null | `mt-2 text-xs font-medium text-ink-muted`                                                     |
-| 4   | Name           | Product name, link to `/product/{slug}`, full-card click area                                                | `text-small sm:text-body font-semibold leading-snug text-ink line-clamp-2`                    |
-| 5   | Size           | `10 lb bag`                                                                                                   | `text-xs text-ink-muted`                                                                      |
-| 6   | Unit price     | `USD$1.45 per lb` only when computable (§5.4)                                                                 | `text-xs font-medium text-ink-body tabular-nums`                                              |
-| 7   | Basket control | Add, or the stepper when in the basket, or "Out of stock"                                                     | `mt-auto pt-3 relative z-raised`                                                              |
+| #   | Part           | Content and data                                                                                            | Classes                                                                    |
+| --- | -------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | Photo          | `ProductImage` 1:1: upload → stock photo by slug → branded placeholder (§4.9)                               | `aspect-square rounded-md`; out of stock: `opacity-60`                     |
+| 1a  | Badge          | Only `Out of stock` (real status)                                                                           | `Badge` neutral, `absolute top-2 left-2`                                   |
+| 2   | Price          | `Price` component, `size="md"`, `tone="ink"`: `USD$14.50` then `about J$2,280`                              | `mt-3`                                                                     |
+| 3   | Label          | Aisle name on department pages (`Rice & grains`); department name on `/shop` (`Groceries`); omitted if null | `mt-2 text-xs font-medium text-ink-muted`                                  |
+| 4   | Name           | Product name, link to `/product/{slug}`, full-card click area                                               | `text-small sm:text-body font-semibold leading-snug text-ink line-clamp-2` |
+| 5   | Size           | `10 lb bag`                                                                                                 | `text-xs text-ink-muted`                                                   |
+| 6   | Unit price     | `USD$1.45 per lb` only when computable (§5.4)                                                               | `text-xs font-medium text-ink-body tabular-nums`                           |
+| 7   | Basket control | Add, or the stepper when in the basket, or "Out of stock"                                                   | `mt-auto pt-3 relative z-raised`                                           |
 
 Card: `<article class="group relative flex w-full flex-col rounded-lg border border-line
 bg-surface p-2.5 sm:p-3 transition-colors duration-250 ease-out-soft hover:border-line-hover
@@ -869,12 +894,12 @@ In the basket:
 
 **Real example values (demo data, J$157 per USD):**
 
-| Product              | Price      | J$ line         | Unit price          |
-| -------------------- | ---------- | --------------- | ------------------- |
-| Long Grain Rice      | USD$14.50  | about J$2,280   | USD$1.45 per lb     |
-| Mackerel in Tomato Sauce | USD$6.90 | about J$1,080 | USD$2.30 each       |
-| Laundry Detergent    | USD$19.75  | about J$3,100   | USD$0.13 per fl oz  |
-| First Aid Kit        | USD$22     | about J$3,450   | (none)              |
+| Product                  | Price     | J$ line       | Unit price         |
+| ------------------------ | --------- | ------------- | ------------------ |
+| Long Grain Rice          | USD$14.50 | about J$2,280 | USD$1.45 per lb    |
+| Mackerel in Tomato Sauce | USD$6.90  | about J$1,080 | USD$2.30 each      |
+| Laundry Detergent        | USD$19.75 | about J$3,100 | USD$0.13 per fl oz |
+| First Aid Kit            | USD$22    | about J$3,450 | (none)             |
 
 (J$ values come from `usdCentsToJmd`, rounded to J$10; the dev checks them in tests, not by
 hand.)
@@ -908,10 +933,10 @@ not a missing image.
 ```
 
 - Classes: `relative grid aspect-square place-items-center rounded-md bg-surface-muted p-4
-  text-center ring-1 ring-inset ring-line`. Icon `absolute top-3 left-3 size-icon-lg
-  text-crimson`. Name `text-h3 font-extrabold text-ink text-balance line-clamp-3`; at 375 use
+text-center ring-1 ring-inset ring-line`. Icon `absolute top-3 left-3 size-icon-lg
+text-crimson`. Name `text-h3 font-extrabold text-ink text-balance line-clamp-3`; at 375 use
   `text-body font-extrabold` (the tile is 141px inside). Size `mt-1 text-small font-semibold
-  text-ink-muted`.
+text-ink-muted`.
 - The placeholder is decorative (the name is the card's link text right below):
   `aria-hidden="true"`, no `role="img"`.
 - Implement as a `placeholder="label"` variant of `ProductImage` (new prop
@@ -923,13 +948,13 @@ not a missing image.
 
 **Behaviour**
 
-| Basket quantity | Product status  | Control                                                                                                              |
-| --------------- | --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| 0               | visible         | `+ Add` (outline crimson, full width, 44px)                                                                          |
-| 1 to 19         | visible         | Stepper (solid crimson): `−` (or `Trash2` at 1) · quantity · `+`                                                     |
-| 20              | visible         | Stepper with `+` disabled, `title="20 is the most per item"`                                                         |
-| 0               | out_of_stock    | Static `Out of stock` row (no button)                                                                                |
-| ≥1              | out_of_stock    | Stepper with `+` disabled and the quantity; under it `text-xs text-ink-muted`: `Out of stock now. We follow your swap choice.` (truthful: checkout already asks for a swap rule) |
+| Basket quantity | Product status | Control                                                                                                                                                                          |
+| --------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0               | visible        | `+ Add` (outline crimson, full width, 44px)                                                                                                                                      |
+| 1 to 19         | visible        | Stepper (solid crimson): `−` (or `Trash2` at 1) · quantity · `+`                                                                                                                 |
+| 20              | visible        | Stepper with `+` disabled, `title="20 is the most per item"`                                                                                                                     |
+| 0               | out_of_stock   | Static `Out of stock` row (no button)                                                                                                                                            |
+| ≥1              | out_of_stock   | Stepper with `+` disabled and the quantity; under it `text-xs text-ink-muted`: `Out of stock now. We follow your swap choice.` (truthful: checkout already asks for a swap rule) |
 
 **Data:** `inBasket` comes from the basket cookie, read on the server inside the dynamic
 results part (`readBasket()`), as a map `productId → quantity`. No client store.
@@ -943,13 +968,16 @@ export type QuantityState =
   | { status: 'error'; message: string }
 
 /** Sets one product's quantity on the basket (0 removes it). Increases need the product visible. */
-export async function setProductQuantity(prev: QuantityState, form: FormData): Promise<QuantityState>
+export async function setProductQuantity(
+  prev: QuantityState,
+  form: FormData,
+): Promise<QuantityState>
 ```
 
 - zod: `{ id: string 1..64, quantity: int 0..MAX_QUANTITY }`.
 - Looks the product up in `getCatalogue()`. If the requested quantity is above the current
   line and the product is not `visible`, return `error: 'That item is out of stock right
-  now.'`.
+now.'`.
 - If the line is missing and quantity > 0: `addLine`; else `setQuantity` (0 removes).
 - Returns the new quantity, basket count and product name. Writing the cookie in a server
   action refreshes the route, so the header basket count and every tile re-render with server
@@ -976,7 +1004,7 @@ Props `{ productId: string; name: string; quantity: number; inStock: boolean }`.
   zero/non-zero transition.
 - Announcements: through the page announcer (§4.12), one message per change:
   `Long Grain Rice: 2 in your basket. 5 items in total.` and `Long Grain Rice removed from your
-  basket.`
+basket.`
 
 **Stepper classes:** container `@container flex h-control w-full items-stretch overflow-hidden
 rounded-md bg-crimson text-on-dark` with `role="group" aria-label="Long Grain Rice in your
@@ -1002,8 +1030,8 @@ what the sender has picked, so a monthly supporter sees their list at a glance.
 **With JavaScript (below 1024):**
 
 - `FilterSheet` (client), `src/components/shop/listing/filter-sheet.tsx`. Props `{ action:
-  string; activeCount: number; total: number; index: FacetRow[]; query: ShopQuery; children:
-  ReactNode /* <FilterFields idPrefix="sheet"> */ }`.
+string; activeCount: number; total: number; index: FacetRow[]; query: ShopQuery; children:
+ReactNode /* <FilterFields idPrefix="sheet"> */ }`.
 - Trigger: rendered as `<a href="#filters" …>` styled as the Filters button. After hydration
   its `onClick` calls `preventDefault()` and opens the dialog. The same element works
   without JS (§ below).
@@ -1017,7 +1045,7 @@ what the sender has picked, so a monthly supporter sees their list at a glance.
   sheet closes on route change).
 - Footer: `flex gap-3`: `Button variant="ghost"` `Clear all` (unchecks every input in the form,
   sets price to Any, recomputes; does not navigate) and `Button type="submit" form="sheet-filters"
-  block` reading `Show 9 items` / `Show 1 item`; at 0 it is disabled and reads `No items match`.
+block` reading `Show 9 items` / `Show 1 item`; at 0 it is disabled and reads `No items match`.
 - Apply: `onSubmit` → `preventDefault`, `listing.navigate(url)`, close the dialog, then scroll
   the results heading to just under the sticky toolbar (`scrollIntoView` with the
   `scroll-margin` from §4.13; `behavior: 'smooth'` unless reduced motion).
@@ -1074,10 +1102,14 @@ One small client module so every enhanced control behaves the same:
 ```tsx
 'use client'
 export function ListingNavProvider({ children }: { children: ReactNode }) // useTransition + router
-export function useListingNav(): { navigate(url: string): void; pending: boolean; announce(message: string): void }
-export function ListingLink(props: ComponentProps<typeof Link>)            // Link whose click runs navigate() in the transition
+export function useListingNav(): {
+  navigate(url: string): void
+  pending: boolean
+  announce(message: string): void
+}
+export function ListingLink(props: ComponentProps<typeof Link>) // Link whose click runs navigate() in the transition
 export function ResultsRegion({ total, children }: { total: number; children: ReactNode })
-export function Announcer()                                                // the one role="status" region
+export function Announcer() // the one role="status" region
 ```
 
 - `navigate(url)`: `startTransition(() => router.push(url, { scroll: false }))`. `push`, not
@@ -1103,10 +1135,19 @@ No new colour tokens. Three additions:
    ```css
    @utility sheet-bottom {
      translate: 0 100%;
-     transition: translate var(--duration-base) var(--ease-out-soft),
-       overlay var(--duration-base) allow-discrete, display var(--duration-base) allow-discrete;
-     &[open] { translate: 0 0; transition-duration: var(--duration-slow); }
-     @starting-style { &[open] { translate: 0 100%; } }
+     transition:
+       translate var(--duration-base) var(--ease-out-soft),
+       overlay var(--duration-base) allow-discrete,
+       display var(--duration-base) allow-discrete;
+     &[open] {
+       translate: 0 0;
+       transition-duration: var(--duration-slow);
+     }
+     @starting-style {
+       &[open] {
+         translate: 0 100%;
+       }
+     }
    }
    ```
 
@@ -1114,12 +1155,18 @@ No new colour tokens. Three additions:
    below 1024 the root scroll padding includes the toolbar.
 
    ```css
-   :root:has([data-listing]) { scroll-padding-top: calc(var(--header-height) + 4.5rem); }
-   @media (min-width: 64rem) { :root:has([data-listing]) { scroll-padding-top: calc(var(--header-height) + 1rem); } }
+   :root:has([data-listing]) {
+     scroll-padding-top: calc(var(--header-height) + 4.5rem);
+   }
+   @media (min-width: 64rem) {
+     :root:has([data-listing]) {
+       scroll-padding-top: calc(var(--header-height) + 1rem);
+     }
+   }
    ```
 
 3. The results heading and first chip use `scroll-mt-[calc(var(--header-height)+4.5rem)]
-   lg:scroll-mt-header` for programmatic scrolls.
+lg:scroll-mt-header` for programmatic scrolls.
 
 `--header-height` is owned by the header (light redesign). This plan reads it and never
 hard-codes 64/72px.
@@ -1202,10 +1249,10 @@ jumps (`scroll: false`), and focus moves to the first new tile's name link (the 
 **Copy**
 
 - Left: title `Can’t find something?` (`text-body font-bold text-ink`), line `Tell us what
-  they need and we’ll look for it in store.`, link from `requestLink(itemRequests)`: `Request
-  an item` → `/request` or `Ask us about it` → `/contact`.
+they need and we’ll look for it in store.`, link from `requestLink(itemRequests)`: `Request
+an item` → `/request` or `Ask us about it` → `/contact`.
 - Right: title `How we shop for you` , line `A driver buys your items in Jamaica on the day we
-  deliver. You get a photo of the till receipt, then a photo at the door.`, link `How it works`
+deliver. You get a photo of the till receipt, then a photo at the door.`, link `How it works`
   → `/how-it-works`.
 
 **Classes:** `mt-12 grid gap-6 rounded-lg border border-line bg-surface p-card md:grid-cols-2
@@ -1217,11 +1264,11 @@ beside each title.
 
 Rendered inside the results column instead of R7 to R9. Uses the existing `EmptyState`.
 
-| Case                                                        | Icon            | Title                                   | Body                                                                                                       | Actions                                                                                                  |
-| ----------------------------------------------------------- | --------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| Filters or `q` match nothing                                 | `PackageSearch` | `No items match these filters`          | `Remove a filter, or search the whole shop.`                                                               | the chips row again (removable), `Clear all filters` (primary), `Search the whole shop for “rice”` (link to `/search?q=rice`, only with `q`; it also finds baskets) |
-| Department has no listed products                            | `PackageOpen`   | `We’re stocking this department`        | `Nothing here yet. Have a look at the other departments in the meantime.`                                  | department links (chips style, from `departments`)                                                       |
-| Every product in scope is out of stock (and stock filter off) | (inline note, not empty) | —                              | Above the grid: `Everything here is out of stock right now. We restock often, so check back soon.` in `rounded-md bg-warn-tint p-4 text-small text-ink` | —                                                                                                     |
+| Case                                                          | Icon                     | Title                            | Body                                                                                                                                                    | Actions                                                                                                                                                             |
+| ------------------------------------------------------------- | ------------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Filters or `q` match nothing                                  | `PackageSearch`          | `No items match these filters`   | `Remove a filter, or search the whole shop.`                                                                                                            | the chips row again (removable), `Clear all filters` (primary), `Search the whole shop for “rice”` (link to `/search?q=rice`, only with `q`; it also finds baskets) |
+| Department has no listed products                             | `PackageOpen`            | `We’re stocking this department` | `Nothing here yet. Have a look at the other departments in the meantime.`                                                                               | department links (chips style, from `departments`)                                                                                                                  |
+| Every product in scope is out of stock (and stock filter off) | (inline note, not empty) | —                                | Above the grid: `Everything here is out of stock right now. We restock often, so check back soon.` in `rounded-md bg-warn-tint p-4 text-small text-ink` | —                                                                                                                                                                   |
 
 The request link (`requestLink`) also appears under the first case.
 
@@ -1235,7 +1282,7 @@ Matches final layout so nothing shifts when results stream in.
   a `h-12` row.
 - Grid: 8 skeleton tiles (`rounded-lg border border-line bg-surface p-2.5 sm:p-3`), each with
   `aspect-square` `Skeleton`, then `h-6 w-20`, `h-3 w-16`, `h-4 w-full`, `h-4 w-2/3`, `h-3
-  w-12`, and an `h-11` bar at the bottom.
+w-12`, and an `h-11` bar at the bottom.
 - `Skeleton` already pulses with a flat fill (no shimmer gradient) and stops under reduced
   motion.
 
@@ -1245,15 +1292,15 @@ Matches final layout so nothing shifts when results stream in.
 
 ### 5.1 URL params
 
-| Param   | Values                                   | Default     | Notes                                                                                   |
-| ------- | ---------------------------------------- | ----------- | --------------------------------------------------------------------------------------- |
-| path    | `/shop` or `/shop/{department-slug}`     | `/shop`     | Department scope. Unknown slug → 404 (unchanged)                                         |
-| `q`     | text, trimmed, max 80 chars, max 8 words | empty       | Every word must match name, size, description, aisle name or department name            |
-| `aisle` | aisle slug, repeated (`aisle=a&aisle=b`) | none        | Only on department routes; unknown slugs dropped; ignored on `/shop`                     |
-| `price` | `any`, `under-10`, `10-25`, `over-25`    | `any`       | Existing                                                                                |
-| `stock` | `1`                                      | off         | Existing                                                                                |
-| `sort`  | `popular`, `price-asc`, `price-desc`, `name` | `popular` | Key `popular` kept for old links; label changes to "Our picks first"                    |
-| `page`  | integer ≥ 1                              | 1           | Number of 24-item batches shown (cumulative); clamped to the last batch                 |
+| Param   | Values                                       | Default   | Notes                                                                        |
+| ------- | -------------------------------------------- | --------- | ---------------------------------------------------------------------------- |
+| path    | `/shop` or `/shop/{department-slug}`         | `/shop`   | Department scope. Unknown slug → 404 (unchanged)                             |
+| `q`     | text, trimmed, max 80 chars, max 8 words     | empty     | Every word must match name, size, description, aisle name or department name |
+| `aisle` | aisle slug, repeated (`aisle=a&aisle=b`)     | none      | Only on department routes; unknown slugs dropped; ignored on `/shop`         |
+| `price` | `any`, `under-10`, `10-25`, `over-25`        | `any`     | Existing                                                                     |
+| `stock` | `1`                                          | off       | Existing                                                                     |
+| `sort`  | `popular`, `price-asc`, `price-desc`, `name` | `popular` | Key `popular` kept for old links; label changes to "Our picks first"         |
+| `page`  | integer ≥ 1                                  | 1         | Number of 24-item batches shown (cumulative); clamped to the last batch      |
 
 Serialised order: `q`, `aisle`…, `price`, `stock`, `sort`, `page`; defaults omitted. Any
 filter change resets `page`. Changing department keeps `q`, `price`, `stock`, `sort`.
@@ -1495,30 +1542,30 @@ export async function getAisles(categoryId: string): Promise<(Aisle & { count: n
 `ais-{slug}` and the same 14 names as the migration, and add `aisleId` to every seed (a
 seventh tuple field or inside `extra`):
 
-| Product                  | Department   | Aisle                |
-| ------------------------ | ------------ | -------------------- |
-| Long Grain Rice          | Groceries    | Rice & grains        |
-| All-Purpose Flour        | Groceries    | Baking               |
-| Granulated Sugar         | Groceries    | Baking               |
-| Vegetable Cooking Oil    | Groceries    | Cooking oils         |
-| Rolled Oats              | Groceries    | Breakfast & drinks   |
-| Corned Beef              | Groceries    | Canned goods         |
-| Mackerel in Tomato Sauce | Groceries    | Canned goods         |
-| Evaporated Milk          | Groceries    | Breakfast & drinks   |
-| Ground Coffee            | Groceries    | Breakfast & drinks   |
-| Laundry Detergent        | Household    | Laundry & cleaning   |
-| Dish Soap                | Household    | Dishwashing          |
-| Toilet Paper             | Household    | Paper goods          |
-| Paper Towels             | Household    | Paper goods          |
-| Household Bleach         | Household    | Laundry & cleaning   |
-| Pain Relief Tablets      | Pharmacy     | Pain relief          |
-| Adult Multivitamin       | Pharmacy     | Vitamins             |
-| First Aid Kit            | Pharmacy     | First aid & hygiene  |
-| Hand Sanitiser           | Pharmacy     | First aid & hygiene  |
-| Baby Diapers, Size 3     | Baby & Child | Diapers & wipes      |
-| Baby Wipes               | Baby & Child | Diapers & wipes      |
-| Infant Formula           | Baby & Child | Feeding              |
-| Baby Lotion              | Baby & Child | Bath & skin care     |
+| Product                  | Department   | Aisle               |
+| ------------------------ | ------------ | ------------------- |
+| Long Grain Rice          | Groceries    | Rice & grains       |
+| All-Purpose Flour        | Groceries    | Baking              |
+| Granulated Sugar         | Groceries    | Baking              |
+| Vegetable Cooking Oil    | Groceries    | Cooking oils        |
+| Rolled Oats              | Groceries    | Breakfast & drinks  |
+| Corned Beef              | Groceries    | Canned goods        |
+| Mackerel in Tomato Sauce | Groceries    | Canned goods        |
+| Evaporated Milk          | Groceries    | Breakfast & drinks  |
+| Ground Coffee            | Groceries    | Breakfast & drinks  |
+| Laundry Detergent        | Household    | Laundry & cleaning  |
+| Dish Soap                | Household    | Dishwashing         |
+| Toilet Paper             | Household    | Paper goods         |
+| Paper Towels             | Household    | Paper goods         |
+| Household Bleach         | Household    | Laundry & cleaning  |
+| Pain Relief Tablets      | Pharmacy     | Pain relief         |
+| Adult Multivitamin       | Pharmacy     | Vitamins            |
+| First Aid Kit            | Pharmacy     | First aid & hygiene |
+| Hand Sanitiser           | Pharmacy     | First aid & hygiene |
+| Baby Diapers, Size 3     | Baby & Child | Diapers & wipes     |
+| Baby Wipes               | Baby & Child | Diapers & wipes     |
+| Infant Formula           | Baby & Child | Feeding             |
+| Baby Lotion              | Baby & Child | Bath & skin care    |
 
 `src/lib/demo/demo.test.ts`: add "every demo product has an aisle in its own department" and
 "aisle slugs are unique per department".
@@ -1555,51 +1602,51 @@ Rounding: `Math.round` to the cent before `formatUsd`.
 
 **Test table (`src/lib/unit-price.test.ts`), every demo product:**
 
-| Size                 | Price      | Expected            |
-| -------------------- | ---------- | ------------------- |
-| 10 lb bag            | USD$14.50  | USD$1.45 per lb     |
-| 5 lb bag             | USD$6.50   | USD$1.30 per lb     |
-| 4 lb bag             | USD$5.75   | USD$1.44 per lb     |
-| 1 gallon             | USD$13.25  | null                |
-| 42 oz canister       | USD$8.25   | USD$3.14 per lb     |
-| 12 oz can            | USD$4.75   | USD$6.33 per lb     |
-| 15 oz can, 3 pack    | USD$6.90   | USD$2.30 each       |
-| 12 oz can, 12 pack   | USD$15.90  | USD$1.33 each       |
-| 24 oz bag            | USD$18.90  | USD$12.60 per lb    |
-| 150 fl oz            | USD$19.75  | USD$0.13 per fl oz  |
-| 28 fl oz, 3 pack     | USD$9.90   | USD$3.30 each       |
-| 30 double rolls      | USD$24.50  | USD$0.82 per roll   |
-| 12 rolls             | USD$21.90  | USD$1.83 per roll   |
-| 121 fl oz, 2 pack    | USD$11.50  | USD$5.75 each       |
-| 500 mg, 200 count    | USD$12.80  | USD$6.40 per 100    |
-| 300 tablets          | USD$18.90  | USD$6.30 per 100    |
-| 160 pieces           | USD$22     | null                |
-| 33.8 fl oz, 2 pack   | USD$10.50  | USD$5.25 each       |
-| 168 count            | USD$42.90  | USD$0.26 each       |
-| 900 count            | USD$23.90  | USD$2.66 per 100    |
-| 48 oz tub            | USD$45.90  | USD$15.30 per lb    |
-| 27 fl oz, 2 pack     | USD$14.90  | USD$7.45 each       |
+| Size               | Price     | Expected           |
+| ------------------ | --------- | ------------------ |
+| 10 lb bag          | USD$14.50 | USD$1.45 per lb    |
+| 5 lb bag           | USD$6.50  | USD$1.30 per lb    |
+| 4 lb bag           | USD$5.75  | USD$1.44 per lb    |
+| 1 gallon           | USD$13.25 | null               |
+| 42 oz canister     | USD$8.25  | USD$3.14 per lb    |
+| 12 oz can          | USD$4.75  | USD$6.33 per lb    |
+| 15 oz can, 3 pack  | USD$6.90  | USD$2.30 each      |
+| 12 oz can, 12 pack | USD$15.90 | USD$1.33 each      |
+| 24 oz bag          | USD$18.90 | USD$12.60 per lb   |
+| 150 fl oz          | USD$19.75 | USD$0.13 per fl oz |
+| 28 fl oz, 3 pack   | USD$9.90  | USD$3.30 each      |
+| 30 double rolls    | USD$24.50 | USD$0.82 per roll  |
+| 12 rolls           | USD$21.90 | USD$1.83 per roll  |
+| 121 fl oz, 2 pack  | USD$11.50 | USD$5.75 each      |
+| 500 mg, 200 count  | USD$12.80 | USD$6.40 per 100   |
+| 300 tablets        | USD$18.90 | USD$6.30 per 100   |
+| 160 pieces         | USD$22    | null               |
+| 33.8 fl oz, 2 pack | USD$10.50 | USD$5.25 each      |
+| 168 count          | USD$42.90 | USD$0.26 each      |
+| 900 count          | USD$23.90 | USD$2.66 per 100   |
+| 48 oz tub          | USD$45.90 | USD$15.30 per lb   |
+| 27 fl oz, 2 pack   | USD$14.90 | USD$7.45 each      |
 
 Plus: `''` → null, `pack of 1` → null, `0 lb` → null (no division by zero).
 
 ### 5.5 Server and client split
 
-| Piece                                   | Kind                | Why                                                                                         |
-| --------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------- |
-| `shop/page.tsx`, `shop/[category]/page.tsx` | server          | Thin: metadata, `notFound`, render `ShopListing`                                             |
-| `ShopListing`                           | server              | Band + strip (static, cached loaders) + `<Suspense>` around results                          |
-| `DepartmentBand`, `EdgeStrip`           | server              | Static; prerendered in the shell                                                             |
-| `TabRailScroller`                       | client (tiny)       | Scrolls the active tab into view on phones                                                   |
-| `CutoffCountdown`                       | client (existing)   | Visitor's local time                                                                         |
-| `ListingResults`                        | server (async)      | Awaits `searchParams`, reads the basket cookie, filters, renders everything below the strip |
-| `FilterFields`, `FindInList`, `ActiveFilters`, `ProductTile`, `BasketShortcutTile`, `ListingHelpRow`, `ListingEmpty`, `ListingSkeleton` | server | Markup only; no state                                   |
-| `ListingNavProvider`, `ListingLink`, `ResultsRegion`, `Announcer` | client | Transition, pending state, one live region                                                |
-| `FilterForm`                            | client              | Instant apply on change; remount on URL change                                              |
-| `FilterSheet`                           | client              | Dialog, draft state, live count                                                              |
-| `SortSelect`                            | client              | Navigate on change                                                                           |
-| `StickyToolbar`                         | client              | Sentinel → `data-stuck` shadow                                                               |
-| `TileBasketControl`                     | client              | Optimistic stepper with the server action                                                    |
-| `LoadMore`                              | client              | Focus the first new tile after loading                                                       |
+| Piece                                                                                                                                   | Kind              | Why                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| `shop/page.tsx`, `shop/[category]/page.tsx`                                                                                             | server            | Thin: metadata, `notFound`, render `ShopListing`                                            |
+| `ShopListing`                                                                                                                           | server            | Band + strip (static, cached loaders) + `<Suspense>` around results                         |
+| `DepartmentBand`, `EdgeStrip`                                                                                                           | server            | Static; prerendered in the shell                                                            |
+| `TabRailScroller`                                                                                                                       | client (tiny)     | Scrolls the active tab into view on phones                                                  |
+| `CutoffCountdown`                                                                                                                       | client (existing) | Visitor's local time                                                                        |
+| `ListingResults`                                                                                                                        | server (async)    | Awaits `searchParams`, reads the basket cookie, filters, renders everything below the strip |
+| `FilterFields`, `FindInList`, `ActiveFilters`, `ProductTile`, `BasketShortcutTile`, `ListingHelpRow`, `ListingEmpty`, `ListingSkeleton` | server            | Markup only; no state                                                                       |
+| `ListingNavProvider`, `ListingLink`, `ResultsRegion`, `Announcer`                                                                       | client            | Transition, pending state, one live region                                                  |
+| `FilterForm`                                                                                                                            | client            | Instant apply on change; remount on URL change                                              |
+| `FilterSheet`                                                                                                                           | client            | Dialog, draft state, live count                                                             |
+| `SortSelect`                                                                                                                            | client            | Navigate on change                                                                          |
+| `StickyToolbar`                                                                                                                         | client            | Sentinel → `data-stuck` shadow                                                              |
+| `TileBasketControl`                                                                                                                     | client            | Optimistic stepper with the server action                                                   |
+| `LoadMore`                                                                                                                              | client            | Focus the first new tile after loading                                                      |
 
 Server components pass only serialisable props to client components (strings, numbers,
 arrays, server-rendered `children`); no functions.
@@ -1649,16 +1696,16 @@ change only.
 
 First-pass plan, then what changed:
 
-| First pass                                                                                   | Why it read generic                                                     | Changed to                                                                                                  |
-| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| A photo hero "Fresh groceries for your family" with a search bar and four category cards     | The two-column hero the owner no longer wants; the old corporate shop   | Single-column crimson band with folder tabs; products in the first screen                                   |
-| Trust band with three icon cards (same-day, proof, USD) under the hero                      | The SaaS "three feature cards" kit                                       | One-line edge strip; proof repeated once in the help row                                                    |
-| Cards with a soft shadow and lift on hover                                                   | The SaaS card kit                                                        | Flat cards, border colour change, photo zoom only                                                           |
-| Grey icon in a box as the placeholder                                                        | Looks like a broken image                                                | Type-led shelf tag: department icon, product name in heavy type, size                                       |
-| "Popular first", "Bestseller" badges                                                         | Invented claims                                                          | "Our picks first"; only real badges                                                                         |
-| Horizontal filter chips toolbar on desktop                                                   | Fashionable, but Baymard 2024 says sidebar for more than a few filters   | Sidebar on desktop, sheet on phones                                                                         |
-| Pagination numbers                                                                           | Browsing drops off (S9)                                                  | "Show 24 more" with a progress line                                                                         |
-| Red Add buttons on every card                                                                | A wall of red that means nothing                                         | Outline Add; solid red only for items already in the basket                                                 |
+| First pass                                                                               | Why it read generic                                                    | Changed to                                                                |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| A photo hero "Fresh groceries for your family" with a search bar and four category cards | The two-column hero the owner no longer wants; the old corporate shop  | Single-column crimson band with folder tabs; products in the first screen |
+| Trust band with three icon cards (same-day, proof, USD) under the hero                   | The SaaS "three feature cards" kit                                     | One-line edge strip; proof repeated once in the help row                  |
+| Cards with a soft shadow and lift on hover                                               | The SaaS card kit                                                      | Flat cards, border colour change, photo zoom only                         |
+| Grey icon in a box as the placeholder                                                    | Looks like a broken image                                              | Type-led shelf tag: department icon, product name in heavy type, size     |
+| "Popular first", "Bestseller" badges                                                     | Invented claims                                                        | "Our picks first"; only real badges                                       |
+| Horizontal filter chips toolbar on desktop                                               | Fashionable, but Baymard 2024 says sidebar for more than a few filters | Sidebar on desktop, sheet on phones                                       |
+| Pagination numbers                                                                       | Browsing drops off (S9)                                                | "Show 24 more" with a progress line                                       |
+| Red Add buttons on every card                                                            | A wall of red that means nothing                                       | Outline Add; solid red only for items already in the basket               |
 
 Generic tells checked and absent: no gradient, no cream background, no all-caps labels, no
 `A · B · C` meta strings (unit price and size are separate lines), no `→` appended to link
@@ -1672,23 +1719,23 @@ removed (the strip says it once).
 
 ### 7.2 ui-ux-pro-max checklist
 
-| Check                                                                 | How this plan meets it                                                                                         |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| No emoji icons; one icon family                                       | lucide only; outline style throughout                                                                          |
-| `cursor-pointer` on clickable elements                                | Links/buttons by default; checkbox and radio rows set `cursor-pointer`                                        |
-| Hover transitions 150–300ms                                           | 150ms colour, 250ms card border and photo zoom                                                                 |
-| Text contrast ≥ 4.5:1                                                 | All pairs are existing role pairs (ink on surface, white on crimson, blush on crimson for 14px bold count, blush on oxblood) |
-| Visible focus on every control (incl. sheet)                          | Signal ring on light; blush on crimson and oxblood (`on-dark-focus`); row-level ring on filter labels          |
-| Focus not obscured by sticky UI                                       | Root `scroll-padding-top` includes header + toolbar on listing pages (§4.13)                                   |
-| Reduced motion                                                        | Global rule; zoom, sheet slide, colour transitions become instant                                              |
-| 375 / 768 / 1024 / 1440                                               | Specified per region; tab rail scrolls inside the band, never the page                                        |
-| Touch targets ≥ 44px                                                  | All controls 44px below 1024; filter rows 36px from 1024 (pointer), matching the footer precedent               |
-| Chips wrap, never clipped                                             | `flex-wrap`                                                                                                    |
-| One atomic live message per event                                     | One `Announcer` for counts and basket changes                                                                  |
-| Visible labels, not placeholder-only                                  | Find field labelled visibly except in the 768 toolbar (sr-only label, same as the header search), filter groups use legends |
-| Reserve space for async content                                       | Skeleton matches final geometry; no swap on filter changes                                                    |
-| Deep linking, predictable Back                                        | Every state in the URL; `router.push` so Back undoes a filter                                                  |
-| Static shell with Suspense holes                                      | §6                                                                                                             |
+| Check                                        | How this plan meets it                                                                                                       |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| No emoji icons; one icon family              | lucide only; outline style throughout                                                                                        |
+| `cursor-pointer` on clickable elements       | Links/buttons by default; checkbox and radio rows set `cursor-pointer`                                                       |
+| Hover transitions 150–300ms                  | 150ms colour, 250ms card border and photo zoom                                                                               |
+| Text contrast ≥ 4.5:1                        | All pairs are existing role pairs (ink on surface, white on crimson, blush on crimson for 14px bold count, blush on oxblood) |
+| Visible focus on every control (incl. sheet) | Signal ring on light; blush on crimson and oxblood (`on-dark-focus`); row-level ring on filter labels                        |
+| Focus not obscured by sticky UI              | Root `scroll-padding-top` includes header + toolbar on listing pages (§4.13)                                                 |
+| Reduced motion                               | Global rule; zoom, sheet slide, colour transitions become instant                                                            |
+| 375 / 768 / 1024 / 1440                      | Specified per region; tab rail scrolls inside the band, never the page                                                       |
+| Touch targets ≥ 44px                         | All controls 44px below 1024; filter rows 36px from 1024 (pointer), matching the footer precedent                            |
+| Chips wrap, never clipped                    | `flex-wrap`                                                                                                                  |
+| One atomic live message per event            | One `Announcer` for counts and basket changes                                                                                |
+| Visible labels, not placeholder-only         | Find field labelled visibly except in the 768 toolbar (sr-only label, same as the header search), filter groups use legends  |
+| Reserve space for async content              | Skeleton matches final geometry; no swap on filter changes                                                                   |
+| Deep linking, predictable Back               | Every state in the URL; `router.push` so Back undoes a filter                                                                |
+| Static shell with Suspense holes             | §6                                                                                                                           |
 
 ---
 
@@ -1844,7 +1891,7 @@ components, then pages, then delete what is unused. `npm run check` after each s
   `<ShopListing scope={{ kind: 'all' }} searchParams={searchParams} />`.
 - `src/app/(site)/shop/[category]/page.tsx`: keep `generateStaticParams`,
   `generateMetadata`, `notFound`; render `<ShopListing scope={{ kind: 'department',
-  category }} searchParams={searchParams} />`.
+category }} searchParams={searchParams} />`.
 
 **Delete when unused (check with grep first)**
 
