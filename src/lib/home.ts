@@ -6,6 +6,13 @@ import type { Basket, DeliveryZone, Faq, Product } from '@/lib/types'
  * components so it can be tested without rendering.
  */
 
+/** How each delivery speed reads on a zone row or pill. */
+export const SPEED_LABEL: Record<DeliveryZone['speed'], string> = {
+  same_day: 'Same day',
+  next_day: 'Next day',
+  scheduled: 'Scheduled',
+}
+
 /** `["St. Thomas"]` → `St. Thomas`; two → `A and B`; more → `A, B and C`. Empty → `''`. */
 export function joinParishes(parishes: string[]): string {
   if (parishes.length <= 1) return parishes[0] ?? ''
@@ -81,7 +88,8 @@ export function pickHomeFaqs(faqs: Faq[], ids = HOME_FAQ_IDS, count = 5): Faq[] 
   return [...picked, ...rest].slice(0, count)
 }
 
-const occasionPhrases: Record<Basket['occasion'], string> = {
+/** What each occasion is for, as a phrase: "the weekly shop", "a new baby". */
+export const occasionPhrases: Record<Basket['occasion'], string> = {
   everyday: 'the weekly shop',
   baby: 'a new baby',
   christmas: 'Christmas',

@@ -1,19 +1,12 @@
 import { MapPin, Zap } from 'lucide-react'
 import Link from 'next/link'
+import { overlayLink } from '@/components/site/links'
 import { CutoffNote } from '@/components/site/cutoff-note'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import { formatClockTime, formatUsd } from '@/lib/format'
+import { SPEED_LABEL } from '@/lib/home'
 import type { DeliveryZone } from '@/lib/types'
-
-const speedLabel: Record<DeliveryZone['speed'], string> = {
-  same_day: 'Same day',
-  next_day: 'Next day',
-  scheduled: 'Scheduled',
-}
-
-const overlayLink =
-  'inline-flex min-h-control items-center font-semibold text-on-dark underline decoration-on-dark underline-offset-4 hover:decoration-2'
 
 /**
  * S7: Kingston and its hills behind the live fees and cut-offs. The only photo with a flat
@@ -78,7 +71,7 @@ export function HomeCoverage({
                     )}
                   >
                     {z.speed === 'same_day' && <Zap className="size-icon-sm" aria-hidden />}
-                    {speedLabel[z.speed]}
+                    {SPEED_LABEL[z.speed]}
                   </span>
                   <h3 id={`zone-${z.id}`} className="mt-3 text-h3 text-ink">
                     {z.parish}

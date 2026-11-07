@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { Section, SectionHeader } from '@/components/site/section'
+import { onDarkLink } from '@/components/site/links'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import { cn } from '@/lib/cn'
@@ -21,7 +22,7 @@ export function shopPoints(sameDay: string): Point[] {
   return [
     {
       icon: Clock3,
-      title: 'Bought fresh on the day',
+      title: 'Bought on the day we deliver',
       text: `Our driver buys your items at a store in Jamaica on the day we deliver. ${sameDay}`.trim(),
     },
     {
@@ -32,46 +33,45 @@ export function shopPoints(sameDay: string): Point[] {
     {
       icon: Repeat2,
       title: 'Your swap rules',
-      text: 'If the store has run out, you choose at checkout: a similar item, a call first, or leave it out and get that amount back.',
+      text: 'If the store has run out, you choose at checkout: a similar item, a message to you first, or leave it out and get that amount back.',
     },
   ]
 }
 
-/** "How we shop for you": an oxblood band with the three promises and a photo of the till. */
-export function HowWeShop({ sameDay }: { sameDay: string }) {
+/**
+ * "How we shop for you": an oxblood band with the three promises every order carries, beside
+ * two photos of choosing and the till receipt. No scroll reveal.
+ */
+export function HowWeShop({ sameDay = '' }: { sameDay?: string }) {
   return (
-    <Section tone="oxblood" aria-labelledby="how-we-shop">
+    <Section tone="oxblood" aria-labelledby="how-we-shop" className="on-dark-focus">
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="flex flex-col gap-10 lg:col-span-7">
           <SectionHeader
             id="how-we-shop"
-            eyebrow="How we shop for you"
-            title="Bought in Jamaica, the same way you would"
+            title="Bought in Jamaica, the way you would"
             lead="Nothing is shipped from overseas. Only your payment crosses the border."
             onDark
           />
-          <Stagger className="grid gap-6 sm:grid-cols-3 lg:gap-8">
+          <ul className="grid gap-6 sm:grid-cols-3 lg:gap-8">
             {shopPoints(sameDay).map(({ icon: Icon, title, text }) => (
-              <StaggerItem key={title} className="flex flex-col gap-3">
+              <li key={title} className="flex flex-col gap-3">
                 <span className="grid size-12 place-items-center rounded-full bg-crimson text-on-dark">
                   <Icon className="size-6" aria-hidden />
                 </span>
                 <h3 className="text-h3">{title}</h3>
                 <p className="text-small text-on-oxblood-muted">{text}</p>
-              </StaggerItem>
+              </li>
             ))}
-          </Stagger>
-          <Link
-            href="/how-it-works"
-            className="inline-flex min-h-control items-center gap-2 self-start font-semibold text-blush underline-offset-4 hover:underline"
-          >
+          </ul>
+          <Link href="/how-it-works" className={cn(onDarkLink, 'self-start')}>
             See how an order works
-            <ArrowRight className="size-5" aria-hidden />
           </Link>
         </div>
         <div className="hidden grid-cols-2 gap-4 md:grid lg:col-span-5">
           <StockPhoto
-            name="shopCheckout"
+            name="shopChoosing"
+            position="60% center"
             sizes="(min-width: 1024px) 240px, (min-width: 768px) 50vw, 0px"
             className="aspect-3/4 rounded-2xl"
           />
@@ -119,13 +119,13 @@ export function requestLink(itemRequests: boolean) {
 export function CantFindBanner({ itemRequests }: { itemRequests: boolean }) {
   const link = requestLink(itemRequests)
   return (
-    <Section tone="muted" size="sm" aria-labelledby="cant-find">
+    <Section size="sm" aria-labelledby="cant-find">
       <div className="flex flex-col items-start gap-6 rounded-2xl border border-line bg-surface p-card-lg sm:flex-row sm:items-center sm:p-10">
         <span className="grid size-14 shrink-0 place-items-center rounded-full bg-crimson text-on-dark">
           <PackagePlus className="size-7" aria-hidden />
         </span>
         <div className="flex flex-1 flex-col gap-2">
-          <h2 id="cant-find" className="text-h2 text-ink">
+          <h2 id="cant-find" className="text-h2 text-balance text-ink">
             Can’t find it?
           </h2>
           <p className="max-w-2xl text-ink-body">

@@ -4,7 +4,7 @@ import { SectionHeader } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { categoryPhotos } from '@/lib/stock-photos'
 import type { Category } from '@/lib/types'
-import { lightLink } from './steps'
+import { lightLink } from '@/components/site/links'
 
 /** S3: one tap into a department, with real item counts. */
 export function HomeDepartments({ categories }: { categories: (Category & { count: number })[] }) {

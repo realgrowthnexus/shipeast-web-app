@@ -21,7 +21,7 @@ export function HomeQuestions({
     <section aria-labelledby="questions-title" className="bg-surface section">
       <div className="mx-auto max-w-page gutter lg:grid lg:grid-cols-12 lg:items-start lg:gap-8">
         <div className="lg:sticky lg:top-[calc(var(--header-height)+2rem)] lg:col-span-4">
-          <h2 id="questions-title" className="text-h2 text-balance text-ink">
+          <h2 id="questions-title" className="scroll-mt-header text-h2 text-balance text-ink">
             Questions senders ask first
           </h2>
           <p className="mt-3 text-lead text-ink-body">

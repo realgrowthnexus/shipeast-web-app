@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import type { Faq } from '@/lib/types'
 import {
   basketsLead,
+  SPEED_LABEL,
   buildReceipt,
   earliestCutoff,
   joinParishes,
@@ -133,5 +134,15 @@ describe('basketsLead', () => {
     expect(basketsLead(['everyday', 'baby', 'christmas'])).toBe(
       'Put together for the usual needs: the weekly shop, a new baby, Christmas. Add one in a tap.',
     )
+  })
+})
+
+describe('SPEED_LABEL', () => {
+  it('names every delivery speed', () => {
+    expect(SPEED_LABEL).toEqual({
+      same_day: 'Same day',
+      next_day: 'Next day',
+      scheduled: 'Scheduled',
+    })
   })
 })

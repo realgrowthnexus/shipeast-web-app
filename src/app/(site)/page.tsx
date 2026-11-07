@@ -7,6 +7,7 @@ import { HomeProof } from '@/components/pages/home/proof'
 import { HomeQuestions } from '@/components/pages/home/questions'
 import { HomeSteps } from '@/components/pages/home/steps'
 import { HomeWhy } from '@/components/pages/home/why'
+import { buildBasketRows } from '@/lib/baskets'
 import { getProducts } from '@/lib/data/catalogue'
 import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
 import { buildReceipt, earliestCutoff, joinParishes, pickHomeFaqs } from '@/lib/home'
@@ -43,7 +44,15 @@ export default async function HomePage() {
       <HomeHero parishList={parishList} earliestCutoff={cutoff} receipt={receipt} />
       <HomeSteps payLine={bankTransfer ? 'PayPal or card, or bank transfer' : 'PayPal or card'} />
       {categories.length > 0 && <HomeDepartments categories={categories} />}
-      {featured.length > 0 && <HomeBaskets baskets={featured} jmdPerUsd={settings.jmdPerUsd} />}
+      {featured.length > 0 && (
+        <HomeBaskets
+          baskets={featured}
+          jmdPerUsd={settings.jmdPerUsd}
+          unavailableIds={buildBasketRows(featured, products)
+            .filter((r) => r.unavailable.length > 0)
+            .map((r) => r.summary.basket.id)}
+        />
+      )}
       <HomeProof />
       <HomeWhy bankTransfer={bankTransfer} />
       <HomeCoverage zones={zones} parishList={parishList} earliestCutoff={cutoff} />

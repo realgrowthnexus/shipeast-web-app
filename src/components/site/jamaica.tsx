@@ -21,27 +21,3 @@ export function JamaicaFlag({ className, label }: { className?: string; label?: 
     </svg>
   )
 }
-
-/** A small pill with the flag, for eyebrows and hero badges. */
-export function FlagBadge({
-  children,
-  onDark = false,
-  className,
-}: {
-  children: React.ReactNode
-  onDark?: boolean
-  className?: string
-}) {
-  return (
-    <span
-      className={cn(
-        'inline-flex min-h-9 items-center gap-2.5 rounded-full px-3.5 text-small font-semibold',
-        onDark ? 'bg-crimson-deep text-on-dark' : 'border border-line bg-surface text-ink',
-        className,
-      )}
-    >
-      <JamaicaFlag className="w-6" />
-      {children}
-    </span>
-  )
-}

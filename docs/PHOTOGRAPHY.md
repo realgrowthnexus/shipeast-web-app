@@ -37,7 +37,7 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
   `/photo-credits` is built from it, so a photo cannot be on the site without a credit.
 - `<StockPhoto name="…" sizes="…" className="aspect-4/3" />` draws one. Unsplash's CDN does the
   resizing (`?w=…&auto=format`), so files arrive as WebP or AVIF at the size the layout needs.
-  Always pass a real `sizes`. Only the home hero uses `preload`. Pass `alt=""` when visible
+  Always pass a real `sizes`. Only the top photo of a page (its hero) uses `preload`. Pass `alt=""` when visible
   text already names the photo (department tiles, the coverage background) and `position` to
   re-crop one slot without changing the registry entry.
 - Category tiles and basket cards look up their photo by slug (`categoryPhotos`, `basketPhotos`).

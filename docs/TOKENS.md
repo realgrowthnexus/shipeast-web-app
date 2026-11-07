@@ -167,7 +167,7 @@ shoppers learn what it means.
 | `jm-green` | `#009B3A` | The flag mark and good news (in stock, delivered)         |
 | `jm-black` | `#000000` | The flag mark only                                        |
 
-Use the flag through `src/components/site/jamaica.tsx` (`JamaicaFlag`, `FlagBadge`). No
+Use the flag through `src/components/site/jamaica.tsx` (`JamaicaFlag`). No
 striped flag bars.
 
 ### Pairs that pass WCAG AA
