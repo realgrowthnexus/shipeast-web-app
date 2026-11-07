@@ -185,6 +185,8 @@ describe('components use tokens', () => {
     ...['scroll', 'no-repeat', 'repeat', 'auto', 'clip', 'origin', 'blend', 'inset'],
     // shadows and sizes
     ...['lift', 'float', 'overlay', 'offset', 'x', 'y'],
+    // tailwind-merge's border-width group name in src/lib/cn.ts
+    'w',
   ])
   const classPattern = new RegExp(
     String.raw`(?<![\w-])(?:[a-z0-9-]+:|\[[^\]]+\]:)*(${colorPrefixes})-([a-z][a-z0-9-]*)(?:\/\d+)?(?![\w-])`,

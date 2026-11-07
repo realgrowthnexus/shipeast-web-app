@@ -1,11 +1,8 @@
 import Link from 'next/link'
+import { lightLink } from '@/components/site/links'
 import { SectionHeader } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import type { StockPhotoKey } from '@/lib/stock-photos'
-
-/** A text link on a light band. */
-export const lightLink =
-  'inline-flex min-h-control items-center font-semibold text-crimson underline-offset-4 hover:underline'
 
 /**
  * S2: the four steps of one order, in order. Phones get rows with a small square photo so all

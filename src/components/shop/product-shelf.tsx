@@ -14,10 +14,13 @@ export const shelfLeads: Record<string, string> = {
   'baby-and-child': 'Diapers, wipes and formula for the little ones.',
 }
 
-/** One department's products for a shelf: in stock first, then photographed, then featured. */
-export function shelfProducts(products: Product[], categoryId: string) {
+/**
+ * Products for a shelf: in stock first, then photographed, then featured. Pass a category id for
+ * one department's shelf; leave it out for a mixed shelf such as Everyday staples.
+ */
+export function shelfProducts(products: Product[], categoryId?: string) {
   return products
-    .filter((p) => p.categoryId === categoryId)
+    .filter((p) => !categoryId || p.categoryId === categoryId)
     .sort(
       (a, b) =>
         Number(a.status !== 'visible') - Number(b.status !== 'visible') ||
@@ -49,16 +52,20 @@ export function ProductShelf({
   products,
   jmdPerUsd,
   divided = false,
+  categoryNames,
 }: {
   id: string
   title: string
   lead?: string
   /** A small fact under the title, such as when shelf prices were last checked. */
   note?: string
-  href: string
+  /** The full department; without it the shelf has no "See all" link or tile. */
+  href?: string
   products: Product[]
   jmdPerUsd: number
   divided?: boolean
+  /** Category id → name, to label each card with its department (mixed shelves). */
+  categoryNames?: Record<string, string>
 }) {
   if (!products.length) return null
   const shown = products.slice(0, 5)
@@ -74,23 +81,25 @@ export function ProductShelf({
       <div className={divided ? 'border-t border-line pt-8 sm:pt-12' : undefined}>
         <div className="mb-5 flex items-baseline justify-between gap-4">
           <div className="min-w-0">
-            <h2 id={id} className="text-title text-ink">
+            <h2 id={id} className="scroll-mt-header text-title text-ink">
               {title}
             </h2>
             {lead && <p className="mt-1 hidden text-ink-body sm:block">{lead}</p>}
             {note && <p className="mt-1 text-xs text-ink-muted">{note}</p>}
           </div>
-          <Link
-            href={href}
-            className="group inline-flex min-h-control shrink-0 items-center gap-1.5 font-semibold text-crimson hover:underline"
-          >
-            <span className="sm:hidden">See all</span>
-            <span className="hidden sm:inline">{seeAll}</span>
-            <ArrowRight
-              className="size-4 transition-transform duration-250 ease-out-soft group-hover:translate-x-1 motion-reduce:transition-none"
-              aria-hidden
-            />
-          </Link>
+          {href && (
+            <Link
+              href={href}
+              className="group inline-flex min-h-control shrink-0 items-center gap-1.5 font-semibold text-crimson hover:underline"
+            >
+              <span className="sm:hidden">See all</span>
+              <span className="hidden sm:inline">{seeAll}</span>
+              <ArrowRight
+                className="size-4 transition-transform duration-250 ease-out-soft group-hover:translate-x-1 motion-reduce:transition-none"
+                aria-hidden
+              />
+            </Link>
+          )}
         </div>
         <ul className="-mx-4 grid snap-x scroll-px-4 auto-cols-[43%] grid-flow-col gap-3 overflow-x-auto px-4 pb-2 sm:auto-cols-[31%] md:mx-0 md:auto-cols-auto md:grid-flow-row md:grid-cols-4 md:overflow-visible md:px-0 lg:grid-cols-5 lg:gap-4">
           {shown.map((p, i) => (
@@ -101,11 +110,12 @@ export function ProductShelf({
               <ProductCard
                 product={p}
                 jmdPerUsd={jmdPerUsd}
+                category={categoryNames?.[p.categoryId]}
                 action={<AddToBasket kind="product" id={p.id} name={p.name} />}
               />
             </li>
           ))}
-          {shown.length < 5 && (
+          {href && shown.length < 5 && (
             <li className="hidden snap-start lg:flex">
               <Link
                 href={href}

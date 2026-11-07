@@ -1,13 +1,10 @@
 import Link from 'next/link'
+import { onDarkLink } from '@/components/site/links'
 import { CutoffNote } from '@/components/site/cutoff-note'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { ButtonLink } from '@/components/ui/button'
 import type { Receipt } from '@/lib/home'
 import { HeroReceipt } from './hero-receipt'
-
-/** The hero's and closing panel's secondary link on crimson. */
-export const onCrimsonLink =
-  'inline-flex min-h-control items-center font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 transition-colors duration-150 hover:decoration-on-dark'
 
 /**
  * S1: the promise on solid crimson, beside a warm photo with the example receipt straddling its
@@ -42,7 +39,7 @@ export function HomeHero({
             <ButtonLink href="/shop" variant="onDark" size="lg" className="w-full sm:w-auto">
               Start shopping
             </ButtonLink>
-            <Link href="/baskets" className={`${onCrimsonLink} self-start sm:self-auto`}>
+            <Link href="/baskets" className={`${onDarkLink} self-start sm:self-auto`}>
               See ready-made baskets
             </Link>
           </div>

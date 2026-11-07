@@ -51,6 +51,7 @@ All in `src/components/ui/` unless noted. Use them before writing new markup.
 | `Tabs`, `Accordion`, `Pagination`                               | Current item in `crimson`; hover `surface-muted`.                                                                                                                                                                                                     |
 | `ProofPair`, `TrackingTimeline` (`components/order`)            | The signature blocks. Don't restyle them per page.                                                                                                                                                                                                    |
 | `ProductCard`, `BasketCard`, `CategoryTile` (`components/shop`) | `hover-lift`; the Add button sits on `z-raised` above the card link.                                                                                                                                                                                  |
+| `SearchBox` (`components/shop`)                                 | GET form to `/search`. `tone="onDark"` for a white field on crimson (blush focus ring); `compact` is the header pill. The submit button is 44px tall.                                                                                                 |
 | `DataTable`, `StatTile` (`components/admin`)                    | Admin only. Never show a metric that isn't tracked.                                                                                                                                                                                                   |
 
 ## Page building blocks
@@ -62,14 +63,31 @@ In `src/components/site/` and `src/components/motion/`:
   chapters. Never put two crimson or oxblood bands next to each other.
 - **`SectionHeader`** gives an optional eyebrow, the title, a lead and an optional action link.
 - **`PhotoFeature`** puts a photo beside text, with an optional parallax.
-- **`CtaBand`** is the closing crimson panel with one main action.
+- **`CtaBand`** is the wide closing crimson panel with a photo and one main action (older
+  pages).
+- **`ClosingPanel`** (`site/closing-panel.tsx`) is the contained crimson closing panel on the
+  page band: h2, one line, one `onDark` button and one text link. It never touches the oxblood
+  footer. `HomeClosing` (home, How it works, About) and `/baskets` are built on it.
+- **Link styles** (`site/links.ts`): `lightLink` on `page` / `surface`, `onDarkLink` (blush
+  underline) on crimson and oxblood, `overlayLink` (white underline) on a photo under
+  `photo-scrim`. Import them; never copy the class string.
 - **`CutoffNote`** says "Order by 1:00 PM Jamaica time for delivery today." from the server
   and adds the visitor's own time and countdown after mount (`tone`: `light`, `onDark`,
   `onPhoto`).
+- **`HomeQuestions`** and **`HomeClosing`** (`pages/home/`) are reused as they are by How it
+  works and About. `SmsPreview` and `ProofPair` (`components/order`) are the shared drawn
+  proof. `OutcomeTag` (`order/item-outcome.tsx`) is the bought / swapped / not-in-stock tag the
+  tracker shows; How it works shows the same tag.
+- **`SavingTag`** (`shop/saving-tag.tsx`) is the gold "Save USD$10.20" tag on every basket
+  card and the baskets price board.
 - **`StockPhoto`** shows a photo from the registry (`docs/PHOTOGRAPHY.md`); add `zoom` inside
   card links.
 - **`Reveal`**, **`Stagger`** / **`StaggerItem`** and **`Parallax`** handle motion. The rules
-  are in `docs/TOKENS.md` → Motion.
+  are in `docs/TOKENS.md` → Motion. The home page and the four redesigned pages (`/shop`,
+  `/baskets`, `/how-it-works`, `/about`) use none of them: one CSS `animate-rise` moment each.
+
+Page components for the redesigned pages live in `src/components/pages/<page>/`
+(`how-it-works`, `baskets`, `shop`, `about`), one file per section, all server components.
 
 ## Header and footer (site-wide, November 6, 2026)
 

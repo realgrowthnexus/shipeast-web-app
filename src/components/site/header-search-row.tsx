@@ -5,7 +5,11 @@ import type { ReactNode } from 'react'
 
 /** Pages with their own search box, or where the sender should stay on the task in hand. */
 const hiddenOn = (path: string) =>
-  path === '/search' || path === '/shop' || path === '/basket' || path === '/checkout' || path.startsWith('/checkout/')
+  path === '/search' ||
+  path === '/shop' ||
+  path === '/basket' ||
+  path === '/checkout' ||
+  path.startsWith('/checkout/')
 
 /**
  * The phone search row under the sticky bar. It is not sticky, so it scrolls away and the bar

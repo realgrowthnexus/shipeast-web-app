@@ -29,7 +29,7 @@ export function StockPhoto({
   name: StockPhotoKey
   sizes: string
   className?: string
-  /** Only for the one photo at the top of the home page. */
+  /** Only for the one photo at the top of a page (its hero). */
   preload?: boolean
   /** Zoom in slightly when a parent with `group` is hovered (cards that are links). */
   zoom?: boolean

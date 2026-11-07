@@ -2,16 +2,6 @@ import { photo, type StockPhoto } from './types'
 
 /** Photos added for: About, gifts, monthly orders, contact, request an item, 404. Key names must not clash with other photo files. */
 export const companyPhotos = {
-  companyCoast: photo({
-    unsplashId: 'lzecv_xfTgo',
-    src: 'https://images.unsplash.com/photo-1656729745827-4ac6838bd2c9',
-    width: 5184,
-    height: 3456,
-    alt: 'A rocky shore and a small jetty on the Jamaican coast',
-    photographer: 'Kemoi Brown',
-    username: 'kemoibrown',
-    usedOn: 'About',
-  }),
   companyCountryRoad: photo({
     unsplashId: 'cqE9f81PSY8',
     src: 'https://images.unsplash.com/photo-1780332534975-6318b3d734d7',

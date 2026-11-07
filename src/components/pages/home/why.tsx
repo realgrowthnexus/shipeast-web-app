@@ -2,7 +2,7 @@ import { DollarSign, MessageSquareText, ReceiptText, Replace } from 'lucide-reac
 import Link from 'next/link'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { site } from '@/lib/site'
-import { lightLink } from './steps'
+import { lightLink } from '@/components/site/links'
 
 /**
  * S6: us against what senders really do today (barrels, cash, vouchers), without naming anyone.

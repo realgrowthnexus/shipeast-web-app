@@ -1,19 +1,14 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Stagger, StaggerItem } from '@/components/motion/reveal'
-import { CategoryChips, CategoryPhotoCard } from '@/components/pages/shop/category-card'
+import { ShopBaskets } from '@/components/pages/shop/shop-baskets'
+import { ShopFrontDoor } from '@/components/pages/shop/front-door'
 import { CantFindBanner, HowWeShop } from '@/components/pages/shop/shop-promises'
-import { BasketCard } from '@/components/shop/product-card'
+import { ShopNotes } from '@/components/pages/shop/shop-notes'
 import { ProductShelf, shelfLeads, shelfProducts } from '@/components/shop/product-shelf'
-import { SearchBox } from '@/components/shop/search-box'
-import { deliveryPromise } from '@/components/shop/breadcrumb'
-import { CtaBand } from '@/components/site/cta-band'
-import { FlagBadge } from '@/components/site/jamaica'
-import { Section, SectionHeader } from '@/components/site/section'
-import { StockPhoto } from '@/components/site/stock-photo'
+import { buildBasketRows } from '@/lib/baskets'
 import { getProducts } from '@/lib/data/catalogue'
 import { getActiveZones, getBaskets, getCategories, getSettings } from '@/lib/data/site'
-import { formatClockTime } from '@/lib/format'
+import { earliestCutoff, joinParishes } from '@/lib/home'
+import { aisleSample, aisleSampleLine, priceCheckLine, priceCheckRange } from '@/lib/shop-front'
 
 export const metadata: Metadata = {
   title: 'Shop',
@@ -21,6 +16,20 @@ export const metadata: Metadata = {
     'Groceries, household, pharmacy and baby items bought in Jamaica and delivered to your family the same day.',
 }
 
+/** The staples shelf needs at least this many featured products in stock. */
+const MIN_STAPLES = 3
+
+/** A price-check line for a set of products, or null when no date is known. */
+const checkLine = (products: Parameters<typeof priceCheckRange>[0]) => {
+  const range = priceCheckRange(products)
+  return range ? priceCheckLine(range) : null
+}
+
+/**
+ * The front door of a well-run Jamaican store: type what you need or walk into an aisle, then
+ * the shelves. Every loader is cached, so the page prerenders; the cut-off countdown and Add
+ * buttons are the only client parts.
+ */
 export default async function ShopPage() {
   const [settings, categories, baskets, products, zones] = await Promise.all([
     getSettings(),
@@ -29,117 +38,67 @@ export default async function ShopPage() {
     getProducts(),
     getActiveZones(),
   ])
-  const sameDay = zones.length
-    ? deliveryPromise(zones, formatClockTime(zones[0]?.cutoffTime ?? '13:00'))
-    : 'Delivery is paused for now. Check back soon.'
+  const shelves = categories.map((c) => ({ category: c, products: shelfProducts(products, c.id) }))
+  const staples = shelfProducts(products.filter((p) => p.featured && p.status === 'visible'))
+  const categoryNames = Object.fromEntries(categories.map((c) => [c.id, c.name]))
 
   return (
     <>
-      <section className="bg-crimson text-on-dark">
-        <div className="mx-auto grid w-full max-w-page items-center gap-10 gutter section lg:grid-cols-12 lg:gap-16">
-          <div className="flex flex-col gap-6 lg:col-span-7">
-            <div className="animate-rise">
-              <FlagBadge onDark className="mb-4">
-                Bought in Jamaica, priced in US dollars
-              </FlagBadge>
-              <h1 className="text-h1 text-balance">Fill their basket from wherever you are</h1>
-              <p className="mt-4 max-w-2xl text-lead text-on-crimson-muted">
-                Prices are in US dollars with the Jamaican dollar amount alongside. We buy
-                everything fresh on the day we deliver.
-              </p>
-            </div>
-            <div className="flex animate-rise flex-col gap-4 [animation-delay:120ms]">
-              <SearchBox id="shop-q" className="max-w-xl md:hidden" />
-              <CategoryChips categories={categories} onDark />
-            </div>
-          </div>
-          <StockPhoto
-            name="shopProduce"
-            sizes="(min-width: 1024px) 520px, 0px"
-            className="hidden aspect-4/3 animate-rise rounded-2xl [animation-delay:200ms] lg:col-span-5 lg:block"
+      <ShopFrontDoor
+        aisles={shelves.map(({ category: c, products: shelf }) => ({
+          id: c.id,
+          slug: c.slug,
+          name: c.name,
+          count: c.count,
+          sample: aisleSampleLine(aisleSample(shelf), c.count),
+        }))}
+        notes={
+          <ShopNotes
+            parishList={joinParishes(zones.map((z) => z.parish))}
+            cutoff={earliestCutoff(zones)}
+            jmdPerUsd={settings.jmdPerUsd}
+            priceCheck={checkLine(products)}
           />
-        </div>
-      </section>
-
-      <Section aria-labelledby="categories" size="sm">
-        <SectionHeader
-          id="categories"
-          eyebrow="Shop by category"
-          title="What do they need this week?"
-          className="mb-8"
-        />
-        {categories.length ? (
-          <Stagger className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {categories.map((c) => (
-              <StaggerItem key={c.id} className="flex [&>a]:flex-1">
-                <CategoryPhotoCard category={c} />
-              </StaggerItem>
-            ))}
-          </Stagger>
-        ) : (
-          <p className="text-ink-body">The shop is being stocked. Check back soon.</p>
-        )}
-      </Section>
+        }
+      />
 
       {baskets.length > 0 && (
-        <Section tone="surface" aria-labelledby="baskets" size="sm">
-          <SectionHeader
-            id="baskets"
-            eyebrow="Ready-made baskets"
-            title="A full basket in one tap"
-            lead="Put together by our team, and each one costs less than buying the items one by one."
-            className="mb-8"
-            action={
-              <Link
-                href="/baskets"
-                className="inline-flex min-h-control items-center font-semibold text-crimson underline-offset-4 hover:underline"
-              >
-                All baskets
-              </Link>
-            }
-          />
-          <Stagger className="grid gap-4 md:grid-cols-3">
-            {baskets.map(({ basket, itemCount, separateCents }) => (
-              <StaggerItem key={basket.id} className="flex [&>article]:flex-1">
-                <BasketCard
-                  basket={basket}
-                  jmdPerUsd={settings.jmdPerUsd}
-                  itemCount={itemCount}
-                  separateCents={separateCents}
-                />
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </Section>
+        <ShopBaskets
+          rows={buildBasketRows(baskets, products).slice(0, 3)}
+          jmdPerUsd={settings.jmdPerUsd}
+        />
+      )}
+
+      {staples.length >= MIN_STAPLES && (
+        <ProductShelf
+          id="aisle-staples"
+          title="Everyday staples"
+          lead="A few basics from each department, picked by our team."
+          note={checkLine(staples.slice(0, 5)) ?? undefined}
+          products={staples}
+          jmdPerUsd={settings.jmdPerUsd}
+          categoryNames={categoryNames}
+        />
       )}
 
       {/* One shelf per department, like the aisles of a store */}
-      {categories.map((c, i) => (
+      {shelves.map(({ category: c, products: shelf }, i) => (
         <ProductShelf
           key={c.id}
           id={`aisle-${c.slug}`}
           title={c.name}
           lead={shelfLeads[c.slug] ?? c.description}
+          note={checkLine(shelf) ?? undefined}
           href={`/shop/${c.slug}`}
-          products={shelfProducts(products, c.id)}
+          products={shelf}
           jmdPerUsd={settings.jmdPerUsd}
-          divided={i > 0}
+          divided={i > 0 || staples.length >= MIN_STAPLES}
         />
       ))}
 
-      <HowWeShop sameDay={sameDay} />
+      <HowWeShop />
 
       <CantFindBanner itemRequests={settings.features.item_requests} />
-
-      <CtaBand
-        title="Send a whole basket today"
-        href="/baskets"
-        label="See the baskets"
-        secondary={{ href: '/how-it-works', label: 'How it works' }}
-        photo="basketFood"
-      >
-        Ready-made baskets at one price. Add a gift message and we’ll print it and hand it over.
-      </CtaBand>
     </>
   )
 }

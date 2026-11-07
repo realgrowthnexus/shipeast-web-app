@@ -4,6 +4,49 @@ A dated log of design choices and the feedback behind them, so the reasons aren'
 The rules themselves live in `docs/DESIGN-SYSTEM.md` and `docs/TOKENS.md`. Add new entries
 at the top.
 
+## November 7, 2026: shop, baskets, how it works and about redesigned
+
+Owner brief: four more pages in the home page's design language. Plans:
+`docs/pages-redesign/<page>.md`, approved with seven amendments
+(`docs/pages-redesign/APPROVAL.md`). One bold element per page, no eyebrows, no scroll reveals,
+two dark bands never touching, a contained crimson closing panel where a page has one.
+
+- **`/how-it-works`: the two-lane order day.** One example order (`SE-10428`, labelled
+  "Example") runs down the seven real tracker stages with Jamaica clock times. Beside each
+  stage: "On your screen" (white email cards: the receipt, a mini drawn till receipt, a door
+  card, the refund) and "In Jamaica", one continuous oxblood column built from touching cells.
+  The out-of-stock item in the example is left off both drawn receipts and refunded at the
+  end, so the page tells one consistent story. The hero carries a tracker card (the home hero
+  carries the receipt). "If nobody is home" uses only the delivery policy's own steps.
+- **`/baskets`: the price board.** A text-only crimson hero with one row per basket, the
+  price as large as the name. Below, every basket opened up: every item at today's shop price
+  and three totals (one by one, basket, you save), so the saving is checkable. A basket with an
+  out-of-stock item sorts last, says "Not available today" and has no Add button.
+- **`/shop`: the aisle board.** Search and four oxblood aisle signs (real counts and the first
+  products on each shelf) inside the crimson front door, with a "Good to know" card (cut-off,
+  exchange rate, the real price-check date). Then a compact baskets row, an Everyday staples
+  shelf ("picked by our team", from the admin's featured flag), one shelf per department, the
+  oxblood "Bought in Jamaica" band and "Can't find it?". No hero photo.
+- **`/about`: "bearer", defined.** The word from the registered name set as a dictionary entry
+  in the crimson hero. Then a short provable story with a fact strip, a ruled "what we do /
+  what we don't" pair, the live delivery zones over a country road under `photo-scrim`, and a
+  company details card. TRN, registered address and the owner row stay out of the page until
+  ShipEast provides them.
+- **Honest wording:** no "fresh" claims ("bought at a store in Jamaica on the day we
+  deliver"); the shop promise "Bought fresh on the day" is now "Bought on the day we deliver".
+- **Shared once:** `ClosingPanel`, `site/links.ts` (`lightLink`, `onDarkLink`,
+  `overlayLink`), `SavingTag`, `OutcomeTag`, `SPEED_LABEL` and `occasionPhrases`
+  (`src/lib/home.ts`). New pure helpers with tests: `src/lib/how-it-works.ts`,
+  `src/lib/baskets.ts`, `src/lib/shop-front.ts`.
+- **Fix:** `cn` now knows `border-control` is a border width, so outline buttons keep their
+  border (tailwind-merge had been dropping it in favour of `border-crimson`).
+- **Photos:** new `hiwSender`, `hiwFamilyDoor`, `basketsGiftWrap` and `shopChoosing`, each
+  download recorded through the Unsplash API. Removed from the registry because no page uses
+  them: `guideProduce`, `stepOrder`, `stepDoor`, `stepFamily`, `shopProduce`, `companyCoast`,
+  `jmFlag`, `heroGroceries`, `catGroceries`, `kingston` and `jmAckee`. A hero photo may now use
+  `preload` on any page (the top photo of the page), not only the home page.
+- **Deleted:** `StageTimeline`, `CategoryPhotoCard` and `FlagBadge` (no page uses them).
+
 ## November 6, 2026: home page redesign, new header and footer
 
 Owner brief: redesign the home page from scratch, structure first, with real stock photos and
