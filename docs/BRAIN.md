@@ -183,26 +183,27 @@ must become a big supermarket listing: a large product grid, a filter sidebar (a
 phones), sort, a result count, active filter chips and paging. It is researched against real
 mart UIs online. The same layout serves `/shop` (all products) and `/shop/[category]` (one
 department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
-migration. PR #24 (the four pages) is merged; this work goes in a new PR.
+migration. Shipped in PR #27 (merged).
 
 | Step                                                                                        | Status                          | Where                       |
 | ------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------- |
 | Design agent: research real mart UIs, then a structure-first plan                           | Done                            | `docs/shop-listing/PLAN.md` |
 | Manager verifies and approves the plan                                                      | Done: approved with 8 decisions | `docs/shop-listing/PLAN.md` |
-| Development agent builds it (with the header and heroes: header, then heroes, then listing) | Done                            | new PR                      |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push                               | Not started                     | PR #26                      |
+| Development agent builds it (with the header and heroes: header, then heroes, then listing) | Done                            | PR #27                      |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push                               | Done; PR #27 merged             | PR #27                      |
 
 **Next task (started November 7, 2026, runs alongside the shop listing): light header and
 varied heroes.** The owner wants the header in a light shade, and the hero of every redesigned
 page (home, `/baskets`, `/how-it-works`, `/about`) restructured so the heroes differ from each
-other, some with a photo background under an overlay. Same PR as the shop listing.
+other, some with a photo background under an overlay. Shipped with the shop listing in PR #27
+(merged).
 
 | Step                                                      | Status                                            | Where                 |
 | --------------------------------------------------------- | ------------------------------------------------- | --------------------- |
 | Design agent: light header and four hero structures       | Done                                              | `docs/heroes/PLAN.md` |
 | Manager verifies and approves                             | Done: approved with 5 decisions (top of the plan) | `docs/heroes/PLAN.md` |
-| Development agent builds (together with the shop listing) | Done                                              | new PR                |
-| Manager QA, fixes, `npm run check`, push                  | Not started                                       | new PR                |
+| Development agent builds (together with the shop listing) | Done                                              | PR #27                |
+| Manager QA, fixes, `npm run check`, push                  | Done; PR #27 merged                               | PR #27                |
 
 **Follow-ups after the redesign** (not blocking):
 
@@ -219,6 +220,9 @@ other, some with a photo background under an overlay. Same PR as the shop listin
   search engines render JavaScript.
 - Owner to run `supabase/migrations/0013_product_aisles.sql` (see `docs/SQL-RUNBOOK.md`).
   Until then the aisle filter simply hides itself. Derion to confirm the 14 aisle names.
+
+**Status (November 7, 2026):** every task above is done and merged. No task is in progress.
+Wait for the owner's next request.
 
 **How to resume:**
 
