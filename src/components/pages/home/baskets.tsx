@@ -15,9 +15,12 @@ import { lightLink } from '@/components/site/links'
 export function HomeBaskets({
   baskets,
   jmdPerUsd,
+  unavailableIds = [],
 }: {
   baskets: BasketSummary[]
   jmdPerUsd: number
+  /** Baskets with an item that can't be bought today: no Add button. */
+  unavailableIds?: string[]
 }) {
   const n = baskets.length
   return (
@@ -50,6 +53,7 @@ export function HomeBaskets({
                 summary={summary}
                 jmdPerUsd={jmdPerUsd}
                 wideOnTablet={n === 3 && i === 2}
+                unavailable={unavailableIds.includes(summary.basket.id)}
               />
             </li>
           ))}
@@ -63,10 +67,12 @@ export function HomeBasketCard({
   summary: { basket, itemCount, separateCents },
   jmdPerUsd,
   wideOnTablet = false,
+  unavailable = false,
 }: {
   summary: BasketSummary
   jmdPerUsd: number
   wideOnTablet?: boolean
+  unavailable?: boolean
 }) {
   const photo = basketPhotos[basket.slug]
   const saving = separateCents > basket.priceCents ? separateCents - basket.priceCents : 0
@@ -110,9 +116,13 @@ export function HomeBasketCard({
             <Price cents={basket.priceCents} jmdPerUsd={jmdPerUsd} size="lg" />
             {saving > 0 && <SavingTag cents={saving} className="mt-2" />}
           </div>
-          <div className="relative z-raised">
-            <AddToBasket kind="basket" id={basket.id} name={basket.name} />
-          </div>
+          {unavailable ? (
+            <p className="text-small font-semibold text-ink-muted">Not available today</p>
+          ) : (
+            <div className="relative z-raised">
+              <AddToBasket kind="basket" id={basket.id} name={basket.name} />
+            </div>
+          )}
         </div>
       </div>
     </article>

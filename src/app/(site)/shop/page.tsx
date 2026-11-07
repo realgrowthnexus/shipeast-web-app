@@ -88,7 +88,6 @@ export default async function ShopPage() {
           id={`aisle-${c.slug}`}
           title={c.name}
           lead={shelfLeads[c.slug] ?? c.description}
-          note={checkLine(shelf) ?? undefined}
           href={`/shop/${c.slug}`}
           products={shelf}
           jmdPerUsd={settings.jmdPerUsd}

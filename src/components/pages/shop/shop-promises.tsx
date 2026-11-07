@@ -33,7 +33,7 @@ export function shopPoints(sameDay: string): Point[] {
     {
       icon: Repeat2,
       title: 'Your swap rules',
-      text: 'If the store has run out, you choose at checkout: a similar item, a call first, or leave it out and get that amount back.',
+      text: 'If the store has run out, you choose at checkout: a similar item, a message to you first, or leave it out and get that amount back.',
     },
   ]
 }

@@ -167,13 +167,14 @@ language. The home redesign (PR #23) is merged; this work is in PR #24.
 | "Before" screenshots of the four pages                                                                              | Done (session scratchpad only)                                                 |                                   |
 | Four design agents write structure-first plans (in parallel)                                                        | Done (three were cut off by the usage limit after writing; files are complete) | `docs/pages-redesign/<page>.md`   |
 | Manager verifies and approves the four plans                                                                        | Done: approved with 7 amendments                                               | `docs/pages-redesign/APPROVAL.md` |
-| One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | In progress                                                                    | PR #24                            |
-| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Not started                                                                    |                                   |
+| One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | Done                                                                           | PR #24                            |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; waiting for the owner's review of PR #24                                 | PR #24                            |
 
 **Follow-ups after the redesign** (not blocking):
 
 - Groceries department tile photo (`pantry`) is not Caribbean: swap for a Jamaican kitchen or market shot.
 - The compact header search button is 36px tall: raise it to 44px.
+- Product photos: several items (detergent, paper towels, baby products) still show icon placeholders. Real product photos from ShipEast would make the shop much stronger.
 - Run Lighthouse mobile on the Vercel preview (LCP, CLS, accessibility).
 - Content from Derion: real SMS wording, Sunday and holiday delivery, a consented customer photo,
   TRN and registered address.

@@ -74,7 +74,7 @@ export default async function BasketPage({ params }: PageProps<'/baskets/[slug]'
     { icon: Camera, text: 'You get a photo at the door when the basket is handed over.' },
     {
       icon: Repeat2,
-      text: 'If the store has run out of something, you choose at checkout: a similar item, a call first, or leave it out and get that amount back.',
+      text: 'If the store has run out of something, you choose at checkout: a similar item, a message to you first, or leave it out and get that amount back.',
     },
     {
       icon: MessageSquareText,
