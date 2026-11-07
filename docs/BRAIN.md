@@ -170,6 +170,21 @@ language. The home redesign (PR #23) is merged; this work is in PR #24.
 | One development agent builds all four pages (order: how-it-works, baskets, shop, about; `npm run check` after each) | Done                                                                           | PR #24                            |
 | Manager QA at 375/768/1024/1440, fixes, `npm run check`, push, PR #24 updated                                       | Done; waiting for the owner's review of PR #24                                 | PR #24                            |
 
+**Next task (started November 7, 2026): rebuild `/shop` as a big-mart product listing.**
+The owner said the shop feels like a corporate business site, but the main focus is products. It
+must become a big supermarket listing: a large product grid, a filter sidebar (a drawer on
+phones), sort, a result count, active filter chips and paging. It is researched against real
+mart UIs online. The same layout serves `/shop` (all products) and `/shop/[category]` (one
+department). Products may gain an admin-set `aisle` (sub-category) through an idempotent
+migration. This work goes in PR #24.
+
+| Step                                                              | Status      | Where                       |
+| ----------------------------------------------------------------- | ----------- | --------------------------- |
+| Design agent: research real mart UIs, then a structure-first plan | In progress | `docs/shop-listing/PLAN.md` |
+| Manager verifies and approves the plan                            | Not started |                             |
+| Development agent builds it                                       | Not started |                             |
+| Manager QA at 375/768/1024/1440, fixes, `npm run check`, push     | Not started | PR #24                      |
+
 **Follow-ups after the redesign** (not blocking):
 
 - Groceries department tile photo (`pantry`) is not Caribbean: swap for a Jamaican kitchen or market shot.
