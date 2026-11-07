@@ -121,7 +121,7 @@ describe('tokens resolve', () => {
   it('switches off the default palette', () => {
     expect(declarations['color-*']).toBe('initial')
   })
-  it.each(roles.filter((r) => !['scrim', 'photo-scrim'].includes(r)))(
+  it.each(roles.filter((r) => !['scrim', 'photo-scrim', 'photo-scrim-ink'].includes(r)))(
     '--color-%s resolves to a hex colour',
     (role) => {
       expect(color(role)).toMatch(/^#[0-9a-f]{6}$/i)
@@ -140,6 +140,19 @@ describe('contrast', () => {
   })
   it('the blush focus ring on photo-scrim over black is at least 3:1', () => {
     expect(contrast(color('blush'), blend('photo-scrim', '#000000'))).toBeGreaterThanOrEqual(3)
+  })
+
+  // The ink overlay (How it works hero): text is on-dark only, the ring is blush.
+  it('on-dark on photo-scrim-ink over white is at least 4.5:1', () => {
+    expect(contrast(color('on-dark'), blend('photo-scrim-ink', '#ffffff'))).toBeGreaterThanOrEqual(
+      4.5,
+    )
+  })
+  it('the blush focus ring on photo-scrim-ink over white is at least 3:1', () => {
+    expect(contrast(color('blush'), blend('photo-scrim-ink', '#ffffff'))).toBeGreaterThanOrEqual(3)
+  })
+  it('the blush focus ring on photo-scrim-ink over black is at least 3:1', () => {
+    expect(contrast(color('blush'), blend('photo-scrim-ink', '#000000'))).toBeGreaterThanOrEqual(3)
   })
 })
 
@@ -177,7 +190,18 @@ describe('components use tokens', () => {
   const nonColor = new Set([
     // text sizes and alignment
     ...['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', 'small', 'body', 'lead', 'h1', 'h2', 'h3'],
-    ...['title', 'numeral', 'display', 'left', 'center', 'right', 'balance', 'pretty', 'wrap'],
+    ...[
+      'title',
+      'numeral',
+      'display',
+      'poster',
+      'left',
+      'center',
+      'right',
+      'balance',
+      'pretty',
+      'wrap',
+    ],
     ...['nowrap', 'ellipsis', 'clip', 'start', 'end', 'justify'],
     // static colours and keywords
     ...['transparent', 'current', 'inherit', 'none', 'control', 'solid', 'dashed', 'dotted'],

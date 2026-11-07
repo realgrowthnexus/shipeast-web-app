@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
-/** A header nav link on crimson. Shared by the live link and its Suspense fallback. */
+/** A header nav link on the light bar. Shared by the live link and its Suspense fallback. */
 export const navLinkClass = cn(
-  'relative inline-flex min-h-control items-center rounded-md px-3 text-body font-semibold text-on-dark transition-colors duration-150 hover:bg-crimson-deep',
-  'aria-[current=page]:bg-crimson-deep aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:bottom-1.5 aria-[current=page]:after:h-[3px] aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-blush',
+  'relative inline-flex min-h-control items-center rounded-md px-3 text-body font-semibold text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson active:bg-surface-strong',
+  // Current page: crimson text and a 3px tab that sits on the bar's bottom line (72px bar,
+  // 44px link: 14px below it plus the 1px line).
+  'aria-[current=page]:text-crimson aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:-bottom-[15px] aria-[current=page]:after:h-[3px] aria-[current=page]:after:rounded-full aria-[current=page]:after:bg-crimson',
 )
 
 /** True when `path` is `href` or a page under it (`/shop/groceries` for `/shop`). */

@@ -90,9 +90,12 @@
 
   /* Overlay */
   --color-scrim: rgb(74 11 28 / 0.6); /* behind dialogs */
-  /* Flat oxblood at 80% over a full-bleed photo (home S7). Only on-dark text sits on it:
+  /* Flat oxblood at 80% over a full-bleed photo (home S7, about S4, baskets hero). On-dark text
      8.7:1 even over a pure white pixel. Kept apart from scrim so either can change alone. */
   --color-photo-scrim: rgb(74 11 28 / 0.8);
+  /* Flat ink at 75% over a full-bleed photo (How it works hero). Only on-dark text: 6.7:1 over
+     a pure white pixel. No blush or muted text on it. */
+  --color-photo-scrim-ink: rgb(43 35 38 / 0.75);
 
   /* Status: alerts, pills and form feedback only, never decoration. */
   --color-ok: #16794a;
@@ -154,6 +157,11 @@
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: -0.035em;
   --text-display--font-weight: 900;
+  /* Two modular steps above display (77 × 1.3² ≈ 130). One word per page: the About hero only. */
+  --text-poster: clamp(4.5rem, 3.2rem + 5.5vw, 8.125rem); /* 72 → 130px */
+  --text-poster--line-height: 0.85;
+  --text-poster--letter-spacing: -0.045em;
+  --text-poster--font-weight: 900;
 
   /*
    * Sizes. The 4px spacing grid is Tailwind's own (`p-4` = 16px). These name the sizes that
@@ -301,8 +309,9 @@
   scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
-/* Focus ring on crimson and oxblood: signal is only 1.6:1 there, blush passes 3:1. Put it on
-   the dark container; every focusable inside gets the blush ring. */
+/* Focus ring on crimson, oxblood and the photo overlays: signal is only 1.6:1 there, blush
+   passes 3:1. Put it on the dark container (heroes, closing panels, oxblood bands, the footer;
+   not the header, which is light); every focusable inside gets the blush ring. */
 @utility on-dark-focus {
   & :focus-visible {
     outline-color: var(--color-blush);
@@ -403,5 +412,41 @@
     &[open] {
       translate: 100% 0;
     }
+  }
+}
+
+/* The bottom-edge twin of sheet-end: a native <dialog> that slides up (the shop filter sheet). */
+@utility sheet-bottom {
+  translate: 0 100%;
+  transition:
+    translate var(--duration-base) var(--ease-out-soft),
+    overlay var(--duration-base) allow-discrete,
+    display var(--duration-base) allow-discrete;
+  &[open] {
+    translate: 0 0;
+    transition-duration: var(--duration-slow);
+  }
+  @starting-style {
+    &[open] {
+      translate: 0 100%;
+    }
+  }
+}
+
+/* A bar inside a gutter container that still touches both screen edges (the shop toolbar on
+   phones and tablets). Reset with lg:mx-0 lg:px-0. */
+@utility bleed-gutter {
+  margin-inline: calc(-1 * clamp(1rem, 0.422rem + 2.465vw, 2rem));
+  padding-inline: clamp(1rem, 0.422rem + 2.465vw, 2rem);
+}
+
+/* Focus not obscured (WCAG 2.4.11): on the shop listing, phones and tablets have a sticky
+   toolbar under the header, so anchors and focus stop below both. */
+:root:has([data-listing]) {
+  scroll-padding-top: calc(var(--header-height) + 4.5rem);
+}
+@media (min-width: 64rem) {
+  :root:has([data-listing]) {
+    scroll-padding-top: calc(var(--header-height) + 1rem);
   }
 }

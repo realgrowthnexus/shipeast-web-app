@@ -25,6 +25,7 @@ export function StockPhoto({
   zoom = false,
   alt,
   position,
+  imgClassName,
 }: {
   name: StockPhotoKey
   sizes: string
@@ -37,6 +38,8 @@ export function StockPhoto({
   alt?: string
   /** Overrides the registry crop for one slot (CSS object-position). */
   position?: string
+  /** Classes on the image itself, e.g. responsive crops (`object-[25%_30%] md:object-center`). */
+  imgClassName?: string
 }) {
   const photo = stockPhotos[name]
   return (
@@ -47,6 +50,7 @@ export function StockPhoto({
       preload={preload}
       zoom={zoom}
       alt={alt}
+      imgClassName={imgClassName}
     />
   )
 }
@@ -59,6 +63,9 @@ export function StockImage({
   preload = false,
   zoom = false,
   alt,
+  imgClassName,
+  eager = false,
+  priority = false,
 }: {
   photo: Photo
   sizes: string
@@ -67,6 +74,12 @@ export function StockImage({
   zoom?: boolean
   /** Overrides the photo's own alt text, e.g. with the product name. */
   alt?: string
+  /** Classes on the image. When set, the registry's inline crop is not applied (it would win). */
+  imgClassName?: string
+  /** Load at once instead of lazily (first row of a product grid; not a preload). */
+  eager?: boolean
+  /** High fetch priority (the one or two images most likely to be the largest paint). */
+  priority?: boolean
 }) {
   return (
     <div className={cn('relative overflow-hidden rounded-lg bg-page', className)}>
@@ -77,12 +90,15 @@ export function StockImage({
         fill
         sizes={sizes}
         preload={preload}
+        loading={eager && !preload ? 'eager' : undefined}
+        fetchPriority={priority && !preload ? 'high' : undefined}
         className={cn(
           'object-cover',
           zoom &&
             'transition-transform duration-700 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none',
+          imgClassName,
         )}
-        style={p.position ? { objectPosition: p.position } : undefined}
+        style={p.position && !imgClassName ? { objectPosition: p.position } : undefined}
       />
     </div>
   )

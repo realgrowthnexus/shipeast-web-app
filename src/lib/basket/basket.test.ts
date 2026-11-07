@@ -8,6 +8,7 @@ import {
   MAX_LINES,
   MAX_QUANTITY,
   removeLine,
+  setProductQuantity,
   setQuantity,
   type BasketState,
 } from './state'
@@ -154,5 +155,60 @@ describe('promo codes', () => {
   it('never discounts more than the goods cost', () => {
     const promos = [{ ...demo.promos[0], minOrderCents: 0, amountOffCents: 5000 }]
     expect(checkPromo('WELCOME5', 1200, promos, now)).toMatchObject({ discountCents: 1200 })
+  })
+})
+
+describe('the shop stepper (setProductQuantity)', () => {
+  const ok = (r: ReturnType<typeof setProductQuantity>) => {
+    if (!r.ok) throw new Error(r.message)
+    return r
+  }
+
+  it('adds a new line, raises it, lowers it and removes it at 0', () => {
+    const one = ok(setProductQuantity(emptyBasket, rice, 1))
+    expect(one.state.lines).toEqual([{ kind: 'product', id: rice.id, quantity: 1 }])
+    const two = ok(setProductQuantity(one.state, rice, 2))
+    expect(two.quantity).toBe(2)
+    expect(countItems(two.state)).toBe(2)
+    const none = ok(setProductQuantity(two.state, rice, 0))
+    expect(none.state.lines).toEqual([])
+  })
+
+  it('uses absolute targets, so the same tap twice does not double-count', () => {
+    const a = ok(setProductQuantity(withRice(1), rice, 2))
+    const b = ok(setProductQuantity(a.state, rice, 2))
+    expect(b.quantity).toBe(2)
+  })
+
+  it('holds the quantity at MAX_QUANTITY', () => {
+    expect(ok(setProductQuantity(emptyBasket, rice, 99)).quantity).toBe(MAX_QUANTITY)
+  })
+
+  it('refuses to raise an out-of-stock item but lets it be lowered or removed', () => {
+    const r = setProductQuantity(emptyBasket, coffee, 1)
+    expect(r.ok).toBe(false)
+    const inBasket: BasketState = {
+      ...emptyBasket,
+      lines: [{ kind: 'product', id: coffee.id, quantity: 2 }],
+    }
+    expect(setProductQuantity(inBasket, coffee, 3).ok).toBe(false)
+    expect(ok(setProductQuantity(inBasket, coffee, 1)).quantity).toBe(1)
+    expect(ok(setProductQuantity(inBasket, coffee, 0)).state.lines).toEqual([])
+  })
+
+  it('refuses an unknown product', () => {
+    expect(setProductQuantity(withRice(1), undefined, 1).ok).toBe(false)
+  })
+
+  it('says when the basket is full', () => {
+    const full: BasketState = {
+      ...emptyBasket,
+      lines: Array.from({ length: MAX_LINES }, (_, i) => ({
+        kind: 'product' as const,
+        id: `x-${i}`,
+        quantity: 1,
+      })),
+    }
+    expect(setProductQuantity(full, rice, 1).ok).toBe(false)
   })
 })

@@ -189,7 +189,7 @@ migration. PR #24 (the four pages) is merged; this work goes in a new PR.
 | ------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------- |
 | Design agent: research real mart UIs, then a structure-first plan                           | Done                            | `docs/shop-listing/PLAN.md` |
 | Manager verifies and approves the plan                                                      | Done: approved with 8 decisions | `docs/shop-listing/PLAN.md` |
-| Development agent builds it (with the header and heroes: header, then heroes, then listing) | In progress                     | PR #26                      |
+| Development agent builds it (with the header and heroes: header, then heroes, then listing) | Done                            | new PR                      |
 | Manager QA at 375/768/1024/1440, fixes, `npm run check`, push                               | Not started                     | PR #26                      |
 
 **Next task (started November 7, 2026, runs alongside the shop listing): light header and
@@ -201,17 +201,24 @@ other, some with a photo background under an overlay. Same PR as the shop listin
 | --------------------------------------------------------- | ------------------------------------------------- | --------------------- |
 | Design agent: light header and four hero structures       | Done                                              | `docs/heroes/PLAN.md` |
 | Manager verifies and approves                             | Done: approved with 5 decisions (top of the plan) | `docs/heroes/PLAN.md` |
-| Development agent builds (together with the shop listing) | In progress                                       | PR #26                |
+| Development agent builds (together with the shop listing) | Done                                              | new PR                |
 | Manager QA, fixes, `npm run check`, push                  | Not started                                       | new PR                |
 
 **Follow-ups after the redesign** (not blocking):
 
 - Groceries department tile photo (`pantry`) is not Caribbean: swap for a Jamaican kitchen or market shot.
-- The compact header search button is 36px tall: raise it to 44px.
 - Product photos: several items (detergent, paper towels, baby products) still show icon placeholders. Real product photos from ShipEast would make the shop much stronger.
 - Run Lighthouse mobile on the Vercel preview (LCP, CLS, accessibility).
 - Content from Derion: real SMS wording, Sunday and holiday delivery, a consented customer photo,
   TRN and registered address.
+
+**Decisions made during the shop listing build:**
+
+- The listing streams inside Suspense (Cache Components), so with JavaScript off a visitor sees
+  the skeleton and a note linking to `/baskets`. Accepted: senders use modern browsers, and
+  search engines render JavaScript.
+- Owner to run `supabase/migrations/0013_product_aisles.sql` (see `docs/SQL-RUNBOOK.md`).
+  Until then the aisle filter simply hides itself. Derion to confirm the 14 aisle names.
 
 **How to resume:**
 

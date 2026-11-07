@@ -133,14 +133,16 @@ There are no see-through text colours (`text-ink/70` and the like). Use the role
 
 ### Overlay
 
-| Role          | Value                                  | Job                                                                                                |
-| ------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `scrim`       | oxblood at 60%                         | Behind dialogs (`backdrop:bg-scrim`)                                                               |
-| `photo-scrim` | oxblood at 80% (`rgb(74 11 28 / 0.8)`) | The flat overlay on a background photo (home coverage band). Only `on-dark` text on it (see below) |
+| Role              | Value                                  | Job                                                                                                                                    |
+| ----------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `scrim`           | oxblood at 60%                         | Behind dialogs (`backdrop:bg-scrim`)                                                                                                   |
+| `photo-scrim`     | oxblood at 80% (`rgb(74 11 28 / 0.8)`) | The flat overlay on a background photo (home coverage band, About "where", the `/baskets` hero). Only `on-dark` text on it (see below) |
+| `photo-scrim-ink` | ink at 75% (`rgb(43 35 38 / 0.75)`)    | The flat ink overlay of the `/how-it-works` hero. Only `on-dark` text: no `blush` or muted text on it                                  |
 
-The two are kept apart so either can change alone. `design-tokens.test.ts` checks
+They are kept apart so each can change alone. `design-tokens.test.ts` checks
 `on-dark` over `photo-scrim` blended on a pure white pixel (the worst case: 8.7:1) and the
-`blush` focus ring over it blended on black (3:1 or more).
+`blush` focus ring over it blended on black (3:1 or more). For `photo-scrim-ink` it checks
+`on-dark` over white (6.74:1) and the `blush` ring over white (4.58:1) and over black (11.6:1).
 
 ### Status
 
@@ -182,6 +184,7 @@ Checked on every test run. Text needs 4.5:1, control borders and the focus ring 
 | `oxblood`                                              | also `on-oxblood-muted`                                   |
 | `ink`, `danger`                                        | `on-dark`                                                 |
 | `photo-scrim` over a photo                             | `on-dark` only                                            |
+| `photo-scrim-ink` over a photo                         | `on-dark` only (6.7:1 over white)                         |
 | status `-tint`                                         | its own status colour                                     |
 | `jm-gold`                                              | `ink`, `crimson-deep`                                     |
 
@@ -197,6 +200,7 @@ class carries its own size, line height, weight and letter spacing.
 
 | Class          | Step | Size (375 → 1280px) | Weight          | Line height | Use                                      |
 | -------------- | ---- | ------------------- | --------------- | ----------- | ---------------------------------------- |
+| `text-poster`  | +8   | 72 → 130px          | 900             | 0.85        | One word per page: the About "bearer"    |
 | `text-display` | +6   | 48 → 77px           | 900             | 0.95        | The home hero headline only              |
 | `text-numeral` | +5   | 40 → 59px           | 900             | 1           | Step numbers and real facts, in `signal` |
 | `text-h1`      | +4   | 33 → 46px           | 800             | 1.05        | One page title per page                  |
@@ -327,6 +331,8 @@ read the variables directly.
 | `skeleton`                    | Loading placeholder: a flat `surface-muted` fill that breathes                                                                          |
 | `animate-print`               | The home hero receipt prints once: unclips top to bottom and slides 16px down, 700ms after a 300ms delay. Put any rotation on a wrapper |
 | `sheet-end`                   | A native `<dialog>` that slides in from the right (the phone menu): opens over 450ms, closes over 250ms                                 |
+| `sheet-bottom`                | The bottom-edge twin of `sheet-end` (the shop's phone filter sheet, `Dialog variant="sheet"` below 640px)                               |
+| `bleed-gutter`                | A bar inside a `gutter` container that still touches both screen edges (the shop toolbar below 1024px). Reset with `lg:mx-0 lg:px-0`    |
 
 All motion components use the `motion` package through `LazyMotion`.
 
@@ -334,20 +340,20 @@ All motion components use the `motion` package through `LazyMotion`.
 
 ## States
 
-| Element            | Rest                                                                                                 | Hover                                                        | Pressed / chosen                             |
-| ------------------ | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
-| Primary button     | `crimson`, `on-dark` text                                                                            | `crimson-deep`                                               | moves down 1px                               |
-| Secondary button   | `surface-muted`, `crimson-deep` text                                                                 | `surface-strong`                                             | moves down 1px                               |
-| Outline button     | `border-control` crimson                                                                             | `surface-selected` fill                                      | moves down 1px                               |
-| Ghost button       | `ink` text                                                                                           | `surface-muted` fill                                         | moves down 1px                               |
-| Dark button        | `ink`, `on-dark` text                                                                                | `ink-body`                                                   | moves down 1px                               |
-| On-dark button     | `surface`, `crimson-deep` text                                                                       | `surface-muted`                                              | moves down 1px                               |
-| Destructive button | `danger`, `on-dark` text                                                                             | `danger-deep`                                                | moves down 1px                               |
-| Card link          | `line` border, flat                                                                                  | `line-hover` border, rises 2px, `shadow-lift` (`hover-lift`) |                                              |
-| Photo in a card    | 100%                                                                                                 | zooms to 104% over 700ms                                     |                                              |
-| Row, nav item      | transparent                                                                                          | `surface-muted`                                              | `surface-selected` or `crimson` when current |
-| Choice card        | `surface`, `line-strong` border                                                                      | `ink-muted` border                                           | `surface-selected`, crimson border and ring  |
-| Text link          | `crimson`                                                                                            | underline                                                    |                                              |
-| Disabled           | 50% opacity, no pointer                                                                              |                                                              |                                              |
-| Focus (everything) | 3px `signal` ring, 2px offset                                                                        |                                                              |                                              |
-| Focus on dark      | 3px `blush` ring (add `on-dark-focus` to a crimson or oxblood container; signal is only 1.6:1 there) |                                                              |                                              |
+| Element            | Rest                                                                                                                                        | Hover                                                        | Pressed / chosen                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------- |
+| Primary button     | `crimson`, `on-dark` text                                                                                                                   | `crimson-deep`                                               | moves down 1px                               |
+| Secondary button   | `surface-muted`, `crimson-deep` text                                                                                                        | `surface-strong`                                             | moves down 1px                               |
+| Outline button     | `border-control` crimson                                                                                                                    | `surface-selected` fill                                      | moves down 1px                               |
+| Ghost button       | `ink` text                                                                                                                                  | `surface-muted` fill                                         | moves down 1px                               |
+| Dark button        | `ink`, `on-dark` text                                                                                                                       | `ink-body`                                                   | moves down 1px                               |
+| On-dark button     | `surface`, `crimson-deep` text                                                                                                              | `surface-muted`                                              | moves down 1px                               |
+| Destructive button | `danger`, `on-dark` text                                                                                                                    | `danger-deep`                                                | moves down 1px                               |
+| Card link          | `line` border, flat                                                                                                                         | `line-hover` border, rises 2px, `shadow-lift` (`hover-lift`) |                                              |
+| Photo in a card    | 100%                                                                                                                                        | zooms to 104% over 700ms                                     |                                              |
+| Row, nav item      | transparent                                                                                                                                 | `surface-muted`                                              | `surface-selected` or `crimson` when current |
+| Choice card        | `surface`, `line-strong` border                                                                                                             | `ink-muted` border                                           | `surface-selected`, crimson border and ring  |
+| Text link          | `crimson`                                                                                                                                   | underline                                                    |                                              |
+| Disabled           | 50% opacity, no pointer                                                                                                                     |                                                              |                                              |
+| Focus (everything) | 3px `signal` ring, 2px offset                                                                                                               |                                                              |                                              |
+| Focus on dark      | 3px `blush` ring (add `on-dark-focus` to a crimson, oxblood or photo-overlay container, never the light header; signal is only 1.6:1 there) |                                                              |                                              |

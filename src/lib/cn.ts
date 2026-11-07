@@ -10,7 +10,19 @@ import { extendTailwindMerge } from 'tailwind-merge'
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      text: ['display', 'numeral', 'h1', 'h2', 'title', 'h3', 'lead', 'body', 'small', 'eyebrow'],
+      text: [
+        'poster',
+        'display',
+        'numeral',
+        'h1',
+        'h2',
+        'title',
+        'h3',
+        'lead',
+        'body',
+        'small',
+        'eyebrow',
+      ],
     },
     classGroups: {
       'border-w': ['border-control'],

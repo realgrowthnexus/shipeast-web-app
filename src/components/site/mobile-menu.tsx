@@ -18,7 +18,7 @@ export interface MenuDepartment {
 }
 
 const triggerClass =
-  'grid size-control cursor-pointer place-items-center rounded-full text-on-dark transition-colors duration-150 hover:bg-crimson-deep lg:hidden'
+  'grid size-control cursor-pointer place-items-center rounded-full text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson lg:hidden'
 
 const rowClass =
   'flex min-h-12 items-center gap-3 rounded-md px-3 font-semibold text-ink transition-colors duration-150 hover:bg-surface-muted aria-[current=page]:bg-surface-selected aria-[current=page]:text-crimson-deep'

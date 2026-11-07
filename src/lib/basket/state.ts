@@ -80,3 +80,36 @@ export function removeLine(
 export function countItems(state: BasketState): number {
   return state.lines.reduce((n, l) => n + l.quantity, 0)
 }
+
+/** The quantity of one product already in the basket (0 when it isn't). */
+export function productQuantity(state: BasketState, id: string): number {
+  return state.lines.find((l) => l.kind === 'product' && l.id === id)?.quantity ?? 0
+}
+
+export type ProductQuantityResult =
+  { ok: true; state: BasketState; quantity: number } | { ok: false; message: string }
+
+/**
+ * Sets one product's quantity, as the shop's stepper asks (0 removes it). `product` is the
+ * catalogue's own record, never the client's. Raising the quantity needs the product to be in
+ * stock; lowering it or removing it always works. Quantities top out at MAX_QUANTITY.
+ */
+export function setProductQuantity(
+  state: BasketState,
+  product: { id: string; status: 'visible' | 'out_of_stock' | 'hidden' } | undefined,
+  quantity: number,
+): ProductQuantityResult {
+  if (!product) return { ok: false, message: 'That item isn’t available right now.' }
+  const target = { kind: 'product' as const, id: product.id }
+  const current = productQuantity(state, product.id)
+  const wanted = Math.min(MAX_QUANTITY, Math.max(0, Math.trunc(quantity)))
+  if (wanted > current && product.status !== 'visible')
+    return { ok: false, message: 'That item is out of stock right now.' }
+  const next =
+    current === 0 && wanted > 0
+      ? addLine(state, { ...target, quantity: wanted })
+      : setQuantity(state, target, wanted)
+  const saved = productQuantity(next, product.id)
+  if (saved !== wanted) return { ok: false, message: 'Your basket is full. Remove an item first.' }
+  return { ok: true, state: next, quantity: saved }
+}
