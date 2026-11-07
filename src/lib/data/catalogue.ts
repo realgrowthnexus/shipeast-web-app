@@ -1,6 +1,7 @@
 import 'server-only'
 import type { Catalogue } from '@/lib/basket/pricing'
-import type { Basket, Category, Product } from '@/lib/types'
+import { matchesWords, queryWords } from '@/lib/shop-filters'
+import type { Aisle, Basket, Category, Product } from '@/lib/types'
 import { getBaskets, getZones, type BasketSummary } from './site'
 import { loadCatalogue, loadPromos } from './source'
 
@@ -14,6 +15,21 @@ export async function getProducts(): Promise<Product[]> {
 
 export async function getProduct(slug: string): Promise<Product | null> {
   return (await getProducts()).find((p) => p.slug === slug) ?? null
+}
+
+/** Aisles of one department in sort order, each with its count of listed products. Empty aisles are left out. */
+export async function getAisles(categoryId: string): Promise<(Aisle & { count: number })[]> {
+  const { aisles, products } = await loadCatalogue()
+  return aisles
+    .filter((a) => a.categoryId === categoryId)
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => ({ ...a, count: products.filter((p) => listed(p) && p.aisleId === a.id).length }))
+    .filter((a) => a.count > 0)
+}
+
+/** Every visible aisle's name by id (the find field matches aisle names). */
+export async function getAisleNames(): Promise<Record<string, string>> {
+  return Object.fromEntries((await loadCatalogue()).aisles.map((a) => [a.id, a.name]))
 }
 
 export async function getCategory(slug: string): Promise<Category | null> {
@@ -52,14 +68,14 @@ export type SearchHit =
 
 /** Plain word match over names, sizes, descriptions and category names. Every word must match. */
 export async function searchCatalogue(query: string): Promise<SearchHit[]> {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean).slice(0, 8)
+  const words = queryWords(query)
   if (!words.length) return []
   const [products, baskets, { categories }] = await Promise.all([
     getProducts(),
     getBaskets(),
     loadCatalogue(),
   ])
-  const matches = (text: string) => words.every((w) => text.toLowerCase().includes(w))
+  const matches = (text: string) => matchesWords(text, words)
 
   const basketHits: SearchHit[] = baskets
     .filter(({ basket }) => matches(`${basket.name} ${basket.description}`))

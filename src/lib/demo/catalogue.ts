@@ -1,4 +1,4 @@
-import type { Basket, Category, Product } from '@/lib/types'
+import type { Aisle, Basket, Category, Product } from '@/lib/types'
 
 /**
  * PLACEHOLDER catalogue for building and reviewing layouts. Names are generic and prices are
@@ -36,6 +36,58 @@ export const categories: Category[] = [
     sort: 4,
   },
 ]
+
+/** The 14 starting aisles, the same as `0013_product_aisles.sql` (a first draft for Derion). */
+const aisleSeeds: [category: string, slug: string, name: string][] = [
+  ['cat-groceries', 'rice-and-grains', 'Rice & grains'],
+  ['cat-groceries', 'baking', 'Baking'],
+  ['cat-groceries', 'cooking-oils', 'Cooking oils'],
+  ['cat-groceries', 'canned-goods', 'Canned goods'],
+  ['cat-groceries', 'breakfast-and-drinks', 'Breakfast & drinks'],
+  ['cat-household', 'laundry-and-cleaning', 'Laundry & cleaning'],
+  ['cat-household', 'dishwashing', 'Dishwashing'],
+  ['cat-household', 'paper-goods', 'Paper goods'],
+  ['cat-pharmacy', 'pain-relief', 'Pain relief'],
+  ['cat-pharmacy', 'vitamins', 'Vitamins'],
+  ['cat-pharmacy', 'first-aid-and-hygiene', 'First aid & hygiene'],
+  ['cat-baby', 'diapers-and-wipes', 'Diapers & wipes'],
+  ['cat-baby', 'feeding', 'Feeding'],
+  ['cat-baby', 'bath-and-skin-care', 'Bath & skin care'],
+]
+
+export const aisles: Aisle[] = aisleSeeds.map(([categoryId, slug, name]) => ({
+  id: `ais-${slug}`,
+  slug,
+  name,
+  categoryId,
+  sort: aisleSeeds.filter((a) => a[0] === categoryId).findIndex((a) => a[1] === slug) + 1,
+}))
+
+/** Product slug → aisle slug. */
+const aisleOf: Record<string, string> = {
+  'long-grain-rice-10lb': 'rice-and-grains',
+  'all-purpose-flour-5lb': 'baking',
+  'granulated-sugar-4lb': 'baking',
+  'vegetable-oil-1gal': 'cooking-oils',
+  'rolled-oats-42oz': 'breakfast-and-drinks',
+  'corned-beef-12oz': 'canned-goods',
+  'mackerel-in-tomato-sauce': 'canned-goods',
+  'evaporated-milk-12pk': 'breakfast-and-drinks',
+  'ground-coffee-24oz': 'breakfast-and-drinks',
+  'laundry-detergent-150oz': 'laundry-and-cleaning',
+  'dish-soap-3pk': 'dishwashing',
+  'toilet-paper-30': 'paper-goods',
+  'paper-towels-12': 'paper-goods',
+  'bleach-2pk': 'laundry-and-cleaning',
+  'pain-relief-tablets': 'pain-relief',
+  'multivitamin-adult': 'vitamins',
+  'first-aid-kit': 'first-aid-and-hygiene',
+  'hand-sanitiser-2pk': 'first-aid-and-hygiene',
+  'diapers-size-3': 'diapers-and-wipes',
+  'baby-wipes-900': 'diapers-and-wipes',
+  'infant-formula': 'feeding',
+  'baby-lotion': 'bath-and-skin-care',
+}
 
 type Seed = [
   slug: string,
@@ -125,6 +177,7 @@ export const products: Product[] = seeds.map(
     imagePath: null,
     priceCheckedAt: '2026-10-20T15:00:00Z',
     featured: false,
+    aisleId: aisleOf[slug] ? `ais-${aisleOf[slug]}` : null,
     ...extra,
   }),
 )

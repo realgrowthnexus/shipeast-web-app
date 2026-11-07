@@ -32,10 +32,10 @@ const menuLinks = [
 ]
 
 const iconLink =
-  'grid size-control shrink-0 place-items-center rounded-full text-on-dark transition-colors duration-150 hover:bg-crimson-deep'
+  'grid size-control shrink-0 place-items-center rounded-full text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson active:bg-surface-strong'
 
 /**
- * The site header: one sticky crimson bar (logo, nav, search, account, basket, menu). On phones
+ * The site header: one sticky light bar (logo, nav, search, account, basket, menu). On phones
  * a second, non-sticky search row sits under it and scrolls away. Returned as a fragment so the
  * bar is sticky against the whole page, not a short wrapper.
  */
@@ -66,7 +66,7 @@ export async function SiteHeader() {
             className="mr-auto shrink-0 rounded-sm md:mr-0 lg:mr-6"
             aria-label="ShipEast Shop & Send, home"
           >
-            <Wordmark onDark />
+            <Wordmark />
           </Link>
 
           <nav aria-label="Main" className="hidden lg:block">

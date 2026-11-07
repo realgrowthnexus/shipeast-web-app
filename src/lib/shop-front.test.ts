@@ -1,34 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { aisleSample, aisleSampleLine, priceCheckLine, priceCheckRange } from './shop-front'
-
-const p = (name: string, status: 'visible' | 'hidden' | 'out_of_stock' = 'visible') => ({
-  name,
-  status,
-})
-
-describe('aisleSample', () => {
-  it('keeps shelf order and skips what cannot be bought', () => {
-    const shelf = [
-      p('Rice'),
-      p('Coffee', 'out_of_stock'),
-      p('Oil'),
-      p('Secret', 'hidden'),
-      p('Flour'),
-      p('Sugar'),
-    ]
-    expect(aisleSample(shelf)).toEqual(['Rice', 'Oil', 'Flour'])
-  })
-})
-
-describe('aisleSampleLine', () => {
-  it('joins names in plain English', () => {
-    expect(aisleSampleLine(['Rice'], 1)).toBe('Rice')
-    expect(aisleSampleLine(['Rice', 'Oil'], 2)).toBe('Rice and Oil')
-    expect(aisleSampleLine(['Rice', 'Oil', 'Flour'], 3)).toBe('Rice, Oil and Flour')
-    expect(aisleSampleLine(['Rice', 'Oil', 'Flour'], 9)).toBe('Rice, Oil, Flour and more')
-    expect(aisleSampleLine([], 0)).toBe('')
-  })
-})
+import { priceCheckLine, priceCheckRange } from './shop-front'
 
 describe('priceCheckRange and priceCheckLine', () => {
   const at = (priceCheckedAt: string, status: 'visible' | 'hidden' = 'visible') => ({

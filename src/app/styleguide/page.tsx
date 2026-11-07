@@ -102,6 +102,7 @@ const swatchGroups = [
     items: [
       ['scrim', 'oxblood 60%', 'bg-scrim', 'Behind dialogs'],
       ['photo-scrim', 'oxblood 80%', 'bg-photo-scrim', 'Flat overlay on a background photo'],
+      ['photo-scrim-ink', 'ink 75%', 'bg-photo-scrim-ink', 'Ink overlay, How it works hero'],
     ],
   },
 ] as const
@@ -113,6 +114,7 @@ const ramps = [
 ] as const
 
 const typeStyles = [
+  ['text-poster', '72 to 130px, 900, one word per page', 'bearer'],
   ['text-display', '48 to 77px, 900', 'Send groceries, not money'],
   ['text-numeral', '40 to 59px, 900', '1 2 3 4'],
   ['text-h1', '33 to 46px, 800', 'Delivery areas and fees'],
@@ -340,9 +342,9 @@ export default function StyleguidePage() {
         <Section
           id="overlay-focus-motion"
           title="Overlays, focus and motion"
-          intro="A photo may sit under one flat overlay (photo-scrim, oxblood at 80%), with on-dark text only. On crimson and oxblood the focus ring turns blush (on-dark-focus): press Tab to see it. Anchors stop below the sticky header (scroll-mt-header, --header-height 64 / 72px). The home receipt prints once on load (animate-print)."
+          intro="A photo may sit under one flat overlay (photo-scrim, oxblood at 80%, or photo-scrim-ink, ink at 75%), with on-dark text only. On crimson and oxblood (not the header, which is light) the focus ring turns blush (on-dark-focus): press Tab to see it. Anchors stop below the sticky header (scroll-mt-header, --header-height 64 / 72px). The home receipt prints once on load (animate-print)."
         >
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             <div className="relative isolate overflow-hidden rounded-lg p-card text-on-dark on-dark-focus">
               <StockPhoto
                 name="jmKingstonHills"
@@ -359,6 +361,19 @@ export default function StyleguidePage() {
               >
                 A link on the overlay
               </a>
+            </div>
+            <div className="relative isolate overflow-hidden rounded-lg p-card text-on-dark on-dark-focus">
+              <StockPhoto
+                name="hiwSender"
+                alt=""
+                sizes="(min-width: 1024px) 380px, 100vw"
+                className="absolute inset-0 -z-10 rounded-none"
+              />
+              <div aria-hidden className="absolute inset-0 -z-10 bg-photo-scrim-ink" />
+              <p className="text-h3">bg-photo-scrim-ink</p>
+              <p className="mt-2 text-body">
+                On-dark text only: 6.7:1 over a white pixel. No blush text.
+              </p>
             </div>
             <div className="flex flex-col items-start gap-3 rounded-lg bg-crimson p-card text-on-dark on-dark-focus">
               <p className="text-h3">on-dark-focus</p>

@@ -15,7 +15,7 @@ export function SearchBox({
   autoFocus?: boolean
   /** Unique per page: the header has its own box. */
   id?: string
-  /** The shorter box in the site header: a white pill on crimson. */
+  /** The pill in the light header: a 52px field with a line-strong border and a 44px button. */
   compact?: boolean
   /** `onDark`: a white field on crimson with a blush focus ring. `compact` wins if both are set. */
   tone?: 'light' | 'onDark'
@@ -41,7 +41,7 @@ export function SearchBox({
         className={cn(
           'w-full pr-14 pl-12 text-body text-ink placeholder:text-ink-muted focus:outline-none sm:pr-28',
           compact
-            ? 'min-h-12 rounded-full border-0 bg-surface shadow-lift focus:ring-3 focus:ring-blush'
+            ? 'min-h-control-lg rounded-full border-control border-line-strong bg-surface hover:border-ink-muted focus:border-crimson focus:ring-1 focus:ring-crimson'
             : tone === 'onDark'
               ? 'min-h-control-lg rounded-md border-0 bg-surface shadow-none focus:ring-3 focus:ring-blush'
               : 'min-h-control-lg rounded-md border-control border-line-strong bg-surface focus:border-crimson focus:ring-1 focus:ring-crimson',
@@ -51,8 +51,8 @@ export function SearchBox({
         type="submit"
         className={cn(
           'absolute top-1 right-1 bottom-1 grid min-w-11 place-items-center bg-crimson font-semibold text-on-dark transition-colors hover:bg-crimson-deep sm:px-5',
-          // The 52px field leaves a 44px button at a 4px inset; the 48px header pill keeps 6px.
-          compact ? 'rounded-full sm:top-1.5 sm:right-1.5 sm:bottom-1.5' : 'rounded-sm',
+          // The 52px field leaves a 44px button at a 4px inset, in both modes.
+          compact ? 'rounded-full' : 'rounded-sm',
         )}
       >
         <Search className="size-5 sm:hidden" aria-hidden />

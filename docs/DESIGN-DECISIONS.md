@@ -4,6 +4,36 @@ A dated log of design choices and the feedback behind them, so the reasons aren'
 The rules themselves live in `docs/DESIGN-SYSTEM.md` and `docs/TOKENS.md`. Add new entries
 at the top.
 
+## November 7, 2026: light header, four new heroes and the big-mart shop listing
+
+Owner brief (translated): "the header needs a different colour, maybe a light shade", "on all
+the pages the hero would be better with different types of structure, not two columns", and
+"do the shop page where the products are actually visible: grid layouts, a filter sidebar, a
+very big mart type". Plans: `docs/heroes/PLAN.md` and `docs/shop-listing/PLAN.md`, each with
+the manager's approval decisions at the top.
+
+- **Light header.** White bar with a 1px line edge and the lift shadow once scrolled. Red
+  stays in the crimson "East", the basket pill and a 3px current-page tab on the line. Every
+  first band (crimson, photo under oxblood, photo under ink, oxblood, page grey) meets it with a
+  crisp edge. The compact search submit is now 44px tall (was 36px).
+- **Four hero structures, one per page's proof object.** Home: centred statement on crimson,
+  full-bleed photo of home below with no text on it, the receipt crossing the seam. Baskets:
+  photo band under `photo-scrim` (the existing `shopChoosing` photo, not a market stall: our
+  driver buys at stores) with the price board as a crimson panel overlapping its edge, 2×2 from
+  1024px. How it works: the sender at her laptop under the new `photo-scrim-ink` (ink 75%),
+  the tracker card on the photo, a docked crimson jump rail; on phones the photo is a stage
+  that holds only the h1 so her face is never behind text. About: type only, "bearer" at the
+  new `text-poster` size as a dictionary entry whose sense 2 is the h1.
+- **Shop listing.** `/shop` no longer opens with a hero or shelves: a 170px crimson
+  department band with folder tabs, one edge strip (cut-off, receipt photo, USD, price check),
+  then products in the first screen at every width. Filters (find in list, department, aisle,
+  price, availability) live in a sticky sidebar on desktop and a bottom sheet on phones, all in
+  the URL so family can share a link. Tiles read like shelf tags: price first, J$ under it, an
+  honest unit price only when the size parses, and an Add that becomes a crimson stepper.
+  "Popular first" is now "Our picks first" (we don't track popularity). Aisles are a new table
+  (`0013_product_aisles.sql`; the 14 starting names need Derion's confirmation). One oxblood
+  ready-made basket tile appears on unfiltered first batches only.
+
 ## November 7, 2026: shop, baskets, how it works and about redesigned
 
 Owner brief: four more pages in the home page's design language. Plans:

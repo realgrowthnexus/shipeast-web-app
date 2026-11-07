@@ -12,12 +12,20 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
 - **Overlay rule (owner, November 6, 2026).** A photo may be a section background with a
   **flat overlay**: one colour role at one opacity, never a gradient, blur or tint ramp. Use the
   `photo-scrim` role (oxblood at 80%, `bg-photo-scrim` on an `aria-hidden` layer above the
-  photo). Only `on-dark` text sits on it: 8.7:1 even over a pure white pixel. Keep
+  photo), or `photo-scrim-ink` (ink at 75%, `bg-photo-scrim-ink`, the How it works hero:
+  6.7:1 over a pure white pixel, and no blush or muted text on it at all). Only `on-dark` text
+  sits on `photo-scrim`: 8.7:1 even over a pure white pixel. Keep
   secondary text off it too (`blush` and `on-oxblood-muted` lose contrast over bright photo areas), so secondary text, data and icons go inside white cards on
   top. Never go below 65% (5.3:1); the home page uses 80%. The photo is decorative (`alt=""`) because the heading
-  names the place. Today it is used once: the home page coverage band (Kingston's hills).
+  names the place. Used on the home coverage band (Kingston's hills), the About "where" band,
+  the `/baskets` hero (`shopChoosing`) and the `/how-it-works` hero (`hiwSender`, ink).
   Everywhere else crimson blocks sit beside photos, and no text goes on a photo without the
   overlay.
+- **Faces on phones (November 7, 2026).** Keep the subject's face out from behind text on
+  phones: use a photo stage that carries only the h1, below the face, and continue the rest on
+  a solid role (the `/how-it-works` hero). Responsive crops go on the image with
+  `StockPhoto imgClassName` (`object-[25%_30%] md:object-[50%_30%]`), which replaces the
+  registry's single `position`.
 - No PriceSmart photos and no store or delivery-company logos.
 - Product photos live in `src/lib/photos/products.ts`, keyed by product slug. Each one must
   show that exact item, with no brand visible. When no photo truly matches, the product keeps
@@ -25,6 +33,10 @@ plan, with the reason for each photo, is in the "ShipEast photography plan" doc.
   uploaded in the admin always wins over the stock photo.
 - 12px corners (`rounded-lg`), cropped to 4:3 for steps and occasions, 16:9 for places and basket
   headers, 4:5 for the tall people shot in "Why ShipEast".
+- The shop listing (`/shop`, `/shop/[department]`) shows only product photos and the one
+  ready-made basket tile's photo. A product without its own photo gets a type-led shelf tag
+  (department icon, name, size), never an unrelated photo. `shopReceipt` (a work slip, not a
+  till receipt) was removed with the old shop's "How we shop" band.
 - Only pages that sell or explain get photos. Basket, checkout, payment, tracking, product pages,
   search, legal, accounts, the driver app and admin stay photo-free so nothing slows them
   down or distracts from the task.

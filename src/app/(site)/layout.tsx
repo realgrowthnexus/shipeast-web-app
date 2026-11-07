@@ -1,3 +1,4 @@
+import { preconnect } from 'react-dom'
 import { MotionProvider } from '@/components/motion/motion-provider'
 import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
@@ -9,6 +10,8 @@ import { isDemoMode } from '@/lib/env'
 import { site } from '@/lib/site'
 
 export default async function SiteLayout({ children }: LayoutProps<'/'>) {
+  // Every photo hero loads from Unsplash: open the connection while the HTML streams.
+  preconnect('https://images.unsplash.com')
   const [settings, zones, categories] = await Promise.all([
     getSettings(),
     getActiveZones(),

@@ -4,6 +4,7 @@ import * as demo from '@/lib/demo'
 import { isDemoMode } from '@/lib/env'
 import { publicImageUrl, supabaseAdmin } from '@/lib/supabase/admin'
 import type {
+  Aisle,
   Basket,
   Category,
   DeliveryZone,
@@ -25,6 +26,17 @@ async function rows<T>(
   const { data, error } = await query
   if (error) throw new Error(`Supabase read failed: ${error.message}`)
   return data ?? []
+}
+
+/**
+ * Like `rows`, but an error reads as no rows: for a table added by a later migration (aisles,
+ * 0013), so the shop keeps working until the file has been run. The shop then hides the filter.
+ */
+async function optionalRows<T>(
+  query: PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
+) {
+  const { data, error } = await query
+  return error ? [] : (data ?? [])
 }
 
 export async function loadSettings(): Promise<SiteSettings> {
@@ -110,6 +122,8 @@ export interface CatalogueData {
   /** Every product, hidden ones included, so old basket lines can still be priced. */
   products: Product[]
   baskets: Basket[]
+  /** Visible aisles of every department, in sort order. */
+  aisles: Aisle[]
 }
 
 export async function loadCatalogue(): Promise<CatalogueData> {
@@ -117,11 +131,16 @@ export async function loadCatalogue(): Promise<CatalogueData> {
   cacheTag('catalogue')
   cacheLife('minutes')
   if (isDemoMode()) {
-    return { categories: demo.categories, products: demo.products, baskets: demo.baskets }
+    return {
+      categories: demo.categories,
+      products: demo.products,
+      baskets: demo.baskets,
+      aisles: demo.aisles,
+    }
   }
 
   const db = supabaseAdmin()
-  const [categories, products, baskets] = await Promise.all([
+  const [categories, products, baskets, aisles] = await Promise.all([
     rows<Category & { visible: boolean }>(
       db.from('categories').select('id, slug, name, description, sort, visible').order('sort'),
     ),
@@ -137,6 +156,7 @@ export async function loadCatalogue(): Promise<CatalogueData> {
       image_path: string | null
       price_checked_at: string
       featured: boolean
+      aisle_id: string | null
     }>(db.from('products').select('*').order('name')),
     rows<{
       id: string
@@ -150,6 +170,14 @@ export async function loadCatalogue(): Promise<CatalogueData> {
       featured: boolean
       basket_items: { product_id: string; quantity: number }[]
     }>(db.from('baskets').select('*, basket_items(product_id, quantity)').order('sort')),
+    optionalRows<{
+      id: string
+      slug: string
+      name: string
+      category_id: string
+      sort: number
+      visible: boolean
+    }>(db.from('aisles').select('id, slug, name, category_id, sort, visible').order('sort')),
   ])
 
   return {
@@ -168,6 +196,7 @@ export async function loadCatalogue(): Promise<CatalogueData> {
       imagePath: publicImageUrl('products', p.image_path),
       priceCheckedAt: p.price_checked_at,
       featured: p.featured,
+      aisleId: p.aisle_id ?? null,
     })),
     baskets: baskets
       .filter((b) => b.status === 'visible')
@@ -181,6 +210,15 @@ export async function loadCatalogue(): Promise<CatalogueData> {
         featured: b.featured,
         imagePath: publicImageUrl('products', b.image_path),
         items: b.basket_items.map((i) => ({ productId: i.product_id, quantity: i.quantity })),
+      })),
+    aisles: aisles
+      .filter((a) => a.visible)
+      .map((a) => ({
+        id: a.id,
+        slug: a.slug,
+        name: a.name,
+        categoryId: a.category_id,
+        sort: a.sort,
       })),
   }
 }

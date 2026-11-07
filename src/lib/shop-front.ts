@@ -2,28 +2,8 @@ import { formatDate } from '@/lib/format'
 import type { Product } from '@/lib/types'
 
 /**
- * Pure helpers for the shop's front door: what each aisle sign lists, and the honest line about
- * when shelf prices were last checked in store.
+ * The honest line about when shelf prices were last checked in store (the shop's edge strip).
  */
-
-/**
- * Names of the first `n` products a sender can buy today from a shelf that is already in shelf
- * order (`shelfProducts`). Out-of-stock and hidden products are skipped.
- */
-export function aisleSample(shelf: Pick<Product, 'name' | 'status'>[], n = 3): string[] {
-  return shelf
-    .filter((p) => p.status === 'visible')
-    .slice(0, n)
-    .map((p) => p.name)
-}
-
-/** "A", "A and B", "A, B and C", with "and more" when the aisle holds more than the names shown. */
-export function aisleSampleLine(names: string[], total: number): string {
-  if (!names.length) return ''
-  if (total > names.length) return `${names.join(', ')} and more`
-  if (names.length === 1) return names[0]
-  return `${names.slice(0, -1).join(', ')} and ${names.at(-1)}`
-}
 
 /** Earliest and latest price-check dates of the products a sender can see (not hidden). */
 export function priceCheckRange(

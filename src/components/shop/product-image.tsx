@@ -18,7 +18,9 @@ export function hasProductPhoto(product: { imagePath: string | null; slug: strin
 
 /**
  * Product photo. An uploaded photo wins; otherwise a stock photo of that exact item (by slug);
- * otherwise a branded placeholder. We never use PriceSmart's own images.
+ * otherwise a branded placeholder: a plain icon (`icon`), or a shelf tag with the department
+ * icon, the name in heavy type and the size (`label`, the shop listing). We never use
+ * PriceSmart's own images.
  */
 export function ProductImage({
   src,
@@ -27,6 +29,11 @@ export function ProductImage({
   slug,
   className,
   sizes = '(min-width: 1024px) 25vw, 50vw',
+  placeholder = 'icon',
+  name,
+  size,
+  eager = false,
+  priority = false,
 }: {
   src: string | null
   alt: string
@@ -35,6 +42,14 @@ export function ProductImage({
   slug?: string
   className?: string
   sizes?: string
+  /** What shows when there is no photo. `label` needs `name` (and `size`). */
+  placeholder?: 'icon' | 'label'
+  name?: string
+  size?: string
+  /** Load at once (the first row of a grid). */
+  eager?: boolean
+  /** High fetch priority (the first two tiles on a phone). */
+  priority?: boolean
 }) {
   const Icon = (categoryId && icons[categoryId]) || ShoppingBasket
   const stock = !src && slug ? productPhotos[slug] : undefined
@@ -45,13 +60,42 @@ export function ProductImage({
         alt={alt}
         sizes={sizes}
         zoom
+        eager={eager}
+        priority={priority}
         className={cn('aspect-[4/3] rounded-md', className)}
       />
+    )
+  if (!src && placeholder === 'label')
+    return (
+      // Decorative: the name is the card's link text right below.
+      <div
+        aria-hidden
+        className={cn(
+          'relative grid aspect-square place-items-center rounded-md bg-surface-muted p-4 text-center ring-1 ring-line ring-inset',
+          className,
+        )}
+      >
+        <Icon className="absolute top-3 left-3 size-icon-lg text-crimson" aria-hidden />
+        <span className="flex flex-col items-center">
+          <span className="line-clamp-3 text-body font-extrabold text-balance text-ink sm:text-h3 sm:font-extrabold">
+            {name}
+          </span>
+          {size && <span className="mt-1 text-small font-semibold text-ink-muted">{size}</span>}
+        </span>
+      </div>
     )
   return (
     <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-page', className)}>
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes}
+          loading={eager ? 'eager' : undefined}
+          fetchPriority={priority ? 'high' : undefined}
+          className="object-cover"
+        />
       ) : (
         <div className="absolute inset-0 grid place-items-center" role="img" aria-label={alt}>
           <Icon className="size-8 text-ink-muted" strokeWidth={1.5} aria-hidden />

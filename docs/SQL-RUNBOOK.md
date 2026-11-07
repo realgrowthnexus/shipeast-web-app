@@ -29,6 +29,7 @@ for "Success" before moving to the next file.
 | 10  | `supabase/migrations/0010_seed.sql`               | Starting categories, parishes, settings and legal page slots         |
 | 11  | `supabase/migrations/0011_checkout.sql`           | Placing orders, recording payments, tracking-link and order lookup   |
 | 12  | `supabase/migrations/0012_accounts.sql`           | Sender accounts: link guest orders, email changes, address limit     |
+| 13  | `supabase/migrations/0013_product_aisles.sql`     | Aisles inside each department, for the shop's aisle filter           |
 
 ## After running them
 
@@ -93,6 +94,10 @@ Until those keys are set, the site runs in demo mode on placeholder data.
 The seed file uses placeholder delivery fees (St. Thomas USD$8, Kingston USD$10), a 1:00 PM
 same-day cut-off, a USD$25 minimum order and an exchange rate of J$157 per US dollar. Change
 them in the admin panel once ShipEast confirms the real values.
+
+The starting aisle names (for example Rice & grains, Canned goods) are a first draft; rename or
+add aisles in the admin panel once ShipEast's real product list is in. Renaming keeps shared
+shop links working.
 
 ## Checked before hand-over
 

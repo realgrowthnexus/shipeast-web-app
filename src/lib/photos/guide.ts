@@ -21,7 +21,7 @@ export const guidePhotos = {
     photographer: 'Vitaly Gariev',
     username: 'silverkblack',
     position: '40% center',
-    usedOn: 'How it works (hero)',
+    usedOn: 'How it works (hero background)',
   }),
   hiwFamilyDoor: photo({
     unsplashId: 'FkNCfc7MaHc',

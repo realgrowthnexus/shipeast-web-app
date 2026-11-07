@@ -40,6 +40,15 @@ export interface Category {
   sort: number
 }
 
+/** A sub-group inside one department (the shop's aisle filter). */
+export interface Aisle {
+  id: string
+  slug: string
+  name: string
+  categoryId: string
+  sort: number
+}
+
 export interface Product {
   id: string
   slug: string
@@ -53,6 +62,8 @@ export interface Product {
   imagePath: string | null
   priceCheckedAt: string
   featured: boolean
+  /** Aisle inside the product's department; null until one is assigned. */
+  aisleId: string | null
 }
 
 export interface BasketItem {

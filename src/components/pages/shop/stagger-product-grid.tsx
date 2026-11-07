@@ -4,7 +4,7 @@ import { ProductCard } from '@/components/shop/product-card'
 import type { Product } from '@/lib/types'
 
 /**
- * The same grid and cards as `ProductGrid` (same add-to-basket control), with the cards
+ * The product grid (ProductCard with the add-to-basket control), with the cards
  * appearing one after another as the grid scrolls into view.
  */
 export function StaggerProductGrid({

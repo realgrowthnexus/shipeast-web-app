@@ -3,10 +3,11 @@
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 
-/** Pages with their own search box, or where the sender should stay on the task in hand. */
+/** Pages with their own search box (the shop listing has "Find in…"), or where the sender should stay on the task in hand. */
 const hiddenOn = (path: string) =>
   path === '/search' ||
   path === '/shop' ||
+  path.startsWith('/shop/') ||
   path === '/basket' ||
   path === '/checkout' ||
   path.startsWith('/checkout/')
@@ -23,7 +24,7 @@ export function HeaderSearchRow({ children }: { children: ReactNode }) {
 
 export function HeaderSearchRowFrame({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-crimson on-dark-focus md:hidden print:hidden">
+    <div data-header-row className="border-b border-line bg-surface md:hidden print:hidden">
       <div className="mx-auto max-w-wide gutter pb-3">{children}</div>
     </div>
   )
