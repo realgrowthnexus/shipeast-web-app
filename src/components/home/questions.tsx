@@ -1,7 +1,7 @@
 import { ArrowRight, Mail, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { Reveal } from '@/components/motion/reveal'
-import { Accordion } from '@/components/ui/accordion'
+import { FaqAccordion } from '@/components/ui/faq-accordion'
 import type { Faq } from '@/lib/types'
 
 /** Questions (PLAN §3, row 10): the five doubts a first-time sender has, and a person to ask. */
@@ -18,7 +18,7 @@ export function HomeQuestions({
   return (
     <section aria-labelledby="home-questions" className="mx-auto max-w-wide gutter py-10 md:py-12">
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-4">
+        <Reveal y={0} className="lg:col-span-4">
           <h2 id="home-questions" className="font-display text-title font-semibold text-balance">
             Questions senders ask first
           </h2>
@@ -49,11 +49,11 @@ export function HomeQuestions({
             </Link>
           </div>
         </Reveal>
-        <Reveal delay={0.1} className="lg:col-span-8">
-          <Accordion
+        <div className="lg:col-span-8">
+          <FaqAccordion
             items={faqs.map((f) => ({ id: f.id, title: f.question, body: <p>{f.answer}</p> }))}
           />
-        </Reveal>
+        </div>
       </div>
     </section>
   )
