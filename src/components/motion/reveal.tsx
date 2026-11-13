@@ -10,8 +10,9 @@ type PassThrough = { id?: string; 'aria-labelledby'?: string; 'aria-label'?: str
 type As = 'div' | 'section' | 'li' | 'ul' | 'ol' | 'article' | 'header' | 'figure' | 'p' | 'span'
 
 /**
- * Fades a block in and lifts it into place the first time it scrolls into view. Content is in
- * the HTML from the start, so search engines and no-JS visitors see everything.
+ * Fades a block in and lifts it into place the first time it scrolls into view. The content is
+ * in the HTML from the start (search engines read it), but it ships at opacity 0, so every
+ * layout that uses this must carry the `[data-reveal]` noscript rule (see `(home)/layout.tsx`).
  */
 export function Reveal({
   children,
@@ -33,6 +34,7 @@ export function Reveal({
   return (
     <Tag
       {...rest}
+      data-reveal=""
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -87,6 +89,7 @@ export function StaggerItem({
   const Tag = m[as]
   return (
     <Tag
+      data-reveal=""
       className={className}
       variants={{
         hidden: { opacity: 0, y: rise },

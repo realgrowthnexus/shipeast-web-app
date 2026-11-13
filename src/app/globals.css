@@ -616,6 +616,19 @@
   }
 }
 
+/* Home page only: a lazy photo fades in once loaded instead of popping (FadeImage). */
+[data-home] [data-fade] {
+  opacity: 0;
+}
+[data-home] [data-loaded] > [data-fade] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-home] [data-fade] {
+    opacity: 1;
+  }
+}
+
 /* Cards on the home page rise a little under the pointer. */
 @utility card-rise {
   transition:

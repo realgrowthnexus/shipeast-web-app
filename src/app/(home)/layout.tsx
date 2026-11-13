@@ -52,6 +52,7 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
   }
   return (
     <div
+      data-home=""
       className={`${bricolage.variable} ${caveat.variable} flex flex-1 flex-col bg-cream text-ink`}
     >
       <script
@@ -64,6 +65,10 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
       >
         Skip to content
       </a>
+      {/* Scroll reveals and lazy photos start hidden; without JavaScript they never would show. */}
+      <noscript>
+        <style>{'[data-reveal],[data-fade]{opacity:1!important;transform:none!important}'}</style>
+      </noscript>
       <MotionProvider>
         {isDemoMode() && <DemoBanner />}
         <HomeHeader parishList={parishList} cutoff={earliestCutoff(zones)} />
