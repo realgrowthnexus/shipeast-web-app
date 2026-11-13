@@ -35,7 +35,7 @@ const social = [
 ]
 
 const linkClass =
-  'inline-flex min-h-11 items-center text-small text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
+  'inline-flex min-h-11 items-center text-small lg:min-h-8 text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
 
 /** This year in Jamaica. Cached for a day: Cache Components forbids an uncached `new Date()`. */
 async function CopyrightYear() {
@@ -95,7 +95,11 @@ export function HomeFooter({
       <div className="mx-auto max-w-wide gutter pt-10 md:pt-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <Link href="/" className="inline-flex min-h-11 items-center rounded-sm" aria-label="ShipEast Shop & Send, home">
+            <Link
+              href="/"
+              className="inline-flex min-h-11 items-center rounded-sm"
+              aria-label="ShipEast Shop & Send, home"
+            >
               <HomeWordmark onDark />
             </Link>
             <p className="mt-5 max-w-sm font-display text-h3 font-semibold text-balance text-on-dark">

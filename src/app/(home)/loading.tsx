@@ -1,6 +1,6 @@
 /**
  * Shown while the home page streams in on a slow connection or a first visit from another
- * page: the shape of the hero (one banner and three small cards beside it on wide screens),
+ * page: the shape of the hero (one banner and three small cards in a row under it),
  * and the department tiles, pulsing softly.
  */
 export default function HomeLoading() {
@@ -9,13 +9,10 @@ export default function HomeLoading() {
       <p className="sr-only" role="status">
         Loading the shop
       </p>
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-12 xl:grid-rows-3">
-        <div className="h-[36rem] animate-pulse rounded-2xl bg-surface-strong md:col-span-3 md:h-[25rem] lg:h-[27.5rem] xl:col-span-8 xl:row-span-3 xl:h-[30rem]" />
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
+        <div className="h-[36rem] animate-pulse rounded-2xl bg-surface-strong md:col-span-3 md:h-[25rem] lg:h-[27.5rem] xl:h-[28.75rem]" />
         {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="h-32 animate-pulse rounded-xl bg-surface-strong xl:col-span-4 xl:h-auto"
-          />
+          <div key={i} className="h-32 animate-pulse rounded-xl bg-surface-strong" />
         ))}
       </div>
       <div className="mt-12 h-8 w-64 animate-pulse rounded-md bg-surface-strong" />

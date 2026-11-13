@@ -13,9 +13,8 @@ const card =
 const visual = 'size-16 shrink-0 sm:size-20 md:max-lg:hidden lg:max-xl:size-16'
 
 /**
- * The hero (docs/home-v3/audits/layout.md §3.2): one shop banner and three small cards, read as
- * one composition. On wide screens the banner takes eight columns and the cards stack in the
- * other four, sharing its top and bottom edges. In the banner, red and the photo meet on one
+ * The hero (docs/home-v3/audits/layout.md §3.2, owner's v3.5 note): one full-width shop banner
+ * with the three small cards in an even row under it, from tablets up; stacked on phones. In the banner, red and the photo meet on one
  * clean seam; on phones the photo comes first, so the first screen shows food. Everything
  * here moves with CSS, so nothing waits for JavaScript; the headline never moves.
  */
@@ -34,8 +33,8 @@ export function HomeHero({
   const lowestFee = zones.length ? Math.min(...zones.map((z) => z.feeCents)) : null
   return (
     <section aria-labelledby="home-h1" className="mx-auto max-w-wide gutter pt-4 md:pt-6">
-      <div className="grid gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-12 xl:grid-rows-3">
-        <div className="relative grid overflow-hidden rounded-2xl bg-crimson text-on-dark on-dark-focus md:col-span-3 md:min-h-[400px] md:grid-cols-12 lg:min-h-[440px] xl:col-span-8 xl:row-span-3 xl:min-h-[480px]">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3">
+        <div className="relative grid overflow-hidden rounded-2xl bg-crimson text-on-dark on-dark-focus md:col-span-3 md:min-h-[400px] md:grid-cols-12 lg:min-h-[440px] xl:min-h-[460px]">
           {/* The groceries: edge to edge in their half, no frame, no tilt. */}
           <div className="relative aspect-[16/10] md:order-last md:col-span-5 md:aspect-auto">
             <StockPhoto
@@ -99,7 +98,7 @@ export function HomeHero({
         {/* The quick way in. */}
         <Link
           href="/baskets"
-          className={`${card} border border-line bg-surface text-ink [animation-delay:240ms] xl:col-span-4`}
+          className={`${card} border border-line bg-surface text-ink [animation-delay:240ms]`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">
@@ -124,7 +123,7 @@ export function HomeHero({
         {/* The proof. */}
         <Link
           href="/how-it-works"
-          className={`${card} bg-oxblood text-on-dark [animation-delay:300ms] xl:col-span-4`}
+          className={`${card} bg-oxblood text-on-dark [animation-delay:300ms]`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">
@@ -157,7 +156,7 @@ export function HomeHero({
         {/* Where and how much. */}
         <Link
           href="/delivery"
-          className={`${card} border border-line bg-surface text-ink [animation-delay:360ms] xl:col-span-4`}
+          className={`${card} border border-line bg-surface text-ink [animation-delay:360ms]`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">
