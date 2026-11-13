@@ -122,7 +122,7 @@ export function StockImage({
         className={cn(
           'object-cover',
           zoom &&
-            'transition-[opacity,scale] duration-400 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none',
+            'transition-[opacity,scale] duration-500 ease-hover group-hover:scale-[1.04] motion-reduce:transition-none',
           imgClassName,
         )}
         style={p.position && !imgClassName ? { objectPosition: p.position } : undefined}

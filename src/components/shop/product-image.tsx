@@ -107,7 +107,7 @@ export function ProductImage({
           className={cn(
             packShot
               ? (imgClassName ??
-                  'object-contain p-2 transition-[opacity,scale] duration-400 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none')
+                  'object-contain p-2 transition-[opacity,scale] duration-500 ease-hover group-hover:scale-[1.04] motion-reduce:transition-none')
               : 'object-cover',
           )}
         />

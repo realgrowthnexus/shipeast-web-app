@@ -52,7 +52,7 @@
      the price sticker. Each has one job; crimson owns the brand and the grey ramp is the only
      neutral. Cream stays only for the logo's door fill (brand kit, awaiting review). */
   --cream-50: #fff8ee;
-  --leaf-50: #cfe6d6;
+  --leaf-200: #cfe6d6;
   --leaf-100: #dbf0e6;
   --leaf-700: #16603d;
   --leaf-800: #0f4a2f;
@@ -89,7 +89,7 @@
   --color-leaf-deep: var(--leaf-800); /* hover on leaf, panels inside the leaf band */
   --color-leaf-soft: var(--leaf-100); /* SMS bubbles and "Save" pills */
   --color-mango: var(--mango-400); /* price stickers, one highlight per block, never a fill */
-  --color-on-leaf-muted: var(--leaf-50); /* secondary text on leaf */
+  --color-on-leaf-muted: var(--leaf-200); /* secondary text on leaf */
 
   /* Text */
   --color-ink: var(--ink-900); /* headings, prices, labels */
@@ -216,6 +216,8 @@
 
   /* Motion. JavaScript animations read the same values from src/lib/motion.ts. */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Hover lifts: a gentle start and a long glide, so a card floats up instead of snapping. */
+  --ease-hover: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-fast: 150ms; /* presses, colour changes */
   --duration-base: 250ms; /* hovers, card lift */
@@ -395,7 +397,8 @@
  * before hydration and never holds back the largest paint. Stagger with `[animation-delay:…]`.
  */
 @utility animate-rise {
-  animation: rise var(--duration-reveal) var(--ease-out-soft) both;
+  /* `backwards`, not `both`: once it has played it lets go, so hover transitions still run. */
+  animation: rise var(--duration-reveal) var(--ease-out-soft) backwards;
 }
 
 @keyframes rise {
@@ -642,8 +645,9 @@
 /* Cards on the home page rise a little under the pointer. */
 @utility card-rise {
   transition:
-    transform var(--duration-base) var(--ease-out-soft),
-    box-shadow var(--duration-base) var(--ease-out-soft);
+    transform 400ms var(--ease-hover),
+    box-shadow 400ms var(--ease-hover),
+    border-color var(--duration-base) var(--ease-hover);
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lift);

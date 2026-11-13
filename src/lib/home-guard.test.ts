@@ -22,6 +22,18 @@ describe('home v3.3 tokens', () => {
     expect(css).not.toMatch(/animate-bob|@keyframes bob/)
   })
 
+  it('cards float up on hover instead of snapping', () => {
+    const cardRise = css.slice(
+      css.indexOf('@utility card-rise'),
+      css.indexOf('@utility card-rise') + 400,
+    )
+    expect(cardRise).toMatch(/transform 400ms var\(--ease-hover\)/)
+    // A CSS entrance that keeps holding its end state blocks the hover transition.
+    expect(css).toMatch(/animation: rise [^;]* backwards;/)
+    const shelf = homeFiles.find((f) => f.path.endsWith('shelf.tsx'))?.text ?? ''
+    expect(shelf).not.toMatch(/card-rise[^"]*transition-colors/)
+  })
+
   it('nothing waits on JavaScript that never arrives', () => {
     expect(css).toMatch(/\[data-home\]:not\(\[data-hydrated\]\) \[data-fade\]\s*\{\s*opacity: 1/)
     expect(css).toMatch(

@@ -47,7 +47,7 @@ export function HomeShelf({
       <Stagger className="mx-auto mt-6 rail max-w-wide scroll-px-4 gap-3 gutter pb-2 sm:gap-4 lg:grid lg:grid-cols-6 lg:overflow-visible">
         {products.map((p, i) => (
           <StaggerItem key={p.id} className="w-[42%] sm:w-[28%] lg:w-auto">
-            <article className="group relative flex h-full card-rise flex-col rounded-lg border border-line bg-surface p-3 transition-colors hover:border-line-hover has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-signal">
+            <article className="group relative flex h-full card-rise flex-col rounded-lg border border-line bg-surface p-3 hover:border-line-hover has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-signal">
               <ProductImage
                 src={p.imagePath}
                 alt=""
@@ -56,7 +56,7 @@ export function HomeShelf({
                 sizes="(min-width: 1024px) 190px, 44vw"
                 eager={i < 3}
                 className="aspect-square rounded-md bg-surface-muted"
-                imgClassName="object-contain p-3 mix-blend-multiply transition-[opacity,scale] duration-400 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none"
+                imgClassName="object-contain p-3 mix-blend-multiply transition-[opacity,scale] duration-500 ease-hover group-hover:scale-[1.04] motion-reduce:transition-none"
               />
               <div className="mt-3 px-1 text-small">
                 <h3 className="line-clamp-2 h-[2lh] leading-snug font-semibold text-ink">

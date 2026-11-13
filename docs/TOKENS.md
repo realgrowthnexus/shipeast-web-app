@@ -182,7 +182,7 @@ there is no warm neutral. Retired in v3.4: `cream-deep`, `mango-soft`, `sky-soft
 | `leaf`          | `leaf-700`  | `#16603D` | The Jamaica band, the "in Jamaica" lane, delivered, added   |
 | `leaf-deep`     | `leaf-800`  | `#0F4A2F` | Hover on leaf, zone cards inside the leaf band, "Save" text |
 | `leaf-soft`     | `leaf-100`  | `#DBF0E6` | SMS bubbles and "Save" pills only                           |
-| `on-leaf-muted` | `leaf-50`   | `#CFE6D6` | Secondary text on leaf and leaf-deep                        |
+| `on-leaf-muted` | `leaf-200`  | `#CFE6D6` | Secondary text on leaf and leaf-deep                        |
 | `mango`         | `mango-400` | `#FFC83D` | Price stickers and one highlight per block, never a fill    |
 | `cream`         | `cream-50`  | `#FFF8EE` | The logo's door fill only (`brand-mark.tsx`), nothing else  |
 

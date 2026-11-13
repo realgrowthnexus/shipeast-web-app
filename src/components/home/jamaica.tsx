@@ -30,23 +30,23 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {zones.map((z) => (
-              <li key={z.id} className="rounded-xl bg-leaf-deep p-5">
+              <li key={z.id} className="rounded-xl bg-surface p-5 text-ink">
                 <p className="font-display text-lead font-semibold">{z.parish}</p>
                 <dl className="mt-4 space-y-3 text-small">
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-on-leaf-muted">Delivery fee</dt>
-                    <dd className="text-body font-semibold text-mango tabular-nums">
+                    <dt className="text-ink-muted">Delivery fee</dt>
+                    <dd className="text-body font-semibold text-crimson tabular-nums">
                       {formatUsd(z.feeCents)}
                     </dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-on-leaf-muted">
+                    <dt className="text-ink-muted">
                       {z.speed === 'same_day' ? 'Same-day aim' : SPEED_LABEL[z.speed]}, order by
                     </dt>
                     <dd className="font-semibold tabular-nums">{formatClockTime(z.cutoffTime)}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-on-leaf-muted">Minimum order</dt>
+                    <dt className="text-ink-muted">Minimum order</dt>
                     <dd className="font-semibold tabular-nums">{formatUsd(z.minOrderCents)}</dd>
                   </div>
                 </dl>
