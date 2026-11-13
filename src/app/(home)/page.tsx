@@ -1,6 +1,7 @@
 import { HomeBaskets } from '@/components/home/baskets'
 import { HomeClosing } from '@/components/home/closing'
 import { HomeDepartments } from '@/components/home/departments'
+import { HomeGiftNote } from '@/components/home/gift-note'
 import { HomeHero } from '@/components/home/hero'
 import { HomeJamaica } from '@/components/home/jamaica'
 import { HomeProof } from '@/components/home/proof'
@@ -80,6 +81,7 @@ export default async function HomePage() {
       {featured.length > 0 && (
         <HomeBaskets baskets={featured} products={products} jmdPerUsd={settings.jmdPerUsd} />
       )}
+      <HomeGiftNote />
       <HomeProof receipt={receipt} />
       <HomeSteps payLine={bankTransfer ? 'PayPal, a card or bank transfer' : 'PayPal or a card'} />
       <HomeJamaica zones={zones} parishList={parishList} />
