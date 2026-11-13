@@ -35,9 +35,17 @@ describe('unitPriceLabel', () => {
     expect(unitPriceLabel(size, cents)).toBe(expected)
   })
 
-  it('the table covers every demo product, at its demo price', () => {
-    for (const p of demo.products) {
+  it('the table covers every placeholder product, at its demo price', () => {
+    // ShipEast's own list (ids `prd-se-…`) uses metric and multi-unit sizes; see the next test.
+    for (const p of demo.products.filter((x) => !x.id.startsWith('prd-se-'))) {
       expect(table.some(([size, cents]) => size === p.size && cents === p.priceCents)).toBe(true)
+    }
+  })
+
+  it("never throws on a size from ShipEast's own list", () => {
+    for (const p of demo.products.filter((x) => x.id.startsWith('prd-se-'))) {
+      const label = unitPriceLabel(p.size, p.priceCents)
+      expect(label === null || label.startsWith('USD$'), `${p.name}: ${label}`).toBe(true)
     }
   })
 })

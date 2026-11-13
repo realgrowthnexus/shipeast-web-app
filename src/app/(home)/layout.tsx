@@ -15,7 +15,7 @@ import { site } from '@/lib/site'
 const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',
   subsets: ['latin'],
-  weight: ['700', '800'],
+  weight: ['500', '600', '700'],
   display: 'swap',
 })
 

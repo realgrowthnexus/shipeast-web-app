@@ -15,33 +15,35 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
   if (!zones.length) return null
   return (
     <section aria-labelledby="home-jamaica" className="bg-leaf text-on-dark on-dark-focus">
-      <div className="mx-auto grid max-w-wide items-center gap-10 gutter py-12 md:py-16 lg:grid-cols-2 lg:gap-14">
+      <div className="mx-auto grid max-w-wide items-center gap-10 gutter py-10 md:py-12 lg:grid-cols-2 lg:gap-14">
         <Reveal>
-          <h2 id="home-jamaica" className="font-display text-shout text-balance">
+          <h2 id="home-jamaica" className="font-display text-title font-semibold text-balance">
             Delivering in {parishList}.
           </h2>
-          <p className="mt-5 max-w-md text-lead text-on-leaf-muted">
-            More parishes are coming. If your family lives somewhere else in Jamaica, tell us where
-            and we will let you know when we reach them.
+          <p className="mt-5 max-w-md text-body text-on-leaf-muted">
+            Delivery times are estimates: traffic, weather and what the store has in stock can
+            change them. More parishes are coming.
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {zones.map((z) => (
               <li key={z.id} className="rounded-2xl bg-leaf-deep p-5">
-                <p className="font-display text-h3">{z.parish}</p>
+                <p className="font-display text-lead font-semibold">{z.parish}</p>
                 <dl className="mt-4 space-y-3 text-small">
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-on-leaf-muted">Delivery fee</dt>
-                    <dd className="text-body font-extrabold text-mango tabular-nums">
+                    <dd className="text-body font-semibold text-mango tabular-nums">
                       {formatUsd(z.feeCents)}
                     </dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
-                    <dt className="text-on-leaf-muted">{SPEED_LABEL[z.speed]}, order by</dt>
-                    <dd className="font-bold tabular-nums">{formatClockTime(z.cutoffTime)}</dd>
+                    <dt className="text-on-leaf-muted">
+                      {z.speed === 'same_day' ? 'Same-day aim' : SPEED_LABEL[z.speed]}, order by
+                    </dt>
+                    <dd className="font-semibold tabular-nums">{formatClockTime(z.cutoffTime)}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-on-leaf-muted">Minimum order</dt>
-                    <dd className="font-bold tabular-nums">{formatUsd(z.minOrderCents)}</dd>
+                    <dd className="font-semibold tabular-nums">{formatUsd(z.minOrderCents)}</dd>
                   </div>
                 </dl>
               </li>
@@ -49,7 +51,7 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
           </ul>
           <Link
             href="/delivery"
-            className="mt-8 inline-flex min-h-control items-center gap-2 font-bold text-on-dark underline decoration-mango decoration-2 underline-offset-4 hover:decoration-on-dark"
+            className="mt-8 inline-flex min-h-control items-center gap-2 font-semibold text-on-dark underline decoration-mango decoration-2 underline-offset-4 hover:decoration-on-dark"
           >
             Delivery areas and fees
             <ArrowRight className="size-icon" aria-hidden />
@@ -63,7 +65,7 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
               className="h-full w-full rounded-none"
             />
           </Parallax>
-          <p className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-mango px-4 py-2 text-small font-bold text-ink">
+          <p className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-mango px-4 py-2 text-small font-semibold text-ink">
             <MapPin className="size-icon" aria-hidden />
             Downtown Kingston
           </p>

@@ -22,20 +22,20 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
   return (
     <section
       aria-labelledby="home-departments"
-      className="mx-auto max-w-wide gutter pt-12 md:pt-16"
+      className="mx-auto max-w-wide gutter pt-10 md:pt-12"
     >
       <Reveal className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
-          <h2 id="home-departments" className="font-display text-h2">
+          <h2 id="home-departments" className="font-display text-title font-semibold">
             Shop by department
           </h2>
-          <p className="mt-2 text-ink-body">
+          <p className="mt-1 text-small text-ink-body">
             Prices in US dollars, with the Jamaican dollar amount beside them.
           </p>
         </div>
         <Link
           href="/shop"
-          className="inline-flex min-h-control items-center gap-1 font-bold text-crimson underline-offset-4 hover:underline"
+          className="inline-flex min-h-control items-center gap-1 text-small font-semibold text-crimson underline-offset-4 hover:underline"
         >
           All departments
           <ArrowUpRight className="size-icon" aria-hidden />
@@ -55,12 +55,14 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
               >
                 <span className="flex items-start justify-between gap-2">
                   <span>
-                    <span className="block font-display text-h3 text-ink">{c.name}</span>
-                    <span className="mt-1 block text-small font-semibold text-ink-body">
+                    <span className="block font-display text-lead font-semibold text-ink">
+                      {c.name}
+                    </span>
+                    <span className="block text-xs font-medium text-ink-body">
                       {c.count} {c.count === 1 ? 'item' : 'items'}
                     </span>
                   </span>
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full bg-surface text-ink transition-colors duration-250 group-hover:bg-crimson group-hover:text-on-dark">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-surface text-ink transition-colors duration-250 group-hover:bg-crimson group-hover:text-on-dark">
                     <ArrowUpRight className="size-icon" aria-hidden />
                   </span>
                 </span>
@@ -70,7 +72,7 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
                     alt=""
                     zoom
                     sizes="(min-width: 1024px) 260px, 45vw"
-                    className="photo-loading mx-auto mt-4 aspect-square w-[78%] rounded-t-full sm:mt-5"
+                    className="photo-loading mx-auto mt-4 aspect-square w-[66%] rounded-t-full sm:mt-4"
                   />
                 )}
               </Link>

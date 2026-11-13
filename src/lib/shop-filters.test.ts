@@ -85,18 +85,21 @@ describe('shopQueryString', () => {
 
 describe('applyShopQuery', () => {
   it('finds within the scope by every word', () => {
-    expect(
-      applyShopQuery(demo.products, q({ q: 'milk' }), allCtx).items.map((p) => p.name),
-    ).toEqual(['Evaporated Milk'])
+    const milk = applyShopQuery(demo.products, q({ q: 'milk' }), allCtx).items.map((p) => p.name)
+    expect(milk).toContain('Evaporated Milk')
+    expect(milk.every((name) => /milk/i.test(name))).toBe(true)
     // "grains" is only in the aisle name, Rice & grains
-    expect(
-      applyShopQuery(demo.products, q({ q: 'rice grains' }), allCtx).items.map((p) => p.name),
-    ).toEqual(['Long Grain Rice'])
+    const rice = applyShopQuery(demo.products, q({ q: 'rice grains', page: 9 }), allCtx).items
+    expect(rice.map((p) => p.name)).toContain('Long Grain Rice')
+    // Every hit is in that aisle: both words are in its name
+    expect(rice.every((p) => p.aisleId === 'ais-rice-and-grains')).toBe(true)
   })
 
   it('uses only the first 8 words of the find text', () => {
     const nine = 'rice rice rice rice rice rice rice rice zzz'
-    expect(applyShopQuery(demo.products, q({ q: nine }), allCtx).total).toBe(1)
+    const plain = applyShopQuery(demo.products, q({ q: 'rice' }), allCtx).total
+    expect(plain).toBeGreaterThan(0)
+    expect(applyShopQuery(demo.products, q({ q: nine }), allCtx).total).toBe(plain)
   })
 
   it('filters Groceries by aisle', () => {
@@ -107,7 +110,9 @@ describe('applyShopQuery', () => {
   it.each(Object.keys(SORTS) as (keyof typeof SORTS)[])(
     'puts out-of-stock Ground Coffee last when sorting by %s',
     (sort) => {
-      const r = applyShopQuery(groceries, q({ sort }), groceriesCtx)
+      // Ask for every page: the list is longer than one page now.
+      const r = applyShopQuery(groceries, q({ sort, page: 99 }), groceriesCtx)
+      expect(r.items).toHaveLength(groceries.length)
       expect(r.items.at(-1)?.name).toBe('Ground Coffee')
     },
   )
@@ -143,10 +148,12 @@ describe('facets', () => {
     const under10 = groceries.filter((p) => p.priceCents < 1000)
     expect(Object.values(f.aisles).reduce((a, b) => a + b, 0)).toBe(under10.length)
     expect(f.aisles['baking']).toBe(2)
-    expect(f.aisles['rice-and-grains']).toBe(0)
-    // Price counts ignore the price filter: Any is all 9, the bands split them
-    expect(f.price.any).toBe(9)
-    expect(f.price['under-10'] + f.price['10-25'] + f.price['over-25']).toBe(9)
+    expect(f.aisles['rice-and-grains']).toBe(
+      under10.filter((p) => p.aisleId === 'ais-rice-and-grains').length,
+    )
+    // Price counts ignore the price filter: Any is every grocery, the bands split them
+    expect(f.price.any).toBe(groceries.length)
+    expect(f.price['under-10'] + f.price['10-25'] + f.price['over-25']).toBe(groceries.length)
     // In stock: under USD$10 and visible
     expect(f.inStock).toBe(under10.filter((p) => p.status === 'visible').length)
   })

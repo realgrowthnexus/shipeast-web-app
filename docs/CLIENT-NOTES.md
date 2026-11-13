@@ -58,8 +58,8 @@ Facebook "Shipeast Couriers".
    with a placeholder rate. Markup not final.
 2. Catalogue: about 63 grocery items in ten grocery categories (he says about 90 coming); the
    app has 22 demo products in four departments.
-3. Product photos: his sheet embeds 57 PriceSmart catalogue images. Our rule is not to use
-   PriceSmart's images; the owner has to decide.
+3. Product photos: his sheet embeds 57 PriceSmart catalogue images. The owner decided on
+   November 13 to use them; 58 of his products are now in the demo catalogue with them.
 4. Same-day: his November 3 brief says not to show a guaranteed same-day promise.
 5. Substitution default: "Ask me first".
 6. Policies: his texts are not on the legal pages yet; the August PDFs were written for the

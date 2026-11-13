@@ -32,37 +32,37 @@ export function HomeHero({
   return (
     <section aria-labelledby="home-h1" className="mx-auto max-w-wide gutter pt-4 md:pt-5">
       <div className="relative overflow-hidden rounded-3xl bg-crimson text-on-dark on-dark-focus">
-        <div className="grid items-center gap-10 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-12">
+        <div className="grid items-center gap-10 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:px-12 lg:py-10">
           <div className="lg:col-span-7">
             {parishList && (
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-crimson-deep py-2 pr-4 pl-3 text-xs font-semibold sm:text-small">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-crimson-deep py-2 pr-4 pl-3 text-xs font-medium sm:text-small">
                 <JamaicaFlag />
                 For family in {parishList}
               </p>
             )}
-            <h1 id="home-h1" className="font-display text-mega text-balance">
+            <h1 id="home-h1" className="font-display text-h1 font-semibold text-balance">
               Shop for your family in Jamaica.
             </h1>
-            <p className="mt-5 max-w-2xl text-lead text-on-crimson-muted">
+            <p className="mt-4 max-w-xl text-body text-on-crimson-muted">
               Order from overseas. We shop at a store in Jamaica and deliver to their door, with a
               photo of the till receipt and a photo at the door.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link
                 href="/shop"
-                className="btn-slide inline-flex min-h-control-lg items-center gap-2 rounded-full bg-cream px-7 text-body font-bold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+                className="btn-slide inline-flex min-h-control items-center gap-2 rounded-full bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
               >
                 Start shopping
                 <ArrowRight className="size-icon" aria-hidden />
               </Link>
               <Link
                 href="/baskets"
-                className="inline-flex min-h-control items-center font-bold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
+                className="inline-flex min-h-control items-center font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
               >
                 See ready-made baskets
               </Link>
             </div>
-            <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-small font-semibold">
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-small font-medium">
               {ticks.map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <Check className="size-icon-sm text-mango" strokeWidth={3} aria-hidden />
@@ -73,31 +73,31 @@ export function HomeHero({
           </div>
 
           {/* The groceries, the note that goes in the bag, and the one fact people get wrong. */}
-          <div className="relative mx-auto mb-8 w-full max-w-sm lg:col-span-5 lg:mb-0">
+          <div className="relative mx-auto mb-8 w-full max-w-sm lg:col-span-5 lg:mb-0 lg:max-w-sm">
             <div className="animate-settle rounded-3xl bg-cream p-2 shadow-float [--settle-rotate:2.5deg]">
               <StockPhoto
                 name="homeBags"
                 imgClassName="object-cover"
                 sizes="(min-width: 1024px) 440px, 90vw"
                 preload
-                className="photo-loading aspect-square rounded-2xl"
+                className="photo-loading aspect-[5/4] rounded-2xl"
               />
             </div>
             <div className="absolute -top-5 -right-2 animate-bob lg:-right-6">
-              <p className="grid size-28 animate-settle place-items-center rounded-full bg-mango p-3 text-center font-display text-small leading-tight font-extrabold text-ink shadow-lift [--settle-rotate:10deg] [animation-delay:120ms] sm:size-32 sm:text-body">
+              <p className="grid size-24 animate-settle place-items-center rounded-full bg-mango p-3 text-center font-display text-xs leading-tight font-semibold text-ink shadow-lift [--settle-rotate:10deg] [animation-delay:120ms] sm:size-28 sm:text-small">
                 <span>
                   Bought in Jamaica.
-                  <span className="mt-1 block font-sans text-xs font-bold">
+                  <span className="mt-1 block font-sans text-xs font-semibold">
                     Nothing is shipped.
                   </span>
                 </span>
               </p>
             </div>
-            <figure className="absolute -bottom-10 -left-2 w-52 animate-settle rounded-lg bg-surface px-4 pt-3 pb-4 text-ink shadow-float [--settle-rotate:-5deg] [animation-delay:240ms] sm:w-60 lg:-bottom-6 lg:-left-8">
-              <figcaption className="text-xs font-semibold text-ink-muted">
+            <figure className="absolute -bottom-10 -left-2 w-48 animate-settle rounded-lg bg-surface px-4 pt-3 pb-4 text-ink shadow-float [--settle-rotate:-5deg] [animation-delay:240ms] sm:w-52 lg:-bottom-6 lg:-left-8">
+              <figcaption className="text-xs font-medium text-ink-muted">
                 Example gift note, printed and put in the bag
               </figcaption>
-              <blockquote className="mt-1 font-hand text-[1.6rem] leading-[1.05] text-crimson-deep">
+              <blockquote className="mt-1 font-hand text-[1.35rem] leading-[1.05] text-crimson-deep">
                 For Mummy. Cook something nice. Love, Marcia
               </blockquote>
             </figure>
@@ -110,13 +110,13 @@ export function HomeHero({
         <StaggerItem as="div">
           <Link
             href="/baskets"
-            className="group relative flex h-full min-h-44 card-rise overflow-hidden rounded-3xl bg-mango p-6 text-ink"
+            className="group relative flex h-full min-h-40 card-rise overflow-hidden rounded-3xl bg-mango p-5 text-ink"
           >
             <div className="relative z-raised max-w-[58%]">
-              <h2 className="font-display text-title">Ready-made baskets</h2>
-              <p className="mt-2 font-medium text-ink-body">One tap, one price.</p>
+              <h2 className="font-display text-h3 font-semibold">Ready-made baskets</h2>
+              <p className="mt-1 text-small font-medium text-ink-body">One tap, one price.</p>
               {fromBasketCents !== null && (
-                <p className="mt-4 inline-block -rotate-3 rounded-full bg-ink px-4 py-2 font-display font-extrabold text-on-dark">
+                <p className="mt-3 inline-block -rotate-3 rounded-full bg-ink px-3.5 py-1.5 font-display text-small font-semibold text-on-dark">
                   from {formatUsd(fromBasketCents)}
                 </p>
               )}
@@ -126,7 +126,7 @@ export function HomeHero({
               alt=""
               zoom
               sizes="(min-width: 640px) 220px, 45vw"
-              className="absolute -right-6 -bottom-6 size-40 rotate-6 rounded-3xl shadow-lift sm:size-44"
+              className="absolute -right-6 -bottom-6 size-36 rotate-6 rounded-3xl shadow-lift sm:size-40"
             />
           </Link>
         </StaggerItem>
@@ -135,15 +135,17 @@ export function HomeHero({
         <StaggerItem as="div">
           <Link
             href="/how-it-works"
-            className="group relative flex h-full min-h-44 card-rise overflow-hidden rounded-3xl bg-leaf p-6 text-on-dark focus-visible:outline-mango"
+            className="group relative flex h-full min-h-40 card-rise overflow-hidden rounded-3xl bg-leaf p-5 text-on-dark focus-visible:outline-mango"
           >
             <div className="relative z-raised max-w-[55%] xl:max-w-[64%]">
-              <h2 className="font-display text-title">
+              <h2 className="font-display text-h3 font-semibold">
                 <span className="block">See the receipt.</span>
                 <span className="block">See the door.</span>
               </h2>
-              <p className="mt-2 font-medium text-on-leaf-muted">Two photos with every order.</p>
-              <p className="mt-4 inline-flex items-center gap-2 font-bold text-mango">
+              <p className="mt-1 text-small font-medium text-on-leaf-muted">
+                Two photos with every order.
+              </p>
+              <p className="mt-3 inline-flex items-center gap-2 text-small font-semibold text-mango">
                 How proof works
                 <ArrowRight
                   className="size-icon transition-transform duration-250 group-hover:translate-x-1"
@@ -156,7 +158,7 @@ export function HomeHero({
                 aria-hidden
                 className="absolute -right-2 -bottom-8 w-36 rotate-6 rounded-t-md bg-surface px-3 pt-3 pb-8 text-xs text-ink shadow-lift paper-edge lg:w-44 xl:w-36"
               >
-                <p className="flex items-center gap-1.5 font-bold">
+                <p className="flex items-center gap-1.5 font-semibold">
                   <ReceiptText className="size-icon-sm text-crimson" />
                   Till receipt
                 </p>
@@ -177,10 +179,10 @@ export function HomeHero({
         <StaggerItem as="div" className="sm:col-span-2 xl:col-span-1">
           <Link
             href="/delivery"
-            className="group relative flex h-full min-h-44 card-rise flex-col rounded-3xl bg-surface p-6"
+            className="group relative flex h-full min-h-40 card-rise flex-col rounded-3xl bg-surface p-5"
           >
-            <h2 className="font-display text-title text-ink">Delivered to their door</h2>
-            <ul className="mt-4 flex flex-col gap-x-10 gap-y-2.5 font-medium text-ink-body sm:flex-row sm:flex-wrap xl:flex-col">
+            <h2 className="font-display text-h3 font-semibold text-ink">Delivered to their door</h2>
+            <ul className="mt-4 flex flex-col gap-x-10 gap-y-2 text-small font-medium text-ink-body sm:flex-row sm:flex-wrap xl:flex-col">
               {parishList && (
                 <li className="flex items-start gap-3">
                   <MapPin className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
@@ -191,8 +193,8 @@ export function HomeHero({
                 <li className="flex items-start gap-3">
                   <Clock className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
                   <span>
-                    Same day when you order by{' '}
-                    <strong className="font-bold text-ink">{formatClockTime(cutoff)}</strong>{' '}
+                    We aim for the same day when you order by{' '}
+                    <strong className="font-semibold text-ink">{formatClockTime(cutoff)}</strong>{' '}
                     Jamaica time
                   </span>
                 </li>
@@ -202,12 +204,12 @@ export function HomeHero({
                   <CircleCheck className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
                   <span>
                     Delivery from{' '}
-                    <strong className="font-bold text-ink">{formatUsd(lowestFee)}</strong>
+                    <strong className="font-semibold text-ink">{formatUsd(lowestFee)}</strong>
                   </span>
                 </li>
               )}
             </ul>
-            <p className="mt-auto inline-flex items-center gap-2 pt-4 font-bold text-crimson">
+            <p className="mt-auto inline-flex items-center gap-2 pt-3 text-small font-semibold text-crimson">
               Areas and fees
               <ArrowRight
                 className="size-icon transition-transform duration-250 group-hover:translate-x-1"

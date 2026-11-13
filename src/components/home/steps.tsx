@@ -45,12 +45,12 @@ const lanes: { label: string; tone: 'you' | 'us'; steps: Step[] }[] = [
  */
 export function HomeSteps({ payLine }: { payLine: string }) {
   return (
-    <section aria-labelledby="home-steps" className="mx-auto max-w-wide gutter py-12 md:py-16">
+    <section aria-labelledby="home-steps" className="mx-auto max-w-wide gutter py-10 md:py-12">
       <div className="max-w-2xl">
-        <h2 id="home-steps" className="font-display text-h2">
+        <h2 id="home-steps" className="font-display text-title font-semibold">
           From your phone to their door
         </h2>
-        <p className="mt-2 text-ink-body">Four steps. Pay with {payLine}.</p>
+        <p className="mt-1 text-small text-ink-body">Four steps. Pay with {payLine}.</p>
       </div>
       <div className="mt-8 grid gap-4 lg:grid-cols-2">
         {lanes.map((lane, laneIndex) => (
@@ -64,7 +64,7 @@ export function HomeSteps({ payLine }: { payLine: string }) {
           >
             <p
               className={cn(
-                'self-start rounded-full px-4 py-1.5 text-small font-bold text-on-dark',
+                'self-start rounded-full px-4 py-1.5 text-small font-semibold text-on-dark',
                 lane.tone === 'you' ? 'bg-crimson' : 'bg-leaf',
               )}
             >
@@ -78,20 +78,20 @@ export function HomeSteps({ payLine }: { payLine: string }) {
                     <div className="flex items-center justify-between">
                       <span
                         className={cn(
-                          'font-display text-h1',
+                          'font-display text-h2 font-semibold',
                           lane.tone === 'you' ? 'text-crimson' : 'text-leaf',
                         )}
                         aria-hidden
                       >
                         {n}
                       </span>
-                      <s.icon className="size-7 text-ink" strokeWidth={1.75} aria-hidden />
+                      <s.icon className="size-6 text-ink" strokeWidth={1.75} aria-hidden />
                     </div>
-                    <h3 className="mt-3 font-display text-h3 text-ink">
+                    <h3 className="mt-3 font-display text-lead font-semibold text-ink">
                       <span className="sr-only">Step {n}: </span>
                       {s.title}
                     </h3>
-                    <p className="mt-2 text-ink-body">{s.body}</p>
+                    <p className="mt-1 text-small text-ink-body">{s.body}</p>
                   </li>
                 )
               })}

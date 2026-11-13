@@ -22,14 +22,14 @@ export function HomeShelf({
   allLabel: string
 }) {
   return (
-    <section aria-labelledby="home-shelf" className="pt-12 md:pt-16">
+    <section aria-labelledby="home-shelf" className="pt-10 md:pt-12">
       <div className="mx-auto flex max-w-wide flex-wrap items-end justify-between gap-x-6 gap-y-2 gutter">
-        <h2 id="home-shelf" className="font-display text-h2">
+        <h2 id="home-shelf" className="font-display text-title font-semibold">
           Staples for the kitchen
         </h2>
         <Link
           href={allHref}
-          className="inline-flex min-h-control items-center gap-1 font-bold text-crimson underline-offset-4 hover:underline"
+          className="inline-flex min-h-control items-center gap-1 text-small font-semibold text-crimson underline-offset-4 hover:underline"
         >
           {allLabel}
           <ArrowRight className="size-icon" aria-hidden />
@@ -46,10 +46,10 @@ export function HomeShelf({
                 slug={p.slug}
                 sizes="(min-width: 1024px) 190px, 44vw"
                 eager={i < 3}
-                className="photo-loading aspect-[5/4] rounded-xl"
+                className="aspect-[5/4] rounded-xl"
               />
               <div className="mt-3 min-h-[3.25rem] text-small">
-                <h3 className="line-clamp-2 leading-snug font-bold text-ink">
+                <h3 className="line-clamp-2 leading-snug font-semibold text-ink">
                   <Link
                     href={`/product/${p.slug}`}
                     className="after:absolute after:inset-0 focus-visible:outline-none"
@@ -59,7 +59,7 @@ export function HomeShelf({
                 </h3>
                 <p className="text-xs text-ink-muted">{p.size}</p>
               </div>
-              <p className="mt-1 text-lead font-extrabold text-ink tabular-nums">
+              <p className="mt-1 text-lead font-semibold text-ink tabular-nums">
                 {formatUsd(p.priceCents)}
               </p>
               <p className="text-xs font-medium text-ink-muted tabular-nums">
@@ -79,7 +79,7 @@ export function HomeShelf({
             href={allHref}
             className="group btn-slide flex h-full min-h-56 flex-col justify-between rounded-2xl bg-crimson p-5 text-on-dark"
           >
-            <span className="font-display text-h3 text-balance">{allLabel}</span>
+            <span className="font-display text-lead font-semibold text-balance">{allLabel}</span>
             <span className="grid size-12 place-items-center rounded-full bg-cream text-crimson-deep transition-transform duration-250 group-hover:translate-x-1">
               <ArrowRight className="size-icon" aria-hidden />
             </span>

@@ -18,18 +18,18 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
   return (
     <section
       aria-labelledby="home-proof"
-      className="mt-12 rounded-t-4xl bg-oxblood text-on-dark on-dark-focus md:mt-16"
+      className="mt-10 rounded-t-4xl bg-oxblood text-on-dark on-dark-focus md:mt-12"
     >
-      <div className="mx-auto grid max-w-wide items-center gap-12 gutter py-12 md:py-16 lg:grid-cols-12 lg:gap-8">
+      <div className="mx-auto grid max-w-wide items-center gap-12 gutter py-10 md:py-12 lg:grid-cols-12 lg:gap-8">
         <Reveal className="lg:col-span-5">
-          <h2 id="home-proof" className="font-display text-shout text-balance">
+          <h2 id="home-proof" className="font-display text-title font-semibold text-balance">
             Send groceries, not money.
           </h2>
-          <p className="mt-6 max-w-md text-lead text-on-oxblood-muted">
+          <p className="mt-4 max-w-md text-body text-on-oxblood-muted">
             Cash can be spent on anything. A basket arrives as food, and you see it happen twice:
             the till receipt when we finish shopping, and the bags at the door.
           </p>
-          <ul className="mt-8 space-y-3 font-semibold">
+          <ul className="mt-6 space-y-2.5 text-small font-medium">
             {[
               'A photo of the real till receipt, by email',
               'A photo at the door, and who received it',
@@ -43,7 +43,7 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
           </ul>
           <Link
             href="/how-it-works"
-            className="mt-8 inline-flex min-h-control items-center gap-2 font-bold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
+            className="mt-8 inline-flex min-h-control items-center gap-2 font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
           >
             See the full journey of an order
             <ArrowRight className="size-icon" aria-hidden />
@@ -54,7 +54,7 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
           {receipt && (
             <Reveal as="figure" delay={0.1} className="sm:-rotate-2">
               <div className="rounded-t-lg bg-surface px-5 pt-5 pb-9 text-ink paper-edge">
-                <p className="flex items-center gap-2 text-small font-bold">
+                <p className="flex items-center gap-2 text-small font-semibold">
                   <ReceiptText className="size-icon text-crimson" aria-hidden />
                   {receipt.basketName}
                 </p>
@@ -73,12 +73,12 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
                     </li>
                   )}
                 </ul>
-                <p className="mt-4 flex justify-between border-t-2 border-dashed border-line pt-4 text-body font-extrabold text-ink">
+                <p className="mt-4 flex justify-between border-t-2 border-dashed border-line pt-4 text-body font-semibold text-ink">
                   <span>Total</span>
                   <span className="tabular-nums">{formatJmd(receipt.totalJmd)}</span>
                 </p>
               </div>
-              <figcaption className="mt-3 text-small font-semibold text-on-oxblood-muted">
+              <figcaption className="mt-3 text-small font-medium text-on-oxblood-muted">
                 1. The till receipt. Example, with today&rsquo;s prices.
               </figcaption>
             </Reveal>
@@ -93,12 +93,12 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
                   sizes="(min-width: 1024px) 340px, (min-width: 640px) 45vw, 92vw"
                   className="aspect-[4/3] rounded-2xl"
                 />
-                <p className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-small font-bold text-ink">
+                <p className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-small font-semibold text-ink">
                   <CircleCheck className="size-icon text-leaf" aria-hidden />
                   Delivered 2:41 PM
                 </p>
               </div>
-              <figcaption className="mt-3 text-small font-semibold text-on-oxblood-muted">
+              <figcaption className="mt-3 text-small font-medium text-on-oxblood-muted">
                 2. The photo at the door. Example.
               </figcaption>
             </Reveal>
@@ -114,7 +114,7 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
                   </StaggerItem>
                 ))}
               </Stagger>
-              <p className="mt-3 text-small font-semibold text-on-oxblood-muted">
+              <p className="mt-3 text-small font-medium text-on-oxblood-muted">
                 What your family gets by text. Example wording. No app, no account.
               </p>
             </div>

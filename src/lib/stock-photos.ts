@@ -4,8 +4,8 @@
  *
  * All photos are from Unsplash under the Unsplash License (free for commercial use, no
  * permission needed). Each one was registered as a download through the Unsplash API, and we
- * hotlink images.unsplash.com as Unsplash asks. Never add PriceSmart's own photos, and keep
- * product photos out: those come from ShipEast. See docs/PHOTOGRAPHY.md for the rules.
+ * hotlink images.unsplash.com as Unsplash asks. Stock photos only: product pictures come from
+ * ShipEast and live in public/products (see src/lib/demo/client-products.ts). See docs/PHOTOGRAPHY.md for the rules.
  */
 import { companyPhotos } from './photos/company'
 import { corePhotos } from './photos/core'

@@ -28,20 +28,20 @@ export function HomeBaskets({
 }) {
   const byId = new Map(products.map((p) => [p.id, p]))
   return (
-    <section aria-labelledby="home-baskets" className="mx-auto max-w-wide gutter pt-12 md:pt-16">
+    <section aria-labelledby="home-baskets" className="mx-auto max-w-wide gutter pt-10 md:pt-12">
       <div className="rounded-3xl bg-surface p-5 sm:p-7 lg:p-8">
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
           <div>
-            <h2 id="home-baskets" className="font-display text-h2">
+            <h2 id="home-baskets" className="font-display text-title font-semibold">
               Ready-made baskets
             </h2>
-            <p className="mt-2 text-ink-body">
+            <p className="mt-1 text-small text-ink-body">
               Put together for the usual needs. Add one in a tap.
             </p>
           </div>
           <Link
             href="/baskets"
-            className="inline-flex min-h-control items-center gap-1 font-bold text-crimson underline-offset-4 hover:underline"
+            className="inline-flex min-h-control items-center gap-1 text-small font-semibold text-crimson underline-offset-4 hover:underline"
           >
             All baskets
             <ArrowRight className="size-icon" aria-hidden />
@@ -73,12 +73,12 @@ export function HomeBaskets({
                     ) : (
                       <div className="aspect-[16/10] rounded-2xl bg-cream-deep" />
                     )}
-                    <p className="absolute -bottom-4 left-4 -rotate-3 rounded-full bg-mango px-4 py-1.5 font-display text-h3 text-ink tabular-nums shadow-lift transition-transform duration-250 ease-out-soft group-hover:scale-105 group-hover:rotate-0">
+                    <p className="absolute -bottom-4 left-4 -rotate-3 rounded-full bg-mango px-3.5 py-1 font-display text-lead font-semibold text-ink tabular-nums shadow-lift transition-transform duration-250 ease-out-soft group-hover:scale-105 group-hover:rotate-0">
                       {formatUsd(basket.priceCents)}
                     </p>
                   </div>
                   <div className="flex flex-1 flex-col px-3 pt-7 pb-3">
-                    <h3 className="font-display text-h3 text-ink">
+                    <h3 className="font-display text-lead font-semibold text-ink">
                       <Link
                         href={`/baskets/${basket.slug}`}
                         className="after:absolute after:inset-0 focus-visible:outline-none"
@@ -91,28 +91,28 @@ export function HomeBaskets({
                       {formatJmd(usdCentsToJmd(basket.priceCents, jmdPerUsd))}
                     </p>
                     {saving > 0 && (
-                      <p className="mt-2 self-start rounded-full bg-leaf-soft px-3 py-1 text-xs font-bold text-leaf-deep tabular-nums">
+                      <p className="mt-2 self-start rounded-full bg-leaf-soft px-3 py-1 text-xs font-semibold text-leaf-deep tabular-nums">
                         Save {formatUsd(saving)}
                       </p>
                     )}
                     <ul className="mt-4 space-y-1.5 text-small text-ink-body">
                       {lines.slice(0, SHOWN).map((l) => (
                         <li key={l.id} className="flex gap-2">
-                          <span className="w-7 shrink-0 font-bold text-ink tabular-nums">
+                          <span className="w-7 shrink-0 font-semibold text-ink tabular-nums">
                             {l.qty} ×
                           </span>
                           {l.name}
                         </li>
                       ))}
                       {more > 0 && (
-                        <li className="pl-9 font-semibold text-ink-muted">
+                        <li className="pl-9 font-medium text-ink-muted">
                           and {more} more {more === 1 ? 'item' : 'items'}
                         </li>
                       )}
                     </ul>
                     {unavailable ? (
                       <p className="mt-auto pt-5">
-                        <span className="flex min-h-control items-center justify-center rounded-full bg-cream-deep px-5 font-bold text-ink-body">
+                        <span className="flex min-h-control items-center justify-center rounded-full bg-cream-deep px-5 font-semibold text-ink-body">
                           Not available today
                         </span>
                       </p>
@@ -134,19 +134,19 @@ export function HomeBaskets({
 
         {/* The gift note: the emotional centre of the whole service, so it gets real paper. */}
         <Reveal className="mt-6 flex flex-col items-start gap-5 rounded-3xl bg-surface-selected p-6 sm:flex-row sm:items-center sm:gap-8">
-          <p className="-rotate-2 rounded-lg bg-surface px-5 py-4 font-hand text-[1.5rem] leading-none text-crimson-deep shadow-lift">
+          <p className="-rotate-2 rounded-lg bg-surface px-5 py-4 font-hand text-[1.35rem] leading-none text-crimson-deep shadow-lift">
             Happy birthday, Grandma!
           </p>
           <div>
-            <h3 className="font-display text-h3 text-ink">Add a note.</h3>
-            <p className="mt-1 max-w-xl text-ink-body">
+            <h3 className="font-display text-lead font-semibold text-ink">Add a note.</h3>
+            <p className="mt-1 max-w-xl text-small text-ink-body">
               Write a few words at checkout. We print them and put the note in the bag, so it
               arrives as a gift from you.
             </p>
           </div>
           <Link
             href="/gifts"
-            className="inline-flex min-h-control shrink-0 items-center gap-1 font-bold text-crimson underline-offset-4 hover:underline sm:ml-auto"
+            className="inline-flex min-h-control shrink-0 items-center gap-1 font-semibold text-crimson underline-offset-4 hover:underline sm:ml-auto"
           >
             Gifts and occasions
             <ArrowRight className="size-icon" aria-hidden />

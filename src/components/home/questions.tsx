@@ -16,18 +16,18 @@ export function HomeQuestions({
   whatsapp: string
 }) {
   return (
-    <section aria-labelledby="home-questions" className="mx-auto max-w-wide gutter py-12 md:py-16">
+    <section aria-labelledby="home-questions" className="mx-auto max-w-wide gutter py-10 md:py-12">
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
         <Reveal className="lg:col-span-4">
-          <h2 id="home-questions" className="font-display text-h2 text-balance">
+          <h2 id="home-questions" className="font-display text-title font-semibold text-balance">
             Questions senders ask first
           </h2>
-          <p className="mt-3 text-ink-body">Can&rsquo;t find yours? Ask a person.</p>
+          <p className="mt-2 text-small text-ink-body">Can&rsquo;t find yours? Ask a person.</p>
           <div className="mt-5 flex flex-col items-start gap-1">
             {whatsapp && (
               <a
                 href={`https://wa.me/${whatsapp}`}
-                className="inline-flex min-h-control items-center gap-2 font-bold text-leaf underline-offset-4 hover:underline"
+                className="inline-flex min-h-control items-center gap-2 font-semibold text-leaf underline-offset-4 hover:underline"
               >
                 <MessageCircle className="size-icon" aria-hidden />
                 Message us on WhatsApp
@@ -35,14 +35,14 @@ export function HomeQuestions({
             )}
             <a
               href={`mailto:${email}`}
-              className="inline-flex min-h-control items-center gap-2 font-bold text-crimson underline-offset-4 hover:underline"
+              className="inline-flex min-h-control items-center gap-2 font-semibold text-crimson underline-offset-4 hover:underline"
             >
               <Mail className="size-icon" aria-hidden />
               {email}
             </a>
             <Link
               href="/faq"
-              className="inline-flex min-h-control items-center gap-2 font-bold text-crimson underline-offset-4 hover:underline"
+              className="inline-flex min-h-control items-center gap-2 font-semibold text-crimson underline-offset-4 hover:underline"
             >
               All questions and answers
               <ArrowRight className="size-icon" aria-hidden />

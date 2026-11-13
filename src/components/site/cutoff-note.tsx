@@ -12,7 +12,7 @@ const tones = {
 } as const
 
 /**
- * "Same-day delivery when you order by 1:00 PM Jamaica time." The sentence is server text; the
+ * "Order by 1:00 PM Jamaica time and we aim to deliver the same day." The sentence is server text; the
  * visitor's local time and the countdown are added by a small client child after mount.
  */
 export function CutoffNote({
@@ -30,8 +30,8 @@ export function CutoffNote({
     <p className={cn('flex items-start gap-2 text-small', t.text, className)}>
       <Clock className={cn('mt-0.5 size-icon shrink-0', t.icon)} aria-hidden />
       <span>
-        Same-day delivery when you order by{' '}
-        <strong className="font-bold tabular-nums">{formatClockTime(cutoff)}</strong> Jamaica time.
+        Order by <strong className="font-bold tabular-nums">{formatClockTime(cutoff)}</strong>{' '}
+        Jamaica time and we aim to deliver the same day.
         <CutoffCountdown cutoff={cutoff} />
       </span>
     </p>

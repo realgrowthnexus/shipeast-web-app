@@ -176,6 +176,16 @@ From `CLAUDE.md` and the client, Derion:
   parallax on a photo or two, cards that rise, buttons whose hover colour slides in, photo
   wells that pulse until loaded, a loading skeleton); the top strip is a moving news ticker;
   no giant wordmark in the footer.
+- **Owner's decisions, November 13.** (1) The client's own product pictures (the store's
+  catalogue shots inside his price list) **may be used** for products; they live in
+  `public/products/`. The stock-photo registry still takes Unsplash photos only. (2) **Soften
+  the same-day promise** as the client's policy brief asks: "we aim to deliver the same day",
+  and say delivery times are estimates. Never write a guaranteed same-day promise. (3) **Type
+  and spacing follow upercart.com**: body and card text 14px, product names 14px, prices
+  18px, section titles about 24px, hero headline under 48px, buttons 14px at 44px high,
+  about 40 to 48px between sections. Small and clean, never "zoomed in". (4) **Light weights**: headings
+  semibold (600), buttons, prices and labels semibold or medium, body regular. No extra-bold
+  or black weights except the wordmark.
 - **Client facts to keep in view** (full list: `docs/CLIENT-NOTES.md`): hero words he wrote
   ("Shop for Family in Jamaica. Order from overseas & we shop in Jamaica & deliver to their
   door"), tagline "We Shop. We Deliver. We Care.", WhatsApp 876-797-4301, substitution default
@@ -189,7 +199,9 @@ full handoff is **`docs/HANDOFF.md`**.
 
 **Status (November 13, 2026): Phase 1, step 1: the home page ("home v3") is merged (PR #30)
 and the owner approved the direction. His first round of feedback (compact sizes, motion,
-ticker, hover effects, footer) is applied as v3.1 and waiting for his second look.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+ticker, hover effects, footer) is applied as v3.1, and his second round as v3.2: the client's
+58 real products with their pictures are in the demo catalogue, the same-day wording is
+softened, and type and spacing follow upercart's scale. Waiting for his next look.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
 no other page changed. If the owner approves, roll the new header, footer and palette out to
 the other pages one by one; if not, revise the home page first.
@@ -202,9 +214,10 @@ admin panel (Phase 7) are not started.
 
 **Waiting on the owner or Derion:**
 
-- Owner: review the new home page; decide whether the client's PriceSmart product images
-  (57 inside his spreadsheet) may be used on the site; run migration
-  `0013_product_aisles.sql`; fix GitHub Actions (no runner assigned, an account setting).
+- Owner: review the home page again; run migrations `0013_product_aisles.sql` and
+  `0014_client_grocery_aisles.sql`; fix GitHub Actions (no runner assigned, an account
+  setting). The same-day wording on the other pages still needs the softer line when each
+  page is redone.
 - Derion: final prices and markup, exchange rate, delivery fees and cut-off times, basket
   contents, bank transfer details, TRN and registered address, business hours, real SMS
   wording, a consented driver photo.

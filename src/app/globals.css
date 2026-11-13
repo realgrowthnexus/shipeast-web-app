@@ -190,16 +190,6 @@
   --text-poster--letter-spacing: -0.045em;
   --text-poster--font-weight: 900;
 
-  /* Home v3 display sizes, set in the display face. */
-  --text-shout: clamp(1.875rem, 1.4rem + 2vw, 3rem); /* 30 → 48px: headlines in bands */
-  --text-shout--line-height: 1;
-  --text-shout--letter-spacing: -0.03em;
-  --text-shout--font-weight: 800;
-  --text-mega: clamp(2.5rem, 1.7rem + 3.4vw, 4.25rem); /* 40 → 68px: the home hero line */
-  --text-mega--line-height: 0.94;
-  --text-mega--letter-spacing: -0.04em;
-  --text-mega--font-weight: 800;
-
   /*
    * Sizes. The 4px spacing grid is Tailwind's own (`p-4` = 16px). These name the sizes that
    * have a rule behind them.

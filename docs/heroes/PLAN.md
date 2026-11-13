@@ -578,7 +578,7 @@ photo layer.
         imgClassName="object-[72%_center] md:object-[62%_center] lg:object-[60%_40%]"
         className="absolute inset-0 rounded-none"
       />
-      <div className="bg-photo-scrim-ink absolute inset-0" />
+      <div className="absolute inset-0 bg-photo-scrim-ink" />
     </div>
 
     <div className="mx-auto max-w-wide gutter pb-10 lg:grid lg:min-h-[640px] lg:grid-cols-12 lg:items-end lg:gap-8 lg:pt-32 lg:pb-12 xl:min-h-[720px]">

@@ -1,7 +1,7 @@
 # Client brief — ShipEast Shop & Send
 
 Source material: the WhatsApp history with the client (April–October 2026), the
-*Shop & Send* concept proposal, the *Scope overview* and the *Quote* (all October 2026).
+_Shop & Send_ concept proposal, the _Scope overview_ and the _Quote_ (all October 2026).
 
 ## The client
 
@@ -34,25 +34,25 @@ markup + service fee), revvcouriers.com (St. Thomas courier, new website), Price
 
 ## Three users + one non-user
 
-| Who | Where | Interface |
-|---|---|---|
-| Sender | Overseas, laptop or phone | Public website + shop + account |
-| Driver | Jamaica, in the aisle and on the road | Driver PWA at `/driver` (no app store) |
-| Admin (ShipEast team) | Jamaica | Admin panel at `/admin` |
-| Recipient (family) | Jamaica | **Nothing to install** — SMS only |
+| Who                   | Where                                 | Interface                              |
+| --------------------- | ------------------------------------- | -------------------------------------- |
+| Sender                | Overseas, laptop or phone             | Public website + shop + account        |
+| Driver                | Jamaica, in the aisle and on the road | Driver PWA at `/driver` (no app store) |
+| Admin (ShipEast team) | Jamaica                               | Admin panel at `/admin`                |
+| Recipient (family)    | Jamaica                               | **Nothing to install** — SMS only      |
 
 ## Decisions made
 
-| Topic | Decision |
-|---|---|
-| Domain | `shipeastja.com` — website at root, `/driver`, `/admin`. (`admin.shipeastja.com` belongs to the separate delivery app.) |
+| Topic              | Decision                                                                                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Domain             | `shipeastja.com` — website at root, `/driver`, `/admin`. (`admin.shipeastja.com` belongs to the separate delivery app.)                                     |
 | Coverage at launch | **St. Thomas and Kingston**, as Derion said, until they expand. Zones, fees, cut-offs are configurable in admin; other parishes exist but are switched off. |
-| Payments | PayPal (wallet + guest card) and bank transfer confirmed by admin. Provider interface so Stripe can be added later. |
-| Currency | Shelf prices stored in US cents. J$ shown alongside using an admin-set exchange rate. |
-| Timeline | Quality over speed (agreed with Touseef). |
-| Backend | Supabase + Vercel, connected later by Touseef. SQL is handed over to run manually. |
-| Legal pages | We build pages + layout; wording reviewed by ShipEast (ideally a lawyer). |
-| Product photos | Never copy PriceSmart's images. Use our own branded placeholders until ShipEast supplies photos. |
+| Payments           | PayPal (wallet + guest card) and bank transfer confirmed by admin. Provider interface so Stripe can be added later.                                         |
+| Currency           | Shelf prices stored in US cents. J$ shown alongside using an admin-set exchange rate.                                                                       |
+| Timeline           | Quality over speed (agreed with Touseef).                                                                                                                   |
+| Backend            | Supabase + Vercel, connected later by Touseef. SQL is handed over to run manually.                                                                          |
+| Legal pages        | We build pages + layout; wording reviewed by ShipEast (ideally a lawyer).                                                                                   |
+| Product photos     | Never copy PriceSmart's images. Use our own branded placeholders until ShipEast supplies photos.                                                            |
 
 ## Sold scope (Quote, October 2026)
 
