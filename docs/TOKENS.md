@@ -172,6 +172,20 @@ shoppers learn what it means.
 Use the flag through `src/components/site/jamaica.tsx` (`JamaicaFlag`). No
 striped flag bars.
 
+### Produce (home page, v3.4)
+
+The home page's only colours outside crimson and grey. The page itself is `page` (grey);
+there is no warm neutral. Retired in v3.4: `cream-deep`, `mango-soft`, `sky-soft`.
+
+| Role            | Primitive   | Hex       | Its one job                                                 |
+| --------------- | ----------- | --------- | ----------------------------------------------------------- |
+| `leaf`          | `leaf-700`  | `#16603D` | The Jamaica band, the "in Jamaica" lane, delivered, added   |
+| `leaf-deep`     | `leaf-800`  | `#0F4A2F` | Hover on leaf, zone cards inside the leaf band, "Save" text |
+| `leaf-soft`     | `leaf-100`  | `#DBF0E6` | SMS bubbles and "Save" pills only                           |
+| `on-leaf-muted` | `leaf-200`  | `#CFE6D6` | Secondary text on leaf and leaf-deep                        |
+| `mango`         | `mango-400` | `#FFC83D` | Price stickers and one highlight per block, never a fill    |
+| `cream`         | `cream-50`  | `#FFF8EE` | The logo's door fill only (`brand-mark.tsx`), nothing else  |
+
 ### Pairs that pass WCAG AA
 
 Checked on every test run. Text needs 4.5:1, control borders and the focus ring 3:1.
@@ -187,6 +201,9 @@ Checked on every test run. Text needs 4.5:1, control borders and the focus ring 
 | `photo-scrim-ink` over a photo                         | `on-dark` only (6.7:1 over white)                         |
 | status `-tint`                                         | its own status colour                                     |
 | `jm-gold`                                              | `ink`, `crimson-deep`                                     |
+| `mango`                                                | `ink`, `ink-body`, `crimson-deep`                         |
+| `leaf-soft`                                            | `ink`, `leaf-deep`                                        |
+| `leaf`, `leaf-deep`                                    | `on-dark`, `mango`, `on-leaf-muted`                       |
 
 ---
 

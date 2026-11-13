@@ -12,7 +12,7 @@ export function HomeGiftNote() {
     <section aria-labelledby="home-gift" className="mx-auto max-w-wide gutter pt-10 md:pt-12">
       <Reveal
         y={0}
-        className="grid items-center gap-6 rounded-2xl bg-surface-selected px-6 py-8 md:grid-cols-12 md:gap-8 md:px-10 md:py-10 lg:px-14 lg:py-12"
+        className="grid items-center gap-6 rounded-2xl bg-crimson px-6 py-8 text-on-dark on-dark-focus md:grid-cols-12 md:gap-8 md:px-10 md:py-10 lg:px-14 lg:py-12"
       >
         <p
           aria-hidden
@@ -21,17 +21,17 @@ export function HomeGiftNote() {
           Happy birthday, Grandma!
         </p>
         <div className="md:col-span-5">
-          <h2 id="home-gift" className="font-display text-title font-semibold text-ink">
+          <h2 id="home-gift" className="font-display text-title font-semibold text-on-dark">
             Add a note
           </h2>
-          <p className="mt-2 max-w-md text-small text-ink-body">
+          <p className="mt-2 max-w-md text-small text-on-crimson-muted">
             Write a few words at checkout. We print them and put the note in the bag, so it arrives
             as a gift from you.
           </p>
         </div>
         <Link
           href="/gifts"
-          className="btn-slide inline-flex min-h-control items-center justify-center gap-2 rounded-md border-2 border-crimson bg-surface px-5 text-small font-semibold text-crimson [--slide:var(--color-crimson)] hover:text-on-dark focus-visible:text-on-dark md:col-span-3 md:justify-self-end"
+          className="btn-slide inline-flex min-h-control items-center justify-center gap-2 rounded-md bg-surface px-5 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] md:col-span-3 md:justify-self-end"
         >
           Gifts and occasions
           <ArrowRight className="size-icon" aria-hidden />

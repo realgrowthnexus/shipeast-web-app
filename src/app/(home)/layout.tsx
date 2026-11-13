@@ -30,7 +30,7 @@ const caveat = Caveat({
 
 /**
  * The home page has its own shell (docs/home-v3/PLAN.md): its own header, footer, fonts and
- * the cream page colour. Every other page keeps the (site) layout untouched.
+ * the grey page colour. Every other page keeps the (site) layout untouched.
  */
 export default async function HomeLayout({ children }: { children: ReactNode }) {
   preconnect('https://images.unsplash.com')
@@ -54,7 +54,7 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
   return (
     <div
       data-home=""
-      className={`${bricolage.variable} ${caveat.variable} flex flex-1 flex-col bg-cream text-ink`}
+      className={`${bricolage.variable} ${caveat.variable} flex flex-1 flex-col bg-page text-ink`}
     >
       <script
         type="application/ld+json"

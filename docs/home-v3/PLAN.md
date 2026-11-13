@@ -256,3 +256,32 @@ The owner's third review, three measured design audits and the manager's rulings
   without JavaScript.
 - **Honesty and trust.** WhatsApp and phone 876-797-4301, "We ask you first" for stock-outs, the
   same-day FAQ softened, one sentence on who we are, Instagram and TikTok in the footer.
+
+## 13. v3.4: colour, and cards that float (November 13, 2026)
+
+Colour audit: `docs/home-v3/audits/colour.md`. Plan:
+`docs/superpowers/plans/2026-11-13-home-v3-4-colour.md`. This section replaces the colour table
+in §2.
+
+| Name         | Hex       | Job                                                                  |
+| ------------ | --------- | -------------------------------------------------------------------- |
+| Crimson      | `#AE0E31` | the brand: hero, gift and closing blocks, every primary action       |
+| Crimson-deep | `#7A0A23` | pressed red; red text on white buttons and the handwritten note      |
+| Oxblood      | `#4A0B1C` | depth and proof: ticker, hero proof card, proof band, footer         |
+| Leaf         | `#16603D` | Jamaica: the delivery band, the "in Jamaica" lane, delivered, added  |
+| Mango        | `#FFC83D` | stickers and price tags only, never a card fill                      |
+| Ink          | `#2B2326` | headings, prices, labels                                             |
+| Page         | `#F7F7F7` | the page behind everything (cream is retired, kept only in the logo) |
+| Surface      | `#FFFFFF` | cards, header, fields, the paper of the receipt and the note         |
+
+- **Sequence:** oxblood ticker, white header, crimson hero, light departments, shelf and
+  baskets, **crimson gift**, **oxblood proof**, light steps, **leaf Jamaica**, light FAQ,
+  **crimson closing**, oxblood footer. Crimson leads every width (8.8 / 7.1 / 10.2 / 8.4% of
+  the page at 375 / 768 / 1024 / 1440, ahead of all greens together).
+- **Gone:** cream page, the pastel department tints, the tinted step lanes, the white panel
+  round the baskets, the yellow and green hero cards. Jamaica's zone cards are white with
+  crimson fees.
+- **Hover:** cards rise over 400ms on a soft curve (`--ease-hover`, slow start, long glide) with
+  the photo zoom on the same curve; the hero cards' entrance (`animate-rise`) now lets go after
+  playing, and the shelf cards no longer lose their transition, so every card glides (23
+  frames, 1% of the lift in the first frame; it used to jump in one).

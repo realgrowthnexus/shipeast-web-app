@@ -95,23 +95,26 @@ const pairs: [string, string, number][] = [
   ['blush', 'crimson', 3],
   ['blush', 'crimson-deep', 3],
   ['blush', 'oxblood', 3],
-  // Home v3 produce roles
-  ...['ink', 'ink-body', 'ink-muted', 'crimson', 'crimson-deep'].flatMap((fg) =>
-    ['cream', 'cream-deep'].map((bg) => [fg, bg, 4.5] as [string, string, number]),
+  // Home v3.4 produce roles (one neutral: the grey page; cream is the logo door only)
+  ['ink', 'page', 4.5],
+  ['ink-body', 'page', 4.5],
+  ['ink-muted', 'page', 4.5],
+  ['crimson', 'page', 4.5],
+  ['signal', 'page', 3],
+  ['line-strong', 'page', 3],
+  ['on-oxblood-muted', 'oxblood', 4.5],
+  ['on-crimson-muted', 'crimson', 4.5],
+  ...['ink', 'ink-body', 'crimson-deep'].map(
+    (fg) => [fg, 'mango', 4.5] as [string, string, number],
   ),
-  ...['mango', 'mango-soft', 'leaf-soft', 'sky-soft'].flatMap((bg) =>
-    ['ink', 'ink-body', 'crimson-deep'].map((fg) => [fg, bg, 4.5] as [string, string, number]),
-  ),
-  ['leaf', 'cream', 4.5],
-  ['leaf', 'surface', 4.5],
+  ['ink', 'leaf-soft', 4.5],
   ['leaf-deep', 'leaf-soft', 4.5],
-  ...['on-dark', 'mango', 'mango-soft', 'on-leaf-muted'].flatMap((fg) =>
+  ['leaf', 'surface', 4.5],
+  ...['on-dark', 'mango', 'on-leaf-muted'].flatMap((fg) =>
     ['leaf', 'leaf-deep'].map((bg) => [fg, bg, 4.5] as [string, string, number]),
   ),
   ['mango', 'oxblood', 4.5],
   ['mango', 'crimson-deep', 4.5],
-  ['line-strong', 'cream', 3],
-  ['signal', 'cream', 3],
 ]
 
 /** Translucent roles (`rgb(r g b / a)`): overlays, checked by what shows through them. */

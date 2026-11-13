@@ -27,7 +27,7 @@ const stripLink =
 const basketClass = 'rounded-md font-semibold lg:min-h-12 lg:px-5'
 
 const aisleLink =
-  'inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson'
+  'inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson'
 
 function HomeSearch({ id, className }: { id: string; className?: string }) {
   return (
@@ -47,7 +47,7 @@ function HomeSearch({ id, className }: { id: string; className?: string }) {
           enterKeyHint="search"
           placeholder="Search rice, diapers, detergent…"
           maxLength={80}
-          className="min-h-control w-full rounded-md border border-line-strong bg-cream pr-28 pl-12 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-ink-muted focus:border-crimson focus:bg-surface focus:outline-none lg:min-h-12"
+          className="min-h-control w-full rounded-md border border-line-strong bg-surface pr-28 pl-12 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-ink-muted focus:border-crimson focus:bg-surface focus:outline-none lg:min-h-12"
         />
         <button
           type="submit"
@@ -142,7 +142,7 @@ export async function HomeHeader({
           <HomeSearch id="home-q" className="hidden max-w-2xl flex-1 lg:block" />
           <Link
             href="/account"
-            className="flex min-h-control shrink-0 items-center gap-2 rounded-md px-3 font-medium text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson lg:ml-auto lg:min-h-12"
+            className="flex min-h-control shrink-0 items-center gap-2 rounded-md px-3 font-medium text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson lg:ml-auto lg:min-h-12"
           >
             <User className="size-icon" aria-hidden />
             <span className="sr-only xl:not-sr-only">Account</span>
@@ -163,14 +163,14 @@ export async function HomeHeader({
       </HeaderShell>
 
       {/* Phones and tablets: the search field gets its own row under the bar. */}
-      <div className="border-b border-cream-deep bg-surface pt-1 pb-4 lg:hidden print:hidden">
+      <div className="border-b border-line bg-surface pt-1 pb-4 lg:hidden print:hidden">
         <HomeSearch id="home-q-sm" className="mx-auto max-w-wide gutter" />
       </div>
 
       {/* Wide screens: the aisles, one tap from the door. */}
       <nav
         aria-label="Departments"
-        className="hidden border-b border-cream-deep bg-surface py-2 lg:block print:hidden"
+        className="hidden border-b border-line bg-surface py-2 lg:block print:hidden"
       >
         <ul className="mx-auto flex max-w-wide items-center gap-1 gutter">
           {departments.map((d) => (
@@ -183,7 +183,7 @@ export async function HomeHeader({
               </Link>
             </li>
           ))}
-          <li aria-hidden className="mx-2 h-6 w-px bg-cream-deep" />
+          <li aria-hidden className="mx-2 h-6 w-px bg-line" />
           <li>
             <Link href="/baskets" className={aisleLink}>
               <ShoppingBag className="size-icon text-crimson" aria-hidden />
