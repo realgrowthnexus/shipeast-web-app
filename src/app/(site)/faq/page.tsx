@@ -7,6 +7,7 @@ import { GuideHero } from '@/components/pages/guide/guide-hero'
 import { Section } from '@/components/site/section'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { getFaqs, getSettings } from '@/lib/data/site'
+import { formatJamaicanPhone } from '@/lib/format'
 import { site } from '@/lib/site'
 import type { Faq } from '@/lib/types'
 
@@ -135,7 +136,7 @@ export default async function FaqPage() {
                   className="inline-flex min-h-control-lg items-center gap-3 rounded-md bg-crimson px-6 font-semibold text-on-dark transition-colors duration-150 hover:bg-crimson-deep"
                 >
                   <MessageCircle className="size-5 shrink-0" aria-hidden />
-                  WhatsApp {settings.whatsapp}
+                  WhatsApp {formatJamaicanPhone(settings.whatsapp) ?? settings.whatsapp}
                 </a>
               )}
               <a

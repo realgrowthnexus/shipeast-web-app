@@ -7,7 +7,7 @@ import type { DeliveryZone, Faq, SiteSettings } from '@/lib/types'
 
 export const settings: SiteSettings = {
   jmdPerUsd: 157,
-  // Left empty until ShipEast confirms the numbers; WhatsApp links hide when empty.
+  // Derion's WhatsApp and phone (docs/CLIENT-NOTES.md). Links hide when a number is empty.
   whatsapp: '18767974301',
   phone: '18767974301',
   email: 'info@shipeastja.com',

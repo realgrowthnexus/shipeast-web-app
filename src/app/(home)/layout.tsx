@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { preconnect } from 'react-dom'
 import { HomeFooter } from '@/components/home/footer'
 import { HomeHeader } from '@/components/home/header'
+import { HomeHydrated } from '@/components/home/hydrated'
 import { MotionProvider } from '@/components/motion/motion-provider'
 import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
@@ -70,6 +71,7 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
         <style>{'[data-reveal],[data-fade]{opacity:1!important;transform:none!important}'}</style>
       </noscript>
       <MotionProvider>
+        <HomeHydrated />
         {isDemoMode() && <DemoBanner />}
         <HomeHeader parishList={parishList} cutoff={earliestCutoff(zones)} />
         <main id="main" className="flex-1">

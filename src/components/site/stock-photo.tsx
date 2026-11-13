@@ -17,7 +17,7 @@ const unsplashLoader: ImageLoader = ({ src, width, quality }) =>
  * instead of popping (`[data-fade]` in globals.css); a preloaded one, the largest paint, never
  * waits. Without JavaScript the home layout's noscript rule shows it at once.
  */
-export function FadeImage({ alt, className, preload, onLoad, ...props }: ImageProps) {
+export function FadeImage({ alt, className, preload, onLoad, onError, ...props }: ImageProps) {
   return (
     <Image
       {...props}
@@ -27,6 +27,11 @@ export function FadeImage({ alt, className, preload, onLoad, ...props }: ImagePr
       onLoad={(e) => {
         e.currentTarget.parentElement?.setAttribute('data-loaded', '')
         onLoad?.(e)
+      }}
+      onError={(e) => {
+        // A broken picture still stops the pulse and shows its alt text instead of nothing.
+        e.currentTarget.parentElement?.setAttribute('data-loaded', '')
+        onError?.(e)
       }}
       className={cn('transition-[opacity,scale] duration-250', className)}
     />

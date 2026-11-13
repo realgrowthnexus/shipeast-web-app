@@ -21,6 +21,12 @@ describe('home v3.3 tokens', () => {
     expect(css).toMatch(/--duration-reveal:\s*500ms/)
     expect(css).not.toMatch(/animate-bob|@keyframes bob/)
   })
+
+  it('nothing waits on JavaScript that never arrives', () => {
+    expect(css).toMatch(/\[data-home\]:not\(\[data-hydrated\]\) \[data-fade\]\s*\{\s*opacity: 1/)
+    expect(css).toMatch(/\[data-home\]:not\(\[data-hydrated\]\) \[data-reveal\]\s*\{\s*animation: reveal-failsafe/)
+    expect(homeFiles.find((f) => f.path.endsWith('layout.tsx'))?.text).toContain('<HomeHydrated />')
+  })
 })
 
 /** Every source file of the home page: its route group and its components. */

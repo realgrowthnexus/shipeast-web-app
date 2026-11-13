@@ -78,17 +78,17 @@ export function HomeHero({
               Order from overseas. We shop at a store in Jamaica and deliver to their door, with a
               photo of the till receipt and a photo at the door.
             </p>
-            <div className="mt-8 flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/shop"
-                className="btn-slide inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+                className="btn-slide inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-cream px-6 text-small font-semibold whitespace-nowrap text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
               >
                 Start shopping
                 <ArrowRight className="size-icon" aria-hidden />
               </Link>
               <Link
                 href="/baskets"
-                className="inline-flex min-h-control items-center justify-center font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
+                className="inline-flex min-h-control items-center justify-center font-semibold whitespace-nowrap text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
               >
                 See ready-made baskets
               </Link>

@@ -623,6 +623,21 @@
 [data-home] [data-loaded] > [data-fade] {
   opacity: 1;
 }
+/* Until the page's JavaScript is running (HomeHydrated sets `data-hydrated`), nothing waits on
+   it: photos show at once, and scroll reveals show after 4s whatever happens, so a slow or
+   failed bundle never leaves the page blank. */
+[data-home]:not([data-hydrated]) [data-fade] {
+  opacity: 1;
+}
+[data-home]:not([data-hydrated]) [data-reveal] {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   [data-home] [data-fade] {
     opacity: 1;

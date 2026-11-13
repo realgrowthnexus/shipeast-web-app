@@ -22,7 +22,7 @@ const menuLinks = [
 ]
 
 const stripLink =
-  'inline-flex min-h-10 items-center font-medium text-on-dark underline-offset-4 hover:underline'
+  'inline-flex min-h-11 items-center font-medium text-on-dark underline-offset-4 hover:underline'
 
 const basketClass = 'rounded-md font-semibold lg:min-h-12 lg:px-5'
 
