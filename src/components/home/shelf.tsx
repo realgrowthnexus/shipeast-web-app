@@ -91,7 +91,7 @@ export function HomeShelf({
             className="group btn-slide flex h-full min-h-56 flex-col justify-between rounded-lg bg-crimson p-5 text-on-dark"
           >
             <span className="font-display text-lead font-semibold text-balance">{allLabel}</span>
-            <span className="grid size-12 place-items-center rounded-full bg-cream text-crimson-deep transition-transform duration-250 group-hover:translate-x-1">
+            <span className="grid size-12 place-items-center rounded-full bg-surface text-crimson-deep transition-transform duration-250 group-hover:translate-x-1">
               <ArrowRight className="size-icon" aria-hidden />
             </span>
           </Link>

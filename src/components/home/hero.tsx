@@ -81,7 +81,7 @@ export function HomeHero({
             <div className="mt-8 flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/shop"
-                className="btn-slide inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-cream px-6 text-small font-semibold whitespace-nowrap text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+                className="btn-slide inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-surface px-6 text-small font-semibold whitespace-nowrap text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
               >
                 Start shopping
                 <ArrowRight className="size-icon" aria-hidden />
@@ -99,7 +99,7 @@ export function HomeHero({
         {/* The quick way in. */}
         <Link
           href="/baskets"
-          className={`${card} bg-mango text-ink [animation-delay:240ms] xl:col-span-4`}
+          className={`${card} border border-line bg-surface text-ink [animation-delay:240ms] xl:col-span-4`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">
@@ -107,7 +107,7 @@ export function HomeHero({
             </h2>
             <p className="mt-1 text-small text-ink-body">Put together for you, one price.</p>
             {fromBasketCents !== null && (
-              <p className="mt-2 inline-block -rotate-2 rounded-full bg-ink px-3 py-1 text-small font-semibold text-on-dark">
+              <p className="mt-2 inline-block -rotate-2 rounded-full bg-mango px-3 py-1 text-small font-semibold text-ink">
                 from {formatUsd(fromBasketCents)}
               </p>
             )}
@@ -124,14 +124,14 @@ export function HomeHero({
         {/* The proof. */}
         <Link
           href="/how-it-works"
-          className={`${card} bg-leaf text-on-dark [animation-delay:300ms] focus-visible:outline-mango xl:col-span-4`}
+          className={`${card} bg-oxblood text-on-dark [animation-delay:300ms] xl:col-span-4`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">
               <span className="block">See the receipt.</span>
               <span className="block">See the door.</span>
             </h2>
-            <p className="mt-1 text-small text-on-leaf-muted">Two photos with every order.</p>
+            <p className="mt-1 text-small text-on-oxblood-muted">Two photos with every order.</p>
             <p className="mt-2 inline-flex items-center gap-2 text-small font-semibold text-mango">
               How proof works
               <ArrowRight
@@ -157,7 +157,7 @@ export function HomeHero({
         {/* Where and how much. */}
         <Link
           href="/delivery"
-          className={`${card} bg-surface text-ink [animation-delay:360ms] xl:col-span-4`}
+          className={`${card} border border-line bg-surface text-ink [animation-delay:360ms] xl:col-span-4`}
         >
           <div>
             <h2 className="font-display text-lead leading-tight font-semibold text-balance">

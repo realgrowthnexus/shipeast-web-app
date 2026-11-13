@@ -54,13 +54,7 @@ export function HomeSteps({ payLine }: { payLine: string }) {
       </Reveal>
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         {lanes.map((lane, laneIndex) => (
-          <Reveal
-            key={lane.label}
-            className={cn(
-              'flex flex-col rounded-xl p-5 sm:p-6',
-              lane.tone === 'you' ? 'bg-surface-selected' : 'bg-leaf-soft',
-            )}
-          >
+          <Reveal key={lane.label} className="flex flex-col">
             <p
               className={cn(
                 'self-start rounded-full px-4 py-1.5 text-small font-semibold text-on-dark',
@@ -73,7 +67,10 @@ export function HomeSteps({ payLine }: { payLine: string }) {
               {lane.steps.map((s, i) => {
                 const n = laneIndex * 2 + i + 1
                 return (
-                  <li key={s.title} className="flex flex-col rounded-lg bg-surface p-5">
+                  <li
+                    key={s.title}
+                    className="flex flex-col rounded-lg border border-line bg-surface p-5"
+                  >
                     <div className="flex items-center justify-between">
                       <span
                         className={cn(

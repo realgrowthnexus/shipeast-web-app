@@ -71,7 +71,7 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
           )}
 
           <Reveal as="figure" y={16} delay={0.12} className="sm:rotate-2">
-            <div className="relative rounded-xl bg-cream p-2">
+            <div className="relative rounded-xl bg-surface p-2">
               <StockPhoto
                 name="homeStepToDoor"
                 alt="A paper bag of shopping carried up the steps to a front door"

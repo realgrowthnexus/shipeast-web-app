@@ -26,7 +26,7 @@ export function HomeBaskets({
   const byId = new Map(products.map((p) => [p.id, p]))
   return (
     <section aria-labelledby="home-baskets" className="mx-auto max-w-wide gutter pt-10 md:pt-12">
-      <div className="rounded-2xl bg-surface p-5 md:p-6 lg:p-8">
+      <div>
         <Reveal y={0}>
           <div className="flex items-center justify-between gap-4">
             <h2 id="home-baskets" className="font-display text-title font-semibold">
@@ -48,7 +48,7 @@ export function HomeBaskets({
           </p>
         </Reveal>
 
-        <Stagger className="-mx-5 mt-6 rail gap-4 px-5 pb-6 md:-mx-6 md:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
+        <Stagger className="bleed-gutter mt-6 rail scroll-px-[clamp(1rem,0.422rem+2.465vw,2rem)] gap-4 pb-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {baskets.map(({ basket, itemCount, separateCents }) => {
             const photo = basketPhotos[basket.slug]
             const lines = basket.items.flatMap((item) => {
@@ -59,7 +59,7 @@ export function HomeBaskets({
             const saving = separateCents - basket.priceCents
             return (
               <StaggerItem key={basket.id} className="w-[80%] sm:w-[56%] md:w-[46%] lg:w-auto">
-                <article className="group relative flex h-full card-rise flex-col rounded-xl bg-cream p-2 has-[h3_a:focus-visible]:outline-3 has-[h3_a:focus-visible]:outline-offset-2 has-[h3_a:focus-visible]:outline-signal">
+                <article className="group relative flex h-full card-rise flex-col rounded-xl border border-line bg-surface p-2 hover:border-line-hover has-[h3_a:focus-visible]:outline-3 has-[h3_a:focus-visible]:outline-offset-2 has-[h3_a:focus-visible]:outline-signal">
                   <div className="relative">
                     {photo ? (
                       <StockPhoto
@@ -70,7 +70,7 @@ export function HomeBaskets({
                         className="photo-loading aspect-[16/10] rounded-md"
                       />
                     ) : (
-                      <div className="aspect-[16/10] rounded-md bg-cream-deep" />
+                      <div className="aspect-[16/10] rounded-md bg-surface-muted" />
                     )}
                     <p className="absolute -bottom-4 left-4 -rotate-3 rounded-full bg-mango px-3.5 py-1 font-display text-price font-semibold text-ink tabular-nums shadow-lift transition-transform duration-250 ease-out-soft group-hover:scale-105 group-hover:rotate-0">
                       {formatUsd(basket.priceCents)}

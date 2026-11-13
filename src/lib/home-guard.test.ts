@@ -24,7 +24,9 @@ describe('home v3.3 tokens', () => {
 
   it('nothing waits on JavaScript that never arrives', () => {
     expect(css).toMatch(/\[data-home\]:not\(\[data-hydrated\]\) \[data-fade\]\s*\{\s*opacity: 1/)
-    expect(css).toMatch(/\[data-home\]:not\(\[data-hydrated\]\) \[data-reveal\]\s*\{\s*animation: reveal-failsafe/)
+    expect(css).toMatch(
+      /\[data-home\]:not\(\[data-hydrated\]\) \[data-reveal\]\s*\{\s*animation: reveal-failsafe/,
+    )
     expect(homeFiles.find((f) => f.path.endsWith('layout.tsx'))?.text).toContain('<HomeHydrated />')
   })
 })
@@ -47,5 +49,17 @@ describe('home v3.3 page rules', () => {
   it('the proof headline is the one display-size moment', () => {
     const display = homeFiles.filter((f) => f.text.includes('text-display'))
     expect(display.map((f) => f.path)).toEqual(['src/components/home/proof.tsx'])
+  })
+})
+
+describe('home v3.4 colour', () => {
+  it('the retired tints are gone from the tokens', () => {
+    expect(css).not.toMatch(/--color-(cream-deep|mango-soft|sky-soft):/)
+    expect(css).not.toMatch(/--(cream-200|mango-100|sky-100):/)
+  })
+
+  it('no home file uses cream (it is kept only for the logo door)', () => {
+    const offenders = homeFiles.filter((f) => /cream/.test(f.text))
+    expect(offenders.map((f) => f.path)).toEqual([])
   })
 })

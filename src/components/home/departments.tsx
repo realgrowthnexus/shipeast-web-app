@@ -2,21 +2,20 @@ import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { StockPhoto } from '@/components/site/stock-photo'
-import { cn } from '@/lib/cn'
 import type { StockPhotoKey } from '@/lib/stock-photos'
 import type { Category } from '@/lib/types'
 
-/** Each department has its own shelf colour and photo; unknown ones fall back to cream. */
-const looks: Record<string, { tint: string; photo: StockPhotoKey; crop: string }> = {
-  groceries: { tint: 'bg-mango-soft', photo: 'homeVegBox', crop: 'object-center' },
-  household: { tint: 'bg-leaf-soft', photo: 'catHousehold', crop: 'object-[center_35%]' },
-  pharmacy: { tint: 'bg-sky-soft', photo: 'catPharmacy', crop: 'object-center' },
-  'baby-and-child': { tint: 'bg-surface-selected', photo: 'catBaby', crop: 'object-top' },
+/** Each department has its own photo; the photos tell them apart, so every name strip is white. */
+const looks: Record<string, { photo: StockPhotoKey; crop: string }> = {
+  groceries: { photo: 'homeVegBox', crop: 'object-center' },
+  household: { photo: 'catHousehold', crop: 'object-[center_35%]' },
+  pharmacy: { photo: 'catPharmacy', crop: 'object-center' },
+  'baby-and-child': { photo: 'catBaby', crop: 'object-top' },
 }
 
 /**
  * Departments (docs/home-v3/audits/layout.md §3.3): four tiles whose photo fills the top edge
- * to edge, the name on the department's colour below. No item counts: a thin aisle reads as an
+ * to edge, the name on a white strip below. No item counts: a thin aisle reads as an
  * empty shop on the front page (the shop pages still show them).
  */
 export function HomeDepartments({ categories }: { categories: (Category & { count: number })[] }) {
@@ -47,10 +46,7 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
             <StaggerItem key={c.id}>
               <Link
                 href={`/shop/${c.slug}`}
-                className={cn(
-                  'group relative flex h-full card-rise flex-col overflow-hidden rounded-xl',
-                  look?.tint ?? 'bg-cream-deep',
-                )}
+                className="group relative flex h-full card-rise flex-col overflow-hidden rounded-xl border border-line bg-surface"
               >
                 {look && (
                   <StockPhoto

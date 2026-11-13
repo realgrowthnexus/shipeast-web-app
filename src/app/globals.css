@@ -48,17 +48,15 @@
   /* The client's ink (PDF heading colour). Kept as-is: it is one of the five brand colours. */
   --ink-900: #2b2326;
 
-  /* Produce ramps (home v3, November 13, 2026): the colours of a grocery counter. Cream is the
-     counter, leaf is fresh produce and Jamaica, mango is the price sticker, sky is the
-     pharmacy shelf. Each has one job; crimson still owns the brand. */
+  /* Produce ramps (home v3.4, November 13, 2026): leaf is fresh produce and Jamaica, mango is
+     the price sticker. Each has one job; crimson owns the brand and the grey ramp is the only
+     neutral. Cream stays only for the logo's door fill (brand kit, awaiting review). */
   --cream-50: #fff8ee;
-  --cream-200: #f5e8d3;
-  --leaf-100: #ddf0e1;
+  --leaf-50: #cfe6d6;
+  --leaf-100: #dbf0e6;
   --leaf-700: #16603d;
   --leaf-800: #0f4a2f;
-  --mango-100: #fff0c4;
   --mango-400: #ffc83d;
-  --sky-100: #ddebf8;
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -85,16 +83,13 @@
   --color-signal: var(--crimson-500);
   --color-blush: var(--crimson-200); /* text and icons on crimson, "East" in the wordmark */
 
-  /* Produce (home v3). See docs/home-v3/PLAN.md for the job of each. */
-  --color-cream: var(--cream-50); /* the home page background */
-  --color-cream-deep: var(--cream-200); /* photo wells, quiet tiles and lines on cream */
+  /* Produce (home v3.4). See docs/home-v3/audits/colour.md for the job of each. */
+  --color-cream: var(--cream-50); /* the logo's door fill only; never a page or card fill */
   --color-leaf: var(--leaf-700); /* the Jamaica band, "added" and "delivered" */
   --color-leaf-deep: var(--leaf-800); /* hover on leaf, panels inside the leaf band */
-  --color-leaf-soft: var(--leaf-100); /* tile tint, the Jamaica lane */
-  --color-mango: var(--mango-400); /* price stickers, one highlight per block */
-  --color-mango-soft: var(--mango-100); /* tile tint */
-  --color-sky-soft: var(--sky-100); /* tile tint */
-  --color-on-leaf-muted: #cfe6d6; /* secondary text on leaf */
+  --color-leaf-soft: var(--leaf-100); /* SMS bubbles and "Save" pills */
+  --color-mango: var(--mango-400); /* price stickers, one highlight per block, never a fill */
+  --color-on-leaf-muted: var(--leaf-50); /* secondary text on leaf */
 
   /* Text */
   --color-ink: var(--ink-900); /* headings, prices, labels */
@@ -606,7 +601,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-cream-deep);
+    background: var(--color-surface-muted);
     animation: skeleton-pulse 1.4s var(--ease-in-out-soft) infinite;
     transition: opacity var(--duration-base) var(--ease-out-soft);
   }

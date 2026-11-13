@@ -22,7 +22,7 @@ export function HomeClosing({ parishList, cutoff }: { parishList: string; cutoff
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href="/shop"
-              className="btn-slide inline-flex min-h-12 items-center gap-2 rounded-md bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+              className="btn-slide inline-flex min-h-12 items-center gap-2 rounded-md bg-surface px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
             >
               Start shopping
               <ArrowRight className="size-icon" aria-hidden />
