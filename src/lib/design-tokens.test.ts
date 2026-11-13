@@ -95,6 +95,23 @@ const pairs: [string, string, number][] = [
   ['blush', 'crimson', 3],
   ['blush', 'crimson-deep', 3],
   ['blush', 'oxblood', 3],
+  // Home v3 produce roles
+  ...['ink', 'ink-body', 'ink-muted', 'crimson', 'crimson-deep'].flatMap((fg) =>
+    ['cream', 'cream-deep'].map((bg) => [fg, bg, 4.5] as [string, string, number]),
+  ),
+  ...['mango', 'mango-soft', 'leaf-soft', 'sky-soft'].flatMap((bg) =>
+    ['ink', 'ink-body', 'crimson-deep'].map((fg) => [fg, bg, 4.5] as [string, string, number]),
+  ),
+  ['leaf', 'cream', 4.5],
+  ['leaf', 'surface', 4.5],
+  ['leaf-deep', 'leaf-soft', 4.5],
+  ...['on-dark', 'mango', 'mango-soft', 'on-leaf-muted'].flatMap((fg) =>
+    ['leaf', 'leaf-deep'].map((bg) => [fg, bg, 4.5] as [string, string, number]),
+  ),
+  ['mango', 'oxblood', 4.5],
+  ['mango', 'crimson-deep', 4.5],
+  ['line-strong', 'cream', 3],
+  ['signal', 'cream', 3],
 ]
 
 /** Translucent roles (`rgb(r g b / a)`): overlays, checked by what shows through them. */
@@ -194,6 +211,8 @@ describe('components use tokens', () => {
       'title',
       'numeral',
       'display',
+      'shout',
+      'mega',
       'poster',
       'left',
       'center',

@@ -6,7 +6,7 @@ instructions so they never have to be explained again. Read it fully before doin
 exceptions unless the owner changes them in this file.**
 
 If a session ends (account limit, timeout, crash), the next session continues from
-**§7 Resume here** without asking the owner to repeat anything.
+**§8 Resume here** without asking the owner to repeat anything.
 
 ---
 
@@ -26,7 +26,8 @@ If a session ends (account limit, timeout, crash), the next session continues fr
 
 ## 2. Talking to the owner
 
-- The owner writes in **Roman Urdu / Hindi** (sometimes mixed with English). Understand it fully.
+- The owner writes or dictates in **Roman Urdu** (not Hindi), mixed with English. Voice notes
+  may arrive transcribed in Hindi script; read them as Urdu. Understand it fully.
 - **MUST** always reply in **English**.
 - Keep updates short and plain: what was done, what's next, anything that needs their call.
 
@@ -150,47 +151,58 @@ From `CLAUDE.md` and the client, Derion:
 
 ---
 
-## 7. Resume here (keep this section up to date)
+## 7. Owner's direction, November 13, 2026 (newest; overrides older notes where they clash)
+
+- **Take over.** The owner wants the manager to run the project end to end: plan, check,
+  verify, build, control quality. Ask only for decisions that are truly the owner's.
+- **Three major phases, each approved by the owner before the next starts.** Sub-phases are
+  free. Phase 1 is the look of the site, one page at a time, **home page first**. The owner
+  reviews the home page; only if he likes it do the other pages follow.
+- **Save credits.** Touch only the page in hand. Do not redesign, re-screenshot or re-plan
+  other pages unless asked. Use sub-agents only when they clearly save work.
+- **The client sees the surface, not the code.** The UI has to look like an international
+  brand. Layout and visuals come before anything else in Phase 1.
+- **Redesign from zero.** Treat the old page as a blank space. Do not carry over its structure.
+- **The design system is not a cage.** Colours, fonts, sizes, structure, layout and pictures
+  may all change when it makes the page better. New roles go into `globals.css` (the guard
+  test stays green); the client's red stays the brand colour.
+- **It is a grocery shop, not a corporation.** The old pages felt corporate. Lead with food,
+  products, prices and baskets, the way the client's sample **upercart.com** does (sent
+  September 20: product photos, category tiles, product rails). Photos of food and home, not
+  of offices, laptops and phone calls.
+- **Client facts to keep in view** (full list: `docs/CLIENT-NOTES.md`): hero words he wrote
+  ("Shop for Family in Jamaica. Order from overseas & we shop in Jamaica & deliver to their
+  door"), tagline "We Shop. We Deliver. We Care.", WhatsApp 876-797-4301, substitution default
+  "Ask me first", no guaranteed same-day promise in his November 3 policy brief (open
+  question), his price list is in J$ and he wants to edit prices himself in admin.
+
+## 8. Resume here (keep this section up to date)
 
 Update this section whenever a step finishes, so a new session can continue instantly. The
-full handoff (what exists, what's waiting, known limits, how to run and check) is
-**`docs/HANDOFF.md`**. Read it next.
+full handoff is **`docs/HANDOFF.md`**.
 
-**Status (November 7, 2026): nothing is in progress.** All work is merged to `main`, up to
-PR #28. Wait for the owner's next request, then run the §4 workflow.
+**Status (November 13, 2026): Phase 1, step 1: the home page redesign ("home v3") is built
+and waiting for the owner's review.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
+no other page changed. If the owner approves, roll the new header, footer and palette out to
+the other pages one by one; if not, revise the home page first.
 
-**Done so far** (details in `docs/HANDOFF.md` and `docs/DESIGN-DECISIONS.md`):
-
-| Work                                                                                        | PR       |
-| ------------------------------------------------------------------------------------------- | -------- |
-| Design system rebuilt: role tokens, pure neutral base, token guard test                     | #20      |
-| Brain file and skills refreshed (ui-ux-pro-max v2.15.0, frontend-design)                    | #21, #22 |
-| Home page redesign, new header and footer                                                   | #23      |
-| `/shop`, `/baskets`, `/how-it-works`, `/about` redesigned                                   | #24      |
-| Light header, a different hero structure on each page, big-mart `/shop` listing with aisles | #25–#27  |
+**Done before this** (details in `docs/HANDOFF.md` and `docs/DESIGN-DECISIONS.md`): design
+system (#20), brain and skills (#21, #22), earlier home, header and footer (#23), `/shop`,
+`/baskets`, `/how-it-works`, `/about` (#24), light header, heroes and the shop listing
+(#25–#27). Phases 0–5 of `docs/PLAN.md` are built on demo data; the driver app (Phase 6) and
+admin panel (Phase 7) are not started.
 
 **Waiting on the owner or Derion:**
 
-- Run migration `0013_product_aisles.sql`.
-- Fix GitHub Actions: CI gets no runner, an account setting. Until it's fixed, run
-  `npm run check` locally and post the result on the PR.
-- Derion to provide:
-  - confirmation of the aisle names
-  - real product photos
-  - a consented driver or vehicle photo
-  - the real SMS wording
-  - Sunday and holiday delivery rules
-  - the TRN and registered address
-
-**Likely next work:**
-
-- Redesign the remaining older pages, listed in `docs/HANDOFF.md` §1.
-- Phase 6, the driver PWA.
-- Phase 7, the admin panel.
+- Owner: review the new home page; decide whether the client's PriceSmart product images
+  (57 inside his spreadsheet) may be used on the site; run migration
+  `0013_product_aisles.sql`; fix GitHub Actions (no runner assigned, an account setting).
+- Derion: final prices and markup, exchange rate, delivery fees and cut-off times, basket
+  contents, bank transfer details, TRN and registered address, business hours, real SMS
+  wording, a consented driver photo.
 
 **How to resume:**
 
-1. Read this file, `docs/HANDOFF.md` and `CLAUDE.md`.
-2. If a task table here shows a step not "Done", continue from it. Check the files on disk
-   first: agents may have finished writing before a session ended.
-3. Otherwise wait for the owner's request.
+1. Read this file, `docs/HANDOFF.md`, `docs/CLIENT-NOTES.md` and `CLAUDE.md`.
+2. If the owner has given feedback on the home page, act on it. Otherwise wait.

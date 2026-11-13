@@ -103,3 +103,22 @@ export function basketsLead(occasions: Basket['occasion'][]): string {
   if (!phrases.length) return 'Put together for the usual needs. Add one in a tap.'
   return `Put together for the usual needs: ${phrases.join(', ')}. Add one in a tap.`
 }
+
+/** How many products the home shelf shows. */
+export const SHELF_SIZE = 5
+
+/**
+ * The home shelf: products we can sell today that have a real photo, featured ones first, in
+ * catalogue order otherwise. Out-of-stock and hidden products never appear.
+ */
+export function pickShelf<P extends Pick<Product, 'status' | 'featured'>>(
+  products: P[],
+  hasPhoto: (p: P) => boolean,
+  count = SHELF_SIZE,
+): P[] {
+  const sellable = products.filter((p) => p.status === 'visible' && hasPhoto(p))
+  return [...sellable.filter((p) => p.featured), ...sellable.filter((p) => !p.featured)].slice(
+    0,
+    count,
+  )
+}
