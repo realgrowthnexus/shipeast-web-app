@@ -23,6 +23,8 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: 'en_US',
   },
+  // The share cards are the `opengraph-image.png` files beside each page (docs/BRAND.md).
+  twitter: { card: 'summary_large_image' },
 }
 
 export const viewport: Viewport = {
