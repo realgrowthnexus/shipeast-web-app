@@ -34,7 +34,13 @@ export async function generateMetadata({
     title: `${product.name}, ${product.size}`,
     description: product.description,
     alternates: { canonical: `/product/${product.slug}` },
-    openGraph: { title: product.name, description: product.description, type: 'website' },
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      type: 'website',
+      // ShipEast's own product picture when there is one, otherwise the brand card.
+      images: [product.imagePath?.startsWith('/') ? product.imagePath : '/brand/og-default.png'],
+    },
   }
 }
 

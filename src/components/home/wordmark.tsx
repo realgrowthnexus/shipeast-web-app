@@ -1,6 +1,7 @@
+import { BrandMark } from '@/components/site/brand-mark'
 import { cn } from '@/lib/cn'
 
-/** The home wordmark: "ShipEast" in the display face, with the service name beside it. */
+/** The logo lock-up: the door mark, "ShipEast" in the display face, and the service name. */
 export function HomeWordmark({
   onDark = false,
   className,
@@ -9,7 +10,8 @@ export function HomeWordmark({
   className?: string
 }) {
   return (
-    <span className={cn('inline-flex items-baseline gap-2 leading-none', className)}>
+    <span className={cn('inline-flex items-center gap-2 leading-none', className)}>
+      <BrandMark ring={onDark} />
       <span
         className={cn(
           'font-display text-2xl font-bold tracking-tight',

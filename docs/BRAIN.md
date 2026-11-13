@@ -201,7 +201,9 @@ full handoff is **`docs/HANDOFF.md`**.
 and the owner approved the direction. His first round of feedback (compact sizes, motion,
 ticker, hover effects, footer) is applied as v3.1, and his second round as v3.2: the client's
 58 real products with their pictures are in the demo catalogue, the same-day wording is
-softened, and type and spacing follow upercart's scale. Waiting for his next look.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+softened, and type and spacing follow upercart's scale (merged, PR #31). A first brand kit
+(door mark, logo files, favicon, phone icons, one share card per main page) is built and
+waiting for his feedback: `docs/BRAND.md`.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
 no other page changed. If the owner approves, roll the new header, footer and palette out to
 the other pages one by one; if not, revise the home page first.
