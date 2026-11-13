@@ -235,7 +235,7 @@
 
 /* How far a block rises on reveal. Mirrored as `rise` in src/lib/motion.ts. */
 :root {
-  --motion-rise: 16px;
+  --motion-rise: 12px;
   /* The sticky header bar: 64px on phones, 72px from 768px. Anchors and sticky columns
      offset by it (scroll-mt-header). */
   --header-height: 4rem;

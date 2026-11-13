@@ -63,7 +63,6 @@ export default async function HomePage() {
       <HomeHero
         parishList={parishList}
         zones={zones}
-        cutoff={cutoff}
         fromBasketCents={
           featured.length ? Math.min(...featured.map((b) => b.basket.priceCents)) : null
         }
