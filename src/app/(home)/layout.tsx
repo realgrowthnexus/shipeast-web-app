@@ -4,12 +4,14 @@ import { preconnect } from 'react-dom'
 import { HomeFooter } from '@/components/home/footer'
 import { HomeHeader } from '@/components/home/header'
 import { HomeHydrated } from '@/components/home/hydrated'
+import { SupportChat } from '@/components/home/support-chat'
 import { MotionProvider } from '@/components/motion/motion-provider'
 import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
-import { getActiveZones, getSettings } from '@/lib/data/site'
+import { getActiveZones, getFaqs, getSettings } from '@/lib/data/site'
 import { isDemoMode } from '@/lib/env'
-import { earliestCutoff, joinParishes } from '@/lib/home'
+import { formatJamaicanPhone } from '@/lib/format'
+import { earliestCutoff, joinParishes, pickHomeFaqs } from '@/lib/home'
 import { site } from '@/lib/site'
 
 /** Headings on the home page: a chunky grotesque that reads like painted shop signage. */
@@ -34,7 +36,7 @@ const caveat = Caveat({
  */
 export default async function HomeLayout({ children }: { children: ReactNode }) {
   preconnect('https://images.unsplash.com')
-  const [settings, zones] = await Promise.all([getSettings(), getActiveZones()])
+  const [settings, zones, faqs] = await Promise.all([getSettings(), getActiveZones(), getFaqs()])
   const parishList = joinParishes(zones.map((z) => z.parish))
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -75,6 +77,16 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
         </main>
         <HomeFooter settings={settings} parishList={parishList} />
         <CookieBanner />
+        <SupportChat
+          faqs={pickHomeFaqs(faqs).map((f) => ({
+            id: f.id,
+            question: f.question,
+            answer: f.answer,
+          }))}
+          whatsapp={settings.whatsapp.replace(/\D/g, '')}
+          email={settings.email}
+          phone={(settings.phone && formatJamaicanPhone(settings.phone)) || ''}
+        />
       </MotionProvider>
     </div>
   )

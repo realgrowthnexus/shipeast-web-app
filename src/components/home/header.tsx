@@ -1,4 +1,4 @@
-import { Gift, MessageCircle, PackageSearch, Search, ShoppingBag, User } from 'lucide-react'
+import { Gift, PackageSearch, Search, ShoppingBag, User } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { BasketLink, BasketLinkFallback } from '@/components/site/basket-link'
@@ -73,7 +73,6 @@ export async function HomeHeader({
   cutoff: string | null
 }) {
   const [categories, settings] = await Promise.all([getCategories(), getSettings()])
-  const whatsapp = settings.whatsapp.replace(/\D/g, '')
   const departments = categories.map((c) => ({
     href: `/shop/${c.slug}`,
     label: c.name,
@@ -113,18 +112,9 @@ export async function HomeHeader({
             </div>
           </div>
           <TickerToggle targetId="home-ticker" />
-          <nav aria-label="Help" className="hidden shrink-0 items-center gap-5 lg:flex">
-            {whatsapp && (
-              <a href={`https://wa.me/${whatsapp}`} className={`${stripLink} gap-2`}>
-                <MessageCircle className="size-icon-sm" aria-hidden />
-                WhatsApp us
-              </a>
-            )}
+          <nav aria-label="Orders" className="hidden shrink-0 items-center gap-5 lg:flex">
             <Link href="/track" className={stripLink}>
               Track an order
-            </Link>
-            <Link href="/faq" className={stripLink}>
-              Questions
             </Link>
           </nav>
         </div>

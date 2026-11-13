@@ -16,6 +16,11 @@ const subscribe = (cb: () => void) => {
   return () => listeners.delete(cb)
 }
 
+/** Whether the visitor has answered the banner yet (other corner widgets wait for it). */
+export function useCookieChoiceMade() {
+  return useSyncExternalStore(subscribe, readConsent, () => null) !== null
+}
+
 /** Essential cookies always on; analytics only if the visitor says yes. Choice kept a year. */
 export function CookieBanner() {
   const consent = useSyncExternalStore(subscribe, readConsent, () => 'pending')

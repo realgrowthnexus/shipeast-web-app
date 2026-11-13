@@ -5,7 +5,6 @@ import { JamaicaFlag } from '@/components/site/jamaica'
 import { formatJamaicanPhone } from '@/lib/format'
 import { site } from '@/lib/site'
 import type { SiteSettings } from '@/lib/types'
-import { HomeWordmark } from './wordmark'
 
 type FooterLink = { href: string; label: string }
 
@@ -84,14 +83,7 @@ export function HomeFooter({
       <div className="mx-auto max-w-wide gutter pt-10 md:pt-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <Link
-              href="/"
-              className="inline-flex min-h-11 items-center rounded-sm"
-              aria-label="ShipEast Shop & Send, home"
-            >
-              <HomeWordmark onDark />
-            </Link>
-            <p className="mt-5 max-w-sm font-display text-h3 font-semibold text-balance text-on-dark">
+            <p className="max-w-sm font-display text-h3 font-semibold text-balance text-on-dark">
               We shop. We deliver. We care.
             </p>
             <p className="mt-3 max-w-sm text-on-oxblood-muted">
