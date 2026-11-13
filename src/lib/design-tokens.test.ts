@@ -206,7 +206,8 @@ describe('components use tokens', () => {
     'bg|text|border(?:-[trblxy])?|divide|ring|ring-offset|outline|fill|stroke|accent|caret|decoration|placeholder|shadow'
   const nonColor = new Set([
     // text sizes and alignment
-    ...['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', 'small', 'body', 'lead', 'h1', 'h2', 'h3'],
+    ...['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', 'small', 'body', 'lead', 'price'],
+    ...['h1', 'h2', 'h3'],
     ...[
       'title',
       'numeral',
