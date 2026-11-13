@@ -83,7 +83,7 @@ export function HomeHero({
                 className="photo-loading aspect-[5/4] rounded-2xl"
               />
             </div>
-            <div className="absolute -top-5 -right-2 animate-bob lg:-right-6">
+            <div className="absolute -top-5 -right-2 lg:-right-6">
               <p className="grid size-24 animate-settle place-items-center rounded-full bg-mango p-3 text-center font-display text-xs leading-tight font-semibold text-ink shadow-lift [--settle-rotate:10deg] [animation-delay:120ms] sm:size-28 sm:text-small">
                 <span>
                   Bought in Jamaica.

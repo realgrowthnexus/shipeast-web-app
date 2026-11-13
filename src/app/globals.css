@@ -158,6 +158,8 @@
   --text-small--line-height: 1.5;
   --text-body: 1rem; /* 16px */
   --text-body--line-height: 1.6;
+  --text-price: 1.125rem; /* 18px: shelf prices and basket price tags (upercart's scale) */
+  --text-price--line-height: 1.25;
   --text-lead: clamp(1.125rem, 1.073rem + 0.221vw, 1.25rem); /* 18 → 20px */
   --text-lead--line-height: 1.55;
   --text-h3: clamp(1.1875rem, 1.135rem + 0.221vw, 1.3125rem); /* 19 → 21px */
@@ -222,8 +224,9 @@
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-fast: 150ms; /* presses, colour changes */
   --duration-base: 250ms; /* hovers, card lift */
+  --duration-panel: 300ms; /* disclosure panels: the FAQ */
   --duration-slow: 450ms; /* menus, header change */
-  --duration-reveal: 700ms; /* the one page-load rise, scroll reveals */
+  --duration-reveal: 500ms; /* the one page-load rise, scroll reveals */
 
   /* Page widths. */
   --container-page: 72rem; /* max-w-page: the normal page column */
@@ -561,11 +564,12 @@
     border-radius: inherit;
     background: var(--slide, var(--color-crimson-deep));
     transform: translateX(-101%);
-    transition: transform var(--duration-slow) var(--ease-out-soft);
+    transition: transform 200ms var(--ease-out-soft);
   }
   &:hover::before,
   &:focus-visible::before {
     transform: translateX(0);
+    transition-duration: 300ms;
   }
   & svg {
     transition: transform var(--duration-base) var(--ease-out-soft);
@@ -582,7 +586,8 @@
   width: max-content;
   animation: ticker 38s linear infinite;
   &:hover,
-  &:focus-within {
+  &:focus-within,
+  &[data-paused] {
     animation-play-state: paused;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -603,16 +608,11 @@
     inset: 0;
     background: var(--color-cream-deep);
     animation: skeleton-pulse 1.4s var(--ease-in-out-soft) infinite;
+    transition: opacity var(--duration-base) var(--ease-out-soft);
   }
-}
-
-/* A slow bob for the hero sticker, so the page is never completely still. */
-@utility animate-bob {
-  animation: bob 5s var(--ease-in-out-soft) infinite;
-}
-@keyframes bob {
-  50% {
-    transform: translateY(-6px) rotate(-3deg);
+  &[data-loaded]::before {
+    animation: none;
+    opacity: 0;
   }
 }
 
@@ -625,8 +625,13 @@
     transform: translateY(-4px);
     box-shadow: var(--shadow-lift);
   }
+  &:active {
+    transform: translateY(-1px);
+    transition-duration: var(--duration-fast);
+  }
   @media (prefers-reduced-motion: reduce) {
-    &:hover {
+    &:hover,
+    &:active {
       transform: none;
     }
   }
