@@ -8,6 +8,8 @@ import {
   joinParishes,
   pickHomeFaqs,
   RECEIPT_MAX_LINES,
+  pickShelf,
+  SHELF_SIZE,
 } from './home'
 
 const products = [
@@ -144,5 +146,34 @@ describe('SPEED_LABEL', () => {
       next_day: 'Next day',
       scheduled: 'Scheduled',
     })
+  })
+})
+
+describe('pickShelf', () => {
+  const p = (
+    id: string,
+    extra: Partial<{ status: 'visible' | 'out_of_stock'; featured: boolean; photo: boolean }> = {},
+  ) => ({
+    id,
+    status: extra.status ?? ('visible' as const),
+    featured: extra.featured ?? false,
+    photo: extra.photo ?? true,
+  })
+  const hasPhoto = (x: { photo: boolean }) => x.photo
+
+  it('puts featured products first and keeps catalogue order otherwise', () => {
+    const list = [p('a'), p('b', { featured: true }), p('c'), p('d', { featured: true })]
+    expect(pickShelf(list, hasPhoto).map((x) => x.id)).toEqual(['b', 'd', 'a', 'c'])
+  })
+
+  it('leaves out products with no photo or not on sale today', () => {
+    const list = [p('a', { photo: false }), p('b', { status: 'out_of_stock' }), p('c')]
+    expect(pickShelf(list, hasPhoto).map((x) => x.id)).toEqual(['c'])
+  })
+
+  it('stops at the shelf size', () => {
+    const list = Array.from({ length: 9 }, (_, i) => p(`p${i}`))
+    expect(pickShelf(list, hasPhoto)).toHaveLength(SHELF_SIZE)
+    expect(pickShelf(list, hasPhoto, 2)).toHaveLength(2)
   })
 })

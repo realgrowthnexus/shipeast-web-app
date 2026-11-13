@@ -47,6 +47,18 @@
 
   /* The client's ink (PDF heading colour). Kept as-is: it is one of the five brand colours. */
   --ink-900: #2b2326;
+
+  /* Produce ramps (home v3, November 13, 2026): the colours of a grocery counter. Cream is the
+     counter, leaf is fresh produce and Jamaica, mango is the price sticker, sky is the
+     pharmacy shelf. Each has one job; crimson still owns the brand. */
+  --cream-50: #fff8ee;
+  --cream-200: #f5e8d3;
+  --leaf-100: #ddf0e1;
+  --leaf-700: #16603d;
+  --leaf-800: #0f4a2f;
+  --mango-100: #fff0c4;
+  --mango-400: #ffc83d;
+  --sky-100: #ddebf8;
 }
 
 /* ------------------------------------------------------------------------------------------
@@ -72,6 +84,17 @@
   /* focus ring, live dot, big numerals. Never text under 24px */
   --color-signal: var(--crimson-500);
   --color-blush: var(--crimson-200); /* text and icons on crimson, "East" in the wordmark */
+
+  /* Produce (home v3). See docs/home-v3/PLAN.md for the job of each. */
+  --color-cream: var(--cream-50); /* the home page background */
+  --color-cream-deep: var(--cream-200); /* photo wells, quiet tiles and lines on cream */
+  --color-leaf: var(--leaf-700); /* the Jamaica band, "added" and "delivered" */
+  --color-leaf-deep: var(--leaf-800); /* hover on leaf, panels inside the leaf band */
+  --color-leaf-soft: var(--leaf-100); /* tile tint, the Jamaica lane */
+  --color-mango: var(--mango-400); /* price stickers, one highlight per block */
+  --color-mango-soft: var(--mango-100); /* tile tint */
+  --color-sky-soft: var(--sky-100); /* tile tint */
+  --color-on-leaf-muted: #cfe6d6; /* secondary text on leaf */
 
   /* Text */
   --color-ink: var(--ink-900); /* headings, prices, labels */
@@ -119,6 +142,10 @@
 
   /* Typeface: Figtree only (the client PDFs' font), weights 400–900. */
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  /* Home v3: a chunky grotesque for headings (shop signage) and one handwritten accent for the
+     gift note. Both load only in the (home) layout; elsewhere they fall back to Figtree. */
+  --font-display: var(--font-bricolage), var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), var(--font-figtree), cursive;
 
   /*
    * Type scale. One modular scale on a 16px body: ratio 1.2 on a 375px phone, growing to 1.3
@@ -163,6 +190,16 @@
   --text-poster--letter-spacing: -0.045em;
   --text-poster--font-weight: 900;
 
+  /* Home v3 display sizes, set in the display face. */
+  --text-shout: clamp(2.125rem, 1.5rem + 2.6vw, 3.625rem); /* 34 → 58px: headlines in bands */
+  --text-shout--line-height: 1;
+  --text-shout--letter-spacing: -0.03em;
+  --text-shout--font-weight: 800;
+  --text-mega: clamp(2.75rem, 1.6rem + 4.9vw, 5.25rem); /* 44 → 84px: the home hero line */
+  --text-mega--line-height: 0.94;
+  --text-mega--letter-spacing: -0.04em;
+  --text-mega--font-weight: 800;
+
   /*
    * Sizes. The 4px spacing grid is Tailwind's own (`p-4` = 16px). These name the sizes that
    * have a rule behind them.
@@ -179,6 +216,8 @@
   --radius-lg: 0.75rem; /* 12px: cards, panels, menus, dialogs */
   --radius-xl: 1rem; /* 16px: feature panels, brand blocks */
   --radius-2xl: 1.5rem; /* 24px: hero frames, full-width bands */
+  --radius-3xl: 2rem; /* 32px: home v3 colour blocks */
+  --radius-4xl: 2.5rem; /* 40px: home v3 full-bleed bands */
 
   /*
    * Elevation. Cards rest flat on a 1px line. Shadows mean "this floats above the page".
@@ -449,4 +488,71 @@
   :root:has([data-listing]) {
     scroll-padding-top: calc(var(--header-height) + 1rem);
   }
+}
+
+/* ------------------------------------------------------------------------------------------
+ * Home v3
+ * ------------------------------------------------------------------------------------------ */
+
+/* The one load moment on the home page: a card settles into its tilt. `--settle-rotate` is the
+   resting angle; stagger with an inline animation-delay. */
+@utility animate-settle {
+  animation: settle var(--duration-reveal) var(--ease-out-soft) both;
+}
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(0deg) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--settle-rotate, 0deg)) scale(1);
+  }
+}
+
+/* A horizontal rail on phones: cards snap, the scrollbar is hidden, the page never scrolls
+   sideways. Becomes a normal grid where the caller says so. */
+@utility rail {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+/* The torn edge under a paper receipt (home v3 proof band). Flat colour, no gradient image:
+   a row of triangles cut with clip-path. */
+@utility paper-edge {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 8px),
+    95% 100%,
+    90% calc(100% - 8px),
+    85% 100%,
+    80% calc(100% - 8px),
+    75% 100%,
+    70% calc(100% - 8px),
+    65% 100%,
+    60% calc(100% - 8px),
+    55% 100%,
+    50% calc(100% - 8px),
+    45% 100%,
+    40% calc(100% - 8px),
+    35% 100%,
+    30% calc(100% - 8px),
+    25% 100%,
+    20% calc(100% - 8px),
+    15% 100%,
+    10% calc(100% - 8px),
+    5% 100%,
+    0 calc(100% - 8px)
+  );
 }
