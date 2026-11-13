@@ -29,8 +29,13 @@ const company: FooterLink[] = [
   { href: '/photo-credits', label: 'Photo credits' },
 ]
 
+const social = [
+  { href: 'https://www.instagram.com/shipeast_couriers', label: 'Instagram @shipeast_couriers' },
+  { href: 'https://www.tiktok.com/@ShipeastJA', label: 'TikTok @ShipeastJA' },
+]
+
 const linkClass =
-  'inline-flex min-h-10 items-center text-small text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
+  'inline-flex min-h-11 items-center text-small text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
 
 /** This year in Jamaica. Cached for a day: Cache Components forbids an uncached `new Date()`. */
 async function CopyrightYear() {
@@ -90,7 +95,7 @@ export function HomeFooter({
       <div className="mx-auto max-w-wide gutter pt-10 md:pt-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <Link href="/" className="rounded-sm" aria-label="ShipEast Shop & Send, home">
+            <Link href="/" className="inline-flex min-h-11 items-center rounded-sm" aria-label="ShipEast Shop & Send, home">
               <HomeWordmark onDark />
             </Link>
             <p className="mt-5 max-w-sm font-display text-h3 font-semibold text-balance text-on-dark">
@@ -123,6 +128,17 @@ export function HomeFooter({
                   </a>
                 </li>
               )}
+            </ul>
+            {/* The handles Derion gave (docs/CLIENT-NOTES.md). Facebook waits for its page link. */}
+            <p className="mt-4 text-small font-semibold text-on-dark">Follow us</p>
+            <ul className="flex flex-wrap gap-x-6">
+              {social.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className={linkClass}>
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">

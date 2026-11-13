@@ -8,6 +8,7 @@ import {
   joinParishes,
   pickHomeFaqs,
   RECEIPT_MAX_LINES,
+  pickFeaturedBaskets,
   pickShelf,
   SHELF_SIZE,
 } from './home'
@@ -175,5 +176,25 @@ describe('pickShelf', () => {
     const list = Array.from({ length: 9 }, (_, i) => p(`p${i}`))
     expect(pickShelf(list, hasPhoto)).toHaveLength(SHELF_SIZE)
     expect(pickShelf(list, hasPhoto, 2)).toHaveLength(2)
+  })
+})
+
+describe('pickFeaturedBaskets', () => {
+  const b = (id: string, featured: boolean) => ({ basket: { id, featured } })
+  const ids = (list: { basket: { id: string } }[]) => list.map((x) => x.basket.id)
+
+  it('drops unavailable featured baskets and tops up from the rest', () => {
+    const all = [b('a', true), b('b', true), b('d', false), b('c', true)]
+    expect(ids(pickFeaturedBaskets(all, new Set(['b'])))).toEqual(['a', 'c', 'd'])
+  })
+
+  it('never returns an unavailable basket', () => {
+    const all = [b('a', true), b('b', false)]
+    expect(pickFeaturedBaskets(all, new Set(['a', 'b']))).toEqual([])
+  })
+
+  it('keeps at most size', () => {
+    const all = ['a', 'b', 'c', 'd', 'e'].map((id) => b(id, true))
+    expect(pickFeaturedBaskets(all, new Set())).toHaveLength(3)
   })
 })

@@ -9,9 +9,9 @@ import { StockPhoto } from '@/components/site/stock-photo'
 export function HomeClosing({ parishList, cutoff }: { parishList: string; cutoff: string | null }) {
   return (
     <section aria-labelledby="home-closing" className="mx-auto max-w-wide gutter pb-10 md:pb-12">
-      <div className="grid overflow-hidden rounded-3xl bg-crimson text-on-dark on-dark-focus md:grid-cols-12">
-        <Reveal className="p-7 sm:p-10 md:col-span-7 lg:p-12">
-          <h2 id="home-closing" className="font-display text-title font-semibold text-balance">
+      <div className="grid overflow-hidden rounded-2xl bg-crimson text-on-dark on-dark-focus md:grid-cols-12">
+        <Reveal y={0} className="p-6 sm:p-10 md:col-span-7 lg:p-12">
+          <h2 id="home-closing" className="font-display text-h2 font-semibold text-balance">
             Start a basket for home.
           </h2>
           <p className="mt-5 max-w-md text-body text-on-crimson-muted">
@@ -22,7 +22,7 @@ export function HomeClosing({ parishList, cutoff }: { parishList: string; cutoff
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href="/shop"
-              className="btn-slide inline-flex min-h-control items-center gap-2 rounded-full bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+              className="btn-slide inline-flex min-h-12 items-center gap-2 rounded-md bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
             >
               Start shopping
               <ArrowRight className="size-icon" aria-hidden />

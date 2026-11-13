@@ -79,6 +79,11 @@ structure.
    - Sunday and holiday delivery rules
    - the TRN and registered address (hidden until provided)
    - the owner row on `/about` (`SHOW_OWNER = false` until he approves)
+   - whether the Christmas Hamper should be buyable this season (the home page hides
+     baskets with an unavailable item, so it no longer shows there)
+   - the Facebook page link (Instagram and TikTok are in the home footer)
+   - the delivery policy (`src/lib/demo/legal.ts`) still promises same-day delivery; it needs
+     the softer "we aim to" wording when the legal pages are redone
 4. **Later services** (from `docs/PLAN.md` §6): connect Supabase, Vercel and the domain, the
    PayPal REST app, Resend and Twilio.
 

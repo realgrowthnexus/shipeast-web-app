@@ -1,6 +1,7 @@
 import { HomeBaskets } from '@/components/home/baskets'
 import { HomeClosing } from '@/components/home/closing'
 import { HomeDepartments } from '@/components/home/departments'
+import { HomeGiftNote } from '@/components/home/gift-note'
 import { HomeHero } from '@/components/home/hero'
 import { HomeJamaica } from '@/components/home/jamaica'
 import { HomeProof } from '@/components/home/proof'
@@ -11,7 +12,14 @@ import { hasProductPhoto } from '@/components/shop/product-image'
 import { buildBasketRows } from '@/lib/baskets'
 import { getProducts } from '@/lib/data/catalogue'
 import { getActiveZones, getBaskets, getCategories, getFaqs, getSettings } from '@/lib/data/site'
-import { buildReceipt, earliestCutoff, joinParishes, pickHomeFaqs, pickShelf } from '@/lib/home'
+import {
+  buildReceipt,
+  earliestCutoff,
+  joinParishes,
+  pickFeaturedBaskets,
+  pickHomeFaqs,
+  pickShelf,
+} from '@/lib/home'
 
 /** The basket printed on the example receipt; the first featured basket if it is gone. */
 const RECEIPT_BASKET = 'family-food-basket'
@@ -30,7 +38,12 @@ export default async function HomePage() {
     getProducts(),
     getFaqs(),
   ])
-  const featured = allBaskets.filter((b) => b.basket.featured)
+  const unavailableIds = new Set(
+    buildBasketRows(allBaskets, products)
+      .filter((r) => r.unavailable.length > 0)
+      .map((r) => r.summary.basket.id),
+  )
+  const featured = pickFeaturedBaskets(allBaskets, unavailableIds)
   const cutoff = earliestCutoff(zones)
   const parishList = joinParishes(zones.map((z) => z.parish))
   const receiptBasket =
@@ -51,7 +64,6 @@ export default async function HomePage() {
       <HomeHero
         parishList={parishList}
         zones={zones}
-        cutoff={cutoff}
         fromBasketCents={
           featured.length ? Math.min(...featured.map((b) => b.basket.priceCents)) : null
         }
@@ -67,15 +79,9 @@ export default async function HomePage() {
         />
       )}
       {featured.length > 0 && (
-        <HomeBaskets
-          baskets={featured}
-          products={products}
-          jmdPerUsd={settings.jmdPerUsd}
-          unavailableIds={buildBasketRows(featured, products)
-            .filter((r) => r.unavailable.length > 0)
-            .map((r) => r.summary.basket.id)}
-        />
+        <HomeBaskets baskets={featured} products={products} jmdPerUsd={settings.jmdPerUsd} />
       )}
+      <HomeGiftNote />
       <HomeProof receipt={receipt} />
       <HomeSteps payLine={bankTransfer ? 'PayPal, a card or bank transfer' : 'PayPal or a card'} />
       <HomeJamaica zones={zones} parishList={parishList} />

@@ -1,6 +1,6 @@
 'use client'
 
-import Image, { type ImageLoader } from 'next/image'
+import Image, { type ImageLoader, type ImageProps } from 'next/image'
 import { cn } from '@/lib/cn'
 import { type StockPhoto as Photo, type StockPhotoKey, stockPhotos } from '@/lib/stock-photos'
 
@@ -10,6 +10,33 @@ import { type StockPhoto as Photo, type StockPhotoKey, stockPhotos } from '@/lib
  */
 const unsplashLoader: ImageLoader = ({ src, width, quality }) =>
   `${src}?auto=format&fit=max&w=${width}&q=${quality ?? 70}`
+
+/**
+ * `next/image` that marks its frame `data-loaded` once the picture is in, so the frame's
+ * `photo-loading` pulse stops. On the home page (`[data-home]`) a lazy picture also fades in
+ * instead of popping (`[data-fade]` in globals.css); a preloaded one, the largest paint, never
+ * waits. Without JavaScript the home layout's noscript rule shows it at once.
+ */
+export function FadeImage({ alt, className, preload, onLoad, onError, ...props }: ImageProps) {
+  return (
+    <Image
+      {...props}
+      alt={alt}
+      preload={preload}
+      data-fade={preload ? undefined : ''}
+      onLoad={(e) => {
+        e.currentTarget.parentElement?.setAttribute('data-loaded', '')
+        onLoad?.(e)
+      }}
+      onError={(e) => {
+        // A broken picture still stops the pulse and shows its alt text instead of nothing.
+        e.currentTarget.parentElement?.setAttribute('data-loaded', '')
+        onError?.(e)
+      }}
+      className={cn('transition-[opacity,scale] duration-250', className)}
+    />
+  )
+}
 
 /**
  * A stock photo from the registry, cropped to the box it sits in. Give it an aspect class
@@ -83,7 +110,7 @@ export function StockImage({
 }) {
   return (
     <div className={cn('relative overflow-hidden rounded-lg bg-page', className)}>
-      <Image
+      <FadeImage
         loader={unsplashLoader}
         src={p.src}
         alt={alt ?? p.alt}
@@ -95,7 +122,7 @@ export function StockImage({
         className={cn(
           'object-cover',
           zoom &&
-            'transition-transform duration-700 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none',
+            'transition-[opacity,scale] duration-400 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none',
           imgClassName,
         )}
         style={p.position && !imgClassName ? { objectPosition: p.position } : undefined}

@@ -1,4 +1,4 @@
-import { Gift, PackageSearch, Search, ShoppingBag, User } from 'lucide-react'
+import { Gift, MessageCircle, PackageSearch, Search, ShoppingBag, User } from 'lucide-react'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { BasketLink, BasketLinkFallback } from '@/components/site/basket-link'
@@ -8,6 +8,7 @@ import { JamaicaFlag } from '@/components/site/jamaica'
 import { MobileMenu, MobileMenuTrigger } from '@/components/site/mobile-menu'
 import { getCategories, getSettings } from '@/lib/data/site'
 import { formatClockTime, formatJamaicanPhone } from '@/lib/format'
+import { TickerToggle } from './ticker-toggle'
 import { HomeWordmark } from './wordmark'
 
 const menuLinks = [
@@ -21,10 +22,12 @@ const menuLinks = [
 ]
 
 const stripLink =
-  'inline-flex min-h-10 items-center font-medium text-on-dark underline-offset-4 hover:underline'
+  'inline-flex min-h-11 items-center font-medium text-on-dark underline-offset-4 hover:underline'
+
+const basketClass = 'rounded-md font-semibold lg:min-h-12 lg:px-5'
 
 const aisleLink =
-  'inline-flex min-h-11 items-center gap-2 rounded-full px-2.5 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson xl:px-3'
+  'inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson'
 
 function HomeSearch({ id, className }: { id: string; className?: string }) {
   return (
@@ -34,7 +37,7 @@ function HomeSearch({ id, className }: { id: string; className?: string }) {
       </label>
       <div className="relative">
         <Search
-          className="pointer-events-none absolute top-1/2 left-5 size-icon -translate-y-1/2 text-ink-muted"
+          className="pointer-events-none absolute top-1/2 left-4 size-icon -translate-y-1/2 text-ink-muted"
           aria-hidden
         />
         <input
@@ -44,11 +47,11 @@ function HomeSearch({ id, className }: { id: string; className?: string }) {
           enterKeyHint="search"
           placeholder="Search rice, diapers, detergent…"
           maxLength={80}
-          className="min-h-control w-full rounded-full border-2 border-cream-deep bg-cream pr-28 pl-13 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-line-strong focus:border-crimson focus:bg-surface focus:outline-none"
+          className="min-h-control w-full rounded-md border border-line-strong bg-cream pr-28 pl-12 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-ink-muted focus:border-crimson focus:bg-surface focus:outline-none lg:min-h-12"
         />
         <button
           type="submit"
-          className="btn-slide absolute top-1 right-1 bottom-1 cursor-pointer rounded-full bg-crimson px-5 text-small font-semibold text-on-dark [--slide:var(--color-oxblood)]"
+          className="btn-slide absolute top-1 right-1 bottom-1 cursor-pointer rounded-sm bg-crimson px-5 text-small font-semibold text-on-dark [--slide:var(--color-oxblood)]"
         >
           Search
         </button>
@@ -70,6 +73,7 @@ export async function HomeHeader({
   cutoff: string | null
 }) {
   const [categories, settings] = await Promise.all([getCategories(), getSettings()])
+  const whatsapp = settings.whatsapp.replace(/\D/g, '')
   const departments = categories.map((c) => ({
     href: `/shop/${c.slug}`,
     label: c.name,
@@ -88,10 +92,10 @@ export async function HomeHeader({
   return (
     <>
       <div className="bg-oxblood text-small text-on-dark on-dark-focus print:hidden">
-        <div className="mx-auto flex min-h-10 max-w-wide items-center gap-x-6 gutter">
+        <div className="mx-auto flex min-h-11 max-w-wide items-center gap-x-4 gutter lg:gap-x-6">
           {/* The news ticker: the same line twice, sliding left; the copy is hidden from readers. */}
           <div className="relative min-w-0 flex-1 overflow-hidden">
-            <div className="ticker">
+            <div id="home-ticker" className="ticker">
               {[false, true].map((copy) => (
                 <ul key={String(copy)} aria-hidden={copy || undefined} className="flex shrink-0">
                   {news.map((line, i) => (
@@ -108,7 +112,14 @@ export async function HomeHeader({
               ))}
             </div>
           </div>
-          <nav aria-label="Help" className="hidden shrink-0 items-center gap-5 pl-2 lg:flex">
+          <TickerToggle targetId="home-ticker" />
+          <nav aria-label="Help" className="hidden shrink-0 items-center gap-5 lg:flex">
+            {whatsapp && (
+              <a href={`https://wa.me/${whatsapp}`} className={`${stripLink} gap-2`}>
+                <MessageCircle className="size-icon-sm" aria-hidden />
+                WhatsApp us
+              </a>
+            )}
             <Link href="/track" className={stripLink}>
               Track an order
             </Link>
@@ -120,24 +131,24 @@ export async function HomeHeader({
       </div>
 
       <HeaderShell>
-        <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter md:h-16 md:gap-4">
+        <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter md:h-18 md:gap-4 lg:h-20">
           <Link
             href="/"
-            className="mr-auto shrink-0 rounded-sm md:mr-2"
+            className="mr-auto shrink-0 rounded-sm py-2 lg:mr-2"
             aria-label="ShipEast Shop & Send, home"
           >
             <HomeWordmark />
           </Link>
-          <HomeSearch id="home-q" className="hidden max-w-2xl flex-1 md:block" />
+          <HomeSearch id="home-q" className="hidden max-w-2xl flex-1 lg:block" />
           <Link
             href="/account"
-            className="flex min-h-control shrink-0 items-center gap-2 rounded-full px-3 font-medium text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson md:ml-auto"
+            className="flex min-h-control shrink-0 items-center gap-2 rounded-md px-3 font-medium text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson lg:ml-auto lg:min-h-12"
           >
             <User className="size-icon" aria-hidden />
             <span className="sr-only xl:not-sr-only">Account</span>
           </Link>
-          <Suspense fallback={<BasketLinkFallback />}>
-            <BasketLink />
+          <Suspense fallback={<BasketLinkFallback className={basketClass} />}>
+            <BasketLink className={basketClass} />
           </Suspense>
           <Suspense fallback={<MobileMenuTrigger />}>
             <MobileMenu
@@ -151,17 +162,17 @@ export async function HomeHeader({
         </div>
       </HeaderShell>
 
-      {/* Phones: the search field gets its own row under the bar. */}
-      <div className="border-b border-cream-deep bg-surface pb-3 md:hidden print:hidden">
+      {/* Phones and tablets: the search field gets its own row under the bar. */}
+      <div className="border-b border-cream-deep bg-surface pt-1 pb-4 lg:hidden print:hidden">
         <HomeSearch id="home-q-sm" className="mx-auto max-w-wide gutter" />
       </div>
 
       {/* Wide screens: the aisles, one tap from the door. */}
       <nav
         aria-label="Departments"
-        className="hidden border-b border-cream-deep bg-surface lg:block print:hidden"
+        className="hidden border-b border-cream-deep bg-surface py-2 lg:block print:hidden"
       >
-        <ul className="mx-auto flex max-w-wide items-center gutter xl:gap-1">
+        <ul className="mx-auto flex max-w-wide items-center gap-1 gutter">
           {departments.map((d) => (
             <li key={d.href}>
               <Link href={d.href} className={aisleLink}>
@@ -172,7 +183,7 @@ export async function HomeHeader({
               </Link>
             </li>
           ))}
-          <li aria-hidden className="mx-2 h-5 w-px bg-cream-deep" />
+          <li aria-hidden className="mx-2 h-6 w-px bg-cream-deep" />
           <li>
             <Link href="/baskets" className={aisleLink}>
               <ShoppingBag className="size-icon text-crimson" aria-hidden />

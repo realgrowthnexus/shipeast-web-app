@@ -1,41 +1,72 @@
-import { ArrowRight, Check, CircleCheck, Clock, MapPin, ReceiptText } from 'lucide-react'
+import { ArrowRight, MapPin, ReceiptText } from 'lucide-react'
 import Link from 'next/link'
-import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { JamaicaFlag } from '@/components/site/jamaica'
 import { StockPhoto } from '@/components/site/stock-photo'
-import { formatClockTime, formatJmd, formatUsd } from '@/lib/format'
+import { formatUsd } from '@/lib/format'
 import type { Receipt } from '@/lib/home'
 import type { DeliveryZone } from '@/lib/types'
 
-const ticks = ['Pay in US dollars', 'Receipt and door photos', 'They install nothing']
+/** The three small cards share one anatomy: words on the left, one small picture on the right. */
+const card =
+  'group grid h-full card-rise grid-cols-[1fr_auto] items-center gap-4 rounded-xl p-5 animate-rise'
+/** The picture slot: hidden on tablets, where three cards sit side by side and run narrow. */
+const visual = 'size-16 shrink-0 sm:size-20 md:max-lg:hidden lg:max-xl:size-16'
 
 /**
- * The hero (docs/home-v3/PLAN.md §3, row 2): one crimson block that says what the shop is,
- * with the groceries, a gift note and a "bought in Jamaica" sticker; then three tiles that
- * answer the next three questions: is there a quick way, how do I know it arrived, where and when.
+ * The hero (docs/home-v3/audits/layout.md §3.2): one shop banner and three small cards, read as
+ * one composition. On wide screens the banner takes eight columns and the cards stack in the
+ * other four, sharing its top and bottom edges. In the banner, red and the photo meet on one
+ * clean seam; on phones the photo comes first, so the first screen shows food. Everything
+ * here moves with CSS, so nothing waits for JavaScript; the headline never moves.
  */
 export function HomeHero({
   parishList,
   zones,
-  cutoff,
   fromBasketCents,
   receipt,
 }: {
   parishList: string
   zones: DeliveryZone[]
-  cutoff: string | null
   /** The lowest featured basket price, or null with no baskets. */
   fromBasketCents: number | null
   receipt: Receipt | null
 }) {
   const lowestFee = zones.length ? Math.min(...zones.map((z) => z.feeCents)) : null
   return (
-    <section aria-labelledby="home-h1" className="mx-auto max-w-wide gutter pt-4 md:pt-5">
-      <div className="relative overflow-hidden rounded-3xl bg-crimson text-on-dark on-dark-focus">
-        <div className="grid items-center gap-10 p-6 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:px-12 lg:py-10">
-          <div className="lg:col-span-7">
+    <section aria-labelledby="home-h1" className="mx-auto max-w-wide gutter pt-4 md:pt-6">
+      <div className="grid gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-12 xl:grid-rows-3">
+        <div className="relative grid overflow-hidden rounded-2xl bg-crimson text-on-dark on-dark-focus md:col-span-3 md:min-h-[400px] md:grid-cols-12 lg:min-h-[440px] xl:col-span-8 xl:row-span-3 xl:min-h-[480px]">
+          {/* The groceries: edge to edge in their half, no frame, no tilt. */}
+          <div className="relative aspect-[16/10] md:order-last md:col-span-5 md:aspect-auto">
+            <StockPhoto
+              name="homeBags"
+              imgClassName="object-cover object-[center_60%]"
+              sizes="(min-width: 1280px) 340px, (min-width: 768px) 42vw, 100vw"
+              preload
+              className="photo-loading absolute inset-0 rounded-none"
+            />
+            <p className="absolute top-4 right-4 grid size-20 animate-settle place-items-center rounded-full bg-mango p-2 text-center font-display text-xs leading-tight font-semibold text-ink shadow-lift [--settle-rotate:10deg] [animation-delay:100ms] sm:top-5 sm:right-5 sm:size-24 sm:text-small">
+              <span>
+                Bought in Jamaica.
+                <span className="mt-0.5 block font-sans text-xs font-semibold">
+                  Nothing is shipped.
+                </span>
+              </span>
+            </p>
+            {/* The note crosses the seam between red and photo, where it reads as a gift. */}
+            <figure className="absolute bottom-8 -left-10 z-raised hidden w-44 animate-settle rounded-md bg-surface px-4 pt-3 pb-4 text-ink shadow-float [--settle-rotate:-4deg] [animation-delay:180ms] lg:block">
+              <figcaption className="text-xs font-medium text-ink-muted">
+                Example gift note, printed and put in the bag
+              </figcaption>
+              <blockquote className="mt-1 font-hand text-[1.35rem] leading-[1.05] text-crimson-deep">
+                For Mummy. Cook something nice. Love, Marcia
+              </blockquote>
+            </figure>
+          </div>
+
+          <div className="flex flex-col justify-center px-6 py-8 md:col-span-7 md:px-10 md:py-10 xl:px-12 xl:py-12">
             {parishList && (
-              <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-crimson-deep py-2 pr-4 pl-3 text-xs font-medium sm:text-small">
+              <p className="mb-5 hidden items-center gap-2 self-start rounded-full bg-crimson-deep py-2 pr-4 pl-3 text-small font-medium sm:inline-flex">
                 <JamaicaFlag />
                 For family in {parishList}
               </p>
@@ -47,178 +78,116 @@ export function HomeHero({
               Order from overseas. We shop at a store in Jamaica and deliver to their door, with a
               photo of the till receipt and a photo at the door.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/shop"
-                className="btn-slide inline-flex min-h-control items-center gap-2 rounded-full bg-cream px-6 text-small font-semibold text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
+                className="btn-slide inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-cream px-6 text-small font-semibold whitespace-nowrap text-crimson-deep [--slide:var(--color-mango)] active:translate-y-px"
               >
                 Start shopping
                 <ArrowRight className="size-icon" aria-hidden />
               </Link>
               <Link
                 href="/baskets"
-                className="inline-flex min-h-control items-center font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
+                className="inline-flex min-h-control items-center justify-center font-semibold whitespace-nowrap text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
               >
                 See ready-made baskets
               </Link>
             </div>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-small font-medium">
-              {ticks.map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <Check className="size-icon-sm text-mango" strokeWidth={3} aria-hidden />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* The groceries, the note that goes in the bag, and the one fact people get wrong. */}
-          <div className="relative mx-auto mb-8 w-full max-w-sm lg:col-span-5 lg:mb-0 lg:max-w-sm">
-            <div className="animate-settle rounded-3xl bg-cream p-2 shadow-float [--settle-rotate:2.5deg]">
-              <StockPhoto
-                name="homeBags"
-                imgClassName="object-cover"
-                sizes="(min-width: 1024px) 440px, 90vw"
-                preload
-                className="photo-loading aspect-[5/4] rounded-2xl"
-              />
-            </div>
-            <div className="absolute -top-5 -right-2 animate-bob lg:-right-6">
-              <p className="grid size-24 animate-settle place-items-center rounded-full bg-mango p-3 text-center font-display text-xs leading-tight font-semibold text-ink shadow-lift [--settle-rotate:10deg] [animation-delay:120ms] sm:size-28 sm:text-small">
-                <span>
-                  Bought in Jamaica.
-                  <span className="mt-1 block font-sans text-xs font-semibold">
-                    Nothing is shipped.
-                  </span>
-                </span>
-              </p>
-            </div>
-            <figure className="absolute -bottom-10 -left-2 w-48 animate-settle rounded-lg bg-surface px-4 pt-3 pb-4 text-ink shadow-float [--settle-rotate:-5deg] [animation-delay:240ms] sm:w-52 lg:-bottom-6 lg:-left-8">
-              <figcaption className="text-xs font-medium text-ink-muted">
-                Example gift note, printed and put in the bag
-              </figcaption>
-              <blockquote className="mt-1 font-hand text-[1.35rem] leading-[1.05] text-crimson-deep">
-                For Mummy. Cook something nice. Love, Marcia
-              </blockquote>
-            </figure>
           </div>
         </div>
-      </div>
 
-      <Stagger as="div" className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {/* Tile B: the quick way in. */}
-        <StaggerItem as="div">
-          <Link
-            href="/baskets"
-            className="group relative flex h-full min-h-40 card-rise overflow-hidden rounded-3xl bg-mango p-5 text-ink"
-          >
-            <div className="relative z-raised max-w-[58%]">
-              <h2 className="font-display text-h3 font-semibold">Ready-made baskets</h2>
-              <p className="mt-1 text-small font-medium text-ink-body">One tap, one price.</p>
-              {fromBasketCents !== null && (
-                <p className="mt-3 inline-block -rotate-3 rounded-full bg-ink px-3.5 py-1.5 font-display text-small font-semibold text-on-dark">
-                  from {formatUsd(fromBasketCents)}
-                </p>
-              )}
-            </div>
-            <StockPhoto
-              name="homeVegBox"
-              alt=""
-              zoom
-              sizes="(min-width: 640px) 220px, 45vw"
-              className="absolute -right-6 -bottom-6 size-36 rotate-6 rounded-3xl shadow-lift sm:size-40"
-            />
-          </Link>
-        </StaggerItem>
-
-        {/* Tile C: the proof. */}
-        <StaggerItem as="div">
-          <Link
-            href="/how-it-works"
-            className="group relative flex h-full min-h-40 card-rise overflow-hidden rounded-3xl bg-leaf p-5 text-on-dark focus-visible:outline-mango"
-          >
-            <div className="relative z-raised max-w-[55%] xl:max-w-[64%]">
-              <h2 className="font-display text-h3 font-semibold">
-                <span className="block">See the receipt.</span>
-                <span className="block">See the door.</span>
-              </h2>
-              <p className="mt-1 text-small font-medium text-on-leaf-muted">
-                Two photos with every order.
+        {/* The quick way in. */}
+        <Link
+          href="/baskets"
+          className={`${card} bg-mango text-ink [animation-delay:240ms] xl:col-span-4`}
+        >
+          <div>
+            <h2 className="font-display text-lead leading-tight font-semibold text-balance">
+              Baskets ready to go
+            </h2>
+            <p className="mt-1 text-small text-ink-body">Put together for you, one price.</p>
+            {fromBasketCents !== null && (
+              <p className="mt-2 inline-block -rotate-2 rounded-full bg-ink px-3 py-1 text-small font-semibold text-on-dark">
+                from {formatUsd(fromBasketCents)}
               </p>
-              <p className="mt-3 inline-flex items-center gap-2 text-small font-semibold text-mango">
-                How proof works
-                <ArrowRight
-                  className="size-icon transition-transform duration-250 group-hover:translate-x-1"
-                  aria-hidden
-                />
-              </p>
-            </div>
-            {receipt && (
-              <div
-                aria-hidden
-                className="absolute -right-2 -bottom-8 w-36 rotate-6 rounded-t-md bg-surface px-3 pt-3 pb-8 text-xs text-ink shadow-lift paper-edge lg:w-44 xl:w-36"
-              >
-                <p className="flex items-center gap-1.5 font-semibold">
-                  <ReceiptText className="size-icon-sm text-crimson" />
-                  Till receipt
-                </p>
-                <ul className="mt-2 space-y-1 text-ink-body">
-                  {receipt.lines.slice(0, 4).map((l) => (
-                    <li key={l.name} className="flex justify-between gap-2">
-                      <span className="truncate">{l.name}</span>
-                      <span className="tabular-nums">{formatJmd(l.jmd)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             )}
-          </Link>
-        </StaggerItem>
+          </div>
+          <StockPhoto
+            name="homeVegBox"
+            alt=""
+            zoom
+            sizes="80px"
+            className={`${visual} rotate-3 rounded-md shadow-lift`}
+          />
+        </Link>
 
-        {/* Tile D: where, when and how much. */}
-        <StaggerItem as="div" className="sm:col-span-2 xl:col-span-1">
-          <Link
-            href="/delivery"
-            className="group relative flex h-full min-h-40 card-rise flex-col rounded-3xl bg-surface p-5"
-          >
-            <h2 className="font-display text-h3 font-semibold text-ink">Delivered to their door</h2>
-            <ul className="mt-4 flex flex-col gap-x-10 gap-y-2 text-small font-medium text-ink-body sm:flex-row sm:flex-wrap xl:flex-col">
-              {parishList && (
-                <li className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
-                  {parishList}
-                </li>
-              )}
-              {cutoff && (
-                <li className="flex items-start gap-3">
-                  <Clock className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
-                  <span>
-                    We aim for the same day when you order by{' '}
-                    <strong className="font-semibold text-ink">{formatClockTime(cutoff)}</strong>{' '}
-                    Jamaica time
-                  </span>
-                </li>
-              )}
+        {/* The proof. */}
+        <Link
+          href="/how-it-works"
+          className={`${card} bg-leaf text-on-dark [animation-delay:300ms] focus-visible:outline-mango xl:col-span-4`}
+        >
+          <div>
+            <h2 className="font-display text-lead leading-tight font-semibold text-balance">
+              <span className="block">See the receipt.</span>
+              <span className="block">See the door.</span>
+            </h2>
+            <p className="mt-1 text-small text-on-leaf-muted">Two photos with every order.</p>
+            <p className="mt-2 inline-flex items-center gap-2 text-small font-semibold text-mango">
+              How proof works
+              <ArrowRight
+                className="size-icon transition-transform duration-250 group-hover:translate-x-1"
+                aria-hidden
+              />
+            </p>
+          </div>
+          {receipt && (
+            <div
+              aria-hidden
+              className={`${visual} flex rotate-3 flex-col gap-1.5 rounded-t-sm bg-surface px-2.5 pt-2.5 pb-4 shadow-lift paper-edge`}
+            >
+              <ReceiptText className="size-icon-sm text-crimson" />
+              {[80, 64, 72, 56].map((w) => (
+                <span key={w} className="h-1 rounded-full bg-line" style={{ width: `${w}%` }} />
+              ))}
+              <span className="mt-auto h-1.5 w-full rounded-full bg-ink-muted" />
+            </div>
+          )}
+        </Link>
+
+        {/* Where and how much. */}
+        <Link
+          href="/delivery"
+          className={`${card} bg-surface text-ink [animation-delay:360ms] xl:col-span-4`}
+        >
+          <div>
+            <h2 className="font-display text-lead leading-tight font-semibold text-balance">
+              Delivered to their door
+            </h2>
+            <p className="mt-1 text-small text-ink-body">
+              {parishList || 'In Jamaica'}
               {lowestFee !== null && (
-                <li className="flex items-start gap-3">
-                  <CircleCheck className="mt-0.5 size-icon shrink-0 text-crimson" aria-hidden />
-                  <span>
-                    Delivery from{' '}
-                    <strong className="font-semibold text-ink">{formatUsd(lowestFee)}</strong>
-                  </span>
-                </li>
+                <>
+                  {', from '}
+                  <strong className="font-semibold text-ink">{formatUsd(lowestFee)}</strong>
+                </>
               )}
-            </ul>
-            <p className="mt-auto inline-flex items-center gap-2 pt-3 text-small font-semibold text-crimson">
+            </p>
+            <p className="mt-2 inline-flex items-center gap-2 text-small font-semibold text-crimson">
               Areas and fees
               <ArrowRight
                 className="size-icon transition-transform duration-250 group-hover:translate-x-1"
                 aria-hidden
               />
             </p>
-          </Link>
-        </StaggerItem>
-      </Stagger>
+          </div>
+          <span
+            aria-hidden
+            className={`${visual} grid place-items-center rounded-full bg-surface-selected text-crimson`}
+          >
+            <MapPin className="size-icon-lg" />
+          </span>
+        </Link>
+      </div>
     </section>
   )
 }

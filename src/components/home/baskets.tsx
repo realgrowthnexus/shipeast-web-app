@@ -11,44 +11,44 @@ import { HomeAddButton } from './add-button'
 const SHOWN = 4
 
 /**
- * Ready-made baskets (PLAN §3, row 6): hamper cards with a price sticker and the first items
- * inside, then the gift note that turns a delivery into a present.
+ * Ready-made baskets (docs/home-v3/audits/layout.md §3.5): hamper cards with a price sticker and
+ * the first items inside. Only baskets we can buy today reach this list (`pickFeaturedBaskets`).
  */
 export function HomeBaskets({
   baskets,
   products,
   jmdPerUsd,
-  unavailableIds,
 }: {
   baskets: BasketSummary[]
   products: Product[]
   jmdPerUsd: number
-  /** Baskets that hold an item we can't buy today. */
-  unavailableIds: string[]
 }) {
   const byId = new Map(products.map((p) => [p.id, p]))
   return (
     <section aria-labelledby="home-baskets" className="mx-auto max-w-wide gutter pt-10 md:pt-12">
-      <div className="rounded-3xl bg-surface p-5 sm:p-7 lg:p-8">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <div>
+      <div className="rounded-2xl bg-surface p-5 md:p-6 lg:p-8">
+        <Reveal y={0}>
+          <div className="flex items-center justify-between gap-4">
             <h2 id="home-baskets" className="font-display text-title font-semibold">
               Ready-made baskets
             </h2>
-            <p className="mt-1 text-small text-ink-body">
-              Put together for the usual needs. Add one in a tap.
-            </p>
+            <Link
+              href="/baskets"
+              className="inline-flex min-h-control shrink-0 items-center gap-1 text-small font-semibold text-crimson underline-offset-4 hover:underline"
+            >
+              <span className="sm:hidden">
+                See all<span className="sr-only"> baskets</span>
+              </span>
+              <span className="hidden sm:inline">All baskets</span>
+              <ArrowRight className="size-icon" aria-hidden />
+            </Link>
           </div>
-          <Link
-            href="/baskets"
-            className="inline-flex min-h-control items-center gap-1 text-small font-semibold text-crimson underline-offset-4 hover:underline"
-          >
-            All baskets
-            <ArrowRight className="size-icon" aria-hidden />
-          </Link>
-        </div>
+          <p className="mt-1 text-small text-ink-body">
+            Put together for the usual needs. Add one in a tap.
+          </p>
+        </Reveal>
 
-        <Stagger className="-mx-5 mt-6 rail gap-4 px-5 pb-6 sm:-mx-8 sm:px-8 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
+        <Stagger className="-mx-5 mt-6 rail gap-4 px-5 pb-6 md:-mx-6 md:px-6 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0 lg:pb-0">
           {baskets.map(({ basket, itemCount, separateCents }) => {
             const photo = basketPhotos[basket.slug]
             const lines = basket.items.flatMap((item) => {
@@ -57,10 +57,9 @@ export function HomeBaskets({
             })
             const more = lines.length - SHOWN
             const saving = separateCents - basket.priceCents
-            const unavailable = unavailableIds.includes(basket.id)
             return (
-              <StaggerItem key={basket.id} className="w-[80%] sm:w-[56%] md:w-auto">
-                <article className="group relative flex h-full card-rise flex-col rounded-3xl bg-cream p-3 has-[h3_a:focus-visible]:outline-3 has-[h3_a:focus-visible]:outline-offset-2 has-[h3_a:focus-visible]:outline-signal">
+              <StaggerItem key={basket.id} className="w-[80%] sm:w-[56%] md:w-[46%] lg:w-auto">
+                <article className="group relative flex h-full card-rise flex-col rounded-xl bg-cream p-2 has-[h3_a:focus-visible]:outline-3 has-[h3_a:focus-visible]:outline-offset-2 has-[h3_a:focus-visible]:outline-signal">
                   <div className="relative">
                     {photo ? (
                       <StockPhoto
@@ -68,12 +67,12 @@ export function HomeBaskets({
                         alt=""
                         zoom
                         sizes="(min-width: 768px) 380px, 92vw"
-                        className="photo-loading aspect-[16/10] rounded-2xl"
+                        className="photo-loading aspect-[16/10] rounded-md"
                       />
                     ) : (
-                      <div className="aspect-[16/10] rounded-2xl bg-cream-deep" />
+                      <div className="aspect-[16/10] rounded-md bg-cream-deep" />
                     )}
-                    <p className="absolute -bottom-4 left-4 -rotate-3 rounded-full bg-mango px-3.5 py-1 font-display text-lead font-semibold text-ink tabular-nums shadow-lift transition-transform duration-250 ease-out-soft group-hover:scale-105 group-hover:rotate-0">
+                    <p className="absolute -bottom-4 left-4 -rotate-3 rounded-full bg-mango px-3.5 py-1 font-display text-price font-semibold text-ink tabular-nums shadow-lift transition-transform duration-250 ease-out-soft group-hover:scale-105 group-hover:rotate-0">
                       {formatUsd(basket.priceCents)}
                     </p>
                   </div>
@@ -110,48 +109,19 @@ export function HomeBaskets({
                         </li>
                       )}
                     </ul>
-                    {unavailable ? (
-                      <p className="mt-auto pt-5">
-                        <span className="flex min-h-control items-center justify-center rounded-full bg-cream-deep px-5 font-semibold text-ink-body">
-                          Not available today
-                        </span>
-                      </p>
-                    ) : (
-                      <HomeAddButton
-                        kind="basket"
-                        id={basket.id}
-                        name={basket.name}
-                        label="Add basket"
-                        className="relative z-raised mt-auto pt-5"
-                      />
-                    )}
+                    <HomeAddButton
+                      kind="basket"
+                      id={basket.id}
+                      name={basket.name}
+                      label="Add basket"
+                      className="relative z-raised mt-auto pt-5"
+                    />
                   </div>
                 </article>
               </StaggerItem>
             )
           })}
         </Stagger>
-
-        {/* The gift note: the emotional centre of the whole service, so it gets real paper. */}
-        <Reveal className="mt-6 flex flex-col items-start gap-5 rounded-3xl bg-surface-selected p-6 sm:flex-row sm:items-center sm:gap-8">
-          <p className="-rotate-2 rounded-lg bg-surface px-5 py-4 font-hand text-[1.35rem] leading-none text-crimson-deep shadow-lift">
-            Happy birthday, Grandma!
-          </p>
-          <div>
-            <h3 className="font-display text-lead font-semibold text-ink">Add a note.</h3>
-            <p className="mt-1 max-w-xl text-small text-ink-body">
-              Write a few words at checkout. We print them and put the note in the bag, so it
-              arrives as a gift from you.
-            </p>
-          </div>
-          <Link
-            href="/gifts"
-            className="inline-flex min-h-control shrink-0 items-center gap-1 font-semibold text-crimson underline-offset-4 hover:underline sm:ml-auto"
-          >
-            Gifts and occasions
-            <ArrowRight className="size-icon" aria-hidden />
-          </Link>
-        </Reveal>
       </div>
     </section>
   )

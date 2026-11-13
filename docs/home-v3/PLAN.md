@@ -227,3 +227,32 @@ The owner approved the direction and asked for a calmer, more compact and more a
   `text-mega` and `text-shout` sizes are gone. The page is 5,590px tall at 1440 (was 7,190).
 - **Weights.** Headings are Bricolage Grotesque at 600 (was 800). Buttons, prices and names
   are 600, links and labels 500, body 400. Only the wordmark stays at 700.
+
+## 12. v3.3: room inside the boxes, one big moment, smooth motion (November 13, 2026)
+
+The owner's third review, three measured design audits and the manager's rulings:
+`docs/home-v3/V3.3-BRIEF.md`, `docs/home-v3/audits/`. Implementation plan:
+`docs/superpowers/plans/2026-11-13-home-v3-3.md`.
+
+- **Header.** Main row 80 / 72 / 64px (desktop / tablet / phone), a 48px search field and
+  basket, the aisle row padded to 61px, search on its own row below 1024px (it was cut off at
+  768). "WhatsApp us" in the top strip, and a pause button for the news ticker.
+- **Hero.** One composition: the crimson banner takes 8 of 12 columns and the three small cards
+  stack beside it, sharing its top and bottom edges. The photo fills the banner's right half
+  edge to edge (no frame, no tilt); on phones it comes first. The cards share one anatomy and
+  appear with CSS, before JavaScript.
+- **Departments.** The arch is gone: the photo fills the top of each tile. No item counts.
+- **Shelf.** 12px cards, products on the same grey square, prices 18px on one line, outline Add
+  buttons, and one line stating the J$ guide rate.
+- **Baskets and gift.** Only baskets we can buy today show (topped up to three). The gift note
+  is its own block.
+- **Proof.** The one big moment: "Send groceries, not money." at `text-display` (48 → 77px), then
+  receipt, door photo and texts side by side, arriving in order.
+- **Radius.** 24px blocks, 16px cards, 12px product cards, 8px images and buttons; nothing
+  rounder (guarded by `src/lib/home-guard.test.ts`).
+- **Motion.** A smooth FAQ (`ui/faq-accordion.tsx`, 300ms open, 220ms close, first item open),
+  500ms reveals with a 12px rise, headers fade only, no bobbing sticker, photo pulses stop once
+  loaded and lazy photos fade in, 300/200ms button fills, pressed cards. Everything is visible
+  without JavaScript.
+- **Honesty and trust.** WhatsApp and phone 876-797-4301, "We ask you first" for stock-outs, the
+  same-day FAQ softened, one sentence on who we are, Instagram and TikTok in the footer.

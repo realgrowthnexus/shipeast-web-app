@@ -1,6 +1,5 @@
 import { Baby, Pill, ShoppingBasket, SprayCan, Wheat, type LucideIcon } from 'lucide-react'
-import Image from 'next/image'
-import { StockImage } from '@/components/site/stock-photo'
+import { FadeImage, StockImage } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import { productPhotos } from '@/lib/photos/products'
 
@@ -34,6 +33,7 @@ export function ProductImage({
   size,
   eager = false,
   priority = false,
+  imgClassName,
 }: {
   src: string | null
   alt: string
@@ -50,6 +50,8 @@ export function ProductImage({
   eager?: boolean
   /** High fetch priority (the first two tiles on a phone). */
   priority?: boolean
+  /** Replaces the pack shot's image classes (the home shelf blends it into a grey well). */
+  imgClassName?: string
 }) {
   const Icon = (categoryId && icons[categoryId]) || ShoppingBasket
   const stock = !src && slug ? productPhotos[slug] : undefined
@@ -95,7 +97,7 @@ export function ProductImage({
       )}
     >
       {src ? (
-        <Image
+        <FadeImage
           src={src}
           alt={alt}
           fill
@@ -104,7 +106,8 @@ export function ProductImage({
           fetchPriority={priority ? 'high' : undefined}
           className={cn(
             packShot
-              ? 'object-contain p-2 transition-transform duration-700 ease-out-soft group-hover:scale-[1.06] motion-reduce:transition-none'
+              ? (imgClassName ??
+                  'object-contain p-2 transition-[opacity,scale] duration-400 ease-out-soft group-hover:scale-[1.04] motion-reduce:transition-none')
               : 'object-cover',
           )}
         />
