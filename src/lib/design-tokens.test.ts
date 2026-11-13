@@ -95,7 +95,7 @@ const pairs: [string, string, number][] = [
   ['blush', 'crimson', 3],
   ['blush', 'crimson-deep', 3],
   ['blush', 'oxblood', 3],
-  // Home v3.4 produce roles (one neutral: the grey page; cream is the logo door only)
+  // Home v3.4 produce roles (one neutral: the grey page)
   ['ink', 'page', 4.5],
   ['ink-body', 'page', 4.5],
   ['ink-muted', 'page', 4.5],

@@ -32,12 +32,12 @@ const head = `<meta charset="utf-8"><link rel="preconnect" href="https://fonts.g
 <style>*{box-sizing:border-box;margin:0}body{font-family:Figtree,sans-serif;-webkit-font-smoothing:antialiased}
 .d{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-0.02em}</style>`
 
-/** The logo lock-up: the door mark and the name. */
+/** The logo lock-up: the Receipt E mark and the name. On dark the mark gets a blush ring. */
 const logo = (
   onDark,
   size = 44,
 ) => `<div style="display:flex;align-items:center;gap:${size * 0.28}px">
-  <img src="${markUri}" width="${size}" height="${size}" style="${onDark ? `border-radius:${size * 0.23}px;box-shadow:0 0 0 ${Math.max(2, size * 0.05)}px ${c.cream}` : ''}">
+  <img src="${markUri}" width="${size}" height="${size}" style="${onDark ? `border-radius:${size * 0.21875}px;box-shadow:0 0 0 ${Math.max(2, size * 0.05)}px ${c.blush}` : ''}">
   <span class="d" style="font-weight:700;font-size:${size * 0.8}px;line-height:1;color:${onDark ? '#fff' : c.ink}">Ship<span style="color:${onDark ? c.blush : c.crimson}">East</span></span></div>`
 
 const sticker = `<div class="d" style="position:absolute;top:-26px;right:-26px;width:132px;height:132px;border-radius:50%;background:${c.mango};color:${c.ink};display:grid;place-items:center;text-align:center;font-weight:600;font-size:17px;line-height:1.1;transform:rotate(10deg);padding:14px">Bought in Jamaica.<span style="display:block;font-family:Figtree;font-size:12px;font-weight:600;margin-top:4px">Nothing is shipped.</span></div>`
@@ -74,7 +74,7 @@ const visuals = {
       <div style="border-top:2px dashed #ddd;margin:16px 0;"></div>
       <div style="display:inline-flex;align-items:center;gap:8px;background:#DDF0E1;color:#0F4A2F;font-weight:600;font-size:16px;border-radius:99px;padding:7px 14px">Photo sent to you</div></div>`,
   mark: (v) =>
-    `<img src="${markUri}" width="280" height="280" style="border-radius:66px;transform:rotate(4deg);${v.bg === c.cream ? '' : `box-shadow:0 0 0 12px ${c.cream}`}">`,
+    `<img src="${markUri}" width="280" height="280" style="border-radius:${280 * 0.21875}px;transform:rotate(4deg);${v.bg === c.cream ? '' : `box-shadow:0 0 0 12px ${c.blush}`}">`,
 }
 
 /** One share card: words on the left, one picture on the right, on a flat brand colour. */

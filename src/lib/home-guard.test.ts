@@ -70,8 +70,15 @@ describe('home v3.4 colour', () => {
     expect(css).not.toMatch(/--(cream-200|mango-100|sky-100):/)
   })
 
-  it('no home file uses cream (it is kept only for the logo door)', () => {
+  it('no home file uses cream', () => {
     const offenders = homeFiles.filter((f) => /cream/.test(f.text))
     expect(offenders.map((f) => f.path)).toEqual([])
+  })
+})
+
+describe('brand: the Receipt E mark', () => {
+  it('cream is retired: the role and its primitive are gone', () => {
+    expect(css).not.toMatch(/--color-cream:/)
+    expect(css).not.toMatch(/--cream-50:/)
   })
 })

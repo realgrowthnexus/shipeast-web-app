@@ -1,7 +1,10 @@
 import { BrandMark } from '@/components/site/brand-mark'
 import { cn } from '@/lib/cn'
 
-/** The logo lock-up: the door mark, "ShipEast" in the display face, and the service name. */
+/**
+ * The logo lock-up: the Receipt E mark, "ShipEast" in the display face ("East" in crimson, or
+ * blush on dark, echoing the E), and the service name. On dark the mark gets a blush ring.
+ */
 export function HomeWordmark({
   onDark = false,
   className,

@@ -5,8 +5,12 @@ and one script, so it can be changed in minutes.
 
 ## The mark
 
-A doorway on a crimson tile, with a mango dot. Every order ends at a door, and the dot is the
-price sticker from the home page. It reads at 16px, which is why there is no lettering in it.
+The Receipt E: a capital E, for East, cut from a till receipt with a torn bottom edge, white on
+a crimson tile. The photo of the real till receipt is our proof, the thing competitors do not
+give, and the E ties it to the name. It reads as a clear E at 16px (the browser tab); the tear
+shows from 32px up. One colour: white on crimson, crimson on white, white on oxblood. On dark
+backgrounds the tile gets a blush ring. Chosen November 13, 2026 over a market-bag mark and a
+route S (owner said the doorway mark was generic).
 
 - Drawing: `public/brand/shipeast-mark.svg` (the same file is `src/app/icon.svg`, the favicon).
 - In pages: `<BrandMark />` (`src/components/site/brand-mark.tsx`), drawn in role colours.
@@ -17,7 +21,7 @@ if he wants his logo used instead, replace the SVG and re-run the script.
 ## The logo
 
 The mark, then "Ship" in ink and "East" in crimson, set in Bricolage Grotesque Bold. On dark
-backgrounds "East" is blush and the mark gets a cream ring.
+backgrounds "East" is blush and the mark gets a blush ring.
 
 | File                                                                 | Use                                             |
 | -------------------------------------------------------------------- | ----------------------------------------------- |
@@ -29,7 +33,7 @@ backgrounds "East" is blush and the mark gets a cream ring.
 
 ## Colours and type
 
-Crimson `#AE0E31` leads. Oxblood `#4A0B1C`, cream `#FFF8EE`, leaf `#16603D` and mango `#FFC83D`
+Crimson `#AE0E31` leads. Oxblood `#4A0B1C`, leaf `#16603D` and mango `#FFC83D`
 support it. Headings: Bricolage Grotesque 600. Text: Figtree. The gift note: Caveat. Full
 values are in `src/app/globals.css` and `docs/TOKENS.md`.
 
@@ -61,4 +65,4 @@ node scripts/brand-assets.mjs
 
 Edit the titles, photos or colours in `scripts/brand-assets.mjs`, run it, then copy
 `src/app/opengraph-image.png` to `public/brand/og-default.png`. It needs Playwright and network
-access for the fonts and photos. `src/app/favicon.ico` is made from `icon-512.png`.
+access for the fonts and photos. `src/app/favicon.ico` holds 16, 32 and 48px PNGs drawn from `src/app/icon.svg`.

@@ -50,8 +50,7 @@
 
   /* Produce ramps (home v3.4, November 13, 2026): leaf is fresh produce and Jamaica, mango is
      the price sticker. Each has one job; crimson owns the brand and the grey ramp is the only
-     neutral. Cream stays only for the logo's door fill (brand kit, awaiting review). */
-  --cream-50: #fff8ee;
+     neutral. Cream was retired with the door mark (November 13, 2026). */
   --leaf-200: #cfe6d6;
   --leaf-100: #dbf0e6;
   --leaf-700: #16603d;
@@ -84,7 +83,6 @@
   --color-blush: var(--crimson-200); /* text and icons on crimson, "East" in the wordmark */
 
   /* Produce (home v3.4). See docs/home-v3/audits/colour.md for the job of each. */
-  --color-cream: var(--cream-50); /* the logo's door fill only; never a page or card fill */
   --color-leaf: var(--leaf-700); /* the Jamaica band, "added" and "delivered" */
   --color-leaf-deep: var(--leaf-800); /* hover on leaf, panels inside the leaf band */
   --color-leaf-soft: var(--leaf-100); /* SMS bubbles and "Save" pills */

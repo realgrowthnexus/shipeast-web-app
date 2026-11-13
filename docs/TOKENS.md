@@ -175,7 +175,8 @@ striped flag bars.
 ### Produce (home page, v3.4)
 
 The home page's only colours outside crimson and grey. The page itself is `page` (grey);
-there is no warm neutral. Retired in v3.4: `cream-deep`, `mango-soft`, `sky-soft`.
+there is no warm neutral. Retired in v3.4: `cream-deep`, `mango-soft`, `sky-soft`; `cream` went
+with the door mark (November 13, 2026), and the Receipt E mark is crimson and `surface` white.
 
 | Role            | Primitive   | Hex       | Its one job                                                 |
 | --------------- | ----------- | --------- | ----------------------------------------------------------- |
@@ -184,7 +185,6 @@ there is no warm neutral. Retired in v3.4: `cream-deep`, `mango-soft`, `sky-soft
 | `leaf-soft`     | `leaf-100`  | `#DBF0E6` | SMS bubbles and "Save" pills only                           |
 | `on-leaf-muted` | `leaf-200`  | `#CFE6D6` | Secondary text on leaf and leaf-deep                        |
 | `mango`         | `mango-400` | `#FFC83D` | Price stickers and one highlight per block, never a fill    |
-| `cream`         | `cream-50`  | `#FFF8EE` | The logo's door fill only (`brand-mark.tsx`), nothing else  |
 
 ### Pairs that pass WCAG AA
 

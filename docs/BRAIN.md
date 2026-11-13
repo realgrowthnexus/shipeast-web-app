@@ -206,7 +206,9 @@ softened, and type and spacing follow upercart's scale (merged, PR #31). A first
 waiting for his feedback: `docs/BRAND.md`. His third round is built as v3.3 (roomier header
 and boxes, the hero as one composition, photos that fill their frames, a 24px radius ceiling,
 the big proof headline, a smooth FAQ; see `docs/home-v3/PLAN.md` §12; merged, PR #33), then
-v3.4: colour rebalanced round the crimson on a neutral page, and soft card hovers (§13).** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+v3.4: colour rebalanced round the crimson on a neutral page, and soft card hovers (§13), then
+v3.5: hero cards in a row under the banner, tighter footer links, and the new Receipt E mark,
+favicon and icons (`docs/BRAND.md`). All on `main`.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
 no other page changed. If the owner approves, roll the new header, footer and palette out to
 the other pages one by one; if not, revise the home page first.
