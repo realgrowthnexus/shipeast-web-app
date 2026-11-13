@@ -46,19 +46,18 @@ const lanes: { label: string; tone: 'you' | 'us'; steps: Step[] }[] = [
 export function HomeSteps({ payLine }: { payLine: string }) {
   return (
     <section aria-labelledby="home-steps" className="mx-auto max-w-wide gutter py-10 md:py-12">
-      <div className="max-w-2xl">
+      <Reveal y={0} className="max-w-2xl">
         <h2 id="home-steps" className="font-display text-title font-semibold">
           From your phone to their door
         </h2>
         <p className="mt-1 text-small text-ink-body">Four steps. Pay with {payLine}.</p>
-      </div>
-      <div className="mt-8 grid gap-4 lg:grid-cols-2">
+      </Reveal>
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
         {lanes.map((lane, laneIndex) => (
           <Reveal
             key={lane.label}
-            delay={laneIndex * 0.15}
             className={cn(
-              'flex flex-col rounded-3xl p-5 sm:p-7',
+              'flex flex-col rounded-xl p-5 sm:p-6',
               lane.tone === 'you' ? 'bg-surface-selected' : 'bg-leaf-soft',
             )}
           >
@@ -74,7 +73,7 @@ export function HomeSteps({ payLine }: { payLine: string }) {
               {lane.steps.map((s, i) => {
                 const n = laneIndex * 2 + i + 1
                 return (
-                  <li key={s.title} className="flex flex-col rounded-2xl bg-surface p-5">
+                  <li key={s.title} className="flex flex-col rounded-lg bg-surface p-5">
                     <div className="flex items-center justify-between">
                       <span
                         className={cn(

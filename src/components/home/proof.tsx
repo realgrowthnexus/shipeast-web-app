@@ -11,48 +11,34 @@ const texts = [
 ]
 
 /**
- * Proof (PLAN §3, row 7): the reason to choose us, shown as the things themselves: the till
- * receipt, the photo at the door and the two texts the family gets.
+ * Proof (docs/home-v3/audits/layout.md §3.6): the reason to choose us, and the one BIG moment
+ * on the page. The headline goes large; then the things themselves, side by side: the till
+ * receipt, the photo at the door and the two texts the family gets. They arrive in that order,
+ * the page's one choreographed scroll sequence.
  */
 export function HomeProof({ receipt }: { receipt: Receipt | null }) {
   return (
     <section
       aria-labelledby="home-proof"
-      className="mt-10 rounded-t-4xl bg-oxblood text-on-dark on-dark-focus md:mt-12"
+      className="mt-10 rounded-t-2xl bg-oxblood text-on-dark on-dark-focus md:mt-12"
     >
-      <div className="mx-auto grid max-w-wide items-center gap-12 gutter py-10 md:py-12 lg:grid-cols-12 lg:gap-8">
-        <Reveal className="lg:col-span-5">
-          <h2 id="home-proof" className="font-display text-title font-semibold text-balance">
+      <div className="mx-auto max-w-wide gutter section">
+        <Reveal y={0} className="grid items-end gap-6 lg:grid-cols-12 lg:gap-8">
+          <h2
+            id="home-proof"
+            className="max-w-[12ch] font-display text-display font-semibold text-balance lg:col-span-7"
+          >
             Send groceries, not money.
           </h2>
-          <p className="mt-4 max-w-md text-body text-on-oxblood-muted">
+          <p className="max-w-md text-body text-on-oxblood-muted lg:col-span-5 lg:pb-2">
             Cash can be spent on anything. A basket arrives as food, and you see it happen twice:
             the till receipt when we finish shopping, and the bags at the door.
           </p>
-          <ul className="mt-6 space-y-2.5 text-small font-medium">
-            {[
-              'A photo of the real till receipt, by email',
-              'A photo at the door, and who received it',
-              'A text to your family when the driver is on the way',
-            ].map((line) => (
-              <li key={line} className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 size-icon shrink-0 text-mango" aria-hidden />
-                {line}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/how-it-works"
-            className="mt-8 inline-flex min-h-control items-center gap-2 font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
-          >
-            See the full journey of an order
-            <ArrowRight className="size-icon" aria-hidden />
-          </Link>
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
+        <div className="mt-12 grid items-start gap-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-10">
           {receipt && (
-            <Reveal as="figure" delay={0.1} className="sm:-rotate-2">
+            <Reveal as="figure" y={16} className="sm:-rotate-2">
               <div className="rounded-t-lg bg-surface px-5 pt-5 pb-9 text-ink paper-edge">
                 <p className="flex items-center gap-2 text-small font-semibold">
                   <ReceiptText className="size-icon text-crimson" aria-hidden />
@@ -84,42 +70,48 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
             </Reveal>
           )}
 
-          <div className="flex flex-col gap-5">
-            <Reveal as="figure" delay={0.25} className="sm:rotate-2">
-              <div className="relative rounded-3xl bg-cream p-2">
-                <StockPhoto
-                  name="homeStepToDoor"
-                  alt="A paper bag of shopping carried up the steps to a front door"
-                  sizes="(min-width: 1024px) 340px, (min-width: 640px) 45vw, 92vw"
-                  className="aspect-[4/3] rounded-2xl"
-                />
-                <p className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-small font-semibold text-ink">
-                  <CircleCheck className="size-icon text-leaf" aria-hidden />
-                  Delivered 2:41 PM
-                </p>
-              </div>
-              <figcaption className="mt-3 text-small font-medium text-on-oxblood-muted">
-                2. The photo at the door. Example.
-              </figcaption>
-            </Reveal>
-
-            <div>
-              <Stagger className="space-y-2" delay={0.35}>
-                {texts.map((t) => (
-                  <StaggerItem
-                    key={t}
-                    className="max-w-xs rounded-2xl rounded-bl-sm bg-leaf-soft px-4 py-3 text-small font-medium text-ink"
-                  >
-                    {t}
-                  </StaggerItem>
-                ))}
-              </Stagger>
-              <p className="mt-3 text-small font-medium text-on-oxblood-muted">
-                What your family gets by text. Example wording. No app, no account.
+          <Reveal as="figure" y={16} delay={0.12} className="sm:rotate-2">
+            <div className="relative rounded-xl bg-cream p-2">
+              <StockPhoto
+                name="homeStepToDoor"
+                alt="A paper bag of shopping carried up the steps to a front door"
+                sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 92vw"
+                className="aspect-[4/3] rounded-md"
+              />
+              <p className="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-small font-semibold text-ink">
+                <CircleCheck className="size-icon text-leaf" aria-hidden />
+                Delivered 2:41 PM
               </p>
             </div>
+            <figcaption className="mt-3 text-small font-medium text-on-oxblood-muted">
+              2. The photo at the door. Example.
+            </figcaption>
+          </Reveal>
+
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Stagger className="space-y-2" delay={0.24}>
+              {texts.map((t) => (
+                <StaggerItem
+                  key={t}
+                  className="max-w-xs rounded-xl rounded-bl-sm bg-leaf-soft px-4 py-3 text-small font-medium text-ink"
+                >
+                  {t}
+                </StaggerItem>
+              ))}
+            </Stagger>
+            <p className="mt-3 text-small font-medium text-on-oxblood-muted">
+              3. What your family gets by text. Example wording. No app, no account.
+            </p>
           </div>
         </div>
+
+        <Link
+          href="/how-it-works"
+          className="mt-10 inline-flex min-h-control items-center gap-2 font-semibold text-on-dark underline decoration-blush decoration-2 underline-offset-4 hover:decoration-on-dark"
+        >
+          See the full journey of an order
+          <ArrowRight className="size-icon" aria-hidden />
+        </Link>
       </div>
     </section>
   )
