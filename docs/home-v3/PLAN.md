@@ -186,3 +186,26 @@ usable by keyboard. Touch targets stay 44px. Works at 375px with no sideways pag
 - [ ] Add to basket works from the shelf and the basket cards; the header count updates.
 - [ ] No horizontal page scroll at 375, 768, 1024, 1440.
 - [ ] `npm run check` is green.
+
+## 10. v3.1: the owner's review (November 13, 2026)
+
+The owner approved the direction and asked for a calmer, more compact and more alive page.
+
+- **Compact.** `text-mega` 40 → 68px (was 44 → 84), `text-shout` 30 → 48px (was 34 → 58).
+  Sections sit 48px apart on phones and 64px on wide screens, everywhere. Prices on the shelf
+  drop to `text-lead`, basket stickers and names to `text-h3`, step numerals to `text-h1`.
+  Product photos are 5:4, basket photos 16:10, department arches square. The page is about
+  1,000px shorter at 1440.
+- **Ticker.** The top strip is a news ticker: five short lines slide left without stopping
+  (`ticker`), pausing under the pointer. The duplicate copy is hidden from screen readers;
+  with reduced motion it stands still.
+- **Hover.** `btn-slide`: the hover colour slides in from the left and the arrow nudges
+  forward (cream buttons fill with mango, crimson ones with oxblood, "Added" with deep leaf).
+  `card-rise`: tiles, product cards and basket cards lift 4px with a shadow. Price stickers
+  straighten and grow slightly on their card's hover.
+- **Scroll.** Section headings and blocks fade up once as they enter (`Reveal`), card rows
+  arrive one after another (`Stagger`), and the Kingston and closing photos drift a little
+  against the scroll (`Parallax`). The hero sticker bobs slowly.
+- **Loading.** Photo wells pulse (`photo-loading`) until the picture covers them, and
+  `(home)/loading.tsx` shows a skeleton of the hero, tiles and tiles row while the page streams.
+- **Footer.** The oversized wordmark is gone.

@@ -1,5 +1,6 @@
 import { ArrowRight, Mail, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal } from '@/components/motion/reveal'
 import { Accordion } from '@/components/ui/accordion'
 import type { Faq } from '@/lib/types'
 
@@ -15,9 +16,9 @@ export function HomeQuestions({
   whatsapp: string
 }) {
   return (
-    <section aria-labelledby="home-questions" className="mx-auto max-w-wide gutter py-14 md:py-20">
+    <section aria-labelledby="home-questions" className="mx-auto max-w-wide gutter py-12 md:py-16">
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-4">
+        <Reveal className="lg:col-span-4">
           <h2 id="home-questions" className="font-display text-h2 text-balance">
             Questions senders ask first
           </h2>
@@ -47,12 +48,12 @@ export function HomeQuestions({
               <ArrowRight className="size-icon" aria-hidden />
             </Link>
           </div>
-        </div>
-        <div className="lg:col-span-8">
+        </Reveal>
+        <Reveal delay={0.1} className="lg:col-span-8">
           <Accordion
             items={faqs.map((f) => ({ id: f.id, title: f.question, body: <p>{f.answer}</p> }))}
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   )

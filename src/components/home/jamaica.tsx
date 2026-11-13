@@ -1,5 +1,7 @@
 import { ArrowRight, MapPin } from 'lucide-react'
 import Link from 'next/link'
+import { Parallax } from '@/components/motion/parallax'
+import { Reveal } from '@/components/motion/reveal'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { formatClockTime, formatUsd } from '@/lib/format'
 import { SPEED_LABEL } from '@/lib/home'
@@ -13,8 +15,8 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
   if (!zones.length) return null
   return (
     <section aria-labelledby="home-jamaica" className="bg-leaf text-on-dark on-dark-focus">
-      <div className="mx-auto grid max-w-wide items-center gap-10 gutter py-14 md:py-20 lg:grid-cols-2 lg:gap-14">
-        <div>
+      <div className="mx-auto grid max-w-wide items-center gap-10 gutter py-12 md:py-16 lg:grid-cols-2 lg:gap-14">
+        <Reveal>
           <h2 id="home-jamaica" className="font-display text-shout text-balance">
             Delivering in {parishList}.
           </h2>
@@ -24,12 +26,12 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {zones.map((z) => (
-              <li key={z.id} className="rounded-3xl bg-leaf-deep p-6">
-                <p className="font-display text-title">{z.parish}</p>
+              <li key={z.id} className="rounded-2xl bg-leaf-deep p-5">
+                <p className="font-display text-h3">{z.parish}</p>
                 <dl className="mt-4 space-y-3 text-small">
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-on-leaf-muted">Delivery fee</dt>
-                    <dd className="font-display text-h3 text-mango tabular-nums">
+                    <dd className="text-body font-extrabold text-mango tabular-nums">
                       {formatUsd(z.feeCents)}
                     </dd>
                   </div>
@@ -52,13 +54,15 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
             Delivery areas and fees
             <ArrowRight className="size-icon" aria-hidden />
           </Link>
-        </div>
+        </Reveal>
         <div className="relative">
-          <StockPhoto
-            name="kingstonStreet"
-            sizes="(min-width: 1024px) 600px, 92vw"
-            className="aspect-[4/3] rounded-3xl lg:aspect-[5/4]"
-          />
+          <Parallax className="aspect-[4/3] rounded-3xl">
+            <StockPhoto
+              name="kingstonStreet"
+              sizes="(min-width: 1024px) 600px, 92vw"
+              className="h-full w-full rounded-none"
+            />
+          </Parallax>
           <p className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-mango px-4 py-2 text-small font-bold text-ink">
             <MapPin className="size-icon" aria-hidden />
             Downtown Kingston

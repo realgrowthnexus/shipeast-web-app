@@ -170,6 +170,12 @@ From `CLAUDE.md` and the client, Derion:
   products, prices and baskets, the way the client's sample **upercart.com** does (sent
   September 20: product photos, category tiles, product rails). Photos of food and home, not
   of offices, laptops and phone calls.
+- **Owner's review of home v3 (November 13, approved the direction).** Standing taste for
+  every page that follows: compact, not "zoomed in" (modest type sizes, small prices, tight and
+  even section spacing, clean alignment); the page must feel **alive** (reveal on scroll,
+  parallax on a photo or two, cards that rise, buttons whose hover colour slides in, photo
+  wells that pulse until loaded, a loading skeleton); the top strip is a moving news ticker;
+  no giant wordmark in the footer.
 - **Client facts to keep in view** (full list: `docs/CLIENT-NOTES.md`): hero words he wrote
   ("Shop for Family in Jamaica. Order from overseas & we shop in Jamaica & deliver to their
   door"), tagline "We Shop. We Deliver. We Care.", WhatsApp 876-797-4301, substitution default
@@ -181,8 +187,9 @@ From `CLAUDE.md` and the client, Derion:
 Update this section whenever a step finishes, so a new session can continue instantly. The
 full handoff is **`docs/HANDOFF.md`**.
 
-**Status (November 13, 2026): Phase 1, step 1: the home page redesign ("home v3") is built
-and waiting for the owner's review.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+**Status (November 13, 2026): Phase 1, step 1: the home page ("home v3") is merged (PR #30)
+and the owner approved the direction. His first round of feedback (compact sizes, motion,
+ticker, hover effects, footer) is applied as v3.1 and waiting for his second look.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
 no other page changed. If the owner approves, roll the new header, footer and palette out to
 the other pages one by one; if not, revise the home page first.

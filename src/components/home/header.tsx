@@ -48,7 +48,7 @@ function HomeSearch({ id, className }: { id: string; className?: string }) {
         />
         <button
           type="submit"
-          className="absolute top-1 right-1 bottom-1 rounded-full bg-crimson px-5 font-bold text-on-dark transition-colors duration-150 hover:bg-crimson-deep"
+          className="btn-slide absolute top-1 right-1 bottom-1 cursor-pointer rounded-full bg-crimson px-5 font-bold text-on-dark [--slide:var(--color-oxblood)]"
         >
           Search
         </button>
@@ -76,21 +76,37 @@ export async function HomeHeader({
     slug: c.slug,
     count: c.count,
   }))
+  const news = [
+    parishList ? `Delivering to ${parishList}` : 'Delivering in Jamaica',
+    ...(cutoff ? [`Order by ${formatClockTime(cutoff)} Jamaica time for same-day delivery`] : []),
+    'Bought in Jamaica. Nothing is shipped',
+    'A photo of the till receipt and a photo at the door',
+    'Pay in US dollars',
+  ]
   return (
     <>
       <div className="bg-oxblood text-small text-on-dark on-dark-focus print:hidden">
         <div className="mx-auto flex min-h-10 max-w-wide items-center gap-x-6 gutter">
-          <p className="flex items-center gap-2 font-semibold">
-            <JamaicaFlag />
-            {parishList ? `Delivering to ${parishList}` : 'Delivering in Jamaica'}
-          </p>
-          {cutoff && (
-            <p className="hidden text-on-oxblood-muted md:block">
-              Order by <span className="font-bold text-on-dark">{formatClockTime(cutoff)}</span>{' '}
-              Jamaica time for same-day delivery
-            </p>
-          )}
-          <nav aria-label="Help" className="ml-auto hidden items-center gap-5 lg:flex">
+          {/* The news ticker: the same line twice, sliding left; the copy is hidden from readers. */}
+          <div className="relative min-w-0 flex-1 overflow-hidden">
+            <div className="ticker">
+              {[false, true].map((copy) => (
+                <ul key={String(copy)} aria-hidden={copy || undefined} className="flex shrink-0">
+                  {news.map((line, i) => (
+                    <li key={line} className="flex items-center gap-3 pr-8 whitespace-nowrap">
+                      {i === 0 ? (
+                        <JamaicaFlag />
+                      ) : (
+                        <span className="size-1.5 rounded-full bg-mango" aria-hidden />
+                      )}
+                      <span className="font-semibold">{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
+          <nav aria-label="Help" className="hidden shrink-0 items-center gap-5 pl-2 lg:flex">
             <Link href="/track" className={stripLink}>
               Track an order
             </Link>

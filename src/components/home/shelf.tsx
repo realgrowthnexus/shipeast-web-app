@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { Stagger, StaggerItem } from '@/components/motion/reveal'
 import { ProductImage } from '@/components/shop/product-image'
 import { formatJmd, formatUsd, usdCentsToJmd } from '@/lib/format'
 import type { Product } from '@/lib/types'
@@ -21,7 +22,7 @@ export function HomeShelf({
   allLabel: string
 }) {
   return (
-    <section aria-labelledby="home-shelf" className="pt-14 md:pt-20">
+    <section aria-labelledby="home-shelf" className="pt-12 md:pt-16">
       <div className="mx-auto flex max-w-wide flex-wrap items-end justify-between gap-x-6 gap-y-2 gutter">
         <h2 id="home-shelf" className="font-display text-h2">
           Staples for the kitchen
@@ -34,10 +35,10 @@ export function HomeShelf({
           <ArrowRight className="size-icon" aria-hidden />
         </Link>
       </div>
-      <ul className="mx-auto mt-6 rail max-w-wide scroll-px-4 gap-3 gutter pb-2 sm:gap-4 lg:grid lg:grid-cols-6 lg:overflow-visible">
+      <Stagger className="mx-auto mt-6 rail max-w-wide scroll-px-4 gap-3 gutter pb-2 sm:gap-4 lg:grid lg:grid-cols-6 lg:overflow-visible">
         {products.map((p, i) => (
-          <li key={p.id} className="w-[44%] sm:w-[30%] lg:w-auto">
-            <article className="group relative flex h-full flex-col rounded-2xl bg-surface p-3 transition-shadow duration-250 hover:shadow-lift has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-signal">
+          <StaggerItem key={p.id} className="w-[42%] sm:w-[28%] lg:w-auto">
+            <article className="group relative flex h-full card-rise flex-col rounded-2xl bg-surface p-3 has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-signal">
               <ProductImage
                 src={p.imagePath}
                 alt=""
@@ -45,9 +46,9 @@ export function HomeShelf({
                 slug={p.slug}
                 sizes="(min-width: 1024px) 190px, 44vw"
                 eager={i < 3}
-                className="aspect-square rounded-xl"
+                className="photo-loading aspect-[5/4] rounded-xl"
               />
-              <div className="mt-3 min-h-[4.25rem]">
+              <div className="mt-3 min-h-[3.25rem] text-small">
                 <h3 className="line-clamp-2 leading-snug font-bold text-ink">
                   <Link
                     href={`/product/${p.slug}`}
@@ -56,9 +57,9 @@ export function HomeShelf({
                     {p.name}
                   </Link>
                 </h3>
-                <p className="text-small text-ink-muted">{p.size}</p>
+                <p className="text-xs text-ink-muted">{p.size}</p>
               </div>
-              <p className="mt-2 font-display text-title text-ink tabular-nums">
+              <p className="mt-1 text-lead font-extrabold text-ink tabular-nums">
                 {formatUsd(p.priceCents)}
               </p>
               <p className="text-xs font-medium text-ink-muted tabular-nums">
@@ -71,20 +72,20 @@ export function HomeShelf({
                 className="relative z-raised mt-auto pt-3"
               />
             </article>
-          </li>
+          </StaggerItem>
         ))}
-        <li className="w-[44%] sm:w-[30%] lg:w-auto">
+        <StaggerItem className="w-[42%] sm:w-[28%] lg:w-auto">
           <Link
             href={allHref}
-            className="group flex h-full min-h-64 flex-col justify-between rounded-2xl bg-crimson p-5 text-on-dark transition-colors duration-250 hover:bg-crimson-deep"
+            className="group btn-slide flex h-full min-h-56 flex-col justify-between rounded-2xl bg-crimson p-5 text-on-dark"
           >
-            <span className="font-display text-title text-balance">{allLabel}</span>
+            <span className="font-display text-h3 text-balance">{allLabel}</span>
             <span className="grid size-12 place-items-center rounded-full bg-cream text-crimson-deep transition-transform duration-250 group-hover:translate-x-1">
               <ArrowRight className="size-icon" aria-hidden />
             </span>
           </Link>
-        </li>
-      </ul>
+        </StaggerItem>
+      </Stagger>
     </section>
   )
 }

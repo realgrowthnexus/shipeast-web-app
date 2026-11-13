@@ -1,5 +1,6 @@
 import { ArrowRight, CircleCheck, ReceiptText } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { formatJmd } from '@/lib/format'
 import type { Receipt } from '@/lib/home'
@@ -17,10 +18,10 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
   return (
     <section
       aria-labelledby="home-proof"
-      className="mt-14 rounded-t-4xl bg-oxblood text-on-dark on-dark-focus md:mt-20"
+      className="mt-12 rounded-t-4xl bg-oxblood text-on-dark on-dark-focus md:mt-16"
     >
-      <div className="mx-auto grid max-w-wide items-center gap-12 gutter py-14 md:py-20 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
+      <div className="mx-auto grid max-w-wide items-center gap-12 gutter py-12 md:py-16 lg:grid-cols-12 lg:gap-8">
+        <Reveal className="lg:col-span-5">
           <h2 id="home-proof" className="font-display text-shout text-balance">
             Send groceries, not money.
           </h2>
@@ -47,11 +48,11 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
             See the full journey of an order
             <ArrowRight className="size-icon" aria-hidden />
           </Link>
-        </div>
+        </Reveal>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
           {receipt && (
-            <figure className="sm:-rotate-2">
+            <Reveal as="figure" delay={0.1} className="sm:-rotate-2">
               <div className="rounded-t-lg bg-surface px-5 pt-5 pb-9 text-ink paper-edge">
                 <p className="flex items-center gap-2 text-small font-bold">
                   <ReceiptText className="size-icon text-crimson" aria-hidden />
@@ -72,7 +73,7 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
                     </li>
                   )}
                 </ul>
-                <p className="mt-4 flex justify-between border-t-2 border-dashed border-line pt-4 font-display text-h3 text-ink">
+                <p className="mt-4 flex justify-between border-t-2 border-dashed border-line pt-4 text-body font-extrabold text-ink">
                   <span>Total</span>
                   <span className="tabular-nums">{formatJmd(receipt.totalJmd)}</span>
                 </p>
@@ -80,11 +81,11 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
               <figcaption className="mt-3 text-small font-semibold text-on-oxblood-muted">
                 1. The till receipt. Example, with today&rsquo;s prices.
               </figcaption>
-            </figure>
+            </Reveal>
           )}
 
           <div className="flex flex-col gap-5">
-            <figure className="sm:rotate-2">
+            <Reveal as="figure" delay={0.25} className="sm:rotate-2">
               <div className="relative rounded-3xl bg-cream p-2">
                 <StockPhoto
                   name="homeStepToDoor"
@@ -100,19 +101,19 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
               <figcaption className="mt-3 text-small font-semibold text-on-oxblood-muted">
                 2. The photo at the door. Example.
               </figcaption>
-            </figure>
+            </Reveal>
 
             <div>
-              <ul className="space-y-2">
+              <Stagger className="space-y-2" delay={0.35}>
                 {texts.map((t) => (
-                  <li
+                  <StaggerItem
                     key={t}
                     className="max-w-xs rounded-2xl rounded-bl-sm bg-leaf-soft px-4 py-3 text-small font-medium text-ink"
                   >
                     {t}
-                  </li>
+                  </StaggerItem>
                 ))}
-              </ul>
+              </Stagger>
               <p className="mt-3 text-small font-semibold text-on-oxblood-muted">
                 What your family gets by text. Example wording. No app, no account.
               </p>

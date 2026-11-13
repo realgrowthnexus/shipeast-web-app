@@ -37,8 +37,10 @@ export function HomeAddButton({
         disabled={pending}
         aria-busy={pending || undefined}
         className={cn(
-          'inline-flex min-h-control w-full cursor-pointer items-center justify-center gap-2 rounded-full px-5 font-bold text-on-dark transition-colors duration-150 active:translate-y-px disabled:opacity-70',
-          added ? 'bg-leaf hover:bg-leaf-deep' : 'bg-crimson hover:bg-crimson-deep',
+          'btn-slide inline-flex min-h-control w-full cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-small font-bold text-on-dark active:translate-y-px disabled:opacity-70',
+          added
+            ? 'bg-leaf [--slide:var(--color-leaf-deep)]'
+            : 'bg-crimson [--slide:var(--color-oxblood)]',
         )}
       >
         {added ? (

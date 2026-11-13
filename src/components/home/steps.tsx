@@ -1,4 +1,5 @@
 import { Camera, CreditCard, ShoppingBasket, Store, type LucideIcon } from 'lucide-react'
+import { Reveal } from '@/components/motion/reveal'
 import { cn } from '@/lib/cn'
 
 type Step = { icon: LucideIcon; title: string; body: string }
@@ -44,7 +45,7 @@ const lanes: { label: string; tone: 'you' | 'us'; steps: Step[] }[] = [
  */
 export function HomeSteps({ payLine }: { payLine: string }) {
   return (
-    <section aria-labelledby="home-steps" className="mx-auto max-w-wide gutter py-14 md:py-20">
+    <section aria-labelledby="home-steps" className="mx-auto max-w-wide gutter py-12 md:py-16">
       <div className="max-w-2xl">
         <h2 id="home-steps" className="font-display text-h2">
           From your phone to their door
@@ -53,8 +54,9 @@ export function HomeSteps({ payLine }: { payLine: string }) {
       </div>
       <div className="mt-8 grid gap-4 lg:grid-cols-2">
         {lanes.map((lane, laneIndex) => (
-          <div
+          <Reveal
             key={lane.label}
+            delay={laneIndex * 0.15}
             className={cn(
               'flex flex-col rounded-3xl p-5 sm:p-7',
               lane.tone === 'you' ? 'bg-surface-selected' : 'bg-leaf-soft',
@@ -76,16 +78,16 @@ export function HomeSteps({ payLine }: { payLine: string }) {
                     <div className="flex items-center justify-between">
                       <span
                         className={cn(
-                          'font-display text-numeral',
+                          'font-display text-h1',
                           lane.tone === 'you' ? 'text-crimson' : 'text-leaf',
                         )}
                         aria-hidden
                       >
                         {n}
                       </span>
-                      <s.icon className="size-8 text-ink" strokeWidth={1.75} aria-hidden />
+                      <s.icon className="size-7 text-ink" strokeWidth={1.75} aria-hidden />
                     </div>
-                    <h3 className="mt-4 font-display text-title text-ink">
+                    <h3 className="mt-3 font-display text-h3 text-ink">
                       <span className="sr-only">Step {n}: </span>
                       {s.title}
                     </h3>
@@ -94,7 +96,7 @@ export function HomeSteps({ payLine }: { payLine: string }) {
                 )
               })}
             </ol>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

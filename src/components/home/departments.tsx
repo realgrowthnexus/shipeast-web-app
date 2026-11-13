@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { StockPhoto } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import type { StockPhotoKey } from '@/lib/stock-photos'
@@ -21,9 +22,9 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
   return (
     <section
       aria-labelledby="home-departments"
-      className="mx-auto max-w-wide gutter pt-14 md:pt-20"
+      className="mx-auto max-w-wide gutter pt-12 md:pt-16"
     >
-      <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+      <Reveal className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
           <h2 id="home-departments" className="font-display text-h2">
             Shop by department
@@ -39,24 +40,22 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
           All departments
           <ArrowUpRight className="size-icon" aria-hidden />
         </Link>
-      </div>
-      <ul className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      </Reveal>
+      <Stagger className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {categories.map((c) => {
           const look = looks[c.slug]
           return (
-            <li key={c.id}>
+            <StaggerItem key={c.id}>
               <Link
                 href={`/shop/${c.slug}`}
                 className={cn(
-                  'group relative flex h-full flex-col overflow-hidden rounded-3xl px-4 pt-4 sm:px-6 sm:pt-6',
+                  'group relative flex h-full card-rise flex-col overflow-hidden rounded-3xl px-4 pt-4 sm:px-5 sm:pt-5',
                   look?.tint ?? 'bg-cream-deep',
                 )}
               >
                 <span className="flex items-start justify-between gap-2">
                   <span>
-                    <span className="block font-display text-h3 text-ink sm:text-title">
-                      {c.name}
-                    </span>
+                    <span className="block font-display text-h3 text-ink">{c.name}</span>
                     <span className="mt-1 block text-small font-semibold text-ink-body">
                       {c.count} {c.count === 1 ? 'item' : 'items'}
                     </span>
@@ -71,14 +70,14 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
                     alt=""
                     zoom
                     sizes="(min-width: 1024px) 260px, 45vw"
-                    className="mx-auto mt-5 aspect-[4/5] w-[86%] rounded-t-full sm:mt-8"
+                    className="photo-loading mx-auto mt-4 aspect-square w-[78%] rounded-t-full sm:mt-5"
                   />
                 )}
               </Link>
-            </li>
+            </StaggerItem>
           )
         })}
-      </ul>
+      </Stagger>
     </section>
   )
 }
