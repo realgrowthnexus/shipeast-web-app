@@ -122,3 +122,19 @@ export function pickShelf<P extends Pick<Product, 'status' | 'featured'>>(
     count,
   )
 }
+
+/**
+ * The baskets the home page shows: the featured ones we can buy today, topped up with other
+ * buyable baskets in their order, never more than `size`. An unavailable basket never shows.
+ */
+export function pickFeaturedBaskets<T extends { basket: { id: string; featured: boolean } }>(
+  all: T[],
+  unavailableIds: ReadonlySet<string>,
+  size = 3,
+): T[] {
+  const buyable = all.filter((b) => !unavailableIds.has(b.basket.id))
+  return [
+    ...buyable.filter((b) => b.basket.featured),
+    ...buyable.filter((b) => !b.basket.featured),
+  ].slice(0, size)
+}

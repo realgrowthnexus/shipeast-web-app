@@ -8,8 +8,8 @@ import type { DeliveryZone, Faq, SiteSettings } from '@/lib/types'
 export const settings: SiteSettings = {
   jmdPerUsd: 157,
   // Left empty until ShipEast confirms the numbers; WhatsApp links hide when empty.
-  whatsapp: '',
-  phone: '',
+  whatsapp: '18767974301',
+  phone: '18767974301',
   email: 'info@shipeastja.com',
   bankTransferHoursToPay: 48,
   // Left empty: ShipEast hasn't confirmed the account. The bank transfer page says so.
@@ -110,7 +110,7 @@ export const faqs: Faq[] = [
     group: 'Substitutions',
     question: 'What happens if an item is out of stock?',
     answer:
-      'You choose at checkout: allow a similar item, have us ask you first, or leave it out and get a refund for it.',
+      'We ask you first. If the store is out of something, we text or email you before we swap it. You can also choose to allow a similar item, or to leave it out and be refunded for it.',
     sort: 6,
   },
   {

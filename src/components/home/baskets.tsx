@@ -18,13 +18,10 @@ export function HomeBaskets({
   baskets,
   products,
   jmdPerUsd,
-  unavailableIds,
 }: {
   baskets: BasketSummary[]
   products: Product[]
   jmdPerUsd: number
-  /** Baskets that hold an item we can't buy today. */
-  unavailableIds: string[]
 }) {
   const byId = new Map(products.map((p) => [p.id, p]))
   return (
@@ -57,7 +54,6 @@ export function HomeBaskets({
             })
             const more = lines.length - SHOWN
             const saving = separateCents - basket.priceCents
-            const unavailable = unavailableIds.includes(basket.id)
             return (
               <StaggerItem key={basket.id} className="w-[80%] sm:w-[56%] md:w-auto">
                 <article className="group relative flex h-full card-rise flex-col rounded-3xl bg-cream p-3 has-[h3_a:focus-visible]:outline-3 has-[h3_a:focus-visible]:outline-offset-2 has-[h3_a:focus-visible]:outline-signal">
@@ -110,21 +106,13 @@ export function HomeBaskets({
                         </li>
                       )}
                     </ul>
-                    {unavailable ? (
-                      <p className="mt-auto pt-5">
-                        <span className="flex min-h-control items-center justify-center rounded-full bg-cream-deep px-5 font-semibold text-ink-body">
-                          Not available today
-                        </span>
-                      </p>
-                    ) : (
-                      <HomeAddButton
-                        kind="basket"
-                        id={basket.id}
-                        name={basket.name}
-                        label="Add basket"
-                        className="relative z-raised mt-auto pt-5"
-                      />
-                    )}
+                    <HomeAddButton
+                      kind="basket"
+                      id={basket.id}
+                      name={basket.name}
+                      label="Add basket"
+                      className="relative z-raised mt-auto pt-5"
+                    />
                   </div>
                 </article>
               </StaggerItem>
