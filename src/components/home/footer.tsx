@@ -30,7 +30,7 @@ const company: FooterLink[] = [
 ]
 
 const linkClass =
-  'inline-flex min-h-control items-center text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
+  'inline-flex min-h-10 items-center text-small text-on-oxblood-muted underline-offset-4 transition-colors duration-150 hover:text-on-dark hover:underline'
 
 /** This year in Jamaica. Cached for a day: Cache Components forbids an uncached `new Date()`. */
 async function CopyrightYear() {
@@ -48,7 +48,7 @@ async function CopyrightYear() {
 function Column({ title, links }: { title: string; links: FooterLink[] }) {
   return (
     <nav aria-label={title}>
-      <h2 className="font-display text-h3 text-on-dark">{title}</h2>
+      <h2 className="text-body font-semibold text-on-dark">{title}</h2>
       <ul className="mt-3">
         {links.map((l) => (
           <li key={l.href}>
@@ -86,14 +86,14 @@ export function HomeFooter({
     { href: '/monthly', label: 'Monthly orders' },
   ]
   return (
-    <footer className="overflow-hidden bg-oxblood text-on-dark on-dark-focus print:hidden">
-      <div className="mx-auto max-w-wide gutter pt-14 md:pt-20">
+    <footer className="bg-oxblood text-on-dark on-dark-focus print:hidden">
+      <div className="mx-auto max-w-wide gutter pt-10 md:pt-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
             <Link href="/" className="rounded-sm" aria-label="ShipEast Shop & Send, home">
               <HomeWordmark onDark />
             </Link>
-            <p className="mt-5 max-w-sm font-display text-title text-balance text-on-dark">
+            <p className="mt-5 max-w-sm font-display text-h3 font-semibold text-balance text-on-dark">
               We shop. We deliver. We care.
             </p>
             <p className="mt-3 max-w-sm text-on-oxblood-muted">
@@ -132,7 +132,7 @@ export function HomeFooter({
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-line-on-dark pt-8 text-small text-on-oxblood-muted lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-line-on-dark pt-8 pb-10 text-small text-on-oxblood-muted lg:flex-row lg:items-center lg:justify-between">
           <p>
             Prices in US dollars. Pay with PayPal or a debit or credit card through PayPal
             {bank ? ', or by bank transfer' : ''}.
@@ -145,13 +145,6 @@ export function HomeFooter({
           </p>
         </div>
       </div>
-      {/* The name, as big as the page allows, cut off by the bottom edge. Decorative. */}
-      <p
-        aria-hidden
-        className="mt-8 -mb-[0.2em] text-center font-display text-[clamp(5rem,23vw,22rem)] leading-[0.8] font-extrabold tracking-tight whitespace-nowrap text-crimson-deep select-none"
-      >
-        ShipEast
-      </p>
     </footer>
   )
 }

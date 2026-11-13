@@ -15,21 +15,22 @@ or overwrites edits made in the admin panel.
 Open each file on GitHub, copy all of it, paste it into a new query and press **Run**. Wait
 for "Success" before moving to the next file.
 
-| #   | File                                              | What it does                                                         |
-| --- | ------------------------------------------------- | -------------------------------------------------------------------- |
-| 1   | `supabase/migrations/0001_foundation.sql`         | Extensions, status types and helper functions                        |
-| 2   | `supabase/migrations/0002_profiles.sql`           | Profiles, roles, SE-CUS / SE-DRV ids, saved family addresses         |
-| 3   | `supabase/migrations/0003_catalogue.sql`          | Categories, products, baskets, delivery zones, promo codes           |
-| 4   | `supabase/migrations/0004_drivers.sql`            | Drivers and their online status                                      |
-| 5   | `supabase/migrations/0005_orders.sql`             | Orders, items, payments, proof photos, audit trail, step enforcement |
-| 6   | `supabase/migrations/0006_content_and_ops.sql`    | Settings, FAQs, legal pages, contact messages, alerts                |
-| 7   | `supabase/migrations/0007_functions.sql`          | Tracking-link lookup and driver actions                              |
-| 8   | `supabase/migrations/0008_row_level_security.sql` | Who can read and change what                                         |
-| 9   | `supabase/migrations/0009_storage.sql`            | Photo buckets and their access rules                                 |
-| 10  | `supabase/migrations/0010_seed.sql`               | Starting categories, parishes, settings and legal page slots         |
-| 11  | `supabase/migrations/0011_checkout.sql`           | Placing orders, recording payments, tracking-link and order lookup   |
-| 12  | `supabase/migrations/0012_accounts.sql`           | Sender accounts: link guest orders, email changes, address limit     |
-| 13  | `supabase/migrations/0013_product_aisles.sql`     | Aisles inside each department, for the shop's aisle filter           |
+| #   | File                                                 | What it does                                                         |
+| --- | ---------------------------------------------------- | -------------------------------------------------------------------- |
+| 1   | `supabase/migrations/0001_foundation.sql`            | Extensions, status types and helper functions                        |
+| 2   | `supabase/migrations/0002_profiles.sql`              | Profiles, roles, SE-CUS / SE-DRV ids, saved family addresses         |
+| 3   | `supabase/migrations/0003_catalogue.sql`             | Categories, products, baskets, delivery zones, promo codes           |
+| 4   | `supabase/migrations/0004_drivers.sql`               | Drivers and their online status                                      |
+| 5   | `supabase/migrations/0005_orders.sql`                | Orders, items, payments, proof photos, audit trail, step enforcement |
+| 6   | `supabase/migrations/0006_content_and_ops.sql`       | Settings, FAQs, legal pages, contact messages, alerts                |
+| 7   | `supabase/migrations/0007_functions.sql`             | Tracking-link lookup and driver actions                              |
+| 8   | `supabase/migrations/0008_row_level_security.sql`    | Who can read and change what                                         |
+| 9   | `supabase/migrations/0009_storage.sql`               | Photo buckets and their access rules                                 |
+| 10  | `supabase/migrations/0010_seed.sql`                  | Starting categories, parishes, settings and legal page slots         |
+| 11  | `supabase/migrations/0011_checkout.sql`              | Placing orders, recording payments, tracking-link and order lookup   |
+| 12  | `supabase/migrations/0012_accounts.sql`              | Sender accounts: link guest orders, email changes, address limit     |
+| 13  | `supabase/migrations/0013_product_aisles.sql`        | Aisles inside each department, for the shop's aisle filter           |
+| 14  | `supabase/migrations/0014_client_grocery_aisles.sql` | Five grocery aisles from ShipEast's own price list                   |
 
 ## After running them
 

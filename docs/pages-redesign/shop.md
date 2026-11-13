@@ -22,21 +22,21 @@ plus `landing`, `ux` and `style` searches, §5.3).
 **One line.** _The front door of a well-run Jamaican store: type what you need, or walk into an
 aisle._
 
-|                      |                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The page's one job   | Get the sender from "I need to send something" to an item in the basket in as few taps as possible, with no doubt about price, timing or proof.                                                                                                                                                                                                                                                                                             |
-| Audience             | Jamaicans abroad buying for family in St. Thomas and Kingston. Arrives from the home page "Start shopping", the header "Shop" link, or a returning bookmark. Monthly supporter (knows what they want: search, shelves), occasion sender (wants a basket), emergency (wants one item today and needs the cut-off). Mostly on a phone, in the evening their time.                                                                              |
+|                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The page's one job   | Get the sender from "I need to send something" to an item in the basket in as few taps as possible, with no doubt about price, timing or proof.                                                                                                                                                                                                                                                                                                                                                                     |
+| Audience             | Jamaicans abroad buying for family in St. Thomas and Kingston. Arrives from the home page "Start shopping", the header "Shop" link, or a returning bookmark. Monthly supporter (knows what they want: search, shelves), occasion sender (wants a basket), emergency (wants one item today and needs the cut-off). Mostly on a phone, in the evening their time.                                                                                                                                                     |
 | The ONE bold element | **The aisle board.** Inside the crimson front-door band, the departments hang as four big solid **oxblood aisle signs**: department name in heavy `text-h2`, a crimson disc with the department icon, the real item count, and the first three real product names on that shelf ("Long Grain Rice, Vegetable Cooking Oil, All-Purpose Flour and more"). It reads like the signs over the aisles of a Jamaican supermarket. Everything else on the page is quiet: white shelves, plain type, one oxblood proof band. |
-| Tone                 | A store, not a brochure. Typographic signs, then real product photos on white shelves. Warm copy from the sender's side ("What do they need this week?").                                                                                                                                                                                                                                                                                    |
+| Tone                 | A store, not a brochure. Typographic signs, then real product photos on white shelves. Warm copy from the sender's side ("What do they need this week?").                                                                                                                                                                                                                                                                                                                                                           |
 
 ### How the page beats the competition
 
-| Competitor             | Their shop                                                                    | Our answer on this page                                                                                                                                         | Where      |
-| ---------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| grocerylistjamaica.com | A long category list and product pages; fees and timing found later         | Search and the four aisles in the first screen; the exchange rate, the date prices were checked and the cut-off stated on the page before anything is added.   | S1         |
-| PriceSmart Jamaica     | Members only, in Jamaica                                                      | No membership; the shelves add to a basket in one tap from anywhere.                                                                                            | S3         |
-| revvcouriers.com       | Courier errands, no catalogue                                                 | A real catalogue with prices in USD and J$, plus ready-made baskets as a shortcut.                                                                              | S2, S3     |
-| Remittance/gift sites  | Cash or vouchers; no idea what it buys                                        | You choose the exact items; a till receipt photo and a door photo prove it.                                                                                     | S1 notes, S4 |
+| Competitor             | Their shop                                                          | Our answer on this page                                                                                                                                      | Where        |
+| ---------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
+| grocerylistjamaica.com | A long category list and product pages; fees and timing found later | Search and the four aisles in the first screen; the exchange rate, the date prices were checked and the cut-off stated on the page before anything is added. | S1           |
+| PriceSmart Jamaica     | Members only, in Jamaica                                            | No membership; the shelves add to a basket in one tap from anywhere.                                                                                         | S3           |
+| revvcouriers.com       | Courier errands, no catalogue                                       | A real catalogue with prices in USD and J$, plus ready-made baskets as a shortcut.                                                                           | S2, S3       |
+| Remittance/gift sites  | Cash or vouchers; no idea what it buys                              | You choose the exact items; a till receipt photo and a door photo prove it.                                                                                  | S1 notes, S4 |
 
 We never name a competitor and never compare prices.
 
@@ -79,13 +79,13 @@ S2 and S4), the hero photo (`shopProduce`), the separate "Shop by category" phot
 
 ### 1B.2 Section structures at a glance
 
-| Section | 1. Pattern | 2. Background | 3. Container / height | 4. Columns 375 → 768 → 1024 → 1440 (phone order) | 5. Blocks (counts) | 6. Why this structure, for the sender |
-| --- | --- | --- | --- | --- | --- | --- |
-| S1 Front door | **Split two-column 7/5** (row 1) over a **four-up sign row** (row 2), all in one band | Solid `crimson`; signs solid `oxblood`; notes card solid `surface`. No photo | Full-bleed, content `max-w-wide`; `section` padding; ~780px at 1440 | Row 1: 1 → 1 → 7/5 → 7/5. Signs: 2×2 → 2×2 → 4 → 4. Notes: after signs on phones (1 col of rows) → 3 rows side by side at 768 → right column of row 1 at 1024+ | h1, lead, 1 search form, 4 aisle signs (disc icon + name + count + sample line + arrow), 1 notes card (h2 + 3 rows) | The two ways people shop (type it / walk the aisle) are both in the first screen, and the three doubts that stop a first order (what does it cost in J$, are these prices current, will it arrive today) are answered before the first tap. Competitors open with a banner or a long list. |
-| S2 Baskets | **Three-card row** of horizontal "row cards" | `page` | Contained `max-w-wide`; `section-sm`; ~420px at 1440 | 1 → 1 → 1 → 3 (3-up from 1280) | header (h2, lead, 1 link) + 3 cards = square photo + h3 + item count + price + saving tag + Add | The occasion sender's fastest path: a whole basket in one tap, priced, before any scrolling through shelves. Compact so it does not push the shelves far down. |
-| S3 Shelves | **Stacked store shelves**: each a title row + a **five-up product row** that becomes a **sideways scroll rail** on phones | Solid `surface` | Contained `max-w-wide`; `section-sm` for the first shelf, ruled dividers between; ~390px per shelf at 1440 | Rail 2.3 cards → 3.2 cards (sm) → 4-up grid (md) → 5-up grid (lg) | 1 staples shelf (featured products, department label on each card) + 1 shelf per department; each = h2 + lead + price-check note + "See all" link + ≤5 product cards with Add | This is the store. One shelf per aisle mirrors the signs above; one-tap Add on every card; "See all" goes to the full department. |
-| S4 How we shop | **Full-width band, split 7/5**: title + three promises left, two offset tall photos right | Solid `oxblood` | Full-bleed, content `max-w-page`; `section`; ~720px | 1 → 1 (photos 2-up under text at 768) → 7/5 → 7/5. Photos hidden below 768 | h2, lead, 3 promises (icon disc + h3 + body), 1 link, 2 photos 3:4 | After browsing, the hesitant sender gets the three promises every order carries (bought fresh, receipt photo, your swap rule) in one calm text-led break from the photos. |
-| S5 Can't find it | **Single contained panel**: icon, text, button in a row | `page` band, `surface` panel with `line` border | Contained `max-w-page`; `section-sm`; ~330px | stacked → row (sm+) → row → row | icon disc, h2, 1 paragraph, 1 button | Ends on a way forward instead of a dead end for anyone whose item isn't listed. |
+| Section          | 1. Pattern                                                                                                                | 2. Background                                                                | 3. Container / height                                                                                      | 4. Columns 375 → 768 → 1024 → 1440 (phone order)                                                                                                               | 5. Blocks (counts)                                                                                                                                                            | 6. Why this structure, for the sender                                                                                                                                                                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| S1 Front door    | **Split two-column 7/5** (row 1) over a **four-up sign row** (row 2), all in one band                                     | Solid `crimson`; signs solid `oxblood`; notes card solid `surface`. No photo | Full-bleed, content `max-w-wide`; `section` padding; ~780px at 1440                                        | Row 1: 1 → 1 → 7/5 → 7/5. Signs: 2×2 → 2×2 → 4 → 4. Notes: after signs on phones (1 col of rows) → 3 rows side by side at 768 → right column of row 1 at 1024+ | h1, lead, 1 search form, 4 aisle signs (disc icon + name + count + sample line + arrow), 1 notes card (h2 + 3 rows)                                                           | The two ways people shop (type it / walk the aisle) are both in the first screen, and the three doubts that stop a first order (what does it cost in J$, are these prices current, will it arrive today) are answered before the first tap. Competitors open with a banner or a long list. |
+| S2 Baskets       | **Three-card row** of horizontal "row cards"                                                                              | `page`                                                                       | Contained `max-w-wide`; `section-sm`; ~420px at 1440                                                       | 1 → 1 → 1 → 3 (3-up from 1280)                                                                                                                                 | header (h2, lead, 1 link) + 3 cards = square photo + h3 + item count + price + saving tag + Add                                                                               | The occasion sender's fastest path: a whole basket in one tap, priced, before any scrolling through shelves. Compact so it does not push the shelves far down.                                                                                                                             |
+| S3 Shelves       | **Stacked store shelves**: each a title row + a **five-up product row** that becomes a **sideways scroll rail** on phones | Solid `surface`                                                              | Contained `max-w-wide`; `section-sm` for the first shelf, ruled dividers between; ~390px per shelf at 1440 | Rail 2.3 cards → 3.2 cards (sm) → 4-up grid (md) → 5-up grid (lg)                                                                                              | 1 staples shelf (featured products, department label on each card) + 1 shelf per department; each = h2 + lead + price-check note + "See all" link + ≤5 product cards with Add | This is the store. One shelf per aisle mirrors the signs above; one-tap Add on every card; "See all" goes to the full department.                                                                                                                                                          |
+| S4 How we shop   | **Full-width band, split 7/5**: title + three promises left, two offset tall photos right                                 | Solid `oxblood`                                                              | Full-bleed, content `max-w-page`; `section`; ~720px                                                        | 1 → 1 (photos 2-up under text at 768) → 7/5 → 7/5. Photos hidden below 768                                                                                     | h2, lead, 3 promises (icon disc + h3 + body), 1 link, 2 photos 3:4                                                                                                            | After browsing, the hesitant sender gets the three promises every order carries (bought fresh, receipt photo, your swap rule) in one calm text-led break from the photos.                                                                                                                  |
+| S5 Can't find it | **Single contained panel**: icon, text, button in a row                                                                   | `page` band, `surface` panel with `line` border                              | Contained `max-w-page`; `section-sm`; ~330px                                                               | stacked → row (sm+) → row → row                                                                                                                                | icon disc, h2, 1 paragraph, 1 button                                                                                                                                          | Ends on a way forward instead of a dead end for anyone whose item isn't listed.                                                                                                                                                                                                            |
 
 ---
 
@@ -109,14 +109,14 @@ ShopPage (server, all loaders cached; no runtime reads → whole page prerenders
 
 ### Data (all real, all existing loaders)
 
-| Need | Source |
-| --- | --- |
-| Departments, real counts | `getCategories()` (`count` excludes hidden products) |
-| Products for shelves, sign samples, price-check dates | `getProducts()` (`priceCheckedAt`, `status`, `featured`, `categoryId`) |
-| Featured baskets with item count and separate price | `getBaskets({ featured: true })` |
-| Exchange rate, item-request flag | `getSettings()` → `jmdPerUsd`, `features.item_requests` |
-| Parishes and cut-off | `getActiveZones()` → `joinParishes()` and `earliestCutoff()` from `src/lib/home.ts` (reuse; do not copy) |
-| Basket section lead | `basketsLead()` from `src/lib/home.ts` (reuse) |
+| Need                                                  | Source                                                                                                   |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Departments, real counts                              | `getCategories()` (`count` excludes hidden products)                                                     |
+| Products for shelves, sign samples, price-check dates | `getProducts()` (`priceCheckedAt`, `status`, `featured`, `categoryId`)                                   |
+| Featured baskets with item count and separate price   | `getBaskets({ featured: true })`                                                                         |
+| Exchange rate, item-request flag                      | `getSettings()` → `jmdPerUsd`, `features.item_requests`                                                  |
+| Parishes and cut-off                                  | `getActiveZones()` → `joinParishes()` and `earliestCutoff()` from `src/lib/home.ts` (reuse; do not copy) |
+| Basket section lead                                   | `basketsLead()` from `src/lib/home.ts` (reuse)                                                           |
 
 ### New pure helpers — `src/lib/shop-front.ts` (+ `src/lib/shop-front.test.ts`)
 
@@ -159,6 +159,7 @@ import it into `shop-front.ts`; do not move it in this change.
 ### 3.1 S1 Front door
 
 **Structure**
+
 1. Pattern: split two-column 7/5 (row 1: text + search | notes card) above a four-up row of
    aisle signs (row 2), inside one crimson band.
 2. Background: solid `crimson`; signs solid `oxblood`; notes card solid `surface`. No photo, no
@@ -294,6 +295,7 @@ Reduced motion: the global rule shows them in place.
 ### 3.2 S2 Ready-made baskets
 
 **Structure**
+
 1. Pattern: three-card row of horizontal row cards (photo left, details right).
 2. Background: `page`; cards `surface` with `line` border.
 3. Container: `<section aria-labelledby="shop-baskets-title" class="section-sm">`, inner `mx-auto max-w-wide gutter`. ~420px at 1440, ~690px at 375.
@@ -337,6 +339,7 @@ Add.
 
 **BasketRowCard** (`src/components/pages/shop/basket-row-card.tsx`, server; props
 `{ summary: BasketSummary; jmdPerUsd: number }`):
+
 - `<article class="group relative grid grid-cols-[6rem_1fr] gap-4 rounded-lg border border-line bg-surface p-3 hover-lift has-[a:focus-visible]:ring-3 has-[a:focus-visible]:ring-signal has-[a:focus-visible]:ring-offset-2 sm:grid-cols-[9rem_1fr] sm:p-4 xl:grid-cols-[8rem_1fr]">`
 - Photo: `StockPhoto name={basketPhotos[slug]} alt="" zoom sizes="(min-width: 640px) 144px, 96px" className="aspect-square rounded-md"`; no photo → `grid aspect-square place-items-center rounded-md bg-crimson text-blush` with `ShoppingBasket size-8`.
 - Details `flex min-w-0 flex-col gap-1`: h3 `text-h3 text-ink` with the stretched link (`after:absolute after:inset-0 focus-visible:outline-none`); count `text-small text-ink-muted tabular-nums`; price row `mt-auto flex flex-wrap items-end justify-between gap-3 pt-2`: left `flex flex-wrap items-start gap-x-2 gap-y-1` = `Price size="md"` + saving tag `rounded-sm bg-jm-gold px-2 py-0.5 text-xs font-bold text-ink tabular-nums` (gold = saving, the site-wide convention in `docs/TOKENS.md`); right `relative z-raised w-full sm:w-auto [&_button]:w-full sm:[&_button]:w-auto` with `AddToBasket kind="basket"`.
@@ -350,6 +353,7 @@ product photo), so showing it here is consistent, not a duplicate role.
 ### 3.3 S3 Shelves
 
 **Structure**
+
 1. Pattern: stacked shelves, each a title row and a five-up product row (sideways rail below
    768).
 2. Background: solid `surface` (one continuous white run; the existing `ProductShelf` already
@@ -392,6 +396,7 @@ Note on each shelf: `priceCheckLine(priceCheckRange(shelf products))`, hidden wh
 
 **ProductShelf changes** (`src/components/shop/product-shelf.tsx`, additive, the only caller is
 this page):
+
 - `href` becomes optional; without it there is no "See all" link and no dashed tile.
 - New `categoryNames?: Record<string, string>` → passes `category={categoryNames[p.categoryId]}`
   to `ProductCard` (staples shelf only).
@@ -412,6 +417,7 @@ alternative to swiping (ui-ux-pro-max marketplace rule).
 ### 3.4 S4 How we shop for you
 
 **Structure**
+
 1. Pattern: full-width band, split 7/5: title, three promises and a link left; two offset tall
    photos right.
 2. Background: solid `oxblood`, `on-dark-focus`. Photos framed (no overlay).
@@ -422,6 +428,7 @@ alternative to swiping (ui-ux-pro-max marketplace rule).
 6. Why: a calm, text-led reassurance after the photo-heavy shelves.
 
 Restyle of the existing `HowWeShop` in `shop-promises.tsx`:
+
 - Remove the eyebrow. Title **Bought in Jamaica, the way you would**. Lead **Nothing is shipped
   from overseas. Only your payment crosses the border.**
 - Promises from `shopPoints('')` (empty `sameDay`: the cut-off is already in S1, so it is not
@@ -431,7 +438,7 @@ Restyle of the existing `HowWeShop` in `shop-promises.tsx`:
 - Link: "See how an order works" → `/how-it-works`, using the shared on-dark link style.
 - Photos: left slot **`shopChoosing`** (new, see §3.6) replaces `shopCheckout`, which the home
   page already uses for "we shop"; right slot `shopReceipt` (existing). Both `rounded-2xl
-  aspect-3/4`, right one `mt-10`, `sizes="(min-width: 1024px) 240px, (min-width: 768px) 50vw, 0px"`
+aspect-3/4`, right one `mt-10`, `sizes="(min-width: 1024px) 240px, (min-width: 768px) 50vw, 0px"`
   (existing). `shopChoosing` gets `position="60% center"` so the shopper and the produce sit in
   the 3:4 crop.
 
@@ -458,16 +465,16 @@ home page keeps them.
 
 **One new photo — `shopChoosing`** in `src/lib/photos/shop.ts`:
 
-| Field | Value |
-| --- | --- |
-| Unsplash id | `2mhqft65NIo` |
-| URL | `https://images.unsplash.com/photo-1527493324787-47372b893452` (verified 200 at `?w=200`, November 6, 2026) |
-| Size | 5926 × 3956 |
-| Photographer | kevin laminto (`kxvn_lx`) |
-| Alt | "A shopper choosing fresh vegetables from a market display" |
-| Crop | 3:4 in the S4 left slot, `position="60% center"` |
-| usedOn | "Shop" |
-| Licence | Free Unsplash licence (not Unsplash+) |
+| Field        | Value                                                                                                       |
+| ------------ | ----------------------------------------------------------------------------------------------------------- |
+| Unsplash id  | `2mhqft65NIo`                                                                                               |
+| URL          | `https://images.unsplash.com/photo-1527493324787-47372b893452` (verified 200 at `?w=200`, November 6, 2026) |
+| Size         | 5926 × 3956                                                                                                 |
+| Photographer | kevin laminto (`kxvn_lx`)                                                                                   |
+| Alt          | "A shopper choosing fresh vegetables from a market display"                                                 |
+| Crop         | 3:4 in the S4 left slot, `position="60% center"`                                                            |
+| usedOn       | "Shop"                                                                                                      |
+| Licence      | Free Unsplash licence (not Unsplash+)                                                                       |
 
 Record the download with the Unsplash MCP `download_asset` tool (or `/photos/2mhqft65NIo/download`)
 before adding it, as `docs/PHOTOGRAPHY.md` requires; `/photo-credits` then lists it. It is not
@@ -504,15 +511,15 @@ Jamaican market or store photo if Derion supplies one.
 
 ### 5.1 First pass vs revised (frontend-design two-pass)
 
-| First pass | Problem found in review | Revised |
-| --- | --- | --- |
+| First pass                                                                                                         | Problem found in review                                                                                                                                                                                                                               | Revised                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Crimson hero with a big photo on the right and a row of department photo cards below it (the current page, tidied) | The same split as the home hero and the same department tiles as home S3: the shop would read as a second home page. Photo tiles also duplicate the home's department photos in the same role, and the Baby department has no product photos to show. | Typographic **oxblood aisle signs** with real contents; no hero photo. Photos are kept for the shelves, where they show the actual items. |
-| Big item counts as numerals on each sign (`text-numeral`) | Shouting "4 items" makes a small launch catalogue look thin, the opposite of "well-stocked". | Count in small blush text; the sample product names do the "stocked" work. |
-| "Popular right now" chips under the search | Popularity isn't tracked: a fake claim. | Dropped. The **Everyday staples** shelf uses the admin's `featured` flag and says "picked by our team". |
-| A sticky department jump bar over the shelves | Five short shelves don't need it; it eats 56px on a phone under the sticky header; the signs already lead to each department. | Dropped. Anchors `aisle-{slug}` stay for deep links. |
-| Signs straddling the crimson/page seam (echo of the home receipt) | Second use of the home's signature move; negative margins complicate S2 spacing. | Signs sit fully inside the crimson band. One bold element, one place. |
-| Closing crimson CTA panel "Send a whole basket today" | Repeats S2; adds a third red block before the oxblood footer. | Removed. The page ends on "Can't find it?", a real next step. |
-| Stagger reveals on cards and promises | Generic scroll choreography; store items should simply be there. | One load-time sequence on the four signs only. |
+| Big item counts as numerals on each sign (`text-numeral`)                                                          | Shouting "4 items" makes a small launch catalogue look thin, the opposite of "well-stocked".                                                                                                                                                          | Count in small blush text; the sample product names do the "stocked" work.                                                                |
+| "Popular right now" chips under the search                                                                         | Popularity isn't tracked: a fake claim.                                                                                                                                                                                                               | Dropped. The **Everyday staples** shelf uses the admin's `featured` flag and says "picked by our team".                                   |
+| A sticky department jump bar over the shelves                                                                      | Five short shelves don't need it; it eats 56px on a phone under the sticky header; the signs already lead to each department.                                                                                                                         | Dropped. Anchors `aisle-{slug}` stay for deep links.                                                                                      |
+| Signs straddling the crimson/page seam (echo of the home receipt)                                                  | Second use of the home's signature move; negative margins complicate S2 spacing.                                                                                                                                                                      | Signs sit fully inside the crimson band. One bold element, one place.                                                                     |
+| Closing crimson CTA panel "Send a whole basket today"                                                              | Repeats S2; adds a third red block before the oxblood footer.                                                                                                                                                                                         | Removed. The page ends on "Can't find it?", a real next step.                                                                             |
+| Stagger reveals on cards and promises                                                                              | Generic scroll choreography; store items should simply be there.                                                                                                                                                                                      | One load-time sequence on the four signs only.                                                                                            |
 
 ### 5.2 Generic defaults removed
 
@@ -543,8 +550,7 @@ page: speed and a text LCP, with the real product photos one scroll away.
 
 ### 5.4 Risks
 
-- **Sign sample names wrap long** ("Baby Diapers, Size 3"): `line-clamp-2` and hidden below
-  768.
+- **Sign sample names wrap long** ("Baby Diapers, Size 3"): `line-clamp-2` and hidden below 768.
 - **Many departments later** (admin adds a fifth): the sign grid wraps 4 + 1 at lg; acceptable,
   or `lg:grid-cols-5` for exactly 5 (dev agent: implement `cols = min(count, 4)`, and 5 → 5).
 - **Two search boxes at 768+** (header inline search and S1 search). See §7 Q1.
@@ -557,6 +563,7 @@ page: speed and a text LCP, with the real product photos one scroll away.
 ## 6. Acceptance checklist
 
 All widths:
+
 - [ ] `npm run check` green; `src/lib/shop-front.test.ts` covers the helpers; `design-tokens.test.ts` passes (no raw colours).
 - [ ] No eyebrows, no gradients, no emoji, no hand-set tracking, money/dates only via `format.ts`.
 - [ ] Every sign links to `/shop/{slug}`; the search form submits GET to `/search?q=`; every product and basket Add works before and after JS loads; anchors `#aisle-staples` and `#aisle-{slug}` land below the sticky header.
@@ -566,16 +573,20 @@ All widths:
 - [ ] Focus visible on every interactive element (blush on crimson/oxblood, signal on light). Reduced motion: signs appear without rising.
 
 375:
+
 - [ ] Order: h1, lead, search, signs 2×2, notes card, baskets (3 stacked row cards, full-width Add), shelves (rails, 2.3 cards), promises (no photos), can't-find panel. No horizontal page scroll.
 - [ ] "Baby & Child" fits its sign on ≤ 2 lines; search button ≥ 44px; Add buttons 44px.
 
 768:
+
 - [ ] Signs 2×2 with sample lines; notes rows in 3 columns; baskets 1 column; shelves 4-up grid; S4 photos side by side under the text.
 
 1024:
+
 - [ ] S1 row 1 split 7/5 with the notes card bottom-aligned; signs 4-up; baskets still 1 column (row cards full width); shelves 5-up.
 
 1440:
+
 - [ ] S1 fits in ~780px so the signs are in the first viewport at 1440 × 900; baskets 3-up; shelves 5-up inside `max-w-wide`; S4 7/5 with offset photos; screenshots compared with the "before" shots.
 
 ---

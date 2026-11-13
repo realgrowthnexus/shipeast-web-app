@@ -84,8 +84,16 @@ export function ProductImage({
         </span>
       </div>
     )
+  // A pack shot on white (ShipEast's own product pictures): show all of it, on white.
+  const packShot = Boolean(src?.startsWith('/products/'))
   return (
-    <div className={cn('relative aspect-[4/3] overflow-hidden rounded-md bg-page', className)}>
+    <div
+      className={cn(
+        'relative aspect-[4/3] overflow-hidden rounded-md',
+        packShot ? 'bg-surface' : 'bg-page',
+        className,
+      )}
+    >
       {src ? (
         <Image
           src={src}
@@ -94,7 +102,11 @@ export function ProductImage({
           sizes={sizes}
           loading={eager ? 'eager' : undefined}
           fetchPriority={priority ? 'high' : undefined}
-          className="object-cover"
+          className={cn(
+            packShot
+              ? 'object-contain p-2 transition-transform duration-700 ease-out-soft group-hover:scale-[1.06] motion-reduce:transition-none'
+              : 'object-cover',
+          )}
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center" role="img" aria-label={alt}>

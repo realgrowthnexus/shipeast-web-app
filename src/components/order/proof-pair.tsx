@@ -97,11 +97,7 @@ export function ProofPair({
             />
           ) : (
             <div className="absolute inset-0 flex flex-col justify-between p-3 text-on-dark sm:p-4">
-              <DoorOpen
-                className="size-10 text-blush sm:size-12"
-                strokeWidth={1.5}
-                aria-hidden
-              />
+              <DoorOpen className="size-10 text-blush sm:size-12" strokeWidth={1.5} aria-hidden />
               <div>
                 <p className="text-xs text-blush sm:text-small">Delivered to</p>
                 <p className="text-small leading-tight font-bold sm:text-body">{door.recipient}</p>

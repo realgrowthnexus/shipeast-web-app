@@ -1,9 +1,11 @@
 import type { Aisle, Basket, Category, Product } from '@/lib/types'
+import { clientProducts } from './client-products'
 
 /**
- * PLACEHOLDER catalogue for building and reviewing layouts. Names are generic and prices are
- * made up; the real PriceSmart list, markup and photos come from ShipEast later. Never copy
- * PriceSmart's own images.
+ * The demo catalogue. Groceries now start with ShipEast's own list (`client-products.ts`: the
+ * products, prices and pictures Derion sent). The generic products below it are PLACEHOLDERS
+ * with made-up prices: they fill the other departments and the ready-made baskets until
+ * ShipEast sends those too.
  */
 
 export const categories: Category[] = [
@@ -37,13 +39,21 @@ export const categories: Category[] = [
   },
 ]
 
-/** The 14 starting aisles, the same as `0013_product_aisles.sql` (a first draft for Derion). */
+/**
+ * The aisles: the 14 from `0013_product_aisles.sql` (a first draft) plus the five grocery
+ * aisles Derion's own price list uses, added in `0014_client_grocery_aisles.sql`.
+ */
 const aisleSeeds: [category: string, slug: string, name: string][] = [
   ['cat-groceries', 'rice-and-grains', 'Rice & grains'],
   ['cat-groceries', 'baking', 'Baking'],
   ['cat-groceries', 'cooking-oils', 'Cooking oils'],
   ['cat-groceries', 'canned-goods', 'Canned goods'],
   ['cat-groceries', 'breakfast-and-drinks', 'Breakfast & drinks'],
+  ['cat-groceries', 'pasta', 'Pasta'],
+  ['cat-groceries', 'pantry', 'Pantry'],
+  ['cat-groceries', 'fresh-produce', 'Fresh produce'],
+  ['cat-groceries', 'dairy', 'Dairy'],
+  ['cat-groceries', 'seasonings-and-spices', 'Seasonings & spices'],
   ['cat-household', 'laundry-and-cleaning', 'Laundry & cleaning'],
   ['cat-household', 'dishwashing', 'Dishwashing'],
   ['cat-household', 'paper-goods', 'Paper goods'],
@@ -99,24 +109,10 @@ type Seed = [
 ]
 
 const seeds: Seed[] = [
-  [
-    'long-grain-rice-10lb',
-    'Long Grain Rice',
-    '10 lb bag',
-    'cat-groceries',
-    1450,
-    { featured: true },
-  ],
+  ['long-grain-rice-10lb', 'Long Grain Rice', '10 lb bag', 'cat-groceries', 1450],
   ['all-purpose-flour-5lb', 'All-Purpose Flour', '5 lb bag', 'cat-groceries', 650],
   ['granulated-sugar-4lb', 'Granulated Sugar', '4 lb bag', 'cat-groceries', 575],
-  [
-    'vegetable-oil-1gal',
-    'Vegetable Cooking Oil',
-    '1 gallon',
-    'cat-groceries',
-    1325,
-    { featured: true },
-  ],
+  ['vegetable-oil-1gal', 'Vegetable Cooking Oil', '1 gallon', 'cat-groceries', 1325],
   ['rolled-oats-42oz', 'Rolled Oats', '42 oz canister', 'cat-groceries', 825],
   ['corned-beef-12oz', 'Corned Beef', '12 oz can', 'cat-groceries', 475],
   [
@@ -164,7 +160,7 @@ const seeds: Seed[] = [
   ['baby-lotion', 'Baby Lotion', '27 fl oz, 2 pack', 'cat-baby', 1490],
 ]
 
-export const products: Product[] = seeds.map(
+const placeholderProducts: Product[] = seeds.map(
   ([slug, name, size, categoryId, priceCents, extra], i) => ({
     id: `prd-${i + 1}`,
     slug,
@@ -181,6 +177,9 @@ export const products: Product[] = seeds.map(
     ...extra,
   }),
 )
+
+/** ShipEast's own groceries first, then the placeholders. */
+export const products: Product[] = [...clientProducts, ...placeholderProducts]
 
 const id = (slug: string) => {
   const product = products.find((p) => p.slug === slug)

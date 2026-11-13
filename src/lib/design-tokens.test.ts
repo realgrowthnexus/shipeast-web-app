@@ -211,8 +211,6 @@ describe('components use tokens', () => {
       'title',
       'numeral',
       'display',
-      'shout',
-      'mega',
       'poster',
       'left',
       'center',

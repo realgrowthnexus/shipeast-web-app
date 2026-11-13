@@ -39,13 +39,13 @@ Skills used: `frontend-design` (two passes, see §8) and `ui-ux-pro-max`
 exactly what is inside, what it costs in US dollars (with J$ beside it), and what it saves
 against buying the same items one by one.
 
-| | |
-| --- | --- |
-| Audience | Three senders, all on a phone most of the time. **The occasion sender** (Christmas, a new baby) wants something complete that arrives with a message from them. **The monthly supporter** wants the week's staples without picking 9 items again. **The emergency sender** needs the medicine cabinet stocked today. |
-| What they must see at a glance | Who each basket is for, what is inside, the USD price with J$ beside it, the real saving, that a gift message is printed, and the Add button. |
-| **The ONE bold element** | **The price board.** The crimson hero is a shop price board, not a banner: one big row per basket, "For the weekly shop" above the name in heavy type, and the price set as large as the name on the right, with J$ and the saving under it. It reads like the board over a Jamaican shop counter. Each row jumps to that basket below. No photo in the hero: the board *is* the picture, and it answers "what do you have and what does it cost" before the sender scrolls. |
-| Everything else | Quiet. The basket rows below are flat white cards on the grey page. The only "receipt" idea is functional: each basket lists its items at today's shop price and ends with a dashed rule and three totals (one by one, basket, you save). That proves the saving instead of claiming it. |
-| How we beat competitors | grocerylistjamaica.com and diaspora gift sites show bundles as a photo and a price, with a vague "includes". We show every item, its quantity and today's price, and do the maths in the open. Gift sites hide the delivery; we say who buys it, that you get the till receipt photo and a door photo, and what happens if an item has run out. Remittance sites send cash; a basket sends exactly the items, with a printed message from you. We never name a competitor and never claim a price comparison with them. |
+|                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Audience                       | Three senders, all on a phone most of the time. **The occasion sender** (Christmas, a new baby) wants something complete that arrives with a message from them. **The monthly supporter** wants the week's staples without picking 9 items again. **The emergency sender** needs the medicine cabinet stocked today.                                                                                                                                                                                                    |
+| What they must see at a glance | Who each basket is for, what is inside, the USD price with J$ beside it, the real saving, that a gift message is printed, and the Add button.                                                                                                                                                                                                                                                                                                                                                                           |
+| **The ONE bold element**       | **The price board.** The crimson hero is a shop price board, not a banner: one big row per basket, "For the weekly shop" above the name in heavy type, and the price set as large as the name on the right, with J$ and the saving under it. It reads like the board over a Jamaican shop counter. Each row jumps to that basket below. No photo in the hero: the board _is_ the picture, and it answers "what do you have and what does it cost" before the sender scrolls.                                            |
+| Everything else                | Quiet. The basket rows below are flat white cards on the grey page. The only "receipt" idea is functional: each basket lists its items at today's shop price and ends with a dashed rule and three totals (one by one, basket, you save). That proves the saving instead of claiming it.                                                                                                                                                                                                                                |
+| How we beat competitors        | grocerylistjamaica.com and diaspora gift sites show bundles as a photo and a price, with a vague "includes". We show every item, its quantity and today's price, and do the maths in the open. Gift sites hide the delivery; we say who buys it, that you get the till receipt photo and a door photo, and what happens if an item has run out. Remittance sites send cash; a basket sends exactly the items, with a printed message from you. We never name a competitor and never claim a price comparison with them. |
 
 The page keeps every real function of the current one: add to basket, links to
 `/baskets/[slug]`, the gift message, the comparison (now inside each basket, §4 S2), the link to
@@ -92,13 +92,13 @@ photo-led sections alternate, as on the home page.
 
 ### 2.2 Section structures at a glance
 
-| Section | 1. Pattern | 2. Background | 3. Container / height | 4. Columns 375 → 768 → 1024 → 1440 (phone order first) | 5. Blocks (counts) | 6. Why this serves the sender |
-| --- | --- | --- | --- | --- | --- | --- |
-| S1 Price board | **Split two-column 4/8**: title block left, a **price board** (ruled list of full-width link rows) right | Solid `crimson`, no photo | Full-bleed, content `max-w-wide`; `section` padding; ~620 at 1440 | 1 (h1, lead, cut-off, board) → 1 → 2 (4/8) → 2 (4/8) | h1, lead, cut-off note, 1 board = 1 row per basket (4 today), each row = icon disc + "who it's for" + name + item count + USD price + J$ + saving tag | Every basket, who it is for and its price in one look, above the fold on a laptop and in the first two screens on a phone. Competitors open with a banner photo and make you click each bundle to see a price. |
-| S2 The baskets | **Stacked row cards** (one full-width card per basket, same layout each time, no zig-zag) | `page` band; cards `surface` | Contained `max-w-page`; `section` padding; ~620 per card at 1440 | 1 (photo, header, buy, items) → 1 (photo 16:9 on top; header, items, buy below) → 2 (photo 5 / body 7) → 2 (5 / 7) | Section header (h2 + lead) + 4 cards. Each card = 1 photo + occasion line + h3 name link + 1-line description + **items table** (one row per item, 4 to 9) with 3 totals + buy bar (price, saving tag, quantity + Add, gift line) | The whole basket is readable without opening anything: items, quantities, line prices and the honest saving. One layout repeated makes four baskets easy to compare by scrolling. |
-| S3 After you order | **Split two-column 5/7**: title + lead + link left, **ruled list of 3** right | Solid `oxblood` | Full-bleed, content `max-w-page`; `section` padding; ~520 | 1 → 1 → 2 (5/7) → 2 (5/7) | h2, lead, 1 link; 3 rows = icon disc + h3 + 1–2 line body | Briefly answers the two doubts that matter more for a many-item basket: "will I see what was bought?" and "what if something has run out?". Text-led after a long photo run. |
-| S4 Occasions and repeat | **Split two-column 6/6**: framed photo left, two stacked text blocks right (gift, then repeat sending) separated by a rule | Solid `surface`; photo framed, not a background | Contained `max-w-page`; `section` padding; ~640 | 1 (photo, gift, repeat) → 1 (photo 16:9, then text) → 2 (6/6) → 2 (6/6) | 1 photo 4:3, h2 + lead + 1 outline button (gift); rule; h3 + body + 1 link (repeat; wording depends on the `monthly_orders` flag) | Serves the occasion sender (the printed message, the gift ideas page) and the monthly supporter (send it again in one tap, or monthly orders when switched on) in one calm block. |
-| S5 Closing | **Single contained panel**: text left, buttons right inside | `page` band + solid `crimson` panel `rounded-2xl` | Contained `max-w-page`; `section` padding; ~380 | 1 → 1 → 2 (text / buttons) → 2 | h2, 1 line, primary button + text link | For the sender who would rather pick each item: one clear way to the shop. Same closing shape as the home page, so the brand feels consistent. |
+| Section                 | 1. Pattern                                                                                                                 | 2. Background                                     | 3. Container / height                                             | 4. Columns 375 → 768 → 1024 → 1440 (phone order first)                                                             | 5. Blocks (counts)                                                                                                                                                                                                                | 6. Why this serves the sender                                                                                                                                                                                  |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1 Price board          | **Split two-column 4/8**: title block left, a **price board** (ruled list of full-width link rows) right                   | Solid `crimson`, no photo                         | Full-bleed, content `max-w-wide`; `section` padding; ~620 at 1440 | 1 (h1, lead, cut-off, board) → 1 → 2 (4/8) → 2 (4/8)                                                               | h1, lead, cut-off note, 1 board = 1 row per basket (4 today), each row = icon disc + "who it's for" + name + item count + USD price + J$ + saving tag                                                                             | Every basket, who it is for and its price in one look, above the fold on a laptop and in the first two screens on a phone. Competitors open with a banner photo and make you click each bundle to see a price. |
+| S2 The baskets          | **Stacked row cards** (one full-width card per basket, same layout each time, no zig-zag)                                  | `page` band; cards `surface`                      | Contained `max-w-page`; `section` padding; ~620 per card at 1440  | 1 (photo, header, buy, items) → 1 (photo 16:9 on top; header, items, buy below) → 2 (photo 5 / body 7) → 2 (5 / 7) | Section header (h2 + lead) + 4 cards. Each card = 1 photo + occasion line + h3 name link + 1-line description + **items table** (one row per item, 4 to 9) with 3 totals + buy bar (price, saving tag, quantity + Add, gift line) | The whole basket is readable without opening anything: items, quantities, line prices and the honest saving. One layout repeated makes four baskets easy to compare by scrolling.                              |
+| S3 After you order      | **Split two-column 5/7**: title + lead + link left, **ruled list of 3** right                                              | Solid `oxblood`                                   | Full-bleed, content `max-w-page`; `section` padding; ~520         | 1 → 1 → 2 (5/7) → 2 (5/7)                                                                                          | h2, lead, 1 link; 3 rows = icon disc + h3 + 1–2 line body                                                                                                                                                                         | Briefly answers the two doubts that matter more for a many-item basket: "will I see what was bought?" and "what if something has run out?". Text-led after a long photo run.                                   |
+| S4 Occasions and repeat | **Split two-column 6/6**: framed photo left, two stacked text blocks right (gift, then repeat sending) separated by a rule | Solid `surface`; photo framed, not a background   | Contained `max-w-page`; `section` padding; ~640                   | 1 (photo, gift, repeat) → 1 (photo 16:9, then text) → 2 (6/6) → 2 (6/6)                                            | 1 photo 4:3, h2 + lead + 1 outline button (gift); rule; h3 + body + 1 link (repeat; wording depends on the `monthly_orders` flag)                                                                                                 | Serves the occasion sender (the printed message, the gift ideas page) and the monthly supporter (send it again in one tap, or monthly orders when switched on) in one calm block.                              |
+| S5 Closing              | **Single contained panel**: text left, buttons right inside                                                                | `page` band + solid `crimson` panel `rounded-2xl` | Contained `max-w-page`; `section` padding; ~380                   | 1 → 1 → 2 (text / buttons) → 2                                                                                     | h2, 1 line, primary button + text link                                                                                                                                                                                            | For the sender who would rather pick each item: one clear way to the shop. Same closing shape as the home page, so the brand feels consistent.                                                                 |
 
 ---
 
@@ -109,25 +109,29 @@ the page prerenders. The page reads no `searchParams`, `cookies()` or `headers()
 
 ```ts
 const [settings, zones, summaries, products] = await Promise.all([
-  getSettings(),        // jmdPerUsd, features.monthly_orders
-  getActiveZones(),     // parishes + cut-off for the hero note
-  getBaskets(),         // BasketSummary[]: basket, itemCount, separateCents
-  getProducts(),        // to list each basket's items with today's price and stock
+  getSettings(), // jmdPerUsd, features.monthly_orders
+  getActiveZones(), // parishes + cut-off for the hero note
+  getBaskets(), // BasketSummary[]: basket, itemCount, separateCents
+  getProducts(), // to list each basket's items with today's price and stock
 ])
-const rows = buildBasketRows(summaries, products)        // new, src/lib/baskets.ts
-const cutoff = earliestCutoff(zones)                      // src/lib/home.ts
+const rows = buildBasketRows(summaries, products) // new, src/lib/baskets.ts
+const cutoff = earliestCutoff(zones) // src/lib/home.ts
 const parishList = joinParishes(zones.map((z) => z.parish))
 ```
 
 ### 3.1 New helper `src/lib/baskets.ts` (pure, unit-tested)
 
 ```ts
-export interface BasketLine { product: Product; quantity: number; lineCents: number }
+export interface BasketLine {
+  product: Product
+  quantity: number
+  lineCents: number
+}
 export interface BasketRow {
   summary: BasketSummary
-  lines: BasketLine[]          // in the basket's own item order
-  savingCents: number          // max(0, separateCents - priceCents)
-  unavailable: Product[]       // lines whose product.status !== 'visible'
+  lines: BasketLine[] // in the basket's own item order
+  savingCents: number // max(0, separateCents - priceCents)
+  unavailable: Product[] // lines whose product.status !== 'visible'
 }
 /** Rows for the listing: orderable baskets first, then the rest, each group in admin order. */
 export function buildBasketRows(summaries: BasketSummary[], products: Product[]): BasketRow[]
@@ -153,12 +157,12 @@ export function buildBasketRows(summaries: BasketSummary[], products: Product[])
 
 Rate 157, J$ rounded to 10 by `usdCentsToJmd`.
 
-| Basket | Items | One by one | Basket | Saving | J$ | Orderable |
-| --- | --- | --- | --- | --- | --- | --- |
-| Family Food Basket | 9 | USD$79.20 | USD$69.00 | USD$10.20 | J$10,830 | yes |
-| Baby Care Pack | 4 | USD$127.60 | USD$109.00 | USD$18.60 | J$17,110 | yes |
-| Pharmacy Pack | 4 | USD$64.20 | USD$59.00 | USD$5.20 | J$9,260 | yes |
-| Christmas Hamper | 5 | USD$55.30 | USD$49.00 | USD$6.30 | J$7,690 | **no** (Ground Coffee out of stock) |
+| Basket             | Items | One by one | Basket     | Saving    | J$       | Orderable                           |
+| ------------------ | ----- | ---------- | ---------- | --------- | -------- | ----------------------------------- |
+| Family Food Basket | 9     | USD$79.20  | USD$69.00  | USD$10.20 | J$10,830 | yes                                 |
+| Baby Care Pack     | 4     | USD$127.60 | USD$109.00 | USD$18.60 | J$17,110 | yes                                 |
+| Pharmacy Pack      | 4     | USD$64.20  | USD$59.00  | USD$5.20  | J$9,260  | yes                                 |
+| Christmas Hamper   | 5     | USD$55.30  | USD$49.00  | USD$6.30  | J$7,690  | **no** (Ground Coffee out of stock) |
 
 ---
 
@@ -300,7 +304,7 @@ not animate: it is the content, and it must be readable instantly. Reduced motio
     `object-cover`), body `lg:col-span-7` with header → items table → buy bar.
 - Blocks: section header (h2 + lead) + 4 cards. Card = photo, occasion line, h3 link, 1-line
   description, items table (4–9 rows + 3 totals), buy bar (price, saving tag, quantity stepper
-  + Add, gift line).
+  - Add, gift line).
 - Why: the whole basket is visible without leaving the page; the totals turn "save money"
   into numbers the sender can check line by line.
 
@@ -592,20 +596,20 @@ approved home page).
 
 ## 5. Components and files
 
-| File | Kind | Props / notes |
-| --- | --- | --- |
-| `src/app/(site)/baskets/page.tsx` | server page (rewrite) | Loads §3 data; renders S1–S5; keeps `metadata` (description below). Drops imports of `BasketCard`, `Stagger`, `PhotoFeature`, `CtaBand`, `SectionHeader` eyebrow use and the old table. |
-| `src/components/pages/baskets/price-board.tsx` | server | `{ rows: BasketRow[]; jmdPerUsd: number }` → `<nav><ol>` of rows (S1). |
-| `src/components/pages/baskets/baskets-hero.tsx` | server | `{ rows, jmdPerUsd, cutoff: string \| null }` → S1 band; renders `PriceBoard` or the empty variant. |
-| `src/components/pages/baskets/basket-row.tsx` | server (contains client `AddToBasket`) | `{ row: BasketRow; jmdPerUsd: number }` → one S2 card. |
-| `src/components/pages/baskets/basket-items.tsx` | server | `{ row: BasketRow }` → the items table with totals. |
-| `src/components/pages/baskets/occasion-icon.tsx` | server | `{ occasion: Basket['occasion']; className?: string }`. |
-| `src/components/pages/baskets/after-you-order.tsx` | server | no props (reads `SUBSTITUTION_RULES`) → S3. |
-| `src/components/pages/baskets/occasions.tsx` | server | `{ monthly: boolean }` → S4. |
-| `src/components/site/closing-panel.tsx` | server, shared | §4 S5. |
-| `src/lib/baskets.ts` + `src/lib/baskets.test.ts` | lib + test | §3.1. |
-| `src/lib/home.ts` | edit | `export const occasionPhrases`. |
-| `src/lib/photos/shop.ts` | edit | add `basketsGiftWrap` (§7). |
+| File                                               | Kind                                   | Props / notes                                                                                                                                                                           |
+| -------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/(site)/baskets/page.tsx`                  | server page (rewrite)                  | Loads §3 data; renders S1–S5; keeps `metadata` (description below). Drops imports of `BasketCard`, `Stagger`, `PhotoFeature`, `CtaBand`, `SectionHeader` eyebrow use and the old table. |
+| `src/components/pages/baskets/price-board.tsx`     | server                                 | `{ rows: BasketRow[]; jmdPerUsd: number }` → `<nav><ol>` of rows (S1).                                                                                                                  |
+| `src/components/pages/baskets/baskets-hero.tsx`    | server                                 | `{ rows, jmdPerUsd, cutoff: string \| null }` → S1 band; renders `PriceBoard` or the empty variant.                                                                                     |
+| `src/components/pages/baskets/basket-row.tsx`      | server (contains client `AddToBasket`) | `{ row: BasketRow; jmdPerUsd: number }` → one S2 card.                                                                                                                                  |
+| `src/components/pages/baskets/basket-items.tsx`    | server                                 | `{ row: BasketRow }` → the items table with totals.                                                                                                                                     |
+| `src/components/pages/baskets/occasion-icon.tsx`   | server                                 | `{ occasion: Basket['occasion']; className?: string }`.                                                                                                                                 |
+| `src/components/pages/baskets/after-you-order.tsx` | server                                 | no props (reads `SUBSTITUTION_RULES`) → S3.                                                                                                                                             |
+| `src/components/pages/baskets/occasions.tsx`       | server                                 | `{ monthly: boolean }` → S4.                                                                                                                                                            |
+| `src/components/site/closing-panel.tsx`            | server, shared                         | §4 S5.                                                                                                                                                                                  |
+| `src/lib/baskets.ts` + `src/lib/baskets.test.ts`   | lib + test                             | §3.1.                                                                                                                                                                                   |
+| `src/lib/home.ts`                                  | edit                                   | `export const occasionPhrases`.                                                                                                                                                         |
+| `src/lib/photos/shop.ts`                           | edit                                   | add `basketsGiftWrap` (§7).                                                                                                                                                             |
 
 Reused as they are: `AddToBasket`, `Price`, `Badge`, `Alert` (if it fits), `ButtonLink`,
 `EmptyState`, `StockPhoto`, `CutoffNote`, `SectionHeader`, `lightLink`, `onCrimsonLink`,
@@ -643,24 +647,24 @@ generic.)
 
 ### 7.1 Reused from the registry
 
-| Slot | Key | Why |
-| --- | --- | --- |
+| Slot          | Key                                                                                    | Why                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | S2 row photos | `basketPhotos[slug]` → `basketFood`, `basketBaby`, `basketPharmacy`, `basketChristmas` | A basket's photo is its identity, like a product photo: the same picture on the home card, this listing and `/baskets/[slug]` tells the sender "this is the same basket". The home page uses them for the same basket cards, so this is a deliberate exception to "don't reuse a home photo for the same role"; **manager to confirm** (§10). Here they are cropped tall (5/12 column) at ≥1024, which the home page never does. |
 
 ### 7.2 New photo
 
-| Field | Value |
-| --- | --- |
-| Key | `basketsGiftWrap` (add to `src/lib/photos/shop.ts`) |
-| Unsplash id | `YSdaUaLopLQ` |
-| URL | `https://images.unsplash.com/photo-1758521542015-ceb80fb760ce` |
-| Size | 3840 × 2160 |
-| Photographer | Vitaly Gariev (`silverkblack`) |
-| Licence | Unsplash License (free; not Unsplash+) |
-| Alt | "A young woman smiling as she ties a ribbon on a gift box beside a Christmas tree" |
-| Crop | 4:3 at 375 and ≥1024, 16:9 at 768. `position: '35% 45%'` keeps her face and hands in frame (the tree sits on the right). |
-| `usedOn` | "Baskets" |
-| Checked | `curl -s -o /dev/null -w "%{http_code}" "https://images.unsplash.com/photo-1758521542015-ceb80fb760ce?w=200"` → **200** (November 6, 2026) |
+| Field         | Value                                                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Key           | `basketsGiftWrap` (add to `src/lib/photos/shop.ts`)                                                                                                   |
+| Unsplash id   | `YSdaUaLopLQ`                                                                                                                                         |
+| URL           | `https://images.unsplash.com/photo-1758521542015-ceb80fb760ce`                                                                                        |
+| Size          | 3840 × 2160                                                                                                                                           |
+| Photographer  | Vitaly Gariev (`silverkblack`)                                                                                                                        |
+| Licence       | Unsplash License (free; not Unsplash+)                                                                                                                |
+| Alt           | "A young woman smiling as she ties a ribbon on a gift box beside a Christmas tree"                                                                    |
+| Crop          | 4:3 at 375 and ≥1024, 16:9 at 768. `position: '35% 45%'` keeps her face and hands in frame (the tree sits on the right).                              |
+| `usedOn`      | "Baskets"                                                                                                                                             |
+| Checked       | `curl -s -o /dev/null -w "%{http_code}" "https://images.unsplash.com/photo-1758521542015-ceb80fb760ce?w=200"` → **200** (November 6, 2026)            |
 | Before adding | Record the download through the Unsplash API (MCP `download_asset`), as `docs/PHOTOGRAPHY.md` requires; the credits page then lists it automatically. |
 
 Why this photo: warm, real, a Black woman at home preparing presents in brown paper and
@@ -676,16 +680,16 @@ styled oil-and-flour still life (`F5kbceemh8U`, does not show a family basket).
 
 ### 8.1 First pass vs revised
 
-| First pass | Problem | Revised |
-| --- | --- | --- |
-| Crimson hero with a photo on the right (like the old page and the home hero) | Reads as a copy of the home hero; the photo says nothing a basket photo below does not; slower LCP | **Price board** hero, text-only. Distinct from the home receipt, from the same shop world. |
-| 4-up grid of basket cards (old page, home cards) | Cards cannot show 4–9 items, so "what's inside" needs a click; identical to the home section | **Stacked row cards** with the full items table. |
-| Separate comparison table in its own section | Repeats four numbers already shown; says "save" without showing why | Totals **inside each basket**, under its own items, so the saving is checkable line by line. |
-| "Why a basket" section with three icon reasons + stagger animation | Generic three-reasons block; scroll stagger is a default | Cut. Its content now lives where it is proved: the board (saving), the rows (items), S3 (proof, substitutions). |
-| Zig-zag rows (photo left, then right) | Template habit; makes price jump sides | Photo always left; price always in the same place. |
-| Big signal-red saving numeral in every row | Four bold elements compete with the board | Saving as a bold crimson total row and the small gold tag; the board stays the one bold moment. |
-| Compact "Add" button on rows | Feedback only for screen readers; no quantity | `AddToBasket variant="full"`: stepper, "Added. View basket" visible. |
-| Separate monthly section | Thin content, a full band for one sentence | Folded into S4 under the gift block. |
+| First pass                                                                   | Problem                                                                                            | Revised                                                                                                         |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Crimson hero with a photo on the right (like the old page and the home hero) | Reads as a copy of the home hero; the photo says nothing a basket photo below does not; slower LCP | **Price board** hero, text-only. Distinct from the home receipt, from the same shop world.                      |
+| 4-up grid of basket cards (old page, home cards)                             | Cards cannot show 4–9 items, so "what's inside" needs a click; identical to the home section       | **Stacked row cards** with the full items table.                                                                |
+| Separate comparison table in its own section                                 | Repeats four numbers already shown; says "save" without showing why                                | Totals **inside each basket**, under its own items, so the saving is checkable line by line.                    |
+| "Why a basket" section with three icon reasons + stagger animation           | Generic three-reasons block; scroll stagger is a default                                           | Cut. Its content now lives where it is proved: the board (saving), the rows (items), S3 (proof, substitutions). |
+| Zig-zag rows (photo left, then right)                                        | Template habit; makes price jump sides                                                             | Photo always left; price always in the same place.                                                              |
+| Big signal-red saving numeral in every row                                   | Four bold elements compete with the board                                                          | Saving as a bold crimson total row and the small gold tag; the board stays the one bold moment.                 |
+| Compact "Add" button on rows                                                 | Feedback only for screen readers; no quantity                                                      | `AddToBasket variant="full"`: stepper, "Added. View basket" visible.                                            |
+| Separate monthly section                                                     | Thin content, a full band for one sentence                                                         | Folded into S4 under the gift block.                                                                            |
 
 ### 8.2 Generic defaults removed
 

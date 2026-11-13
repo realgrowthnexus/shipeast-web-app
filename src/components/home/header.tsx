@@ -21,10 +21,10 @@ const menuLinks = [
 ]
 
 const stripLink =
-  'inline-flex min-h-10 items-center font-semibold text-on-dark underline-offset-4 hover:underline'
+  'inline-flex min-h-10 items-center font-medium text-on-dark underline-offset-4 hover:underline'
 
 const aisleLink =
-  'inline-flex min-h-12 items-center gap-2 rounded-full px-2.5 font-semibold whitespace-nowrap text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson xl:px-3'
+  'inline-flex min-h-11 items-center gap-2 rounded-full px-2.5 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson xl:px-3'
 
 function HomeSearch({ id, className }: { id: string; className?: string }) {
   return (
@@ -44,11 +44,11 @@ function HomeSearch({ id, className }: { id: string; className?: string }) {
           enterKeyHint="search"
           placeholder="Search rice, diapers, detergent…"
           maxLength={80}
-          className="min-h-control-lg w-full rounded-full border-2 border-cream-deep bg-cream pr-28 pl-13 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-line-strong focus:border-crimson focus:bg-surface focus:outline-none"
+          className="min-h-control w-full rounded-full border-2 border-cream-deep bg-cream pr-28 pl-13 text-body text-ink transition-colors duration-150 placeholder:text-ink-muted hover:border-line-strong focus:border-crimson focus:bg-surface focus:outline-none"
         />
         <button
           type="submit"
-          className="absolute top-1 right-1 bottom-1 rounded-full bg-crimson px-5 font-bold text-on-dark transition-colors duration-150 hover:bg-crimson-deep"
+          className="btn-slide absolute top-1 right-1 bottom-1 cursor-pointer rounded-full bg-crimson px-5 text-small font-semibold text-on-dark [--slide:var(--color-oxblood)]"
         >
           Search
         </button>
@@ -76,21 +76,39 @@ export async function HomeHeader({
     slug: c.slug,
     count: c.count,
   }))
+  const news = [
+    parishList ? `Delivering to ${parishList}` : 'Delivering in Jamaica',
+    ...(cutoff
+      ? [`Order by ${formatClockTime(cutoff)} Jamaica time and we aim to deliver the same day`]
+      : []),
+    'Bought in Jamaica. Nothing is shipped',
+    'A photo of the till receipt and a photo at the door',
+    'Pay in US dollars',
+  ]
   return (
     <>
       <div className="bg-oxblood text-small text-on-dark on-dark-focus print:hidden">
         <div className="mx-auto flex min-h-10 max-w-wide items-center gap-x-6 gutter">
-          <p className="flex items-center gap-2 font-semibold">
-            <JamaicaFlag />
-            {parishList ? `Delivering to ${parishList}` : 'Delivering in Jamaica'}
-          </p>
-          {cutoff && (
-            <p className="hidden text-on-oxblood-muted md:block">
-              Order by <span className="font-bold text-on-dark">{formatClockTime(cutoff)}</span>{' '}
-              Jamaica time for same-day delivery
-            </p>
-          )}
-          <nav aria-label="Help" className="ml-auto hidden items-center gap-5 lg:flex">
+          {/* The news ticker: the same line twice, sliding left; the copy is hidden from readers. */}
+          <div className="relative min-w-0 flex-1 overflow-hidden">
+            <div className="ticker">
+              {[false, true].map((copy) => (
+                <ul key={String(copy)} aria-hidden={copy || undefined} className="flex shrink-0">
+                  {news.map((line, i) => (
+                    <li key={line} className="flex items-center gap-3 pr-8 whitespace-nowrap">
+                      {i === 0 ? (
+                        <JamaicaFlag />
+                      ) : (
+                        <span className="size-1.5 rounded-full bg-mango" aria-hidden />
+                      )}
+                      <span className="font-medium">{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
+          <nav aria-label="Help" className="hidden shrink-0 items-center gap-5 pl-2 lg:flex">
             <Link href="/track" className={stripLink}>
               Track an order
             </Link>
@@ -102,7 +120,7 @@ export async function HomeHeader({
       </div>
 
       <HeaderShell>
-        <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter md:h-19 md:gap-4">
+        <div className="mx-auto flex h-16 max-w-wide items-center gap-2 gutter md:h-16 md:gap-4">
           <Link
             href="/"
             className="mr-auto shrink-0 rounded-sm md:mr-2"
@@ -113,7 +131,7 @@ export async function HomeHeader({
           <HomeSearch id="home-q" className="hidden max-w-2xl flex-1 md:block" />
           <Link
             href="/account"
-            className="flex min-h-control shrink-0 items-center gap-2 rounded-full px-3 font-semibold text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson md:ml-auto"
+            className="flex min-h-control shrink-0 items-center gap-2 rounded-full px-3 font-medium text-ink transition-colors duration-150 hover:bg-cream hover:text-crimson md:ml-auto"
           >
             <User className="size-icon" aria-hidden />
             <span className="sr-only xl:not-sr-only">Account</span>

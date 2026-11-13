@@ -12,7 +12,7 @@ export function HomeWordmark({
     <span className={cn('inline-flex items-baseline gap-2 leading-none', className)}>
       <span
         className={cn(
-          'font-display text-[1.75rem] font-extrabold tracking-tight',
+          'font-display text-2xl font-bold tracking-tight',
           onDark ? 'text-on-dark' : 'text-ink',
         )}
       >
@@ -20,7 +20,7 @@ export function HomeWordmark({
       </span>
       <span
         className={cn(
-          'hidden rounded-full px-2 py-1 text-xs font-bold lg:inline',
+          'hidden rounded-full px-2 py-1 text-xs font-semibold lg:inline',
           onDark ? 'bg-crimson-deep text-on-dark' : 'bg-surface-selected text-crimson-deep',
         )}
       >

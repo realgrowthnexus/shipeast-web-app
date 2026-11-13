@@ -33,19 +33,19 @@ invent a value. Every class named below exists today. **No new tokens.**
 
 Every sentence on the page comes from this list or from a data loader. Nothing else.
 
-| Fact                                                                                                  | Source                                            |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Registered name **ShipEast Couriers & Bearer Service Ltd**                                            | `site.company` (`src/lib/site.ts`), `BRIEF.md`    |
+| Fact                                                                                                 | Source                                            |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Registered name **ShipEast Couriers & Bearer Service Ltd**                                           | `site.company` (`src/lib/site.ts`), `BRIEF.md`    |
 | A courier and errand ("bearer") business based in **St. Thomas, Jamaica**, also serving **Kingston** | `BRIEF.md`                                        |
 | Its driver already shops at local stores for customers overseas                                      | `BRIEF.md` ("one driver who already shops…")      |
-| Proof: a photo of the till receipt and a photo at the door                                            | `BRIEF.md`, `CLAUDE.md`                           |
+| Proof: a photo of the till receipt and a photo at the door                                           | `BRIEF.md`, `CLAUDE.md`                           |
 | Nothing is shipped (no barrels, customs or freight); only the money crosses the border               | `BRIEF.md`                                        |
 | Sender pays in US dollars (PayPal, card through PayPal, bank transfer when set up)                   | `BRIEF.md`; bank transfer from `settings`         |
 | The family installs nothing; they get a text                                                         | `BRIEF.md`                                        |
 | Substitution rule chosen at checkout; full refund until the driver starts shopping                   | current About copy, `docs/PLAN.md` checkout scope |
-| Domain `shipeastja.com`, email `info@shipeastja.com`                                                  | `site.url`, `settings.email`                      |
-| Phone, WhatsApp                                                                                       | `getSettings()` (shown only when set)             |
-| Active delivery parishes, cut-off                                                                     | `getActiveZones()`, `joinParishes()`              |
+| Domain `shipeastja.com`, email `info@shipeastja.com`                                                 | `site.url`, `settings.email`                      |
+| Phone, WhatsApp                                                                                      | `getSettings()` (shown only when set)             |
+| Active delivery parishes, cut-off                                                                    | `getActiveZones()`, `joinParishes()`              |
 
 **Not used, ever:** a founding year, "since…", years in business, staff names or headcount, team
 photos presented as our team, quotes, customer or order counts, ratings, partner or store logos,
@@ -64,22 +64,22 @@ company's registered name, and it is exactly the job: carrying something to some
 person's behalf. The page explains the business through its own name, then shows what it does and
 doesn't do, where it works, and exactly who you are dealing with.
 
-|                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| One job               | Answer **"Who are these people, and can I trust them with my family?"** for a Jamaican abroad who has found the shop but never used us.                                                                                                                                                                                                                                                                                                                         |
-| Audience              | The sender (New York, Toronto, London…), usually on a phone, often reading this page _just before_ paying for the first time. Typically comes from the footer "About ShipEast" or the home page link "About ShipEast Couriers & Bearer Service Ltd".                                                                                                                                                                                                         |
-| What the sender needs | (1) a real, named, local business; (2) what it actually does, in plain words; (3) what it will _not_ do with their money or their family; (4) where it works; (5) the company details and every way to reach a person.                                                                                                                                                                                                                                          |
+|                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| One job                  | Answer **"Who are these people, and can I trust them with my family?"** for a Jamaican abroad who has found the shop but never used us.                                                                                                                                                                                                                                                                                                                                                |
+| Audience                 | The sender (New York, Toronto, London…), usually on a phone, often reading this page _just before_ paying for the first time. Typically comes from the footer "About ShipEast" or the home page link "About ShipEast Couriers & Bearer Service Ltd".                                                                                                                                                                                                                                   |
+| What the sender needs    | (1) a real, named, local business; (2) what it actually does, in plain words; (3) what it will _not_ do with their money or their family; (4) where it works; (5) the company details and every way to reach a person.                                                                                                                                                                                                                                                                 |
 | **The ONE bold element** | **The name, defined.** In the crimson hero sits a large crimson-deep panel set like a dictionary entry: the word **bearer** in `text-display` (blush, weight 900, lowercase like a headword), a small "noun" tag, and the definition in `text-lead`: _"Someone who carries something to another person, on your behalf."_ Under it, one line ties it to the registered name. It is pure type on flat colour: no photo, no icon, no illustration. Everything else on the page is quiet. |
-| Tone                  | Plain, warm, local, specific. Sentences a courier would say, not a startup. No superlatives.                                                                                                                                                                                                                                                                                                                                                                    |
+| Tone                     | Plain, warm, local, specific. Sentences a courier would say, not a startup. No superlatives.                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ### How the page beats the competitors
 
-| Competitor               | Their About / trust story                                                    | Our answer on this page                                                                                                                         | Where  |
-| ------------------------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| grocerylistjamaica.com   | Reseller with a service fee; little about who physically shops or delivers  | A named registered company that is itself the courier: the same business shops _and_ delivers, with photo proof on every order.                | S1, S3 |
-| revvcouriers.com         | A St. Thomas courier, new site, generic delivery                             | Same parish roots, but we shop for you, you choose every item, pay in USD, and your family installs nothing. The "do / don't" list says it flat. | S3, S4 |
-| PriceSmart Jamaica       | Membership store; you or a member must be in Jamaica                         | No membership for you or your family; we go to the store. (Never named on the page.)                                                            | S3     |
-| Remittance / gift sites  | Cash or vouchers; you don't know how it is spent; family must collect        | "We don't send cash." You choose exactly what arrives at the door, with photos.                                                                 | S3     |
+| Competitor              | Their About / trust story                                                  | Our answer on this page                                                                                                                          | Where  |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| grocerylistjamaica.com  | Reseller with a service fee; little about who physically shops or delivers | A named registered company that is itself the courier: the same business shops _and_ delivers, with photo proof on every order.                  | S1, S3 |
+| revvcouriers.com        | A St. Thomas courier, new site, generic delivery                           | Same parish roots, but we shop for you, you choose every item, pay in USD, and your family installs nothing. The "do / don't" list says it flat. | S3, S4 |
+| PriceSmart Jamaica      | Membership store; you or a member must be in Jamaica                       | No membership for you or your family; we go to the store. (Never named on the page.)                                                             | S3     |
+| Remittance / gift sites | Cash or vouchers; you don't know how it is spent; family must collect      | "We don't send cash." You choose exactly what arrives at the door, with photos.                                                                  | S3     |
 
 We never name a competitor and never claim a comparison we cannot prove.
 
@@ -132,14 +132,14 @@ closing panel for one consistent last ask).
 
 ### 2.2 Section structures at a glance
 
-| Section           | 1. Pattern                                                                                                     | 2. Background                                                                          | 3. Container / height                                                                       | 4. Columns 375 → 768 → 1024 → 1440 (phone order)                                                                    | 5. Blocks (counts)                                                                                              | 6. Why this structure, for the sender                                                                                                                                                                 |
-| ----------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| S1 Hero           | **Split two-column 7/5**: text left, definition panel right                                                    | Solid `crimson`; panel solid `crimson-deep` (no photo)                                 | Full-bleed band, content `max-w-wide`; auto, ~620px at 1440                                 | 1 (text, panel) → 1 (panel `max-w-xl`) → 2 (7/5) → 2 (7/5)                                                          | h1, lead, 1 button + 1 text link; panel = headword + "noun" tag + definition + 1 tie-in line                    | Text first: who we are in one sentence before any scroll. The panel turns a legal name into a reason to trust: the job is in the name. No competitor explains who they are this plainly.            |
-| S2 Who we are     | **Split two-column 5/7**: framed tall photo left, story right; a 3-row fact strip closes the text column      | `page`                                                                                 | Contained `max-w-page`; auto, ~760px                                                        | 1 (h2, photo 4:3, paras, facts) → 1 (photo 16:9) → 2 (5/7) → 2 (5/7)                                                | 1 photo, h2, 3 paragraphs, fact strip = 3 rows (icon + label + value)                                          | A real street in Kingston, real people, beside a short honest story. The fact strip gives the skimmer the three things that matter (based in, serving, how we prove it) without reading paragraphs. |
-| S3 Do / don't     | **Header row, then split two-column 6/6** of two ruled lists                                                   | Solid `surface`                                                                        | Contained `max-w-page`; auto, ~820px                                                        | 1 (header, "do", "don't") → 1 → 2 (6/6) → 2 (6/6)                                                                   | h2, lead; list A 6 items (check icon + h3 + 1 line); list B 5 items (x icon + h3 + 1 line); 1 link             | Trust is as much what we refuse to do as what we promise. Two plain lists side by side are scannable and quotable; no generic three-card "values" grid.                                            |
-| S4 Where we work  | **Full-bleed background photo with a flat overlay**, text left and one white card right                        | Photo `companyCountryRoad` + `bg-photo-scrim` (oxblood at **80%**, flat)               | Full-bleed; `lg:min-h-[560px]`, auto below                                                  | 1 (h2, lead, card) → 1 (card `max-w-md`) → 2 (6/5, card right) → 2 (6/5)                                             | h2, lead (on-dark only), 1 white card = parish rows (1 per active zone) + cut-off note + 2 links              | Roots shown as a place, not a claim. The card pulls live parishes and cut-off from the zones table, so the page can never overstate coverage.                                                       |
-| S5 Company details | **Split two-column 7/5**: details card (description list) left, ways to reach us right                        | `page`; card `surface` with `border-line`                                              | Contained `max-w-page`; auto, ~640px. Anchor `id="company-details"`                         | 1 (h2, card, reach) → 1 (dl 2 columns inside card) → 2 (7/5) → 2 (7/5)                                              | h2, lead; card dl = 4 rows always + up to 2 hidden rows (TRN, address); reach list = 2–4 rows + 2 buttons     | "Who you're dealing with" in one bordered card a sender could screenshot. Every contact method sits beside it, so "can I reach a person?" is answered next to the legal name.                      |
-| S6 Closing        | **Single contained panel** (reuse `HomeClosing`)                                                               | `page` band + solid `crimson` panel                                                    | Contained `max-w-page`; auto                                                                | 1 → 1 → 2 (text / buttons) → 2                                                                                       | h2, 1 line, 2 actions                                                                                           | One calm ask after the trust questions are answered; identical to the home page close, so the brand feels like one system.                                                                         |
+| Section            | 1. Pattern                                                                                               | 2. Background                                                            | 3. Container / height                                               | 4. Columns 375 → 768 → 1024 → 1440 (phone order)                         | 5. Blocks (counts)                                                                                        | 6. Why this structure, for the sender                                                                                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1 Hero            | **Split two-column 7/5**: text left, definition panel right                                              | Solid `crimson`; panel solid `crimson-deep` (no photo)                   | Full-bleed band, content `max-w-wide`; auto, ~620px at 1440         | 1 (text, panel) → 1 (panel `max-w-xl`) → 2 (7/5) → 2 (7/5)               | h1, lead, 1 button + 1 text link; panel = headword + "noun" tag + definition + 1 tie-in line              | Text first: who we are in one sentence before any scroll. The panel turns a legal name into a reason to trust: the job is in the name. No competitor explains who they are this plainly.            |
+| S2 Who we are      | **Split two-column 5/7**: framed tall photo left, story right; a 3-row fact strip closes the text column | `page`                                                                   | Contained `max-w-page`; auto, ~760px                                | 1 (h2, photo 4:3, paras, facts) → 1 (photo 16:9) → 2 (5/7) → 2 (5/7)     | 1 photo, h2, 3 paragraphs, fact strip = 3 rows (icon + label + value)                                     | A real street in Kingston, real people, beside a short honest story. The fact strip gives the skimmer the three things that matter (based in, serving, how we prove it) without reading paragraphs. |
+| S3 Do / don't      | **Header row, then split two-column 6/6** of two ruled lists                                             | Solid `surface`                                                          | Contained `max-w-page`; auto, ~820px                                | 1 (header, "do", "don't") → 1 → 2 (6/6) → 2 (6/6)                        | h2, lead; list A 6 items (check icon + h3 + 1 line); list B 5 items (x icon + h3 + 1 line); 1 link        | Trust is as much what we refuse to do as what we promise. Two plain lists side by side are scannable and quotable; no generic three-card "values" grid.                                             |
+| S4 Where we work   | **Full-bleed background photo with a flat overlay**, text left and one white card right                  | Photo `companyCountryRoad` + `bg-photo-scrim` (oxblood at **80%**, flat) | Full-bleed; `lg:min-h-[560px]`, auto below                          | 1 (h2, lead, card) → 1 (card `max-w-md`) → 2 (6/5, card right) → 2 (6/5) | h2, lead (on-dark only), 1 white card = parish rows (1 per active zone) + cut-off note + 2 links          | Roots shown as a place, not a claim. The card pulls live parishes and cut-off from the zones table, so the page can never overstate coverage.                                                       |
+| S5 Company details | **Split two-column 7/5**: details card (description list) left, ways to reach us right                   | `page`; card `surface` with `border-line`                                | Contained `max-w-page`; auto, ~640px. Anchor `id="company-details"` | 1 (h2, card, reach) → 1 (dl 2 columns inside card) → 2 (7/5) → 2 (7/5)   | h2, lead; card dl = 4 rows always + up to 2 hidden rows (TRN, address); reach list = 2–4 rows + 2 buttons | "Who you're dealing with" in one bordered card a sender could screenshot. Every contact method sits beside it, so "can I reach a person?" is answered next to the legal name.                       |
+| S6 Closing         | **Single contained panel** (reuse `HomeClosing`)                                                         | `page` band + solid `crimson` panel                                      | Contained `max-w-page`; auto                                        | 1 → 1 → 2 (text / buttons) → 2                                           | h2, 1 line, 2 actions                                                                                     | One calm ask after the trust questions are answered; identical to the home page close, so the brand feels like one system.                                                                          |
 
 ---
 
@@ -183,9 +183,9 @@ General rules for every section:
 
 - h1 (`id="about-title"`): **A St. Thomas courier, shopping for your family**
 - Lead: `{site.company} is a courier and errand business based in St. Thomas, Jamaica, also
-  serving Kingston. You choose the groceries and essentials and pay in US dollars. Our driver buys
-  them at a local store and brings them to the door, with a photo of the receipt and a photo at
-  the door.`
+serving Kingston. You choose the groceries and essentials and pay in US dollars. Our driver buys
+them at a local store and brings them to the door, with a photo of the receipt and a photo at
+the door.`
   - "also serving Kingston" is fixed company fact (BRIEF). It is not the delivery list; S4 shows
     live zones.
 - Primary button: **Start shopping** → `/shop` (`ButtonLink variant="onDark" size="lg"`,
@@ -197,7 +197,7 @@ General rules for every section:
   - Tag: `noun`
   - Definition: _Someone who carries something to another person, on your behalf._
   - Tie-in (under a rule): `It's the job in our name: {site.company}. We run errands and
-    deliver for people who can't be there themselves.`
+deliver for people who can't be there themselves.`
 
 **Wireframes**
 
@@ -301,18 +301,18 @@ General rules for every section:
 
 - h2 (`id="story-title"`): **Errands are what we do**
 - Para 1: `ShipEast is a courier and bearer service in St. Thomas. Picking things up, dropping
-  them off and running errands for people who can't be there themselves is our everyday work.`
+them off and running errands for people who can't be there themselves is our everyday work.`
 - Para 2: `Our driver already shops at local stores for customers who live overseas. Shop & Send
-  puts that on a proper website: you fill the basket and pay in US dollars, and we do the
-  shopping and the delivery.`
+puts that on a proper website: you fill the basket and pay in US dollars, and we do the
+shopping and the delivery.`
 - Para 3: `Nothing is shipped, so there are no barrels, customs or freight. Only the money
-  crosses the border. Your family installs nothing; they get a text when it's on the way.`
+crosses the border. Your family installs nothing; they get a text when it's on the way.`
 - Fact strip (a `<dl>`), 3 rows:
-  | Icon (lucide) | `dt`              | `dd`                                                           |
-  | ------------- | ----------------- | -------------------------------------------------------------- |
-  | `MapPin`      | Based in          | St. Thomas, Jamaica                                            |
-  | `Truck`       | Delivering in     | `{parishList}` (from active zones; row hidden if empty)        |
-  | `ReceiptText` | On every order    | A photo of the till receipt and a photo at the door            |
+  | Icon (lucide) | `dt`           | `dd`                                                    |
+  | ------------- | -------------- | ------------------------------------------------------- |
+  | `MapPin`      | Based in       | St. Thomas, Jamaica                                     |
+  | `Truck`       | Delivering in  | `{parishList}` (from active zones; row hidden if empty) |
+  | `ReceiptText` | On every order | A photo of the till receipt and a photo at the door     |
 
 **Wireframes**
 
@@ -506,15 +506,15 @@ Empty: no parishes → item 5 is omitted.
 - h2 (`id="where-title"`): **Based in St. Thomas. Delivering in `{parishList}`.**
   - If `parishList` is empty: **Based in St. Thomas.**
 - Lead (`text-on-dark`): `We deliver where we already run errands, so our driver knows the
-  roads, the stores and how to find a gate from a landmark. More parishes will come when we can
-  serve them properly.`
+roads, the stores and how to find a gate from a landmark. More parishes will come when we can
+serve them properly.`
   - Note to manager: "how to find a gate from a landmark" is supported by the checkout asking
     for a landmark (`docs/demo/legal.ts` delivery section). Remove it if you judge it a claim.
 - Card (`bg-surface rounded-xl p-card text-ink shadow-float`, it floats over a photo):
   - h3 `Where we deliver today` (`text-h3 text-ink`).
   - One row per active zone: `MapPin` icon (`text-crimson`) + parish (`font-semibold text-ink`)
-    + right-aligned speed label (`text-small text-ink-muted`: "Same day", "Next day",
-    "Scheduled", same map as home coverage). Rows `flex items-center justify-between gap-4 border-b border-line py-3 last:border-0`.
+    - right-aligned speed label (`text-small text-ink-muted`: "Same day", "Next day",
+      "Scheduled", same map as home coverage). Rows `flex items-center justify-between gap-4 border-b border-line py-3 last:border-0`.
   - `CutoffNote cutoff={earliestCutoff} tone="light"` under the rows when a cut-off exists.
   - Links (stacked, `lightLink`): **Delivery areas and fees** → `/delivery`; **Family somewhere
     else in Jamaica? Tell us where** → `/contact`.
@@ -586,21 +586,21 @@ photo `absolute inset-0 -z-10 rounded-none`; scrim `absolute inset-0 -z-10 bg-ph
 - Lead: `A registered Jamaican company, and people you can reach.`
   - "registered" is supported by the "Ltd" in the registered name (BRIEF: "registered name").
 - Card `dl` rows:
-  | `dt`              | `dd`                                                                    | Shown when                 |
-  | ----------------- | ----------------------------------------------------------------------- | -------------------------- |
-  | Registered name   | `{site.company}` (`text-title`, spans both columns at md+)              | always                     |
-  | Based in          | St. Thomas, Jamaica                                                     | always                     |
-  | Delivering in     | `{parishList}`                                                          | `parishList` set           |
-  | Website           | `shipeastja.com` (from `site.url`, link to `/`)                         | always                     |
-  | TRN               | `{site.trn}`                                                            | **hidden until provided**  |
-  | Registered address | `{site.registeredAddress}` (multi-line `<address>`)                    | **hidden until provided**  |
+  | `dt`               | `dd`                                                       | Shown when                |
+  | ------------------ | ---------------------------------------------------------- | ------------------------- |
+  | Registered name    | `{site.company}` (`text-title`, spans both columns at md+) | always                    |
+  | Based in           | St. Thomas, Jamaica                                        | always                    |
+  | Delivering in      | `{parishList}`                                             | `parishList` set          |
+  | Website            | `shipeastja.com` (from `site.url`, link to `/`)            | always                    |
+  | TRN                | `{site.trn}`                                               | **hidden until provided** |
+  | Registered address | `{site.registeredAddress}` (multi-line `<address>`)        | **hidden until provided** |
 - Reach column, h3 **Talk to us** (`text-h3`), then a list (rows like the footer contact, but on
   light):
   - `Mail` icon + `{settings.email}` → `mailto:` (always).
   - `Phone` icon + `formatJamaicanPhone(settings.phone)` → `tel:` (only if set).
   - `MessageCircle` icon + `WhatsApp {formatted number}` → `https://wa.me/{digits}` (only if set).
   - One line under the list (`text-small text-ink-muted`): `Write in English or patois. If it's
-    about an order, include the order number.`
+about an order, include the order number.`
     - "patois" is a tone choice, not a claim; remove if the manager disagrees (§9).
   - Buttons: **Contact us** → `/contact` (`ButtonLink variant="primary"`); **Track an order** →
     `/track` (`ButtonLink variant="outline"`). Row `mt-6 flex flex-col gap-3 sm:flex-row`.
@@ -708,20 +708,20 @@ this page.
 
 ## 5. Files to add, change and delete
 
-| Action | File                                                       | Notes                                                                                                   |
-| ------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Rewrite | `src/app/(site)/about/page.tsx`                            | Data as §4; renders `AboutHero`, `AboutStory`, `AboutPromise`, `AboutWhere`, `AboutDetails`, `HomeClosing`. |
-| Add    | `src/components/pages/about/hero.tsx`                      | S1, server.                                                                                             |
-| Add    | `src/components/pages/about/story.tsx`                     | S2, server.                                                                                             |
-| Add    | `src/components/pages/about/promise.tsx`                   | S3, server.                                                                                             |
-| Add    | `src/components/pages/about/where.tsx`                     | S4, server.                                                                                             |
-| Add    | `src/components/pages/about/details.tsx`                   | S5, server; holds `SHOW_OWNER = false`.                                                                 |
-| Change | `src/lib/site.ts`                                          | Add `trn: null`, `registeredAddress: null` (typed `string \| null`).                                     |
-| Change | `src/lib/home.ts`                                          | Export `speedLabel` (moved from `home/coverage.tsx`); `coverage.tsx` imports it.                        |
-| Change | `src/components/pages/home/coverage.tsx`                   | Export `overlayLink` (or move it beside `lightLink`) so S4 reuses it; behaviour unchanged.              |
-| Change | `src/lib/photos/core.ts`, `company.ts`, `jamaica.ts`       | `usedOn` fields per §6; `kingstonStreet` alt per §6.                                                   |
-| Keep   | `src/components/pages/company/*`, `site/photo-feature.tsx`, `site/cta-band.tsx` | Still used by other pages; About simply stops importing them.                         |
-| Docs   | `docs/DESIGN-DECISIONS.md`                                 | Dated entry: About rebuilt around the "bearer" definition; values/care bands folded into do / don't.    |
+| Action  | File                                                                            | Notes                                                                                                       |
+| ------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Rewrite | `src/app/(site)/about/page.tsx`                                                 | Data as §4; renders `AboutHero`, `AboutStory`, `AboutPromise`, `AboutWhere`, `AboutDetails`, `HomeClosing`. |
+| Add     | `src/components/pages/about/hero.tsx`                                           | S1, server.                                                                                                 |
+| Add     | `src/components/pages/about/story.tsx`                                          | S2, server.                                                                                                 |
+| Add     | `src/components/pages/about/promise.tsx`                                        | S3, server.                                                                                                 |
+| Add     | `src/components/pages/about/where.tsx`                                          | S4, server.                                                                                                 |
+| Add     | `src/components/pages/about/details.tsx`                                        | S5, server; holds `SHOW_OWNER = false`.                                                                     |
+| Change  | `src/lib/site.ts`                                                               | Add `trn: null`, `registeredAddress: null` (typed `string \| null`).                                        |
+| Change  | `src/lib/home.ts`                                                               | Export `speedLabel` (moved from `home/coverage.tsx`); `coverage.tsx` imports it.                            |
+| Change  | `src/components/pages/home/coverage.tsx`                                        | Export `overlayLink` (or move it beside `lightLink`) so S4 reuses it; behaviour unchanged.                  |
+| Change  | `src/lib/photos/core.ts`, `company.ts`, `jamaica.ts`                            | `usedOn` fields per §6; `kingstonStreet` alt per §6.                                                        |
+| Keep    | `src/components/pages/company/*`, `site/photo-feature.tsx`, `site/cta-band.tsx` | Still used by other pages; About simply stops importing them.                                               |
+| Docs    | `docs/DESIGN-DECISIONS.md`                                                      | Dated entry: About rebuilt around the "bearer" definition; values/care bands folded into do / don't.        |
 
 Tests: add a small render/unit test only if cheap (e.g. `AboutDetails` omits TRN/address rows
 when `null`, omits phone/WhatsApp when empty). `design-tokens.test.ts` must stay green (no new
@@ -734,14 +734,15 @@ colour classes are introduced; every class above is an existing role).
 **No new photos.** All three slots use registry photos, checked live (HTTP 200 at `?w=200` on
 November 6, 2026). No photo repeats a home page photo in the same role.
 
-| Slot             | Key                  | Unsplash id   | URL                                                             | Size        | Photographer (username)       | Alt (final)                                                                         | Crop / position                              | `usedOn` update                                              |
-| ---------------- | -------------------- | ------------- | --------------------------------------------------------------- | ----------- | ----------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| S2 framed photo  | `kingstonStreet`     | `9R-WAl5UGWI` | `https://images.unsplash.com/photo-1595220524884-95d1df1857a9` | 4480 × 6604 | Rock Staar (`rockstaar_`)     | **Change to:** "A man walking past street vendors on a market street in downtown Kingston" | 4:3 / 16:9 / 4:5; `position="center 35%"` keeps his face and the umbrella stall in frame | "About, Delivery"                                            |
-| S4 background    | `companyCountryRoad` | `cqE9f81PSY8` | `https://images.unsplash.com/photo-1780332534975-6318b3d734d7` | 5194 × 3456 | Kern Morris (`kernsway`)      | `alt=""` here (decorative; registry alt stays)                                     | cover; `position="center 55%"` (road and cars low in frame, trees fill the rest under the scrim) | "About" (unchanged)                                          |
-| (dropped)        | `companyCoast`       | `lzecv_xfTgo` | —                                                               | —           | Kemoi Brown (`kemoibrown`)    | —                                                                                   | —                                            | Now unused on the site. **Delete the entry** (the credits page builds from the registry, so it drops off automatically) unless another page plan claims it. |
-| (dropped)        | `jmFlag`             | `ysowLwOt-uM` | —                                                               | —           | engin akyurt                  | —                                                                                   | —                                            | Change to "Home" (About no longer uses it).                  |
+| Slot            | Key                  | Unsplash id   | URL                                                            | Size        | Photographer (username)    | Alt (final)                                                                                | Crop / position                                                                                  | `usedOn` update                                                                                                                                             |
+| --------------- | -------------------- | ------------- | -------------------------------------------------------------- | ----------- | -------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S2 framed photo | `kingstonStreet`     | `9R-WAl5UGWI` | `https://images.unsplash.com/photo-1595220524884-95d1df1857a9` | 4480 × 6604 | Rock Staar (`rockstaar_`)  | **Change to:** "A man walking past street vendors on a market street in downtown Kingston" | 4:3 / 16:9 / 4:5; `position="center 35%"` keeps his face and the umbrella stall in frame         | "About, Delivery"                                                                                                                                           |
+| S4 background   | `companyCountryRoad` | `cqE9f81PSY8` | `https://images.unsplash.com/photo-1780332534975-6318b3d734d7` | 5194 × 3456 | Kern Morris (`kernsway`)   | `alt=""` here (decorative; registry alt stays)                                             | cover; `position="center 55%"` (road and cars low in frame, trees fill the rest under the scrim) | "About" (unchanged)                                                                                                                                         |
+| (dropped)       | `companyCoast`       | `lzecv_xfTgo` | —                                                              | —           | Kemoi Brown (`kemoibrown`) | —                                                                                          | —                                                                                                | Now unused on the site. **Delete the entry** (the credits page builds from the registry, so it drops off automatically) unless another page plan claims it. |
+| (dropped)       | `jmFlag`             | `ysowLwOt-uM` | —                                                              | —           | engin akyurt               | —                                                                                          | —                                                                                                | Change to "Home" (About no longer uses it).                                                                                                                 |
 
 Considered and rejected:
+
 - `8U53QQiitdo` (andrzj brown, a vendor at a covered produce stall): warm and Jamaican, but it
   would read as "our store" or "our driver". No stock photo can honestly show who shops for you,
   so the page shows place and people, and a real photo of ShipEast's driver or vehicle is
@@ -762,14 +763,14 @@ jetty on the Jamaican coast") and keep the entry instead of deleting it.
 
 **First pass** (what I would have done on autopilot), and what changed:
 
-| First pass                                                                                                                       | Why it was generic                                                                    | Revised                                                                                                                       |
-| -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Crimson split hero with a framed coast photo (same as the home hero and every company page's `PhotoHero`)                       | Third crimson-text-plus-photo hero on the site; the photo says "Jamaica", nothing more | Hero is type only: the "bearer" definition panel. The bold element is the company's own name, which no competitor can copy.  |
-| "Our story / Our values / Our team" three-act About with eyebrows                                                                | The default About template; "team" would need invented people                         | Story (short), do / don't, where, details. No eyebrows, no team.                                                              |
-| Three icon cards for values (Proof, Your money, Local team)                                                                     | SaaS card kit; repeated the home page's "Why" list                                    | One two-column ruled do / don't list with plain bold lead-ins. "Don't" items answer real fears (cash, barrels, surprise swaps). |
-| Stats strip ("X deliveries", "Y years")                                                                                          | Fake numbers; banned                                                                  | Fact strip with three true facts (based in, delivering in, proof on every order).                                            |
-| Flag photo with parallax for "roots"                                                                                             | Decoration plus motion without a job                                                  | Country road under a flat oxblood scrim, with live parishes from the zones table.                                             |
-| Story line "grew out of a request we kept hearing from New York, Toronto and London"                                             | An unprovable backstory                                                               | Replaced by the BRIEF fact: "Our driver already shops at local stores for customers who live overseas."                       |
+| First pass                                                                                                | Why it was generic                                                                     | Revised                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Crimson split hero with a framed coast photo (same as the home hero and every company page's `PhotoHero`) | Third crimson-text-plus-photo hero on the site; the photo says "Jamaica", nothing more | Hero is type only: the "bearer" definition panel. The bold element is the company's own name, which no competitor can copy.     |
+| "Our story / Our values / Our team" three-act About with eyebrows                                         | The default About template; "team" would need invented people                          | Story (short), do / don't, where, details. No eyebrows, no team.                                                                |
+| Three icon cards for values (Proof, Your money, Local team)                                               | SaaS card kit; repeated the home page's "Why" list                                     | One two-column ruled do / don't list with plain bold lead-ins. "Don't" items answer real fears (cash, barrels, surprise swaps). |
+| Stats strip ("X deliveries", "Y years")                                                                   | Fake numbers; banned                                                                   | Fact strip with three true facts (based in, delivering in, proof on every order).                                               |
+| Flag photo with parallax for "roots"                                                                      | Decoration plus motion without a job                                                   | Country road under a flat oxblood scrim, with live parishes from the zones table.                                               |
+| Story line "grew out of a request we kept hearing from New York, Toronto and London"                      | An unprovable backstory                                                                | Replaced by the BRIEF fact: "Our driver already shops at local stores for customers who live overseas."                         |
 
 Chanel check: removed a Jamaican-flag badge from the hero panel and a pronunciation line
 (`/ˈbeə.rə/`) from the headword; both were accessories.
@@ -799,15 +800,15 @@ Chanel check: removed a Jamaican-flag badge from the hero panel and a pronunciat
 
 ### 7.4 Contrast (computed)
 
-| Pair                                        | Ratio  |
-| ------------------------------------------- | ------ |
-| blush `#FFC6D3` on crimson-deep `#7A0A23` (headword, display size) | 7.53:1 |
-| on-dark on crimson-deep                     | 11.08:1 |
-| on-crimson-muted on crimson-deep (tie-in)   | 8.45:1 |
-| on-crimson-muted on crimson (hero lead)     | 5.51:1 |
-| on-dark on crimson (`noun` tag)             | 7.22:1 |
-| ink-muted on page / surface (dt labels)     | 5.36:1 / 5.74:1 |
-| on-dark on photo-scrim 80% (worst case)     | 8.7:1 (per `PHOTOGRAPHY.md`) |
+| Pair                                                               | Ratio                        |
+| ------------------------------------------------------------------ | ---------------------------- |
+| blush `#FFC6D3` on crimson-deep `#7A0A23` (headword, display size) | 7.53:1                       |
+| on-dark on crimson-deep                                            | 11.08:1                      |
+| on-crimson-muted on crimson-deep (tie-in)                          | 8.45:1                       |
+| on-crimson-muted on crimson (hero lead)                            | 5.51:1                       |
+| on-dark on crimson (`noun` tag)                                    | 7.22:1                       |
+| ink-muted on page / surface (dt labels)                            | 5.36:1 / 5.74:1              |
+| on-dark on photo-scrim 80% (worst case)                            | 8.7:1 (per `PHOTOGRAPHY.md`) |
 
 ### 7.5 Risks
 
@@ -872,13 +873,13 @@ Check at **375, 768, 1024 and 1440**, with real photos loading, demo data and Su
 
 ## 9. Open questions and content that needs Derion
 
-| # | Question                                                                                                                                                         | Default until answered                                    |
-| - | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| 1 | **TRN and registered address** (needs Derion).                                                                                                                   | Hidden (`site.trn`, `site.registeredAddress` = `null`).   |
-| 2 | **Owner mention** "Owner: Derion Scarlett" in the details card (needs Derion's approval; he lives in the USA, so no location is shown).                          | Hidden (`SHOW_OWNER = false`).                            |
-| 3 | **A real photo of the ShipEast driver or vehicle** (with consent), to replace the S2 stock photo. This would be the single most trust-building asset on the page. | Stock `kingstonStreet`.                                   |
-| 4 | Derion's own short story of the business, in his words (how long, how it started). Only real, approved text.                                                      | The three factual paragraphs in S2.                       |
-| 5 | Manager: keep "Write in English or patois" in S5?                                                                                                                | Keep.                                                     |
-| 6 | Manager: keep "how to find a gate from a landmark" in S4's lead?                                                                                                 | Keep (checkout asks for a landmark).                      |
-| 7 | Manager: bring back "cancel for a full refund until our driver starts shopping" as a sixth "do" item, or leave it to `/legal/refunds`?                          | Leave to `/legal/refunds` (linked under S3).              |
-| 8 | Delivery page plan: does it keep `kingstonStreet`? If yes, About switches S2 to `companyCoast` (§6).                                                             | About uses `kingstonStreet`.                              |
+| #   | Question                                                                                                                                                          | Default until answered                                  |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 1   | **TRN and registered address** (needs Derion).                                                                                                                    | Hidden (`site.trn`, `site.registeredAddress` = `null`). |
+| 2   | **Owner mention** "Owner: Derion Scarlett" in the details card (needs Derion's approval; he lives in the USA, so no location is shown).                           | Hidden (`SHOW_OWNER = false`).                          |
+| 3   | **A real photo of the ShipEast driver or vehicle** (with consent), to replace the S2 stock photo. This would be the single most trust-building asset on the page. | Stock `kingstonStreet`.                                 |
+| 4   | Derion's own short story of the business, in his words (how long, how it started). Only real, approved text.                                                      | The three factual paragraphs in S2.                     |
+| 5   | Manager: keep "Write in English or patois" in S5?                                                                                                                 | Keep.                                                   |
+| 6   | Manager: keep "how to find a gate from a landmark" in S4's lead?                                                                                                  | Keep (checkout asks for a landmark).                    |
+| 7   | Manager: bring back "cancel for a full refund until our driver starts shopping" as a sixth "do" item, or leave it to `/legal/refunds`?                            | Leave to `/legal/refunds` (linked under S3).            |
+| 8   | Delivery page plan: does it keep `kingstonStreet`? If yes, About switches S2 to `companyCoast` (§6).                                                              | About uses `kingstonStreet`.                            |

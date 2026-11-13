@@ -18,7 +18,7 @@ describe('demo data', () => {
   it('keeps aisle slugs unique per department', () => {
     const keys = aisles.map((a) => `${a.categoryId}/${a.slug}`)
     expect(new Set(keys).size).toBe(keys.length)
-    expect(aisles).toHaveLength(14)
+    expect(aisles).toHaveLength(19)
   })
 
   it('prices baskets below the sum of their items', () => {

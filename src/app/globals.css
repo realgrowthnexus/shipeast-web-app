@@ -190,16 +190,6 @@
   --text-poster--letter-spacing: -0.045em;
   --text-poster--font-weight: 900;
 
-  /* Home v3 display sizes, set in the display face. */
-  --text-shout: clamp(2.125rem, 1.5rem + 2.6vw, 3.625rem); /* 34 → 58px: headlines in bands */
-  --text-shout--line-height: 1;
-  --text-shout--letter-spacing: -0.03em;
-  --text-shout--font-weight: 800;
-  --text-mega: clamp(2.75rem, 1.6rem + 4.9vw, 5.25rem); /* 44 → 84px: the home hero line */
-  --text-mega--line-height: 0.94;
-  --text-mega--letter-spacing: -0.04em;
-  --text-mega--font-weight: 800;
-
   /*
    * Sizes. The 4px spacing grid is Tailwind's own (`p-4` = 16px). These name the sizes that
    * have a rule behind them.
@@ -555,4 +545,89 @@
     5% 100%,
     0 calc(100% - 8px)
   );
+}
+
+/* A button whose hover colour slides in from the left (home v3.1). The fill is a pseudo-element
+   under the label, so the label never moves. Set the fill with `[--slide:var(--color-…)]`. */
+@utility btn-slide {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--slide, var(--color-crimson-deep));
+    transform: translateX(-101%);
+    transition: transform var(--duration-slow) var(--ease-out-soft);
+  }
+  &:hover::before,
+  &:focus-visible::before {
+    transform: translateX(0);
+  }
+  & svg {
+    transition: transform var(--duration-base) var(--ease-out-soft);
+  }
+  &:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+/* The news ticker in the top strip: two copies of the same line slide left for ever. It
+   pauses under the pointer and on keyboard focus. */
+@utility ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 38s linear infinite;
+  &:hover,
+  &:focus-within {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* A photo well that pulses softly until its picture has loaded and covers it. */
+@utility photo-loading {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-cream-deep);
+    animation: skeleton-pulse 1.4s var(--ease-in-out-soft) infinite;
+  }
+}
+
+/* A slow bob for the hero sticker, so the page is never completely still. */
+@utility animate-bob {
+  animation: bob 5s var(--ease-in-out-soft) infinite;
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-6px) rotate(-3deg);
+  }
+}
+
+/* Cards on the home page rise a little under the pointer. */
+@utility card-rise {
+  transition:
+    transform var(--duration-base) var(--ease-out-soft),
+    box-shadow var(--duration-base) var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
 }

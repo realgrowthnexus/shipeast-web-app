@@ -11,7 +11,8 @@ export const buttonStyles = cva(
       variant: {
         primary: 'bg-crimson text-on-dark hover:bg-crimson-deep',
         secondary: 'bg-surface-muted text-crimson-deep hover:bg-surface-strong',
-        outline: 'border-control border-crimson bg-transparent text-crimson hover:bg-surface-selected',
+        outline:
+          'border-control border-crimson bg-transparent text-crimson hover:bg-surface-selected',
         ghost: 'text-ink hover:bg-surface-muted',
         dark: 'bg-ink text-on-dark hover:bg-ink-body',
         onDark: 'bg-surface text-crimson-deep hover:bg-surface-muted',

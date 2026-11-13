@@ -16,7 +16,7 @@ labelled as an example.
 ## Contents
 
 1. [Concept](#1-concept)
-1B. [Structure blueprint](#1b-structure-blueprint): read this first
+   1B. [Structure blueprint](#1b-structure-blueprint): read this first
 2. [Decisions shared by every section](#2-decisions-shared-by-every-section)
 3. [Data and helpers](#3-data-and-helpers)
 4. [Sections S1 to S8](#4-sections)
@@ -34,21 +34,21 @@ labelled as an example.
 **One line.** _Follow one order from your laptop to their door._ The page is one real-shaped
 order told in time order, with every proof and every choice placed at the moment it happens.
 
-|                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Audience            | A careful first-time sender abroad (New York, Toronto, London), usually on a phone, about to pay a company they have never used, for a mother or grandmother in St. Thomas or Kingston. They read every word before paying.                                                                                                                                                                                                                                                                                  |
-| The page's one job  | Remove every "but what if…" before they pay: what happens, when, what they will see, what their family will get, what happens if something is missing or nobody is home.                                                                                                                                                                                                                                                                                                                                     |
+|                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Audience             | A careful first-time sender abroad (New York, Toronto, London), usually on a phone, about to pay a company they have never used, for a mother or grandmother in St. Thomas or Kingston. They read every word before paying.                                                                                                                                                                                                                                                                                                 |
+| The page's one job   | Remove every "but what if…" before they pay: what happens, when, what they will see, what their family will get, what happens if something is missing or nobody is home.                                                                                                                                                                                                                                                                                                                                                    |
 | The ONE bold element | **The two-lane order day (S2).** One example order runs down the page as the seven real tracker stages (`TRACKER_STAGES`), each with a Jamaica clock time. Beside each stage, two lanes: **"On your screen"** (white cards on the grey page: the email receipt, the receipt photo, the door photo, the refund) and **"In Jamaica"** (one continuous solid **oxblood** column: the driver in the aisle, the texts to the family, the handover). The sender sees, row by row, that what happens over there arrives over here. |
-| Tone                | Plain, warm, exact. Clock times, item names, real fees. No adjectives doing the work of proof.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Tone                 | Plain, warm, exact. Clock times, item names, real fees. No adjectives doing the work of proof.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ### How it beats each competitor's explanation
 
-| Competitor                 | Their "how it works"                                                       | Our answer here                                                                                                                                                                                         | Where      |
-| -------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| grocerylistjamaica.com     | Three generic icon steps: order, we shop, we deliver                       | The seven stages the tracker really shows, with times, and what lands in your inbox at each one. The receipt photo explained: what it shows, when, where.                                              | S2, S3     |
-| revvcouriers.com           | Courier booking, no shopping detail                                        | We shop to your list and follow your out-of-stock rule, shown with a real item from our catalogue and its refund.                                                                                      | S2 row 3, S4 |
-| PriceSmart Jamaica         | Membership store; you or your family must be there                         | Nobody in Jamaica needs a membership, an app or an account: two texts and a knock at the door.                                                                                                        | S5         |
-| Remittance and gift sites  | Money is collected; you never see what it bought, nobody tells you if it failed | You see the receipt, the door, and exactly what happens if nobody is home.                                                                                                                       | S3, S6     |
+| Competitor                | Their "how it works"                                                            | Our answer here                                                                                                                                           | Where        |
+| ------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| grocerylistjamaica.com    | Three generic icon steps: order, we shop, we deliver                            | The seven stages the tracker really shows, with times, and what lands in your inbox at each one. The receipt photo explained: what it shows, when, where. | S2, S3       |
+| revvcouriers.com          | Courier booking, no shopping detail                                             | We shop to your list and follow your out-of-stock rule, shown with a real item from our catalogue and its refund.                                         | S2 row 3, S4 |
+| PriceSmart Jamaica        | Membership store; you or your family must be there                              | Nobody in Jamaica needs a membership, an app or an account: two texts and a knock at the door.                                                            | S5           |
+| Remittance and gift sites | Money is collected; you never see what it bought, nobody tells you if it failed | You see the receipt, the door, and exactly what happens if nobody is home.                                                                                | S3, S6       |
 
 We never name a competitor on the page.
 
@@ -95,16 +95,16 @@ point of the page.
 
 ### 1B.2 Section structures at a glance
 
-| Section | 1. Pattern | 2. Background | 3. Container / height | 4. Columns 375 → 768 → 1024 → 1440 (phone order first) | 5. Blocks (counts) | 6. Why this structure serves the sender |
-| --- | --- | --- | --- | --- | --- | --- |
-| S1 Hero | **Split two-column 7/5**: text left, framed photo right with a tracker card straddling its bottom-left edge; a full-width "On this page" strip at the foot | Solid `crimson` | Full-bleed band, content `max-w-wide`; auto (~760 at 1440) | 1 (text, photo + card, strip) → 1 → 2 (7/5) → 2 (7/5) | h1, lead, 1 button + 1 text link, cut-off note, 1 photo, 1 tracker card, 7 jump links | The promise and the start button first; the tracker card shows the product's proof object before it is explained (the home page used the receipt; this page uses the tracker, so the two heroes differ but speak the same language). The jump strip lets a returning reader go straight to "nobody home" or "out of stock". |
-| S2 Order day | **Three-column timeline table** (spine + two lanes), 7 rows | `page`; the "In Jamaica" lane is a continuous solid `oxblood` column (rounded 24px top and bottom) | Contained `max-w-page`; auto (~2,000 at 1440) | 1 (stage, screen card, Jamaica card, per row) → 1 → 3 (3/4/5 of 12) → 3 (3/4/5) | h2, lead, lane header row, 7 rows = time + stage label + 1 screen cell + 1 Jamaica cell, 1 footnote | Answers "what will I see, and when?" with the real tracker stages. The two lanes make the cross-border promise visible: what happens there arrives here. No competitor shows time-stamped proof per step. |
-| S3 Proof | **Split two-column 6/6**: proof pair left, two definition blocks right | Solid `surface` | Contained `max-w-page`; auto (~720) | 1 (title, pair, blocks) → 1 (pair centred max 560px) → 2 → 2 | h2, lead, 1 `ProofPair` (light, tilted), 2 blocks = icon disc + h3 + 3 facts (`dl`) | The two photos are the product. Each gets a plain "what it shows / when / where" so the sender knows exactly what to expect, not a slogan. |
-| S4 Substitutions | **Header + item strip + three-card row** | `page` | Contained `max-w-page`; auto (~760) | 1 (strip, 3 stacked cards) → 1 (strip, 3 horizontal cards: icon left) → 3 → 3 | h2, lead, 1 "out of stock" item strip (real product), 3 cards = icon + h3 + rule text + "what you see" outcome tag | One item, three outcomes, side by side: the sender compares the rules on the same example and picks theirs with confidence. Competitors say "we may substitute". |
-| S5 Family | **Split two-column 5/7**: framed tall photo left, texts right | Solid `surface` | Contained `max-w-page`; auto (~780) | 1 (title, photo 4:3, SMS, tips) → 1 (photo 16:9) → 2 → 2 | 1 photo 4:5, h2, lead, 1 `SmsPreview` (2 messages), 1 caption, 3 tips (icon + text) | The sender worries about the person at the other end. A real-looking face at a real-looking door, then exactly what lands on her phone. |
-| S6 Timing | **Full-width band, split 7/5**: cut-off ruler + zone rows left, bordered "nobody home" panel right | Solid `oxblood` | Full-bleed band, content `max-w-page`; auto (~640) | 1 (ruler, zones, notes, panel) → 1 → 2 (7/5) → 2 (7/5) | h2, lead, 1 two-segment ruler, 1 row per active zone (parish + speed + cut-off + fee), 1–2 notes, 1 panel = h3 + 3-step `ol` + status line + 2 links | Timing and failure are the two fears left. Real cut-offs and fees from the zones table; the failure path stated plainly in three steps. Dark band = the serious, operational part of the page. |
-| S7 Questions | **Split two-column 4/8** (reuse `HomeQuestions`) | Solid `surface` | Contained `max-w-page`; auto (~520) | 1 → 1 → 2 → 2 | h2, lead, 2–3 contact links, 5 accordion items | The doubts not answered above (cancelling, paying, stores, gift message) without leaving the page. |
-| S8 Closing | **Single contained panel** (reuse `HomeClosing`) | `page` band + solid `crimson` panel | Contained `max-w-page`; auto (~380) | 1 → 1 → 2 (text / buttons) → 2 | h2, 1 line, 1 button + 1 text link | One calm ask after every doubt is answered. |
+| Section          | 1. Pattern                                                                                                                                                 | 2. Background                                                                                      | 3. Container / height                                      | 4. Columns 375 → 768 → 1024 → 1440 (phone order first)                          | 5. Blocks (counts)                                                                                                                                   | 6. Why this structure serves the sender                                                                                                                                                                                                                                                                                     |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1 Hero          | **Split two-column 7/5**: text left, framed photo right with a tracker card straddling its bottom-left edge; a full-width "On this page" strip at the foot | Solid `crimson`                                                                                    | Full-bleed band, content `max-w-wide`; auto (~760 at 1440) | 1 (text, photo + card, strip) → 1 → 2 (7/5) → 2 (7/5)                           | h1, lead, 1 button + 1 text link, cut-off note, 1 photo, 1 tracker card, 7 jump links                                                                | The promise and the start button first; the tracker card shows the product's proof object before it is explained (the home page used the receipt; this page uses the tracker, so the two heroes differ but speak the same language). The jump strip lets a returning reader go straight to "nobody home" or "out of stock". |
+| S2 Order day     | **Three-column timeline table** (spine + two lanes), 7 rows                                                                                                | `page`; the "In Jamaica" lane is a continuous solid `oxblood` column (rounded 24px top and bottom) | Contained `max-w-page`; auto (~2,000 at 1440)              | 1 (stage, screen card, Jamaica card, per row) → 1 → 3 (3/4/5 of 12) → 3 (3/4/5) | h2, lead, lane header row, 7 rows = time + stage label + 1 screen cell + 1 Jamaica cell, 1 footnote                                                  | Answers "what will I see, and when?" with the real tracker stages. The two lanes make the cross-border promise visible: what happens there arrives here. No competitor shows time-stamped proof per step.                                                                                                                   |
+| S3 Proof         | **Split two-column 6/6**: proof pair left, two definition blocks right                                                                                     | Solid `surface`                                                                                    | Contained `max-w-page`; auto (~720)                        | 1 (title, pair, blocks) → 1 (pair centred max 560px) → 2 → 2                    | h2, lead, 1 `ProofPair` (light, tilted), 2 blocks = icon disc + h3 + 3 facts (`dl`)                                                                  | The two photos are the product. Each gets a plain "what it shows / when / where" so the sender knows exactly what to expect, not a slogan.                                                                                                                                                                                  |
+| S4 Substitutions | **Header + item strip + three-card row**                                                                                                                   | `page`                                                                                             | Contained `max-w-page`; auto (~760)                        | 1 (strip, 3 stacked cards) → 1 (strip, 3 horizontal cards: icon left) → 3 → 3   | h2, lead, 1 "out of stock" item strip (real product), 3 cards = icon + h3 + rule text + "what you see" outcome tag                                   | One item, three outcomes, side by side: the sender compares the rules on the same example and picks theirs with confidence. Competitors say "we may substitute".                                                                                                                                                            |
+| S5 Family        | **Split two-column 5/7**: framed tall photo left, texts right                                                                                              | Solid `surface`                                                                                    | Contained `max-w-page`; auto (~780)                        | 1 (title, photo 4:3, SMS, tips) → 1 (photo 16:9) → 2 → 2                        | 1 photo 4:5, h2, lead, 1 `SmsPreview` (2 messages), 1 caption, 3 tips (icon + text)                                                                  | The sender worries about the person at the other end. A real-looking face at a real-looking door, then exactly what lands on her phone.                                                                                                                                                                                     |
+| S6 Timing        | **Full-width band, split 7/5**: cut-off ruler + zone rows left, bordered "nobody home" panel right                                                         | Solid `oxblood`                                                                                    | Full-bleed band, content `max-w-page`; auto (~640)         | 1 (ruler, zones, notes, panel) → 1 → 2 (7/5) → 2 (7/5)                          | h2, lead, 1 two-segment ruler, 1 row per active zone (parish + speed + cut-off + fee), 1–2 notes, 1 panel = h3 + 3-step `ol` + status line + 2 links | Timing and failure are the two fears left. Real cut-offs and fees from the zones table; the failure path stated plainly in three steps. Dark band = the serious, operational part of the page.                                                                                                                              |
+| S7 Questions     | **Split two-column 4/8** (reuse `HomeQuestions`)                                                                                                           | Solid `surface`                                                                                    | Contained `max-w-page`; auto (~520)                        | 1 → 1 → 2 → 2                                                                   | h2, lead, 2–3 contact links, 5 accordion items                                                                                                       | The doubts not answered above (cancelling, paying, stores, gift message) without leaving the page.                                                                                                                                                                                                                          |
+| S8 Closing       | **Single contained panel** (reuse `HomeClosing`)                                                                                                           | `page` band + solid `crimson` panel                                                                | Contained `max-w-page`; auto (~380)                        | 1 → 1 → 2 (text / buttons) → 2                                                  | h2, 1 line, 1 button + 1 text link                                                                                                                   | One calm ask after every doubt is answered.                                                                                                                                                                                                                                                                                 |
 
 ---
 
@@ -160,10 +160,10 @@ sits on a photo.)
 
 ```ts
 const [settings, zones, allBaskets, products, faqs] = await Promise.all([
-  getSettings(),      // jmdPerUsd, bankTransfer, bankTransferHoursToPay, email, whatsapp
-  getActiveZones(),   // parish, feeCents, speed, cutoffTime (St. Thomas, Kingston today)
-  getBaskets(),       // the example order's basket
-  getProducts(),      // names + prices for the example receipt and the out-of-stock item
+  getSettings(), // jmdPerUsd, bankTransfer, bankTransferHoursToPay, email, whatsapp
+  getActiveZones(), // parish, feeCents, speed, cutoffTime (St. Thomas, Kingston today)
+  getBaskets(), // the example order's basket
+  getProducts(), // names + prices for the example receipt and the out-of-stock item
   getFaqs(),
 ])
 ```
@@ -184,8 +184,13 @@ export const EXAMPLE_BASKET = 'family-food-basket'
 /** Example clock times (Jamaica time, HH:MM) for each tracker stage. `closed` has none:
  *  refund timing is not promised (needs Derion). Paid is before any sane cut-off. */
 export const EXAMPLE_TIMES: Record<TrackerStage, string | null> = {
-  paid: '09:12', confirmed: '09:20', shopping: '10:35', shopped: '11:48',
-  out_for_delivery: '12:05', delivered: '12:52', closed: null,
+  paid: '09:12',
+  confirmed: '09:20',
+  shopping: '10:35',
+  shopped: '11:48',
+  out_for_delivery: '12:05',
+  delivered: '12:52',
+  closed: null,
 }
 
 /** The example order: basket, the zone it goes to (St. Thomas if active, else the first
@@ -200,8 +205,8 @@ export function buildExampleOrder(
   basketCents: number
   parish: string
   feeCents: number
-  totalCents: number          // basketCents + feeCents
-  missing: { name: string; cents: number } | null  // price × 1, the refund in the example
+  totalCents: number // basketCents + feeCents
+  missing: { name: string; cents: number } | null // price × 1, the refund in the example
 } | null
 
 /** The questions this page answers, in order: cancelling, paying, bank transfer,
@@ -222,8 +227,8 @@ The example order is shown with **one item missing and refunded** (the substitut
   1. `ShipEast: Hi Paulette, groceries from Andre are on the way. Your driver will call when they are close.`
   2. `ShipEast: Delivered. Your groceries from Andre were handed over at 12:52 PM.`
      (12:52 PM comes from `formatClockTime(EXAMPLE_TIMES.delivered)`.)
-  Marked "needs Derion": replace with the real Twilio templates once written (same note as
-  the home page's `texts`).
+     Marked "needs Derion": replace with the real Twilio templates once written (same note as
+     the home page's `texts`).
 
 ---
 
@@ -249,14 +254,14 @@ in open questions).
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Split two-column 7/5: text left, framed photo right with a floating tracker card over the photo's bottom-left corner; "On this page" strip across the foot of the band |
-| Background | Solid `crimson`, `text-on-dark on-dark-focus` |
-| Container / height | `<section>` full-bleed; inner `mx-auto max-w-wide gutter`; padding `section pb-10 lg:pb-12`; ~760px at 1440 |
-| Columns | 375: text → photo + card → strip (2-col links). 768: same, photo 16:9, strip 3-col. 1024: grid 12, text `col-span-7`, photo `col-span-5`; strip full width below, 7 links in one wrapping row. 1440: same as 1024, larger gaps |
-| Blocks | h1, lead, 1 primary button, 1 text link, `CutoffNote`, 1 photo, 1 tracker card, 1 nav with 7 links |
-| Why | The promise and the action first; the tracker object says "you will see every step" before a word of explanation. The jump nav serves the careful reader who came for one answer |
+|                    |                                                                                                                                                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pattern            | Split two-column 7/5: text left, framed photo right with a floating tracker card over the photo's bottom-left corner; "On this page" strip across the foot of the band                                                         |
+| Background         | Solid `crimson`, `text-on-dark on-dark-focus`                                                                                                                                                                                  |
+| Container / height | `<section>` full-bleed; inner `mx-auto max-w-wide gutter`; padding `section pb-10 lg:pb-12`; ~760px at 1440                                                                                                                    |
+| Columns            | 375: text → photo + card → strip (2-col links). 768: same, photo 16:9, strip 3-col. 1024: grid 12, text `col-span-7`, photo `col-span-5`; strip full width below, 7 links in one wrapping row. 1440: same as 1024, larger gaps |
+| Blocks             | h1, lead, 1 primary button, 1 text link, `CutoffNote`, 1 photo, 1 tracker card, 1 nav with 7 links                                                                                                                             |
+| Why                | The promise and the action first; the tracker object says "you will see every step" before a word of explanation. The jump nav serves the careful reader who came for one answer                                               |
 
 #### Copy
 
@@ -361,14 +366,14 @@ on-dark / on-crimson-muted / blush on crimson and crimson-deep are all in the AA
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Three-column timeline table, 7 rows: **spine** (dot + time + stage) · **On your screen** lane · **In Jamaica** lane |
-| Background | Band `page`. The In Jamaica lane is a continuous solid `oxblood` column: each row's Jamaica cell is `bg-oxblood`; cells touch (row gap 0) so the column reads as one block; first cell `rounded-t-2xl`, last `rounded-b-2xl` |
-| Container / height | `section` padding, `max-w-page`; ~2,000px at 1440 |
-| Columns | 375 / 768: one column per row: stage line, then the screen card, then the Jamaica card (`rounded-xl`, separate blocks), all indented right of a continuous spine. 1024 / 1440: `grid-cols-12`: spine `col-span-3`, screen `col-span-4`, Jamaica `col-span-5` |
-| Blocks | Header (h2, lead, "Example" note), lane header row (2 labels, lg only), 7 rows, 1 footnote |
-| Why | The tracker's seven stages are what the sender will actually watch. Pairing each with the artefact they receive, and what happened in Jamaica to cause it, turns "trust us" into a schedule they can check |
+|                    |                                                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pattern            | Three-column timeline table, 7 rows: **spine** (dot + time + stage) · **On your screen** lane · **In Jamaica** lane                                                                                                                                          |
+| Background         | Band `page`. The In Jamaica lane is a continuous solid `oxblood` column: each row's Jamaica cell is `bg-oxblood`; cells touch (row gap 0) so the column reads as one block; first cell `rounded-t-2xl`, last `rounded-b-2xl`                                 |
+| Container / height | `section` padding, `max-w-page`; ~2,000px at 1440                                                                                                                                                                                                            |
+| Columns            | 375 / 768: one column per row: stage line, then the screen card, then the Jamaica card (`rounded-xl`, separate blocks), all indented right of a continuous spine. 1024 / 1440: `grid-cols-12`: spine `col-span-3`, screen `col-span-4`, Jamaica `col-span-5` |
+| Blocks             | Header (h2, lead, "Example" note), lane header row (2 labels, lg only), 7 rows, 1 footnote                                                                                                                                                                   |
+| Why                | The tracker's seven stages are what the sender will actually watch. Pairing each with the artefact they receive, and what happened in Jamaica to cause it, turns "trust us" into a schedule they can check                                                   |
 
 #### Copy
 
@@ -381,15 +386,15 @@ on-dark / on-crimson-muted / blush on crimson and crimson-deep are all in the AA
 Rows. Stage labels come from `TRACKER_STAGES` (never re-typed). Times from `EXAMPLE_TIMES`.
 Money via `formatUsd`. `{x}` = live data.
 
-| # | Stage (time) | On your screen (white card) | In Jamaica (oxblood cell) |
-| - | ------------ | --------------------------- | ------------------------- |
-| 1 | **Paid** · 9:12 AM | Card titled `Email: your receipt` (Mail icon). Body: rows `{basketName} {formatUsd(basketCents)}`, `Delivery to {parish} {formatUsd(feeCents)}`, divider, **`Paid {formatUsd(totalCents)}`**. Under it, `text-small text-ink-muted`: `By {payLine}. You also get a tracking link to share.` (`payLine` = `PayPal or card` or `PayPal, card or bank transfer` when `bankTransfer`). | `The order reaches our team in Jamaica. Nobody there handles cash: you have already paid.` |
-| 2 | **Confirmed** · 9:20 AM | `Your tracking page shows Confirmed.` | `We check the list and give it to a driver who knows the area.` |
-| 3 | **Shopping** · 10:35 AM | `Your tracking page shows Shopping.` | `The driver is in the store, ticking off your list item by item. The {missing.name} is out of stock, so they follow your rule: leave it out.` + link `What the three rules do` → `#subs-h` (on-dark link style). If `missing` is null: `…ticking off your list item by item. If something is out of stock, they follow the rule you chose.` |
-| 4 | **Shopped** · 11:48 AM | Card `Email: the receipt photo` (Camera icon) containing a **mini drawn receipt**: the first 3 lines of `buildReceipt(...)` in J$ + `and {n} more items` + total, under a pill `Example receipt`. Caption: `A photo of the store's own till receipt.` | `The driver pays at the till and photographs the receipt before leaving the store.` |
-| 5 | **Out for delivery** · 12:05 PM | `Your tracking page shows Out for delivery.` | `Your family gets a text:` + text bubble 1 (see §3.3) |
-| 6 | **Delivered** · 12:52 PM | Card `Email: the door photo` (DoorOpen icon) containing a **mini door card**: `crimson` 3:2 tile, DoorOpen icon `text-blush`, `Delivered to` / **`Paulette Brown`** / `Yallahs, St. Thomas` (the ProofPair door placeholder, landscape). | `The driver hands the order over at the door, takes the photo and notes who received it. Your family gets a second text:` + text bubble 2 |
-| 7 | **Closed** · no time; the time slot reads `Then` | Card `Email: order closed` (ReceiptText icon): `{missing.name} not in stock: {formatUsd(missing.cents)} back to you.` If `missing` is null: `Any refund for missing items is sent, and the order is finished.` | `Nothing more for your family to do.` |
+| #   | Stage (time)                                     | On your screen (white card)                                                                                                                                                                                                                                                                                                                                                        | In Jamaica (oxblood cell)                                                                                                                                                                                                                                                                                                                   |
+| --- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Paid** · 9:12 AM                               | Card titled `Email: your receipt` (Mail icon). Body: rows `{basketName} {formatUsd(basketCents)}`, `Delivery to {parish} {formatUsd(feeCents)}`, divider, **`Paid {formatUsd(totalCents)}`**. Under it, `text-small text-ink-muted`: `By {payLine}. You also get a tracking link to share.` (`payLine` = `PayPal or card` or `PayPal, card or bank transfer` when `bankTransfer`). | `The order reaches our team in Jamaica. Nobody there handles cash: you have already paid.`                                                                                                                                                                                                                                                  |
+| 2   | **Confirmed** · 9:20 AM                          | `Your tracking page shows Confirmed.`                                                                                                                                                                                                                                                                                                                                              | `We check the list and give it to a driver who knows the area.`                                                                                                                                                                                                                                                                             |
+| 3   | **Shopping** · 10:35 AM                          | `Your tracking page shows Shopping.`                                                                                                                                                                                                                                                                                                                                               | `The driver is in the store, ticking off your list item by item. The {missing.name} is out of stock, so they follow your rule: leave it out.` + link `What the three rules do` → `#subs-h` (on-dark link style). If `missing` is null: `…ticking off your list item by item. If something is out of stock, they follow the rule you chose.` |
+| 4   | **Shopped** · 11:48 AM                           | Card `Email: the receipt photo` (Camera icon) containing a **mini drawn receipt**: the first 3 lines of `buildReceipt(...)` in J$ + `and {n} more items` + total, under a pill `Example receipt`. Caption: `A photo of the store's own till receipt.`                                                                                                                              | `The driver pays at the till and photographs the receipt before leaving the store.`                                                                                                                                                                                                                                                         |
+| 5   | **Out for delivery** · 12:05 PM                  | `Your tracking page shows Out for delivery.`                                                                                                                                                                                                                                                                                                                                       | `Your family gets a text:` + text bubble 1 (see §3.3)                                                                                                                                                                                                                                                                                       |
+| 6   | **Delivered** · 12:52 PM                         | Card `Email: the door photo` (DoorOpen icon) containing a **mini door card**: `crimson` 3:2 tile, DoorOpen icon `text-blush`, `Delivered to` / **`Paulette Brown`** / `Yallahs, St. Thomas` (the ProofPair door placeholder, landscape).                                                                                                                                           | `The driver hands the order over at the door, takes the photo and notes who received it. Your family gets a second text:` + text bubble 2                                                                                                                                                                                                   |
+| 7   | **Closed** · no time; the time slot reads `Then` | Card `Email: order closed` (ReceiptText icon): `{missing.name} not in stock: {formatUsd(missing.cents)} back to you.` If `missing` is null: `Any refund for missing items is sent, and the order is finished.`                                                                                                                                                                     | `Nothing more for your family to do.`                                                                                                                                                                                                                                                                                                       |
 
 Footnote under the table (`text-small text-ink-muted max-w-2xl`): `Every order sends you the same emails. Paying by bank transfer? Step 1 waits until the money arrives.` (second sentence only when `bankTransfer`).
 
@@ -492,14 +497,14 @@ link underline, all AA.
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Split two-column 6/6: proof pair left, two definition blocks right |
-| Background | Solid `surface` |
-| Container / height | `section`, `max-w-page`; ~720 |
-| Columns | 375: title + lead → pair → block 1 → block 2. 768: same, pair `max-w-xl mx-auto`, blocks side by side (2 cols). 1024/1440: `grid-cols-12`, pair `col-span-6`, text `col-span-6` (title, lead, blocks stacked) |
-| Blocks | h2, lead, 1 `ProofPair` (light, `tilt`), 2 blocks = icon disc + h3 + `dl` with 3 rows |
-| Why | Plain answers to "what exactly will I get?", kept beside the object itself |
+|                    |                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pattern            | Split two-column 6/6: proof pair left, two definition blocks right                                                                                                                                            |
+| Background         | Solid `surface`                                                                                                                                                                                               |
+| Container / height | `section`, `max-w-page`; ~720                                                                                                                                                                                 |
+| Columns            | 375: title + lead → pair → block 1 → block 2. 768: same, pair `max-w-xl mx-auto`, blocks side by side (2 cols). 1024/1440: `grid-cols-12`, pair `col-span-6`, text `col-span-6` (title, lead, blocks stacked) |
+| Blocks             | h2, lead, 1 `ProofPair` (light, `tilt`), 2 blocks = icon disc + h3 + `dl` with 3 rows                                                                                                                         |
+| Why                | Plain answers to "what exactly will I get?", kept beside the object itself                                                                                                                                    |
 
 #### Copy
 
@@ -569,14 +574,14 @@ total) and reads fine; the door placeholder too. Figcaptions "Receipt" / "At the
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Header, one "out of stock" item strip, then a three-card row |
-| Background | `page` |
-| Container / height | `section`, `max-w-page`; ~760 |
-| Columns | 375: strip, 3 stacked cards. 768: strip, 3 stacked cards laid out horizontally inside (icon disc left, text right). 1024/1440: strip, `grid-cols-3` |
-| Blocks | h2, lead, 1 strip, 3 cards = icon disc + h3 + rule body + divider + "What you see" + outcome tag + 1 line |
-| Why | One real item, three outcomes, side by side: the clearest possible way to choose a rule |
+|                    |                                                                                                                                                     |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pattern            | Header, one "out of stock" item strip, then a three-card row                                                                                        |
+| Background         | `page`                                                                                                                                              |
+| Container / height | `section`, `max-w-page`; ~760                                                                                                                       |
+| Columns            | 375: strip, 3 stacked cards. 768: strip, 3 stacked cards laid out horizontally inside (icon disc left, text right). 1024/1440: strip, `grid-cols-3` |
+| Blocks             | h2, lead, 1 strip, 3 cards = icon disc + h3 + rule body + divider + "What you see" + outcome tag + 1 line                                           |
+| Why                | One real item, three outcomes, side by side: the clearest possible way to choose a rule                                                             |
 
 #### Copy
 
@@ -585,11 +590,11 @@ total) and reads fine; the door placeholder too. Figcaptions "Receipt" / "At the
 - Strip (when `missing` exists): `PackageX` icon (`text-warn`), `Out of stock at the store` (`text-small font-semibold text-ink-muted`), then **`{missing.name}`** and `{formatUsd(missing.cents)}` right-aligned. `Example` pill. When `missing` is null, the strip is not rendered and the lead's second sentence becomes `Here is what each rule does.`
 - Cards, in `SUBSTITUTION_RULES` order (title and body **from `src/lib/substitution.ts`, never re-typed**), icons kept from the current page (`Replace`, `MessageCircleQuestion`, `Ban`):
 
-| Rule | "What you see" tag (reuse the outcome tag, §components) | Line under the tag |
-| --- | --- | --- |
-| Allow similar | `Swapped` (info) | `The driver picks the closest match at the same price or less. Your tracking page names what was bought instead.` |
-| Ask me first | `Swapped` (info) **or** `Not in stock, {formatUsd(missing.cents)} back` (warn) | `We message you first. Say yes and it is swapped; say no, or if we don't hear back in time, it is left out and refunded.` |
-| Leave it out | `Not in stock, {formatUsd(missing.cents)} back` (warn) | `Nothing is swapped. You get back exactly what you paid for it.` |
+| Rule          | "What you see" tag (reuse the outcome tag, §components)                        | Line under the tag                                                                                                        |
+| ------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Allow similar | `Swapped` (info)                                                               | `The driver picks the closest match at the same price or less. Your tracking page names what was bought instead.`         |
+| Ask me first  | `Swapped` (info) **or** `Not in stock, {formatUsd(missing.cents)} back` (warn) | `We message you first. Say yes and it is swapped; say no, or if we don't hear back in time, it is left out and refunded.` |
+| Leave it out  | `Not in stock, {formatUsd(missing.cents)} back` (warn)                         | `Nothing is swapped. You get back exactly what you paid for it.`                                                          |
 
 Under the row (`text-small text-ink-muted`): `You choose the rule at checkout, in the delivery step. It applies to every item in the order.`
 
@@ -649,14 +654,14 @@ meaning: each tag has its word.
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Split two-column 5/7: framed tall photo left, text right |
-| Background | Solid `surface` |
-| Container / height | `section`, `max-w-page`; ~780 |
-| Columns | 375: h2 + lead → photo 4:3 → SMS panel → caption → 3 tips. 768: same, photo 16:9. 1024/1440: photo `col-span-5` (4:5, sticky not needed), text `col-span-7` |
-| Blocks | 1 photo, h2, lead, `SmsPreview` (2 messages), caption, 3 tips (icon + text) |
-| Why | Puts a face to the person at the other end, then shows exactly what reaches her phone. "Nothing to install" is the claim no competitor can make as plainly |
+|                    |                                                                                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pattern            | Split two-column 5/7: framed tall photo left, text right                                                                                                    |
+| Background         | Solid `surface`                                                                                                                                             |
+| Container / height | `section`, `max-w-page`; ~780                                                                                                                               |
+| Columns            | 375: h2 + lead → photo 4:3 → SMS panel → caption → 3 tips. 768: same, photo 16:9. 1024/1440: photo `col-span-5` (4:5, sticky not needed), text `col-span-7` |
+| Blocks             | 1 photo, h2, lead, `SmsPreview` (2 messages), caption, 3 tips (icon + text)                                                                                 |
+| Why                | Puts a face to the person at the other end, then shows exactly what reaches her phone. "Nothing to install" is the claim no competitor can make as plainly  |
 
 #### Copy
 
@@ -706,14 +711,14 @@ panel already has a figcaption (`sr-only`).
 
 #### Structure
 
-| | |
-| --- | --- |
-| Pattern | Full-width band, split 7/5: cut-off ruler + zone rows left, bordered panel right |
-| Background | Solid `oxblood`, `text-on-dark on-dark-focus` |
-| Container / height | `section`, `max-w-page`; ~640 |
-| Columns | 375: h2, lead, ruler, zone rows, notes, panel. 768: same, zone rows 2-up. 1024/1440: `grid-cols-12`, left `col-span-7`, panel `col-span-5` |
-| Blocks | h2, lead, 1 ruler (2 segments), N zone rows (live), 1–2 notes, 1 link; panel = h3 + 3-step `ol` + 1 status line + 1 link |
-| Why | The two remaining fears, "will it come today?" and "what if she's out?", answered with live data and a plain procedure |
+|                    |                                                                                                                                            |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pattern            | Full-width band, split 7/5: cut-off ruler + zone rows left, bordered panel right                                                           |
+| Background         | Solid `oxblood`, `text-on-dark on-dark-focus`                                                                                              |
+| Container / height | `section`, `max-w-page`; ~640                                                                                                              |
+| Columns            | 375: h2, lead, ruler, zone rows, notes, panel. 768: same, zone rows 2-up. 1024/1440: `grid-cols-12`, left `col-span-7`, panel `col-span-5` |
+| Blocks             | h2, lead, 1 ruler (2 segments), N zone rows (live), 1–2 notes, 1 link; panel = h3 + 3-step `ol` + 1 status line + 1 link                   |
+| Why                | The two remaining fears, "will it come today?" and "what if she's out?", answered with live data and a plain procedure                     |
 
 #### Copy
 
@@ -818,17 +823,17 @@ same role), `stepDoor` (cardboard box, reads as parcel shipping, the opposite of
 Two new photos. Both checked: free (not Unsplash+), no logos, `curl` → **200** on
 `?w=200`.
 
-| Key | `hiwSender` | `hiwFamilyDoor` |
-| --- | --- | --- |
-| File | `src/lib/photos/guide.ts` | `src/lib/photos/guide.ts` |
-| Unsplash id | `NP6aeffzH2E` | `FkNCfc7MaHc` |
-| src | `https://images.unsplash.com/photo-1758521541103-d29cbd5fb2e5` | `https://images.unsplash.com/flagged/photo-1562925218-82b07bb9a50d` (the `flagged/` path is Unsplash's own; keep it) |
-| Size | 3840 × 2160 | 5000 × 3333 |
-| Photographer | Vitaly Gariev (`silverkblack`) | Patricia Prudente (`apsprudente`) |
-| Alt | `A young woman at home with her laptop and a cup of tea` | `An older woman standing in the blue doorway of her home` |
-| Shows | The sender abroad, at home, in the evening, ordering on a laptop: the first line of the h1 | A grandmother at her own door, warm, unposed, Caribbean-looking painted doorway: the person the order is for |
-| Crop | `aspect-4/5` at lg, `16/9` md, `4/3` phone; `position="40% center"` keeps her face and the laptop in the 4:5 crop | `aspect-4/5` at lg, `16/9` md, `4/3` phone; `position="center 35%"` keeps her face in every crop (she stands right of centre: at 4:5 use `position="62% 35%"`) |
-| usedOn | `How it works (hero)` | `How it works (your family)` |
+| Key          | `hiwSender`                                                                                                       | `hiwFamilyDoor`                                                                                                                                                |
+| ------------ | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| File         | `src/lib/photos/guide.ts`                                                                                         | `src/lib/photos/guide.ts`                                                                                                                                      |
+| Unsplash id  | `NP6aeffzH2E`                                                                                                     | `FkNCfc7MaHc`                                                                                                                                                  |
+| src          | `https://images.unsplash.com/photo-1758521541103-d29cbd5fb2e5`                                                    | `https://images.unsplash.com/flagged/photo-1562925218-82b07bb9a50d` (the `flagged/` path is Unsplash's own; keep it)                                           |
+| Size         | 3840 × 2160                                                                                                       | 5000 × 3333                                                                                                                                                    |
+| Photographer | Vitaly Gariev (`silverkblack`)                                                                                    | Patricia Prudente (`apsprudente`)                                                                                                                              |
+| Alt          | `A young woman at home with her laptop and a cup of tea`                                                          | `An older woman standing in the blue doorway of her home`                                                                                                      |
+| Shows        | The sender abroad, at home, in the evening, ordering on a laptop: the first line of the h1                        | A grandmother at her own door, warm, unposed, Caribbean-looking painted doorway: the person the order is for                                                   |
+| Crop         | `aspect-4/5` at lg, `16/9` md, `4/3` phone; `position="40% center"` keeps her face and the laptop in the 4:5 crop | `aspect-4/5` at lg, `16/9` md, `4/3` phone; `position="center 35%"` keeps her face in every crop (she stands right of centre: at 4:5 use `position="62% 35%"`) |
+| usedOn       | `How it works (hero)`                                                                                             | `How it works (your family)`                                                                                                                                   |
 
 Before adding them: record each download through the Unsplash API (`download_asset`), as
 `docs/PHOTOGRAPHY.md` step 2 asks, and the credits page lists them automatically.
@@ -841,17 +846,17 @@ imports it (grep first).
 
 ### First pass vs revised
 
-| First pass | Problem | Revised |
-| --- | --- | --- |
-| Keep the old structure (photo chapters 01/02/03, then a stage list, then proof, subs, family, pay) | Reads as a template: three photo-text zig-zags plus a numbered list say the same thing twice; eyebrows everywhere; parallax and staggers | One spine (S2) carries the journey **and** the seven stages; every other section explains one thing it points to |
-| Hero = crimson + photo + the home's printed receipt | Copies the home hero's bold element | Hero carries a **tracker card** instead (a different proof object), static; the bold element moves to S2 |
-| S2 lane on the right as a full-bleed oxblood half of the band | Hard to align a background half to grid column 8 at every width; risky on 1024 | The lane is built from the row cells themselves (touching oxblood cells, rounded ends): exact at every width, no absolute background |
-| Big signal numerals (text-numeral) for the seven times | Seven 59px red numbers shout and fight the oxblood lane | Times in `text-title` ink; the red mass is the lane, the dots are crimson |
-| Scroll-filled spine | Scroll-linked motion with no meaning (the example is finished) | Static, complete spine |
-| Substitution rules in tabs | Hides two of the three; needs JS | All three side by side on the same item |
-| Proof band in crimson (as before) | Crimson right after S2's oxblood lane: too much red in a row | `surface` band, light `ProofPair` (its door card is crimson already) |
-| Payment section kept | Extra section; payment is already answered in S2 row 1 and the FAQ | Removed; `pay-h` anchor dropped (nothing links to it) |
-| Times as ISO dates rendered by `formatTime` | Time-zone and DST traps for fake dates | Clock strings `HH:MM` through `formatClockTime` |
+| First pass                                                                                         | Problem                                                                                                                                  | Revised                                                                                                                              |
+| -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Keep the old structure (photo chapters 01/02/03, then a stage list, then proof, subs, family, pay) | Reads as a template: three photo-text zig-zags plus a numbered list say the same thing twice; eyebrows everywhere; parallax and staggers | One spine (S2) carries the journey **and** the seven stages; every other section explains one thing it points to                     |
+| Hero = crimson + photo + the home's printed receipt                                                | Copies the home hero's bold element                                                                                                      | Hero carries a **tracker card** instead (a different proof object), static; the bold element moves to S2                             |
+| S2 lane on the right as a full-bleed oxblood half of the band                                      | Hard to align a background half to grid column 8 at every width; risky on 1024                                                           | The lane is built from the row cells themselves (touching oxblood cells, rounded ends): exact at every width, no absolute background |
+| Big signal numerals (text-numeral) for the seven times                                             | Seven 59px red numbers shout and fight the oxblood lane                                                                                  | Times in `text-title` ink; the red mass is the lane, the dots are crimson                                                            |
+| Scroll-filled spine                                                                                | Scroll-linked motion with no meaning (the example is finished)                                                                           | Static, complete spine                                                                                                               |
+| Substitution rules in tabs                                                                         | Hides two of the three; needs JS                                                                                                         | All three side by side on the same item                                                                                              |
+| Proof band in crimson (as before)                                                                  | Crimson right after S2's oxblood lane: too much red in a row                                                                             | `surface` band, light `ProofPair` (its door card is crimson already)                                                                 |
+| Payment section kept                                                                               | Extra section; payment is already answered in S2 row 1 and the FAQ                                                                       | Removed; `pay-h` anchor dropped (nothing links to it)                                                                                |
+| Times as ISO dates rendered by `formatTime`                                                        | Time-zone and DST traps for fake dates                                                                                                   | Clock strings `HH:MM` through `formatClockTime`                                                                                      |
 
 ### Generic defaults removed
 
@@ -861,8 +866,8 @@ scroll reveals or parallax; no gradient, glass or tilted shadows beyond the exis
 
 ### ui-ux-pro-max
 
-- `--design-system` ("delivery service trust process explainer timeline") returned *Trust &
-  Authority* with an *Accessible & Ethical* style: **adopted** the pattern (proof before ask,
+- `--design-system` ("delivery service trust process explainer timeline") returned _Trust &
+  Authority_ with an _Accessible & Ethical_ style: **adopted** the pattern (proof before ask,
   clear CTA path) and the accessibility focus. **Rejected** its palette (blue #0369A1 /
   green accent), IBM Plex Sans and "logo carousel / security badges / case studies": they
   break the brand (roles only, Figtree) and the honesty rule (no logos, no invented proof).
@@ -898,6 +903,7 @@ link and button (blush on crimson / oxblood, signal on light); no eyebrow; lucid
 all money via `format.ts`; no text on a photo; no `motion` import on the page.
 
 **375**
+
 - [ ] Hero order: h1, lead, full-width "Start shopping", "Track an order", cut-off note, photo 4:3, tracker card overlapping the photo foot on the right, jump strip in 2 columns.
 - [ ] Each S2 row: dot + time + stage, then screen card (or plain line), then oxblood card; spine continuous from row 1 to row 6.
 - [ ] S2 rows 5 and 6 show the two family texts as white bubbles inside oxblood cards, labelled as examples for screen readers.
@@ -908,21 +914,25 @@ all money via `format.ts`; no text on a photo; no `motion` import on the page.
 - [ ] Every jump link lands with its heading below the sticky header.
 
 **768**
+
 - [ ] Hero still single column, photo 16:9, jump strip 3 columns.
 - [ ] S2 still stacked rows; S3 blocks side by side; S4 cards horizontal (disc left); S6 zone rows 2-up.
 
 **1024**
+
 - [ ] Hero 7/5; tracker card straddles the photo's left edge without covering the text column.
 - [ ] S2 three columns; the oxblood lane reads as one continuous column with rounded top and bottom; lane titles: "On your screen" above column 2, "In Jamaica" inside the lane's first cell.
 - [ ] S3 pair left, text right, vertically centred.
 - [ ] S6 7/5 with the bordered panel top-aligned.
 
 **1440**
+
 - [ ] Content capped at `max-w-wide` (hero) / `max-w-page` (others); photos sharp (correct `sizes`).
 - [ ] Rhythm matches §1B.1: no two full-width red bands touching.
 - [ ] Compare with the "before" screenshots: fewer sections, no repeated photo chapters, the S2 lane is the memorable element.
 
 **Data and honesty**
+
 - [ ] Every number is live (fees, cut-offs, basket and item prices, J$ at the live rate) or labelled "Example".
 - [ ] No store name on any drawn receipt; no competitor named; no counts, ratings or testimonials.
 - [ ] Bank-transfer lines (S2 row 1, S2 footnote, S6 note, FAQ faq-5) appear only when bank transfer is configured.
@@ -935,30 +945,25 @@ all money via `format.ts`; no text on a photo; no `motion` import on the page.
 ## 9. Open questions
 
 **For the manager**
+
 1. Allow `preload` on `hiwSender` (this page's LCP at desktop)? If yes, update the
    "Only the home hero uses preload" line in `docs/PHOTOGRAPHY.md` to "the top photo of a page".
 2. OK to move `speedLabel` from `home/coverage.tsx` into `src/lib/home.ts` as `SPEED_LABEL`?
 3. OK to reuse `HomeQuestions` and `HomeClosing` across pages as they are (no props added)? A
    later tidy-up could move them to `components/site/`.
 
-**Needs Derion (hidden or worded vaguely until provided)**
-4. The real SMS wording (Twilio templates). Today: labelled examples.
-5. How long "Ask me first" waits for an answer, and by which channel we message (email,
-   SMS, WhatsApp). Today: "we message you", "in time".
-6. How long the driver waits when nobody is home, whether there is a redelivery fee, and how
-   many tries. Today: "a reasonable time", "another try", no fee mentioned.
-7. When refunds are sent and how (back to PayPal / card?). Today: row 7 has no time.
-8. Sunday and public-holiday delivery. Not mentioned.
-9. FAQ `faq-4` ("How do I pay?") mentions bank transfer even when it isn't configured.
-   Content fix in the FAQ data, not on this page.
-10. Whether the driver records the recipient's name on every delivery (the copy says
-    "notes who received it", as the current page and delivery policy already do). Confirm.
+**Needs Derion (hidden or worded vaguely until provided)** 4. The real SMS wording (Twilio templates). Today: labelled examples. 5. How long "Ask me first" waits for an answer, and by which channel we message (email,
+SMS, WhatsApp). Today: "we message you", "in time". 6. How long the driver waits when nobody is home, whether there is a redelivery fee, and how
+many tries. Today: "a reasonable time", "another try", no fee mentioned. 7. When refunds are sent and how (back to PayPal / card?). Today: row 7 has no time. 8. Sunday and public-holiday delivery. Not mentioned. 9. FAQ `faq-4` ("How do I pay?") mentions bank transfer even when it isn't configured.
+Content fix in the FAQ data, not on this page. 10. Whether the driver records the recipient's name on every delivery (the copy says
+"notes who received it", as the current page and delivery policy already do). Confirm.
 
 ---
 
 ## 10. Files
 
 **Create**
+
 - `src/components/pages/how-it-works/hiw-hero.tsx`
 - `src/components/pages/how-it-works/hiw-journey.tsx`
 - `src/components/pages/how-it-works/mini-receipt.tsx`
@@ -970,6 +975,7 @@ all money via `format.ts`; no text on a photo; no `motion` import on the page.
 - `src/lib/how-it-works.ts` + `src/lib/how-it-works.test.ts`
 
 **Change**
+
 - `src/app/(site)/how-it-works/page.tsx`: rewritten to compose S1–S8.
 - `src/components/order/item-outcome.tsx`: export `OutcomeTag`.
 - `src/lib/home.ts` (+ test): add `SPEED_LABEL`; `home/coverage.tsx` imports it.
@@ -977,10 +983,12 @@ all money via `format.ts`; no text on a photo; no `motion` import on the page.
 - `docs/PHOTOGRAPHY.md` (if §9 Q1 is approved), `docs/DESIGN-DECISIONS.md` (dated entry).
 
 **Delete** (after grepping for other importers)
+
 - `src/components/pages/guide/stage-timeline.tsx` (only this page uses it).
 - `GuideHero` and `FaqList` stay: `/delivery` and `/faq` use them.
 
 **Anchors**
+
 - Kept: `proof-h` (linked from home S5), `subs-h`, `family-h`.
 - New: `journey-h`, `timing-h`, `nobody-home-h`; jump target `questions-title` (from `HomeQuestions`).
 - Dropped: `chapters-h`, `stages-h`, `pay-h`, `hiw-faq-h`. A repo grep for `how-it-works#`
