@@ -71,7 +71,7 @@ export const faqs: Faq[] = [
     group: 'Ordering',
     question: 'Does anything get shipped from overseas?',
     answer:
-      'No. You pay online and our driver buys everything at a store in Jamaica, then delivers it the same day. Only the money crosses the border.',
+      'No. You pay online and our driver buys everything at a store in Jamaica, then delivers it to the door, and we aim to do that the same day. Only the money crosses the border.',
     sort: 1,
   },
   {

@@ -17,10 +17,11 @@ const unsplashLoader: ImageLoader = ({ src, width, quality }) =>
  * instead of popping (`[data-fade]` in globals.css); a preloaded one, the largest paint, never
  * waits. Without JavaScript the home layout's noscript rule shows it at once.
  */
-export function FadeImage({ className, preload, onLoad, ...props }: ImageProps) {
+export function FadeImage({ alt, className, preload, onLoad, ...props }: ImageProps) {
   return (
     <Image
       {...props}
+      alt={alt}
       preload={preload}
       data-fade={preload ? undefined : ''}
       onLoad={(e) => {

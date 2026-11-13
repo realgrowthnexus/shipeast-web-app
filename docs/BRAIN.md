@@ -203,7 +203,9 @@ ticker, hover effects, footer) is applied as v3.1, and his second round as v3.2:
 58 real products with their pictures are in the demo catalogue, the same-day wording is
 softened, and type and spacing follow upercart's scale (merged, PR #31). A first brand kit
 (door mark, logo files, favicon, phone icons, one share card per main page) is built and
-waiting for his feedback: `docs/BRAND.md`.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
+waiting for his feedback: `docs/BRAND.md`. His third round is built as v3.3 (roomier header
+and boxes, the hero as one composition, photos that fill their frames, a 24px radius ceiling,
+the big proof headline, a smooth FAQ; see `docs/home-v3/PLAN.md` §12).** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
 no other page changed. If the owner approves, roll the new header, footer and palette out to
 the other pages one by one; if not, revise the home page first.

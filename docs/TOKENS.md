@@ -198,20 +198,21 @@ One modular scale on a 16px body. The ratio is **1.2 on a 375px phone, growing t
 1280px and up**, so headings gain drama on large screens without crowding small ones. Each
 class carries its own size, line height, weight and letter spacing.
 
-| Class          | Step | Size (375 → 1280px) | Weight          | Line height | Use                                      |
-| -------------- | ---- | ------------------- | --------------- | ----------- | ---------------------------------------- |
-| `text-poster`  | +8   | 72 → 130px          | 900             | 0.85        | One word per page: the About "bearer"    |
-| `text-display` | +6   | 48 → 77px           | 900             | 0.95        | The home hero headline only              |
-| `text-numeral` | +5   | 40 → 59px           | 900             | 1           | Step numbers and real facts, in `signal` |
-| `text-h1`      | +4   | 33 → 46px           | 800             | 1.05        | One page title per page                  |
-| `text-h2`      | +3   | 28 → 35px           | 800             | 1.1         | Section titles, totals                   |
-| `text-title`   | +2   | 23 → 27px           | 800             | 1.15        | Store shelf titles                       |
-| `text-h3`      | +1   | 19 → 21px           | 700             | 1.25        | Card, step and form-step titles          |
-| `text-lead`    |      | 18 → 20px           | 400             | 1.55        | The paragraph under a title              |
-| `text-body`    | 0    | 16px                | 400             | 1.6         | Running text and inputs                  |
-| `text-small`   |      | 14px                | 500             | 1.5         | Captions, meta, table cells              |
-| `text-xs`      |      | 12px                | set by the pill | 1.35        | Pills and counters only                  |
-| `eyebrow`      |      | 14px                | 700             | 1.3         | A short label above a title              |
+| Class          | Step | Size (375 → 1280px) | Weight          | Line height | Use                                       |
+| -------------- | ---- | ------------------- | --------------- | ----------- | ----------------------------------------- |
+| `text-poster`  | +8   | 72 → 130px          | 900             | 0.85        | One word per page: the About "bearer"     |
+| `text-display` | +6   | 48 → 77px           | 900             | 0.95        | The home hero headline only               |
+| `text-numeral` | +5   | 40 → 59px           | 900             | 1           | Step numbers and real facts, in `signal`  |
+| `text-h1`      | +4   | 33 → 46px           | 800             | 1.05        | One page title per page                   |
+| `text-h2`      | +3   | 28 → 35px           | 800             | 1.1         | Section titles, totals                    |
+| `text-title`   | +2   | 23 → 27px           | 800             | 1.15        | Store shelf titles                        |
+| `text-h3`      | +1   | 19 → 21px           | 700             | 1.25        | Card, step and form-step titles           |
+| `text-price`   |      | 18px                | 600 (set)       | 1.25        | Shelf prices and basket price tags (home) |
+| `text-lead`    |      | 18 → 20px           | 400             | 1.55        | The paragraph under a title               |
+| `text-body`    | 0    | 16px                | 400             | 1.6         | Running text and inputs                   |
+| `text-small`   |      | 14px                | 500             | 1.5         | Captions, meta, table cells               |
+| `text-xs`      |      | 12px                | set by the pill | 1.35        | Pills and counters only                   |
+| `eyebrow`      |      | 14px                | 700             | 1.3         | A short label above a title               |
 
 - Never set `tracking-*`, font sizes or line heights by hand. The one exception is the
   wordmark, which is a logo.

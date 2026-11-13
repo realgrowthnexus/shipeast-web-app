@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { duration, panel, rise, staggerStep } from './motion'
@@ -20,5 +20,26 @@ describe('home v3.3 tokens', () => {
     expect(css).toMatch(/--duration-panel:\s*300ms/)
     expect(css).toMatch(/--duration-reveal:\s*500ms/)
     expect(css).not.toMatch(/animate-bob|@keyframes bob/)
+  })
+})
+
+/** Every source file of the home page: its route group and its components. */
+const homeFiles = ['src/components/home', 'src/app/(home)'].flatMap((dir) =>
+  readdirSync(join(process.cwd(), dir))
+    .filter((f) => f.endsWith('.tsx'))
+    .map((f) => ({ path: `${dir}/${f}`, text: readFileSync(join(process.cwd(), dir, f), 'utf8') })),
+)
+
+describe('home v3.3 page rules', () => {
+  it('no corner is rounder than 24px and nothing bobs', () => {
+    const offenders = homeFiles.filter((f) =>
+      /rounded-(3xl|4xl)|rounded-t-4xl|animate-bob/.test(f.text),
+    )
+    expect(offenders.map((f) => f.path)).toEqual([])
+  })
+
+  it('the proof headline is the one display-size moment', () => {
+    const display = homeFiles.filter((f) => f.text.includes('text-display'))
+    expect(display.map((f) => f.path)).toEqual(['src/components/home/proof.tsx'])
   })
 })
