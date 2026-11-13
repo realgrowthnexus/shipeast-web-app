@@ -1,4 +1,4 @@
-import { Mail, MessageCircle, Phone } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { cacheLife } from 'next/cache'
 import Link from 'next/link'
 import { JamaicaFlag } from '@/components/site/jamaica'
@@ -9,13 +9,21 @@ import { HomeWordmark } from './wordmark'
 
 type FooterLink = { href: string; label: string }
 
+/* Four links a list, twelve in all (owner, November 13): the pages a sender actually looks for.
+   Departments live in the header; contact details sit beside the logo; the rest of the policies
+   are linked where they apply (cookie banner, delivery page) and in the sitemap. */
+const shop: FooterLink[] = [
+  { href: '/shop', label: 'Shop all' },
+  { href: '/baskets', label: 'Ready-made baskets' },
+  { href: '/gifts', label: 'Gifts and occasions' },
+  { href: '/monthly', label: 'Monthly orders' },
+]
+
 const help: FooterLink[] = [
   { href: '/how-it-works', label: 'How it works' },
   { href: '/delivery', label: 'Delivery areas and fees' },
   { href: '/track', label: 'Track an order' },
   { href: '/faq', label: 'Questions and answers' },
-  { href: '/contact', label: 'Contact us' },
-  { href: '/account', label: 'Your account' },
 ]
 
 const company: FooterLink[] = [
@@ -23,15 +31,6 @@ const company: FooterLink[] = [
   { href: '/legal/terms', label: 'Terms of service' },
   { href: '/legal/privacy', label: 'Privacy' },
   { href: '/legal/refunds', label: 'Refunds and cancellations' },
-  { href: '/legal/substitutions', label: 'Substitutions' },
-  { href: '/legal/delivery', label: 'Delivery policy' },
-  { href: '/legal/cookies', label: 'Cookies' },
-  { href: '/photo-credits', label: 'Photo credits' },
-]
-
-const social = [
-  { href: 'https://www.instagram.com/shipeast_couriers', label: 'Instagram @shipeast_couriers' },
-  { href: 'https://www.tiktok.com/@ShipeastJA', label: 'TikTok @ShipeastJA' },
 ]
 
 const linkClass =
@@ -68,28 +67,18 @@ function Column({ title, links }: { title: string; links: FooterLink[] }) {
 }
 
 /**
- * The home footer (PLAN §3, row 12): the client's own tagline, every link the old footer had,
- * and the wordmark set as large as the page allows.
+ * The home footer: the client's tagline, how to reach us (email and phone), and three short
+ * lists of four links each.
  */
 export function HomeFooter({
   settings,
-  categories,
   parishList,
 }: {
   settings: SiteSettings
-  categories: { slug: string; name: string }[]
   parishList: string
 }) {
-  const waDigits = settings.whatsapp.replace(/\D/g, '')
   const phone = settings.phone ? formatJamaicanPhone(settings.phone) : null
   const bank = Boolean(settings.bankTransfer.bankName)
-  const shop: FooterLink[] = [
-    { href: '/shop', label: 'All departments' },
-    ...categories.map((c) => ({ href: `/shop/${c.slug}`, label: c.name })),
-    { href: '/baskets', label: 'Ready-made baskets' },
-    { href: '/gifts', label: 'Gifts and occasions' },
-    { href: '/monthly', label: 'Monthly orders' },
-  ]
   return (
     <footer className="bg-oxblood text-on-dark on-dark-focus print:hidden">
       <div className="mx-auto max-w-wide gutter pt-10 md:pt-12">
@@ -124,25 +113,6 @@ export function HomeFooter({
                   </a>
                 </li>
               )}
-              {waDigits && (
-                <li>
-                  <a href={`https://wa.me/${waDigits}`} className={linkClass + ' gap-2'}>
-                    <MessageCircle className="size-icon" aria-hidden />
-                    WhatsApp
-                  </a>
-                </li>
-              )}
-            </ul>
-            {/* The handles Derion gave (docs/CLIENT-NOTES.md). Facebook waits for its page link. */}
-            <p className="mt-4 text-small font-semibold text-on-dark">Follow us</p>
-            <ul className="flex flex-wrap gap-x-6">
-              {social.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className={linkClass}>
-                    {l.label}
-                  </a>
-                </li>
-              ))}
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">

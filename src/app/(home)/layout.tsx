@@ -7,7 +7,7 @@ import { HomeHydrated } from '@/components/home/hydrated'
 import { MotionProvider } from '@/components/motion/motion-provider'
 import { CookieBanner } from '@/components/site/cookie-banner'
 import { DemoBanner } from '@/components/site/demo-banner'
-import { getActiveZones, getCategories, getSettings } from '@/lib/data/site'
+import { getActiveZones, getSettings } from '@/lib/data/site'
 import { isDemoMode } from '@/lib/env'
 import { earliestCutoff, joinParishes } from '@/lib/home'
 import { site } from '@/lib/site'
@@ -34,11 +34,7 @@ const caveat = Caveat({
  */
 export default async function HomeLayout({ children }: { children: ReactNode }) {
   preconnect('https://images.unsplash.com')
-  const [settings, zones, categories] = await Promise.all([
-    getSettings(),
-    getActiveZones(),
-    getCategories(),
-  ])
+  const [settings, zones] = await Promise.all([getSettings(), getActiveZones()])
   const parishList = joinParishes(zones.map((z) => z.parish))
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -77,11 +73,7 @@ export default async function HomeLayout({ children }: { children: ReactNode }) 
         <main id="main" className="flex-1">
           {children}
         </main>
-        <HomeFooter
-          settings={settings}
-          categories={categories.map((c) => ({ slug: c.slug, name: c.name }))}
-          parishList={parishList}
-        />
+        <HomeFooter settings={settings} parishList={parishList} />
         <CookieBanner />
       </MotionProvider>
     </div>
