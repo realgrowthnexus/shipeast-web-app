@@ -39,7 +39,10 @@ describe('home v3.3 tokens', () => {
     expect(css).toMatch(
       /\[data-home\]:not\(\[data-hydrated\]\) \[data-reveal\]\s*\{\s*animation: reveal-failsafe/,
     )
-    expect(homeFiles.find((f) => f.path.endsWith('layout.tsx'))?.text).toContain('<HomeHydrated />')
+    // Every public page shares one shell (home included), and it marks itself hydrated.
+    const shell = readFileSync(join(process.cwd(), 'src/components/site/shell.tsx'), 'utf8')
+    expect(shell).toContain('<HomeHydrated />')
+    expect(shell).toContain('data-home')
   })
 })
 

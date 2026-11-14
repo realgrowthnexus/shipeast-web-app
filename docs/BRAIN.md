@@ -210,8 +210,10 @@ v3.4: colour rebalanced round the crimson on a neutral page, and soft card hover
 v3.5: hero cards in a row under the banner, tighter footer links, and the new Receipt E mark,
 favicon and icons (`docs/BRAND.md`). All on `main`.** Plan: `docs/home-v3/PLAN.md`. The home page now lives
 in its own route group `src/app/(home)/` with its own header, footer, fonts and palette, so
-no other page changed. If the owner approves, roll the new header, footer and palette out to
-the other pages one by one; if not, revise the home page first.
+no other page changed. **November 14: the owner said "take charge", so the home shell (header,
+footer, support chat, fonts) now frames every page (`src/components/site/shell.tsx`), and
+`/shop` is being redesigned next (`docs/shop-v2/PLAN.md`). Then `/product/[slug]`, one page
+at a time.**
 
 **Done before this** (details in `docs/HANDOFF.md` and `docs/DESIGN-DECISIONS.md`): design
 system (#20), brain and skills (#21, #22), earlier home, header and footer (#23), `/shop`,

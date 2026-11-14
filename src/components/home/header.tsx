@@ -8,6 +8,7 @@ import { JamaicaFlag } from '@/components/site/jamaica'
 import { MobileMenu, MobileMenuTrigger } from '@/components/site/mobile-menu'
 import { getCategories, getSettings } from '@/lib/data/site'
 import { formatClockTime, formatJamaicanPhone } from '@/lib/format'
+import { AisleLink } from './aisle-link'
 import { TickerToggle } from './ticker-toggle'
 import { HomeWordmark } from './wordmark'
 
@@ -27,7 +28,7 @@ const stripLink =
 const basketClass = 'rounded-md font-semibold lg:min-h-12 lg:px-5'
 
 const aisleLink =
-  'inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson'
+  'inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-small font-medium whitespace-nowrap text-ink transition-colors duration-150 hover:bg-surface-muted hover:text-crimson aria-[current=page]:bg-surface-selected aria-[current=page]:text-crimson-deep'
 
 function HomeSearch({ id, className }: { id: string; className?: string }) {
   return (
@@ -165,33 +166,33 @@ export async function HomeHeader({
         <ul className="mx-auto flex max-w-wide items-center gap-1 gutter">
           {departments.map((d) => (
             <li key={d.href}>
-              <Link href={d.href} className={aisleLink}>
+              <AisleLink href={d.href} className={aisleLink}>
                 <span className="text-crimson [&_svg]:size-icon">
                   <CategoryIcon slug={d.slug} />
                 </span>
                 {d.label}
-              </Link>
+              </AisleLink>
             </li>
           ))}
           <li aria-hidden className="mx-2 h-6 w-px bg-line" />
           <li>
-            <Link href="/baskets" className={aisleLink}>
+            <AisleLink href="/baskets" className={aisleLink}>
               <ShoppingBag className="size-icon text-crimson" aria-hidden />
               <span className="xl:hidden">Baskets</span>
               <span className="hidden xl:inline">Ready-made baskets</span>
-            </Link>
+            </AisleLink>
           </li>
           <li>
-            <Link href="/gifts" className={aisleLink}>
+            <AisleLink href="/gifts" className={aisleLink}>
               <Gift className="size-icon text-crimson" aria-hidden />
               Gifts
-            </Link>
+            </AisleLink>
           </li>
           <li className="ml-auto">
-            <Link href="/how-it-works" className={aisleLink}>
+            <AisleLink href="/how-it-works" className={aisleLink}>
               <PackageSearch className="size-icon text-crimson" aria-hidden />
               How it works
-            </Link>
+            </AisleLink>
           </li>
         </ul>
       </nav>
