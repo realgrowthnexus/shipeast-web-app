@@ -1,8 +1,8 @@
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
-import { ProductImage } from '@/components/shop/product-image'
-import { formatJmd, formatUsd, usdCentsToJmd } from '@/lib/format'
+import { ShelfCard } from '@/components/shop/shelf-card'
+import { formatJmd } from '@/lib/format'
 import type { Product } from '@/lib/types'
 import { HomeAddButton } from './add-button'
 
@@ -47,42 +47,14 @@ export function HomeShelf({
       <Stagger className="mx-auto mt-6 rail max-w-wide scroll-px-4 gap-3 gutter pb-2 sm:gap-4 lg:grid lg:grid-cols-6 lg:overflow-visible">
         {products.map((p, i) => (
           <StaggerItem key={p.id} className="w-[42%] sm:w-[28%] lg:w-auto">
-            <article className="group relative flex h-full card-rise flex-col rounded-lg border border-line bg-surface p-3 hover:border-line-hover has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-signal">
-              <ProductImage
-                src={p.imagePath}
-                alt=""
-                categoryId={p.categoryId}
-                slug={p.slug}
-                sizes="(min-width: 1024px) 190px, 44vw"
-                eager={i < 3}
-                className="aspect-square rounded-md bg-surface-muted"
-                imgClassName="object-contain p-3 mix-blend-multiply transition-[opacity,scale] duration-500 ease-hover group-hover:scale-[1.04] motion-reduce:transition-none"
-              />
-              <div className="mt-3 px-1 text-small">
-                <h3 className="line-clamp-2 h-[2lh] leading-snug font-semibold text-ink">
-                  <Link
-                    href={`/product/${p.slug}`}
-                    className="after:absolute after:inset-0 focus-visible:outline-none"
-                  >
-                    {p.name}
-                  </Link>
-                </h3>
-                <p className="mt-0.5 truncate text-xs text-ink-muted">{p.size}</p>
-                <p className="mt-2 text-price font-semibold text-ink tabular-nums">
-                  {formatUsd(p.priceCents)}
-                </p>
-                <p className="text-xs font-medium text-ink-muted tabular-nums">
-                  about {formatJmd(usdCentsToJmd(p.priceCents, jmdPerUsd))}
-                </p>
-              </div>
-              <HomeAddButton
-                kind="product"
-                id={p.id}
-                name={p.name}
-                variant="outline"
-                className="relative z-raised mt-auto pt-3"
-              />
-            </article>
+            <ShelfCard
+              product={p}
+              jmdPerUsd={jmdPerUsd}
+              sizes="(min-width: 1024px) 190px, 44vw"
+              eager={i < 3}
+              placeholder="icon"
+              action={<HomeAddButton kind="product" id={p.id} name={p.name} variant="outline" />}
+            />
           </StaggerItem>
         ))}
         <StaggerItem className="w-[42%] sm:w-[28%] lg:w-auto">

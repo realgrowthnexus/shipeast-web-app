@@ -4,7 +4,7 @@ import { activeFilters, type ListingAisle, type ShopQuery, shopHref } from '@/li
 import { ListingLink } from './listing-nav'
 
 const chip =
-  'inline-flex min-h-control items-center gap-1.5 rounded-full border border-crimson bg-surface-selected pr-2.5 pl-3.5 text-small font-semibold text-crimson-deep transition-colors duration-150 hover:bg-surface-strong lg:min-h-9'
+  'group/chip inline-flex h-9 items-center gap-1 rounded-md bg-surface-selected pr-1 pl-3 text-small font-medium text-crimson-deep transition-colors duration-150 hover:bg-surface-strong'
 
 /**
  * What is applied, above the results: one removable chip per value, plus "Clear all" (keeps
@@ -30,7 +30,9 @@ export function ActiveFilters({
           <ListingLink href={shopHref(basePath, query, c.patch)} className={chip}>
             <span className="sr-only">Remove filter: </span>
             {c.label}
-            <X className="size-icon-sm" aria-hidden />
+            <span className="grid size-7 place-items-center rounded-sm transition-colors duration-150 group-hover/chip:bg-surface">
+              <X className="size-icon-sm" aria-hidden />
+            </span>
           </ListingLink>
         </li>
       ))}
@@ -38,7 +40,7 @@ export function ActiveFilters({
         <li>
           <ListingLink
             href={shopHref(basePath, { ...query, q: '', aisles: [], price: 'any', inStock: false })}
-            className="inline-flex min-h-control items-center px-2 text-small font-semibold text-crimson underline-offset-2 hover:underline lg:min-h-9"
+            className="inline-flex h-9 items-center px-2 text-small font-semibold text-crimson underline underline-offset-2 hover:text-crimson-deep"
           >
             Clear all
           </ListingLink>

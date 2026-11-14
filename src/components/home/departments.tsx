@@ -2,16 +2,8 @@ import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/reveal'
 import { StockPhoto } from '@/components/site/stock-photo'
-import type { StockPhotoKey } from '@/lib/stock-photos'
+import { departmentLooks } from '@/lib/departments'
 import type { Category } from '@/lib/types'
-
-/** Each department has its own photo; the photos tell them apart, so every name strip is white. */
-const looks: Record<string, { photo: StockPhotoKey; crop: string }> = {
-  groceries: { photo: 'homeVegBox', crop: 'object-center' },
-  household: { photo: 'catHousehold', crop: 'object-[center_35%]' },
-  pharmacy: { photo: 'catPharmacy', crop: 'object-center' },
-  'baby-and-child': { photo: 'catBaby', crop: 'object-top' },
-}
 
 /**
  * Departments (docs/home-v3/audits/layout.md §3.3): four tiles whose photo fills the top edge
@@ -41,7 +33,7 @@ export function HomeDepartments({ categories }: { categories: (Category & { coun
       </Reveal>
       <Stagger className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {categories.map((c) => {
-          const look = looks[c.slug]
+          const look = departmentLooks[c.slug]
           return (
             <StaggerItem key={c.id}>
               <Link

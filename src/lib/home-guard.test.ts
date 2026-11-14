@@ -30,8 +30,13 @@ describe('home v3.3 tokens', () => {
     expect(cardRise).toMatch(/transform 400ms var\(--ease-hover\)/)
     // A CSS entrance that keeps holding its end state blocks the hover transition.
     expect(css).toMatch(/animation: rise [^;]* backwards;/)
-    const shelf = homeFiles.find((f) => f.path.endsWith('shelf.tsx'))?.text ?? ''
-    expect(shelf).not.toMatch(/card-rise[^"]*transition-colors/)
+    // The shelf's card lives in the shop folder (home and shop share it).
+    const shelfCard = readFileSync(
+      join(process.cwd(), 'src/components/shop/shelf-card.tsx'),
+      'utf8',
+    )
+    expect(shelfCard).toContain('card-rise')
+    expect(shelfCard).not.toMatch(/card-rise[^"]*transition-colors/)
   })
 
   it('nothing waits on JavaScript that never arrives', () => {
@@ -39,7 +44,10 @@ describe('home v3.3 tokens', () => {
     expect(css).toMatch(
       /\[data-home\]:not\(\[data-hydrated\]\) \[data-reveal\]\s*\{\s*animation: reveal-failsafe/,
     )
-    expect(homeFiles.find((f) => f.path.endsWith('layout.tsx'))?.text).toContain('<HomeHydrated />')
+    // Every public page shares one shell (home included), and it marks itself hydrated.
+    const shell = readFileSync(join(process.cwd(), 'src/components/site/shell.tsx'), 'utf8')
+    expect(shell).toContain('<HomeHydrated />')
+    expect(shell).toContain('data-home')
   })
 })
 

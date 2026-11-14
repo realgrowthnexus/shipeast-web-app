@@ -4,6 +4,22 @@ A dated log of design choices and the feedback behind them, so the reasons aren'
 The rules themselves live in `docs/DESIGN-SYSTEM.md` and `docs/TOKENS.md`. Add new entries
 at the top.
 
+## November 14, 2026: one shell for the whole site
+
+The owner approved the home v3 direction, so its shell now frames every public page (BRAIN §8:
+"roll the new header, footer and palette out to the other pages one by one").
+
+- **One shell.** `src/components/site/shell.tsx` holds the oxblood news ticker, the white
+  store header with its search field and aisle row, the oxblood footer, the support chat, the
+  Bricolage and Caveat fonts, the skip link and the JSON-LD. `(home)`, `(site)`, the 404 page
+  and `/styleguide` all render it. The old `SiteHeader`, `SiteFooter` and
+  `HeaderSearchRow` are deleted.
+- **Current aisle.** Off the home page, the aisle row marks its own section
+  (`aria-current="page"`, a `surface-selected` fill with `crimson-deep` text). The marked link
+  streams in under Suspense, because the path is only known at request time on dynamic routes.
+- **Page bodies unchanged.** Only the frame moved. Each page is redesigned in turn, `/shop`
+  first.
+
 ## November 7, 2026: light header, four new heroes and the big-mart shop listing
 
 Owner brief (translated): "the header needs a different colour, maybe a light shade", "on all

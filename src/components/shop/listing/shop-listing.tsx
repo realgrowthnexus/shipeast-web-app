@@ -1,18 +1,19 @@
 import { Suspense } from 'react'
-import { getProducts } from '@/lib/data/catalogue'
-import { getActiveZones, getCategories } from '@/lib/data/site'
+import { getAisles, getProducts } from '@/lib/data/catalogue'
+import { getActiveZones, getCategories, getSettings } from '@/lib/data/site'
 import { earliestCutoff } from '@/lib/home'
-import { priceCheckLine, priceCheckRange } from '@/lib/shop-front'
-import type { Scope } from '@/lib/shop-listing'
-import { DepartmentBand } from './department-band'
-import { EdgeStrip } from './edge-strip'
+import { defaultQuery } from '@/lib/shop-filters'
+import { type Scope, scopePath } from '@/lib/shop-listing'
+import { BandFind } from './band-find'
+import { FindInList } from './find-in-list'
 import { ListingResults } from './listing-results'
 import { ListingSkeleton } from './listing-skeleton'
+import { ShopBand } from './shop-band'
 
 /**
- * The big-mart listing shared by `/shop` and `/shop/[department]`: the crimson department band
- * and the edge strip are static (cached loaders, prerendered in the shell); the filters and the
- * grid read the URL and the basket cookie, so they stream in inside one Suspense boundary.
+ * The listing shared by `/shop` and `/shop/[department]` (docs/shop-v2/PLAN.md): the crimson
+ * department band is static (cached loaders, prerendered in the shell); its find field, the
+ * filters and the grid read the URL and the basket cookie, so they stream in inside Suspense.
  */
 export async function ShopListing({
   scope,
@@ -21,24 +22,55 @@ export async function ShopListing({
   scope: Scope
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
-  const [categories, zones, products] = await Promise.all([
+  const [categories, zones, products, settings, aisles] = await Promise.all([
     getCategories(),
     getActiveZones(),
     getProducts(),
+    getSettings(),
+    scope.kind === 'department' ? getAisles(scope.category.id) : Promise.resolve([]),
   ])
   const inScope =
     scope.kind === 'all' ? products : products.filter((p) => p.categoryId === scope.category.id)
-  const range = priceCheckRange(inScope)
+  const basePath = scopePath(scope)
+  const findLabel = `Find in ${scope.kind === 'all' ? 'the shop' : scope.category.name}`
+  const listingAisles = aisles.map(({ id, slug, name }) => ({ id, slug, name }))
   return (
     <>
-      <DepartmentBand
-        title={scope.kind === 'all' ? 'Everything in the shop' : scope.category.name}
+      <ShopBand
+        title={scope.kind === 'all' ? 'Shop for family in Jamaica' : scope.category.name}
+        description={
+          scope.kind === 'all'
+            ? 'Bought in Jamaica on the day we deliver. You pay in US dollars.'
+            : scope.category.description
+        }
         count={inScope.length}
         current={scope.kind === 'all' ? null : scope.category.slug}
-        departments={categories.map((c) => ({ slug: c.slug, name: c.name }))}
+        departments={categories.map((c) => ({ slug: c.slug, name: c.name, count: c.count }))}
+        allCount={categories.reduce((n, c) => n + c.count, 0)}
+        cutoff={earliestCutoff(zones)}
+        jmdPerUsd={settings.jmdPerUsd}
+        findSlot={
+          <Suspense
+            fallback={
+              <FindInList
+                action={basePath}
+                label={findLabel}
+                query={defaultQuery}
+                idPrefix="band"
+                tone="onCrimson"
+              />
+            }
+          >
+            <BandFind
+              action={basePath}
+              label={findLabel}
+              aisles={listingAisles}
+              searchParams={searchParams}
+            />
+          </Suspense>
+        }
       />
-      <EdgeStrip cutoff={earliestCutoff(zones)} priceCheck={range ? priceCheckLine(range) : null} />
-      <Suspense fallback={<ListingSkeleton />}>
+      <Suspense fallback={<ListingSkeleton scope={scope} />}>
         <ListingResults scope={scope} searchParams={searchParams} />
       </Suspense>
     </>

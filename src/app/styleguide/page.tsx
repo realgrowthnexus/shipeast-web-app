@@ -20,10 +20,8 @@ import { ProofPair } from '@/components/order/proof-pair'
 import { TrackingTimeline } from '@/components/order/tracking-timeline'
 import { BasketCard, CategoryTile, ProductCard } from '@/components/shop/product-card'
 import { HeroReceipt } from '@/components/pages/home/hero-receipt'
-import { DemoBanner } from '@/components/site/demo-banner'
 import { StockPhoto } from '@/components/site/stock-photo'
-import { SiteFooter } from '@/components/site/site-footer'
-import { SiteHeader } from '@/components/site/site-header'
+import { SiteShell } from '@/components/site/shell'
 import { Accordion } from '@/components/ui/accordion'
 import { Alert } from '@/components/ui/alert'
 import { Badge, StatusPill } from '@/components/ui/badge'
@@ -43,10 +41,10 @@ import { Pagination } from '@/components/ui/pagination'
 import { Price } from '@/components/ui/price'
 import { QuantityStepper } from '@/components/ui/quantity-stepper'
 import { Tabs } from '@/components/ui/tabs'
-import { baskets, categories, faqs, products, settings, zones } from '@/lib/demo'
+import { baskets, categories, faqs, products, settings } from '@/lib/demo'
 import { isDemoMode } from '@/lib/env'
 import { formatDate, formatUsd } from '@/lib/format'
-import { buildReceipt, joinParishes } from '@/lib/home'
+import { buildReceipt } from '@/lib/home'
 import { ORDER_STATUS } from '@/lib/order-status'
 import type { OrderStatus } from '@/lib/types'
 import { DialogDemo } from './dialog-demo'
@@ -220,10 +218,8 @@ export default function StyleguidePage() {
   const byId = new Map(products.map((p) => [p.id, p]))
 
   return (
-    <>
-      <DemoBanner />
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-6xl gutter pb-24">
+    <SiteShell>
+      <div className="mx-auto w-full max-w-6xl gutter pb-24">
         <header className="py-12">
           <h1 className="text-h1 text-balance text-ink">Shop &amp; Send design system</h1>
           <p className="mt-3 max-w-2xl text-lead text-ink-body">
@@ -767,12 +763,7 @@ export default function StyleguidePage() {
             />
           </div>
         </Section>
-      </main>
-      <SiteFooter
-        settings={settings}
-        categories={categories}
-        parishList={joinParishes(zones.filter((z) => z.active).map((z) => z.parish))}
-      />
-    </>
+      </div>
+    </SiteShell>
   )
 }
