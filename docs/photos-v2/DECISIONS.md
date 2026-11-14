@@ -48,7 +48,29 @@ Follow `products.md` exactly:
 
 ## Other pages
 
-See `pages.md` once it lands. The same rules apply, and this file is amended with the picks.
+These are the picks from `pages.md`, reviewed by the manager. Metadata comes from `pages.md`.
+
+| Slot                                    | Pick                               | Notes                                                                                         |
+| --------------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
+| /about story                            | `xSdL0ze7Qqc`                      | A grocer with a crate of tomatoes in a modern store.                                          |
+| /how-it-works hero (overlay)            | `KOG1thEuTG8`                      | A sender paying on her phone at home. **Change the h1's "laptop" to "phone".**                |
+| /how-it-works "family installs nothing" | `65_nbwiD3I4`                      | A family cooking at home with fresh produce.                                                  |
+| /baskets hero (overlay)                 | `Brm2VqeAljw`                      | As in `pages.md`.                                                                             |
+| Basket cards (all pages)                | as in **Ready-made baskets** above | The pages agent's basket picks (rows 5 and 6) are overruled: one photo per basket, site-wide. |
+| /gifts hero                             | `4HE4wcL_qTE`                      | A gift crate of treats. Crop so the burned-in crate logo isn't prominent.                     |
+| Gifts: Christmas                        | `yxx44vQloZU`                      |                                                                                               |
+| Gifts: Back to school                   | `SBQveLKNSdg`                      |                                                                                               |
+| Gifts: New baby                         | `PfIoq7BDSak`                      | Not `KeiQeZJLmus`, which is the Baby Care basket's photo; no repeats.                         |
+| /delivery hero                          | `jmKingstonHills` (existing)       | Moved up. The "two parishes" slot gets `companyCountryRoad` (existing).                       |
+| /delivery tips                          | `8RaUEd8zD-U`                      | Grocery bags at the door. The parcel hand-over read as "shipping" and is rejected.            |
+| /contact form                           | `PR_KK2WguRs`                      |                                                                                               |
+| /faq help                               | `QpuRvyYQ5kA`                      |                                                                                               |
+| /monthly hero                           | `eJM7swj-D4g`                      | The alternate, so it doesn't echo home's `homeBags` or the delivery tips photo.               |
+| /monthly "cupboard stays full"          | `hxeOgLGjuEY`                      |                                                                                               |
+| /request hero                           | `pN0Pg_hk3aA`                      |                                                                                               |
+| Everything else in `pages.md`           | keep                               |                                                                                               |
+
+Retire registry entries that lose every user (`giftBaby`, `blueMountains`, `staples`, `pantry` and so on), after a grep shows they're unused, so the credits page stays exact.
 
 ## For Derion (pack shots)
 
