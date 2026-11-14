@@ -3,77 +3,20 @@ import { photo, type StockPhoto } from './types'
 /**
  * Stock photos of the products themselves, keyed by product slug, shown until ShipEast uploads
  * its own product photos (an uploaded photo always wins). Each one shows that exact item; a
- * product with no true match keeps the placeholder.
+ * product with no true match keeps the placeholder. Flour, sugar, oil, oats, coffee, dish soap
+ * and bleach went back to the placeholder in photos v2 (Nov 14, 2026): their mood photos clashed
+ * with the client's pack shots.
  */
 export const productPhotos: Record<string, StockPhoto> = {
+  // Photos v2. Download registered through the Unsplash API on November 14, 2026.
   'long-grain-rice-10lb': photo({
-    unsplashId: 'D8PSaH0o7kk',
-    src: 'https://images.unsplash.com/photo-1770617474928-3c7554a51941',
-    width: 4445,
-    height: 2978,
-    alt: 'A close-up of uncooked white rice grains',
-    photographer: 'Mustafa akın',
-    username: 'msaimakin',
-    usedOn: 'Shop',
-  }),
-  'all-purpose-flour-5lb': photo({
-    unsplashId: 'quVArOn8-30',
-    src: 'https://images.unsplash.com/photo-1714842981153-ffeaf74e7a1a',
-    width: 4000,
-    height: 6000,
-    alt: 'A bowl of white flour on a table',
-    photographer: 'Roman Matveev',
-    username: 'matveevr',
-    usedOn: 'Shop',
-  }),
-  'granulated-sugar-4lb': photo({
-    unsplashId: 'AQv1UhsnkqE',
-    src: 'https://images.unsplash.com/photo-1769259397222-33e425659c43',
-    width: 5903,
-    height: 4244,
-    alt: 'An open glass jar of white granulated sugar with a metal spoon',
-    photographer: 'Zoshua Colah',
-    username: 'zoshuacolah',
-    usedOn: 'Shop',
-  }),
-  'vegetable-oil-1gal': photo({
-    unsplashId: 'XV1CK2z5VYg',
-    src: 'https://images.unsplash.com/photo-1758958437294-345e16aec47c',
-    width: 1991,
-    height: 2992,
-    alt: 'A large plastic jug of cooking oil with a handle',
-    photographer: 'Joshua Fernandez',
-    username: 'joshuafernandez',
-    usedOn: 'Shop',
-  }),
-  'rolled-oats-42oz': photo({
-    unsplashId: '3H5UJIpint0',
-    src: 'https://images.unsplash.com/photo-1790676725483-6226cb102a84',
-    width: 4640,
-    height: 6960,
-    alt: 'Rolled oats in a glass bowl on a board',
-    photographer: "nji's photo",
-    username: 'fnblovers',
-    usedOn: 'Shop',
-  }),
-  'ground-coffee-24oz': photo({
-    unsplashId: 'j_DqtxKL4xY',
-    src: 'https://images.unsplash.com/photo-1646346835113-b83a4097983b',
-    width: 8640,
-    height: 5760,
-    alt: 'A pile of ground coffee on a table',
-    photographer: 'Yohan Marion',
-    username: 'yohanmarion',
-    usedOn: 'Shop',
-  }),
-  'dish-soap-3pk': photo({
-    unsplashId: '6w_RiUhcbnA',
-    src: 'https://images.unsplash.com/photo-1653248773863-d7a474f90ec8',
-    width: 6048,
-    height: 4024,
-    alt: 'A bottle of dish soap beside a kitchen sink',
-    photographer: 'Karolina De Costa',
-    username: 'rowespurling',
+    unsplashId: 'wGDGlVxEE20',
+    src: 'https://images.unsplash.com/photo-1705147289789-6df2593f1b1e',
+    width: 6194,
+    height: 4130,
+    alt: 'A glass bowl of uncooked white rice on a white table',
+    photographer: 'Mehmet Keskin',
+    username: 'keskinlerinmehmet',
     usedOn: 'Shop',
   }),
   'toilet-paper-30': photo({
@@ -86,14 +29,15 @@ export const productPhotos: Record<string, StockPhoto> = {
     username: 'anastasiiachepinska',
     usedOn: 'Shop',
   }),
-  'bleach-2pk': photo({
-    unsplashId: 'CZ7YLgYAfos',
-    src: 'https://images.unsplash.com/photo-1583947214674-cd0e53873bb4',
-    width: 5568,
-    height: 3712,
-    alt: 'A white and blue plastic bottle of bleach',
-    photographer: 'Kelly Sikkema',
-    username: 'kellysikkema',
+  // Photos v2. Download registered through the Unsplash API on November 14, 2026.
+  'laundry-detergent-150oz': photo({
+    unsplashId: '9wCOqpBJRHI',
+    src: 'https://images.unsplash.com/photo-1649005011845-ef225c89da86',
+    width: 2507,
+    height: 2505,
+    alt: 'A plain white laundry detergent jug with a handle (a 3D render)',
+    photographer: 'Sufyan',
+    username: 'blenderdesigner',
     usedOn: 'Shop',
   }),
   'pain-relief-tablets': photo({
@@ -106,24 +50,26 @@ export const productPhotos: Record<string, StockPhoto> = {
     username: 'jamesyarema',
     usedOn: 'Shop',
   }),
+  // Photos v2. Download registered through the Unsplash API on November 14, 2026.
   'multivitamin-adult': photo({
-    unsplashId: 'HtDQ9Z64Vpo',
-    src: 'https://images.unsplash.com/photo-1522335579687-9c718c5184d7',
-    width: 4748,
-    height: 3165,
-    alt: 'A pile of vitamin pills and capsules',
-    photographer: 'Simone van der Koelen',
-    username: 'simonevdk',
+    unsplashId: 'kxblPqfYc9E',
+    src: 'https://images.unsplash.com/photo-1544991936-9464fa9919d2',
+    width: 6000,
+    height: 4000,
+    alt: 'Capsules beside an open glass jar on pale grey',
+    photographer: 'Pawel Czerwinski',
+    username: 'pawel_czerwinski',
     usedOn: 'Shop',
   }),
+  // Photos v2. Download registered through the Unsplash API on November 14, 2026.
   'first-aid-kit': photo({
-    unsplashId: '17oHCCMnPqo',
-    src: 'https://images.unsplash.com/photo-1564144573017-8dc932e0039e',
-    width: 4608,
-    height: 3456,
-    alt: 'A green and black first aid bag',
-    photographer: 'milan degraeve',
-    username: 'milandegraeve',
+    unsplashId: 'j-ped4HD32Q',
+    src: 'https://images.unsplash.com/photo-1563260324-5ebeedc8af7c',
+    width: 4032,
+    height: 3024,
+    alt: 'An orange first aid case on a light table',
+    photographer: 'Ploegerson',
+    username: 'boombasti',
     usedOn: 'Shop',
   }),
   'hand-sanitiser-2pk': photo({

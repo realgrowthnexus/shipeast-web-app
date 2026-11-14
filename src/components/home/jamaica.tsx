@@ -72,14 +72,14 @@ export function HomeJamaica({ zones, parishList }: { zones: DeliveryZone[]; pari
         <div className="relative">
           <Parallax className="aspect-[4/3] rounded-xl">
             <StockPhoto
-              name="kingstonStreet"
+              name="homeCourierStreet"
               sizes="(min-width: 1024px) 600px, 92vw"
               className="h-full w-full rounded-none"
             />
           </Parallax>
           <p className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full bg-mango px-4 py-2 text-small font-semibold text-ink">
             <MapPin className="size-icon" aria-hidden />
-            Downtown Kingston
+            Door to door in St. Thomas and Kingston
           </p>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { MapPin, ReceiptText, Truck } from 'lucide-react'
 import { StockPhoto } from '@/components/site/stock-photo'
 
 /**
- * S2: a real Kingston street beside a short, provable story, closed by a three-row fact strip
+ * S2: a grocer fetching fresh goods beside a short, provable story, closed by a three-row fact strip
  * for the skimmer. One DOM order for every width (title, photo, text); grid placement puts the
  * photo on the left from 1024px.
  */
@@ -26,8 +26,7 @@ export function AboutStory({ parishList }: { parishList: string }) {
           Errands are what we do
         </h2>
         <StockPhoto
-          name="kingstonStreet"
-          position="center 35%"
+          name="companyGrocer"
           sizes="(min-width: 1024px) 460px, 100vw"
           className="mt-8 aspect-4/3 rounded-xl md:aspect-16/9 lg:col-span-5 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:aspect-4/5"
         />

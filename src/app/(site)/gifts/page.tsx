@@ -37,7 +37,7 @@ const occasions: { photo: StockPhotoKey; title: string; body: string }[] = [
     body: 'Lunch-box snacks and household basics for the new term.',
   },
   {
-    photo: 'giftBaby',
+    photo: 'catBaby',
     title: 'New baby',
     body: 'Diapers, wipes and formula, so the new parents can rest.',
   },
