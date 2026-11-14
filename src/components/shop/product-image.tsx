@@ -3,7 +3,8 @@ import { FadeImage, StockImage } from '@/components/site/stock-photo'
 import { cn } from '@/lib/cn'
 import { productPhotos } from '@/lib/photos/products'
 
-const icons: Record<string, LucideIcon> = {
+/** Each department's icon (the placeholder's mark); anything else gets a basket. */
+export const departmentIcons: Record<string, LucideIcon> = {
   'cat-groceries': Wheat,
   'cat-household': SprayCan,
   'cat-pharmacy': Pill,
@@ -53,7 +54,7 @@ export function ProductImage({
   /** Replaces the pack shot's image classes (the home shelf blends it into a grey well). */
   imgClassName?: string
 }) {
-  const Icon = (categoryId && icons[categoryId]) || ShoppingBasket
+  const Icon = (categoryId && departmentIcons[categoryId]) || ShoppingBasket
   const stock = !src && slug ? productPhotos[slug] : undefined
   if (stock)
     return (

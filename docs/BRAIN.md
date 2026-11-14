@@ -214,8 +214,12 @@ no other page changed. **November 14: the owner said "take charge", so the home 
 footer, support chat, fonts) now frames every page (`src/components/site/shell.tsx`), and
 `/shop` and `/shop/[category]` are redesigned as shop v2 (`docs/shop-v2/PLAN.md`: crimson
 department band with photo switch tiles, aisle chips on phones, one shared `ShelfCard` with
-the home shelf, "More from the shop" on thin departments). Next, if the owner approves:
-`/product/[slug]`, one page at a time.**
+the home shelf, "More from the shop" on thin departments). Merged (PR #35).
+Then `/product/[slug]` as product v2 (`docs/product-v2/PLAN.md`: product stage beside a sticky
+buy box, ask-first and softer same-day lines, oxblood proof panel, baskets that hold the item,
+"More from the aisle", a phone add bar; checkout now defaults to ask-first). In parallel, a
+site-wide photo audit (`docs/photos-v2/`) after the owner's November 14 verdict that the
+photos look dated and don't make sense: every slot is reviewed and replaced page by page.**
 
 **Done before this** (details in `docs/HANDOFF.md` and `docs/DESIGN-DECISIONS.md`): design
 system (#20), brain and skills (#21, #22), earlier home, header and footer (#23), `/shop`,

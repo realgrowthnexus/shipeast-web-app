@@ -661,3 +661,15 @@
     }
   }
 }
+
+/* The product page's phone buy bar (docs/product-v2/PLAN.md §2.H). While it is on the page,
+   tabbing never leaves focus under it (WCAG 2.4.11), and while it shows, the support chat
+   button lifts above it. Every other page has no dock, so nothing changes there. */
+@media (max-width: 1023px) {
+  html:has([data-product-dock]) {
+    scroll-padding-bottom: 5rem;
+  }
+  html:has([data-product-dock]:not([data-hidden])) {
+    --dock-offset: 4.5rem;
+  }
+}

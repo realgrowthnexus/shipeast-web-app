@@ -280,7 +280,7 @@ export function CheckoutForm({
         <ChoiceGroup
           name="substitutionRule"
           legend="If an item is out of stock"
-          defaultValue={v.substitutionRule || 'allow_similar'}
+          defaultValue={v.substitutionRule || 'ask_first'}
           error={errors.substitutionRule}
           options={SUBSTITUTION_RULES.map((r) => ({
             value: r.value,
