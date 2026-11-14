@@ -3,7 +3,7 @@
 import { SlidersHorizontal } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Button, buttonStyles } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { cn } from '@/lib/cn'
 import { countFacetIndex, type FacetRow, queryFromForm, shopQueryString } from '@/lib/shop-filters'
@@ -25,6 +25,7 @@ export function FilterSheet({
   activeCount,
   total,
   index,
+  top,
   children,
   className,
 }: {
@@ -35,6 +36,8 @@ export function FilterSheet({
   total: number
   /** Products in scope that match the find text. */
   index: FacetRow[]
+  /** Above the filter form, in its own form: the phone's find field. */
+  top?: ReactNode
   /** `<FilterFields idPrefix="sheet">` plus hidden `q` and `sort`. */
   children: ReactNode
   className?: string
@@ -88,7 +91,10 @@ export function FilterSheet({
           e.preventDefault()
           show()
         }}
-        className={cn(buttonStyles({ variant: 'outline', size: 'md', block: true }), className)}
+        className={cn(
+          'inline-flex h-control w-full cursor-pointer items-center justify-center gap-2 rounded-md border border-line-strong bg-surface px-4 text-small font-semibold text-ink transition-colors duration-200 hover:bg-surface-muted active:translate-y-px [&_svg]:size-icon',
+          className,
+        )}
       >
         <SlidersHorizontal aria-hidden />
         Filters
@@ -96,7 +102,7 @@ export function FilterSheet({
           <>
             <span
               aria-hidden
-              className="grid min-w-6 place-items-center rounded-full bg-crimson px-1.5 text-xs font-bold text-on-dark tabular-nums"
+              className="grid min-w-5 place-items-center rounded-sm bg-crimson px-1.5 text-xs font-semibold text-on-dark tabular-nums"
             >
               {activeCount}
             </span>
@@ -123,6 +129,8 @@ export function FilterSheet({
           </div>
         }
       >
+        {/* The find field navigates on its own; the sheet closes behind it. */}
+        {top && <div onSubmit={() => setOpen(false)}>{top}</div>}
         <form
           ref={form}
           id={FORM_ID}

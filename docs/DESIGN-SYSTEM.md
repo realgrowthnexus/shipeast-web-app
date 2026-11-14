@@ -139,14 +139,16 @@ photo and a docked crimson "On this page" rail (below 1024px a photo stage holds
 the h1.
 
 **Shop listing** (`/shop` and `/shop/[department]`, `src/components/shop/listing/`,
-`docs/shop-listing/PLAN.md`). One layout for both routes: a crimson department band with folder
-tabs (the current tab cut out in white), a one-line edge strip, then a sticky filter sidebar
-(1024px +) beside a 2 / 3 / 3 / 4 column grid of `ProductTile`s. Phones and tablets get a "Find
-in" field, a sticky toolbar (Filters and Sort) and a bottom-sheet `FilterSheet` with a live
-"Show N items". Every filter is in the URL (`src/lib/shop-filters.ts`); enhanced controls
-navigate through `ListingNavProvider` (a transition, `push`, one live region). The tile's Add
-becomes a solid crimson stepper (`setProductQuantity`), so red marks what is in the basket.
-Results read the URL and the basket cookie, so they stream inside one Suspense boundary: they
+`docs/shop-v2/PLAN.md`). One layout for both routes: a full-bleed crimson department band
+(title, real count, cut-off, receipt and J$ guide lines, the find field at 1024px +, and five
+photo tiles that switch department, the current one cut out in white), then a sticky filter
+sidebar (1024px +) beside a 2 / 3 / 3 / 4 column grid of `ShelfCard`s (the home shelf's card).
+Phones and tablets get an aisle chip row (department pages), a sticky toolbar (Filters and
+Sort) and a bottom-sheet `FilterSheet` with the find field on top and a live "Show N items".
+Every filter is in the URL (`src/lib/shop-filters.ts`); enhanced controls navigate through
+`ListingNavProvider` (a transition, `push`, one live region). The card's outline Add becomes a
+leaf-green stepper (`setProductQuantity`), the same green as the home's "Added". The band is
+static; results read the URL and the basket cookie, so they stream inside Suspense: they
 need JavaScript to appear (a `<noscript>` note says so).
 
 **Footer** (`SiteFooter`, `src/components/site/site-footer.tsx`, props `settings`,

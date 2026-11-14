@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!category) return {}
   return {
     title: category.name,
-    description: `${category.description} Bought in Jamaica and delivered the same day.`,
+    description: `${category.description} Bought in Jamaica, and we aim to deliver the same day.`,
     alternates: { canonical: `/shop/${category.slug}` },
   }
 }

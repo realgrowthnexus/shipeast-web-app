@@ -115,6 +115,18 @@ const pairs: [string, string, number][] = [
   ),
   ['mango', 'oxblood', 4.5],
   ['mango', 'crimson-deep', 4.5],
+  // Shop v2 (docs/shop-v2/PLAN.md §3): department tiles, the current tile and aisle chip, the
+  // leaf stepper. Some repeat the families above; listed so the page's pairs stay explicit.
+  ['on-dark', 'crimson-deep', 4.5],
+  ['on-crimson-muted', 'crimson-deep', 4.5],
+  ['on-crimson-muted', 'oxblood', 4.5],
+  ['crimson-deep', 'surface', 4.5],
+  ['ink-muted', 'surface', 4.5],
+  ['crimson', 'surface-selected', 3],
+  ['crimson-deep', 'surface-selected', 4.5],
+  ['blush', 'crimson', 3],
+  ['on-dark', 'leaf', 4.5],
+  ['on-leaf-muted', 'leaf', 4.5],
 ]
 
 /** Translucent roles (`rgb(r g b / a)`): overlays, checked by what shows through them. */

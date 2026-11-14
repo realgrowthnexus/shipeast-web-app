@@ -2,17 +2,16 @@
 
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { useActionState, useEffect, useRef, useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { setProductQuantity, type QuantityState } from '@/lib/basket/actions'
 import { MAX_QUANTITY } from '@/lib/basket/state'
 import { useListingNav } from './listing-nav'
 
 const stepButton =
-  'grid w-11 shrink-0 cursor-pointer place-items-center transition-colors duration-150 hover:bg-crimson-deep active:bg-oxblood disabled:cursor-default disabled:text-on-crimson-muted disabled:hover:bg-transparent [&_svg]:size-icon'
+  'grid w-11 shrink-0 cursor-pointer place-items-center rounded-md transition-colors duration-150 hover:bg-leaf-deep focus-visible:outline-offset-2 active:bg-leaf-deep disabled:cursor-default disabled:text-on-leaf-muted disabled:hover:bg-transparent [&_svg]:size-icon'
 
 /**
- * The tile's basket control: an outline "Add" that becomes a solid crimson stepper once the
- * item is in the basket. Every button posts an absolute target quantity to one server action,
+ * The card's basket control: the home's outline "Add" that becomes a leaf-green stepper once
+ * the item is in the basket (the same green as the home's "Added"). Every button posts an absolute target quantity to one server action,
  * so a double tap never counts twice, and the form works as a plain post without JavaScript.
  * While a change is in flight the stepper shows the target at once; on error it falls back to
  * the server's number. `quantity` always comes from the basket cookie, read on the server.
@@ -77,7 +76,7 @@ export function TileBasketControl({
         <div
           role="group"
           aria-label={`${name} in your basket`}
-          className="@container flex h-control w-full items-stretch overflow-hidden rounded-md bg-crimson text-on-dark on-dark-focus"
+          className="@container flex h-control w-full items-stretch rounded-md bg-leaf text-on-dark"
         >
           <button
             type="submit"
@@ -89,11 +88,9 @@ export function TileBasketControl({
           >
             {shown === 1 ? <Trash2 aria-hidden /> : <Minus aria-hidden />}
           </button>
-          <output className="flex flex-1 items-center justify-center gap-1 font-bold tabular-nums">
+          <output className="flex flex-1 items-center justify-center gap-1 text-small font-semibold tabular-nums">
             {shown}
-            <span className="hidden font-medium text-on-crimson-muted @[10rem]:inline">
-              in basket
-            </span>
+            <span className="hidden font-medium text-on-leaf-muted @[10rem]:inline">in basket</span>
           </output>
           <button
             ref={plusRef}
@@ -110,20 +107,18 @@ export function TileBasketControl({
           </button>
         </div>
       ) : (
-        <Button
+        <button
           ref={addRef}
           type="submit"
           name="quantity"
           value={1}
           onClick={tap(1)}
-          variant="outline"
-          size="sm"
-          block
+          className="btn-slide inline-flex h-control w-full cursor-pointer items-center justify-center gap-2 rounded-md border-2 border-crimson bg-surface px-5 text-small font-semibold text-crimson transition-colors duration-250 [--slide:var(--color-crimson)] hover:text-on-dark focus-visible:text-on-dark active:translate-y-px"
         >
-          <Plus aria-hidden />
+          <Plus className="size-icon" aria-hidden />
           Add
           <span className="sr-only"> {name} to basket</span>
-        </Button>
+        </button>
       )}
       {!inStock && inBasket && (
         <p className="mt-1.5 text-xs text-ink-muted">
