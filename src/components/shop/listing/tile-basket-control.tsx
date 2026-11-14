@@ -1,12 +1,11 @@
 'use client'
 
 import { Minus, Plus, Trash2 } from 'lucide-react'
-import { useActionState, useEffect, useRef, useState } from 'react'
-import { setProductQuantity, type QuantityState } from '@/lib/basket/actions'
 import { MAX_QUANTITY } from '@/lib/basket/state'
+import { useQuantityControl } from '@/lib/basket/use-quantity-control'
 import { useListingNav } from './listing-nav'
 
-const stepButton =
+export const stepButton =
   'grid w-11 shrink-0 cursor-pointer place-items-center rounded-md transition-colors duration-150 hover:bg-leaf-deep focus-visible:outline-offset-2 active:bg-leaf-deep disabled:cursor-default disabled:text-on-leaf-muted disabled:hover:bg-transparent [&_svg]:size-icon'
 
 /**
@@ -27,40 +26,12 @@ export function TileBasketControl({
   quantity: number
   inStock: boolean
 }) {
-  const [state, action, pending] = useActionState<QuantityState, FormData>(setProductQuantity, {
-    status: 'idle',
-  })
-  const [target, setTarget] = useState<number | null>(null)
   const { announce } = useListingNav()
-  const shown = pending && target !== null ? target : quantity
-
-  // Focus follows the control when it changes shape (Add ↔ stepper), only after a tap here.
-  const touched = useRef(false)
-  const addRef = useRef<HTMLButtonElement>(null)
-  const plusRef = useRef<HTMLButtonElement>(null)
-  const inBasket = shown > 0
-  useEffect(() => {
-    if (!touched.current) return
-    ;(inBasket ? plusRef : addRef).current?.focus()
-  }, [inBasket])
-
-  // One message per change, through the page's single live region.
-  const lastAt = useRef(0)
-  useEffect(() => {
-    if (state.status === 'idle' || state.at === lastAt.current) return
-    lastAt.current = state.at
-    if (state.status === 'error') return announce(state.message)
-    announce(
-      state.quantity
-        ? `${name}: ${state.quantity} in your basket. ${state.count} ${state.count === 1 ? 'item' : 'items'} in total.`
-        : `${name} removed from your basket.`,
-    )
-  }, [state, name, announce])
-
-  const tap = (n: number) => () => {
-    touched.current = true
-    setTarget(n)
-  }
+  const { state, action, pending, shown, inBasket, addRef, plusRef, tap } = useQuantityControl(
+    quantity,
+    name,
+    announce,
+  )
 
   if (!inStock && shown === 0)
     return (

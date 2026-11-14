@@ -5,31 +5,40 @@ import type { Product } from '@/lib/types'
 import { TileBasketControl } from './tile-basket-control'
 
 /**
- * A thin department (unfiltered, fewer than 8 items) ends with real products from the other
- * departments, so the page never reads as an empty shop. No invented "coming soon" counts.
+ * A rail of real products. A thin department (unfiltered, fewer than 8 items) ends with items
+ * from the other departments, so the page never reads as an empty shop; the product page uses
+ * it for "More from {aisle}". No invented "coming soon" counts.
  */
 export function MoreFromShop({
   products,
   jmdPerUsd,
   quantities,
+  title = 'More from the shop',
+  href = '/shop',
+  linkLabel = 'Shop everything',
+  headingId = 'more-from-shop',
 }: {
   products: Product[]
   jmdPerUsd: number
   /** Basket quantity by product id. */
   quantities: Record<string, number>
+  title?: string
+  href?: string
+  linkLabel?: string
+  headingId?: string
 }) {
   if (!products.length) return null
   return (
-    <section aria-labelledby="more-from-shop" className="pt-10 lg:pt-12">
+    <section aria-labelledby={headingId} className="pt-10 lg:pt-12">
       <div className="flex items-center justify-between gap-4">
-        <h2 id="more-from-shop" className="font-display text-title font-semibold text-ink">
-          More from the shop
+        <h2 id={headingId} className="font-display text-title font-semibold text-ink">
+          {title}
         </h2>
         <Link
-          href="/shop"
+          href={href}
           className="inline-flex min-h-control shrink-0 items-center text-small font-semibold text-crimson underline-offset-4 hover:underline"
         >
-          Shop everything
+          {linkLabel}
         </Link>
       </div>
       <ul

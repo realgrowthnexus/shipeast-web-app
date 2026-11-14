@@ -87,7 +87,7 @@ export function SupportChat({
   if (!ready) return null
 
   return (
-    <div className="fixed right-4 bottom-4 z-overlay sm:right-6 sm:bottom-6 print:hidden">
+    <div className="fixed right-4 bottom-[calc(1rem+var(--dock-offset,0px))] z-overlay transition-[bottom] duration-250 motion-reduce:transition-none sm:right-6 sm:bottom-[calc(1.5rem+var(--dock-offset,0px))] print:hidden">
       <AnimatePresence>
         {open && (
           <m.div
