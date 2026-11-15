@@ -20,7 +20,7 @@ import {
 export const metadata: Metadata = {
   title: 'How it works',
   description:
-    'Follow one order from your laptop to a door in St. Thomas or Kingston: the seven steps you can track, the receipt and door photos, what happens if something is out of stock, and what your family gets by text.',
+    'Follow one order from your phone to a door in St. Thomas or Kingston: the seven steps you can track, the receipt and door photos, what happens if something is out of stock, and what your family gets by text.',
 }
 
 /** How many basket lines the drawn proof pair shows. */

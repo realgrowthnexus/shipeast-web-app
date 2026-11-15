@@ -34,7 +34,7 @@ export function BasketsHero({
           alt=""
           preload
           sizes="100vw"
-          imgClassName="object-[60%_center] md:object-[55%_40%]"
+          imgClassName="object-[35%_center] md:object-[55%_40%]"
           className="absolute inset-0 -z-10 rounded-none"
         />
         <div aria-hidden className="absolute inset-0 -z-10 bg-photo-scrim" />

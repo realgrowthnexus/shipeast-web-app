@@ -38,8 +38,8 @@ export function HomeHero({
           {/* The groceries: edge to edge in their half, no frame, no tilt. */}
           <div className="relative aspect-[16/10] md:order-last md:col-span-5 md:aspect-auto">
             <StockPhoto
-              name="homeBags"
-              imgClassName="object-cover object-[center_60%]"
+              name="homeAisle"
+              imgClassName="object-cover object-center"
               sizes="(min-width: 1280px) 340px, (min-width: 768px) 42vw, 100vw"
               preload
               className="photo-loading absolute inset-0 rounded-none"
@@ -112,7 +112,7 @@ export function HomeHero({
             )}
           </div>
           <StockPhoto
-            name="homeVegBox"
+            name="homeBasketBags"
             alt=""
             zoom
             sizes="80px"

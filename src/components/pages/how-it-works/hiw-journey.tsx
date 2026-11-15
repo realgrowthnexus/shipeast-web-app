@@ -189,7 +189,7 @@ export function HiwJourney({
       <div className="mx-auto max-w-page gutter">
         <div className="max-w-2xl">
           <h2 id="journey-h" className="scroll-mt-header text-h2 text-balance text-ink">
-            Seven steps you can follow, from your laptop to their door
+            Seven steps you can follow, from your phone to their door
           </h2>
           <p className="mt-3 text-lead text-ink-body">
             {order &&

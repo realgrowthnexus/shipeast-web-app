@@ -81,7 +81,7 @@ export default async function RequestPage() {
       <PhotoHero
         eyebrow="Request an item"
         title="Can’t find it in the shop?"
-        photo="staples"
+        photo="companyShopperAisle"
         lead={
           on
             ? 'Tell us what you need. We check the stores, send you a price, and you only pay once you accept it.'

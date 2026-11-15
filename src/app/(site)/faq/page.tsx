@@ -114,7 +114,7 @@ export default async function FaqPage() {
       <Section tone="muted" wide aria-labelledby="help-h">
         <Reveal className="grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-12">
           <StockPhoto
-            name="contactPhone"
+            name="faqHelp"
             sizes="(min-width: 1024px) 500px, 100vw"
             className="aspect-video rounded-none lg:col-span-5 lg:aspect-auto lg:min-h-full"
           />

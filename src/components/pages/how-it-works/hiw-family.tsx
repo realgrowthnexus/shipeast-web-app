@@ -34,12 +34,11 @@ export function HiwFamily() {
         </div>
 
         <div className="mt-8 lg:col-span-5 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:mt-0">
-          {/* She stands right of centre: 62% keeps her face in the tall 4:5 crop, and the wide
-              phone crops barely trim the sides, so one position serves every width. */}
+          {/* The couple stand left of centre in a tall frame; the registry crop (40% 35%) keeps
+              both faces in the 4:5 crop and the wide phone crops. */}
           <StockPhoto
             name="hiwFamilyDoor"
             sizes="(min-width: 1024px) 460px, 100vw"
-            position="62% 35%"
             className="aspect-4/3 rounded-xl md:aspect-16/9 lg:aspect-4/5 lg:rounded-2xl"
           />
         </div>

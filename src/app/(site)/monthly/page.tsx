@@ -87,7 +87,7 @@ export default async function MonthlyPage() {
       <PhotoHero
         eyebrow="Monthly orders"
         title={monthly ? 'Set up their basket once' : 'Sending every month?'}
-        photo="pantry"
+        photo="companyProduceAisle"
         lead={
           monthly
             ? 'Choose the items once, pick a day, and we shop and deliver every month. Each delivery comes with the receipt photo and the door photo.'

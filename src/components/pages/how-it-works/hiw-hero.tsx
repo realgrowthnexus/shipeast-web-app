@@ -46,7 +46,7 @@ export function HiwHero({
             alt=""
             preload
             sizes="100vw"
-            imgClassName="object-[72%_center] md:object-[62%_center] lg:object-[60%_40%]"
+            imgClassName="object-[72%_center] md:object-[70%_40%] lg:object-[70%_40%]"
             className="absolute inset-0 rounded-none"
           />
           <div className="absolute inset-0 bg-photo-scrim-ink" />
@@ -57,7 +57,7 @@ export function HiwHero({
             {/* As tall as the stage below 1024px, so the h1 always sits on the photo's bottom edge. */}
             <div className="flex h-[125vw] flex-col justify-end pb-6 md:h-[56.25vw] md:pb-8 lg:block lg:h-auto lg:pb-0">
               <h1 id="hiw-title" className="max-w-2xl text-h1 text-balance">
-                Follow one order from your laptop to their door
+                Follow one order from your phone to their door
               </h1>
             </div>
             <p className="mt-6 max-w-2xl text-lead text-on-dark lg:mt-5">

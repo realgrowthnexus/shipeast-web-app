@@ -107,7 +107,7 @@ export default async function DeliveryPage() {
       <GuideHero
         eyebrow="Delivery"
         title="Delivery areas and fees"
-        photo="blueMountains"
+        photo="jmKingstonHills"
         lead={
           active.length > 0 ? (
             <>
@@ -170,7 +170,7 @@ export default async function DeliveryPage() {
       </Section>
 
       <Section tone="surface" wide aria-labelledby="parishes-h">
-        <PhotoFeature photo="jmKingstonHills" side="end">
+        <PhotoFeature photo="companyCountryRoad" side="end">
           <p className="mb-3 flex items-center gap-3 eyebrow text-crimson">
             <JamaicaFlag className="w-7" />
             Our two parishes
@@ -221,7 +221,7 @@ export default async function DeliveryPage() {
       )}
 
       <Section size="lg" wide aria-labelledby="tips-h">
-        <PhotoFeature photo="kingstonStreet" aspect="aspect-4/3 sm:aspect-video lg:aspect-4/5">
+        <PhotoFeature photo="homeStepToDoor" aspect="aspect-4/3 sm:aspect-video lg:aspect-4/5">
           <p className="mb-3 eyebrow text-crimson">Before you check out</p>
           <h2 id="tips-h" className="text-h2 text-balance text-ink">
             Three things that make delivery easy

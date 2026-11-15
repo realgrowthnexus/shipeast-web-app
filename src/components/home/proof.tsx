@@ -74,7 +74,6 @@ export function HomeProof({ receipt }: { receipt: Receipt | null }) {
             <div className="relative rounded-xl bg-surface p-2">
               <StockPhoto
                 name="homeStepToDoor"
-                alt="A paper bag of shopping carried up the steps to a front door"
                 sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 92vw"
                 className="aspect-[4/3] rounded-md"
               />

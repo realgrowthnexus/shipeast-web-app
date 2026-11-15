@@ -38,7 +38,7 @@ export function HomeClosing({ parishList, cutoff }: { parishList: string; cutoff
         </Reveal>
         <Parallax className="aspect-[4/3] md:col-span-5 md:aspect-auto md:h-full">
           <StockPhoto
-            name="homeFamilyCook"
+            name="homeBags"
             sizes="(min-width: 768px) 520px, 100vw"
             className="h-full w-full rounded-none"
           />

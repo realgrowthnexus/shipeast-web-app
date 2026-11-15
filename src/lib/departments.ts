@@ -5,8 +5,8 @@ import type { StockPhotoKey } from './stock-photos'
  * department band, so a department looks the same wherever it appears.
  */
 export const departmentLooks: Record<string, { photo: StockPhotoKey; crop: string }> = {
-  groceries: { photo: 'homeVegBox', crop: 'object-center' },
-  household: { photo: 'catHousehold', crop: 'object-[center_35%]' },
+  groceries: { photo: 'catGroceries', crop: 'object-[center_55%]' },
+  household: { photo: 'catHousehold', crop: 'object-[center_65%]' },
   pharmacy: { photo: 'catPharmacy', crop: 'object-center' },
-  'baby-and-child': { photo: 'catBaby', crop: 'object-top' },
+  'baby-and-child': { photo: 'catBaby', crop: 'object-center' },
 }
